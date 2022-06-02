@@ -21,10 +21,24 @@
 
 <table border=1>
 		<tr>
-			<td>帳號</td>
-			<td>密碼</td>
+			<td>account</td>
+			<td>passwd</td>
 		</tr>
-	<tbody id="row">
+	<tbody id="row1">
+	</tbody>
+
+</table>
+<br><br>
+
+<table border=1 id="table1">
+		<tr>
+			<td>ID</td>
+			<td>NAME</td>
+			<td>PRICE</td>
+			<td>MAKE</td>
+			<td>EXPIRE</td>
+		</tr>
+	<tbody id="row2">
 	</tbody>
 
 </table>
@@ -32,29 +46,54 @@
 
 <script>
 $(document).ready(function(){
-  $("#row").html("<tr><td>123</td><td>ABC</td></tr>");
+  $("#row1").html("<tr><td>123</td><td>ABC</td></tr>");
 });
   
   $("#send").click(function(){
     var sendData =  JSON.stringify([{ account:$("#account").val() , 
-    				 passwd:$("#passwd").val() },{account:"測試ac",passwd:"測試pw"}]);
+    				 passwd:$("#passwd").val() }]);
     alert("你輸入的是:"+sendData);
-	$.ajax({
+    
+    $.ajax({
       type: "post",
       url : "http://localhost:8080/user/0",
       data : sendData,
       contentType : 'application/json',
       success:function (data) {
-      	
+      	$("#row1").append(
+      		"<tr>"+
+				"<td>"+data.account+"</td>"+
+				"<td>"+data.passwd+"</td>"+
+			"</tr>"
+      	);
+      }
+    });
+    
+	$.ajax({
+      type: "post",
+      url : "http://localhost:8080/user/2",
+      data : sendData,
+      contentType : 'application/json',
+      success:function (data) {
+   	
 		console.log(data);
-		$("#row").html(
-						"<tr><td>"+data[0].account+"</td><td>"+data[0].passwd+"</td></tr>"+
-						"<tr><td>"+data[1].account+"</td><td>"+data[1].passwd+"</td></tr>"
-			)
+		console.log("查詢抓回來的筆數有幾筆");
+		console.log(data.length);
+		$("#table1").before("<h3>這是從資料庫抓回來的</h3>");
+		for(i=0;i<data.length;i++){
+				$("#row2").append(
+				"<tr>"+
+				"<td>"+data[i].id+"</td>"+
+				"<td>"+data[i].name+"</td>"+
+				"<td>"+data[i].price+"</td>"+
+				"<td>"+data[i].make+"</td>"+
+				"<td>"+data[i].expire+"</td>"+
+				"</tr>"
+				);
 		}
-    }) 
-  });
-
+	   }
+    }); 
+});
 
 </script>
 </body>
