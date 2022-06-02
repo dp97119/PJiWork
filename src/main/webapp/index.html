@@ -19,8 +19,21 @@
 輸入密碼:<input type="text" id="passwd"><br>
 <button id="send">送出</button>
 
+<table border=1>
+		<tr>
+			<td>帳號</td>
+			<td>密碼</td>
+		</tr>
+	<tbody id="row">
+	</tbody>
+
+</table>
+
 
 <script>
+$(document).ready(function(){
+  $("#row").html("<tr><td>123</td><td>ABC</td></tr>");
+});
   
   $("#send").click(function(){
     var sendData =  JSON.stringify([{ account:$("#account").val() , 
@@ -30,7 +43,15 @@
       type: "post",
       url : "http://localhost:8080/user/0",
       data : sendData,
-      contentType : 'application/json'
+      contentType : 'application/json',
+      success:function (data) {
+      	
+		console.log(data);
+		$("#row").html(
+						"<tr><td>"+data[0].account+"</td><td>"+data[0].passwd+"</td></tr>"+
+						"<tr><td>"+data[1].account+"</td><td>"+data[1].passwd+"</td></tr>"
+			)
+		}
     }) 
   });
 
