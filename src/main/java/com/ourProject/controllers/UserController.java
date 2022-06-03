@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ourProject.model.Product;
-import com.ourProject.repository.ProductDAO;
+import com.ourProject.repository.ProductRepo;
 
 @RestController
 public class UserController {
 	@Autowired
-	private ProductDAO productDao;
+	private ProductRepo productRepo;
 	
 	@GetMapping("/user/1")
 	public List<Product> getUser(){
-		return productDao.findAll();
+		return productRepo.findAll();
 	}
 	
 	@PostMapping("/user/2")
 	public List<Product> postUser(@RequestBody String str){
-		 List<Product> result =  productDao.findAll();
+		 List<Product> result =  productRepo.findAll();
 		return result;
 	}
 	
