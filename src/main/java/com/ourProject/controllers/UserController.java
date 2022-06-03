@@ -17,20 +17,19 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.ourProject.model.Product;
 import com.ourProject.repository.ProductRepo;
+import com.ourProject.service.ProductService;
 
 @RestController
 public class UserController {
-	@Autowired
-	private ProductRepo productRepo;
 	
-	@GetMapping("/user/1")
-	public List<Product> getUser(){
-		return productRepo.findAll();
-	}
+	@Autowired
+	private ProductService productService;
+	
+	
 	
 	@PostMapping("/user/2")
 	public List<Product> postUser(@RequestBody String str){
-		 List<Product> result =  productRepo.findAll();
+		 List<Product> result = productService.selectUser(str);
 		return result;
 	}
 	

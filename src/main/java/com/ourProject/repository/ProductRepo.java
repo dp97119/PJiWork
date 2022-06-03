@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ourProject.model.Product;
 
-public interface ProductDAO  extends JpaRepository<Product, Long>{
+public interface ProductRepo  extends JpaRepository<Product, Long>{
 
 }
