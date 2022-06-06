@@ -23,6 +23,7 @@ public class SecurityController {
 	}
 	
 	@PostMapping("/welcome")
+	@ResponseBody
 	public String Wellcome1() {
 
 		return "登入成功 這是首頁";

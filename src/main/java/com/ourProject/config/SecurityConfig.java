@@ -22,6 +22,7 @@ public class SecurityConfig {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/").authenticated();
 		http.formLogin()
 				.loginPage("/login_page")
+				.loginProcessingUrl("/loginAction")
 				.successForwardUrl("/welcome")
 				.failureUrl("/login_page?error")
 			.and()

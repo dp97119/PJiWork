@@ -52,11 +52,11 @@ public class Dish {
 	
 	@CreatedBy
 	@Column(name = "createPerson")
-	private String createPerson ;
+	private Integer createPerson ;
 	
 	@LastModifiedBy
 	@Column(name = "updatePerson")
-	private String updatePerson ;
+	private Integer updatePerson ;
 
 
 	public Integer getDishId() {
@@ -129,22 +129,22 @@ public class Dish {
 	}
 
 
-	public String getCreatePerson() {
+	public Integer getCreatePerson() {
 		return createPerson;
 	}
 
 
-	public void setCreatePerson(String createPerson) {
+	public void setCreatePerson(Integer createPerson) {
 		this.createPerson = createPerson;
 	}
 
 
-	public String getUpdatePerson() {
+	public Integer getUpdatePerson() {
 		return updatePerson;
 	}
 
 
-	public void setUpdatePerson(String updatePerson) {
+	public void setUpdatePerson(Integer updatePerson) {
 		this.updatePerson = updatePerson;
 	}
 
