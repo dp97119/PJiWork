@@ -16,6 +16,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="dish")
 @EntityListeners(AuditingEntityListener.class)
@@ -39,10 +41,12 @@ public class Dish {
 	private Integer restaurantId ;
 	
 	@LastModifiedDate 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "updateDate")
 	private Date updateDate ;
 	
 	@CreatedDate 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "createDate")
 	private Date createDate ;
 	
