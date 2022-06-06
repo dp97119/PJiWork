@@ -12,24 +12,26 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
+
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-	//關掉csrf保護
-    http.csrf().disable();
-    //不寫session了
-    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    http.authorizeRequests().antMatchers(HttpMethod.GET,"/").authenticated();
-    http.formLogin().successForwardUrl("/welcome");
+		// 關掉csrf保護
+		http.csrf().disable();
+		// 不寫session了
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/").authenticated();
+		http.formLogin()
+			.loginPage("/login_page")
+			.successForwardUrl("/welcome");
 
-	   return http.build();
+		return http.build();
 	}
-	
+
 //	 @Bean
 //	    public WebSecurityCustomizer webSecurityCustomizer() {
 //	        return (web) -> web.ignoring().antMatchers(
 //	                "/css/**", "/js/**");
 //	    }
 //	
-	
+
 }

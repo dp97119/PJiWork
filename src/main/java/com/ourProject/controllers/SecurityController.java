@@ -1,16 +1,16 @@
 package com.ourProject.controllers;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class SecurityController {
 
-	@GetMapping("/")
+	@GetMapping("/login_page")
 	public String Wellcome() {
 
-		return "success to login1";
+		return "登入畫面.html";
 	}
 	@PostMapping("/welcome")
 	public String Wellcome1() {
