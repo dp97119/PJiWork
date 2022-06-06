@@ -3,28 +3,30 @@ package com.ourProject.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class SecurityController {
 
 	@GetMapping("/login_page")
-	public String Wellcome() {
+	public String ToLoginPage() {
 
-		return "登入畫面.html";
+		return "LoginPage.html";
 	}
+	
+	@GetMapping("/login_page")
+	@ResponseBody
+	public String ToLogoutPage() {
+
+		return "logoutPage 還沒寫";
+	}
+	
 	@PostMapping("/welcome")
 	public String Wellcome1() {
-		
-		
+
 		return "登入成功 這是首頁";
 	}
 	
-	@GetMapping("/test")
-	public String Wellcome2() {
-		
-		
-		return "success to login test";
-	}
 
 }
 

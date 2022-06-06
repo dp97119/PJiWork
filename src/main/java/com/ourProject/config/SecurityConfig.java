@@ -21,8 +21,13 @@ public class SecurityConfig {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/").authenticated();
 		http.formLogin()
-			.loginPage("/login_page")
-			.successForwardUrl("/welcome");
+				.loginPage("/login_page")
+				.successForwardUrl("/welcome")
+				.failureUrl("/login_page?error")
+			.and()
+			.logout()
+            	.logoutUrl("/perform_logout")
+            	.logoutSuccessUrl("/login_page?logout");
 
 		return http.build();
 	}
