@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<title>Insert title here</title>
+</head>
+<body>
+跳轉成功
+<input type="button" value="查詢cookie" onclick="findCookie()" />
+<input type="button" value="清除cookie" onclick="deleteCookie()" />
+<input type="button" value="顯示cookie" onclick="displayCookie()" />
+<br>
+<p>cookie 顯示</p>
+
+
+<script>
+    function findCookie(){
+        console.log("ok");
+        console.log(document.cookie);
+    }
+    function deleteCookie(){
+        console.log("delete");
+        var cookies = document.cookie.split(";");
+             for (var i = 0; i < cookies.length; i++) {
+                 var cookie = cookies[i];
+                 var eqPos = cookie.indexOf("=");
+                 var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                 document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+             }
+    }
+    function displayCookie(){
+        var cookieObj = {};
+        var cookie = document.cookie.split('=');
+        cookieObj[cookie[0]] = cookie[1];
+        console.log(cookieObj);
+        $( "p" ).append("<br>"+cookie[1].toString());
+    }
+
+
+</script>
+
+</body>
+</html>
