@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="/static/jQuery/jquery-3.6.0.js"></script>
+    <!-- style -->
+    <link rel="stylesheet" href="/resources/static/css/shared/button.css" />
+    <link rel="stylesheet" href="/resources/static/css/shared/background.css" />
+    <link rel="stylesheet" href="/resources/static/css/shared/content2_style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+    <!-- 修改、刪除紐前面圖式 -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <style type="text/css">
+        @import url('https://pro.fontawesome.com/releases/v5.10.0/css/all.css');
+        * {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">出勤/請假紀錄</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="./CMS_2_2.html">申請表單</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="./CMS_2_3.html">審核</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <!-- 出勤/請假紀錄 -->
+    <div>
+        <form action="" method="" enctype="">
+            <div class="staffAll">
+                <br>
+                <div class="staffSearch">
+                    <label><b>類別：</b></label>&nbsp;&nbsp;
+                    <select id="">
+                        <option value="" class="vacation"></option>
+                        <option value="" class="vacation">外勤</option>
+                        <option value="" class="vacation">特休</option>
+                        <option value="" class="vacation">事假</option>
+                        <option value="" class="vacation">病假</option>
+                        <option value="" class="vacation">生理假</option>
+                        <option value="" class="vacation">婚假</option>
+                        <option value="" class="vacation">喪假</option>
+                        <option value="" class="vacation">陪產假</option>
+                        <option value="" class="vacation">育嬰假</option>
+                        <option value="" class="vacation">其他</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="icon-input-btn">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <input type="button" value="查詢" class="btnStyle" id="editbtn"></input>
+                    </span>
+                </div>
+
+                <br>
+
+                <div class="staffDiv">
+                    <table class="staffTable">
+                        <tr>
+                            <th class="tableStyle" width="10%">出勤/假單編號</th>
+                            <th class="tableStyle" width="10%">申請類別</th>
+                            <th class="tableStyle" width="20%">起訖日期</th>
+                            <th class="tableStyle" width="10%">時數</th>
+                            <th class="tableStyle" width="10%">狀態</th>
+                            <!-- 申請單成立、申請人審核通過，部門主管審核中，部門主管審核完成，會計審核中，會計審核完成 -->
+                            <th class="tableStyle" width="30%">功能</th>
+                        </tr>
+                        <tr class="staffWord">
+                            <td class="tableStyle" id="AttendanceNo">20220531001</td>
+                            <td class="tableStyle" id="AttendanceType"></td>
+                            <td class="tableStyle" id="AttendanceoReason"></td>
+                            <td class="tableStyle" id="Attendanceotdate"></td>
+                            <td class="tableStyle" id="Attendancehour"></td>
+                            <td class="tableStyle">
+                                <!-- 申請人按下審核按鈕後修改和刪除的按鈕會不見 -->
+                                <span class="icon-input-btn">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                    <input type="button" value="修改" class="function"
+                                        onClick="window.location.href='./CMS_2_4.html';">
+                                </span>&nbsp;&nbsp;
+                                <span class="icon-input-btn">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <input type="button" value="刪除" class="function deleteB">
+                                </span>&nbsp;&nbsp;
+                                <input type="button" value="申請人審核" class="function">&nbsp;&nbsp;
+                                <input type="button" value="審核歷程" class="function" id="review">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 審核歷程 -->
+    <dialog id="reviewdialog">
+        <div class="modal-header">
+            <h4><b>審核歷程</b></h4>
+            <button type="button" class="btn-close" aria-label="Close" onclick="reviewdialog.close()"></button>
+        </div>
+        <div class="modal-body reviewbody">
+            <form action="" method="" enctype="">
+                <table>
+                    <tr>
+                        <th class="processTable" width="20%">順序</th>
+                        <th class="processTable" width="20%">簽核人員</th>
+                        <th class="processTable" width="20%">簽核狀態</th>
+                    </tr>
+                    <tr>
+                        <td class="processTable">1</td>
+                        <td class="processTable"></td>
+                        <td class="processTable"></td>
+                    </tr>
+                    <tr>
+                        <td class="processTable">2</td>
+                        <td class="processTable"></td>
+                        <td class="processTable"></td>
+                    </tr>
+                    <tr>
+                        <td class="processTable">3</td>
+                        <td class="processTable"></td>
+                        <td class="processTable"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </dialog>
+
+    <script>
+        $('#review').on("click", function () {
+            reviewdialog.showModal()
+        })
+    </script>
+
+</body>
+
+</html>

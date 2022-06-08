@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='zh-tw'>
+    <head>
+        <meta charset='utf-8' />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='/resources/static/css/calendar_css/main.css' rel='stylesheet' />
+        <script src='/resources/static/js/calendar_js/main.js'></script>
+        <!-- 抓取語言，轉換zh-tw-->
+        <script src="/resources/static/js/calendar_js/locales-all.js"></script>
+        <script src="/resources/static/js/calendar_js/calendar.js"></script>
+        <link href='/resources/static/css/calendar_css/style.css' rel='stylesheet' />
+    </head>
+    <body>
+        <div id='wrap'>
+
+            <div id='external-events'>
+              <h4>Draggable Events</h4>
+        
+              <div id='external-events-list'>
+                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                  <div class='fc-event-main'>My Event 1</div>
+                </div>
+                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                  <div class='fc-event-main'>My Event 2</div>
+                </div>
+                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                  <div class='fc-event-main'>My Event 3</div>
+                </div>
+                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                  <div class='fc-event-main'>My Event 4</div>
+                </div>
+                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                  <div class='fc-event-main'>My Event 5</div>
+                </div>
+              </div>
+        
+              <p>
+                <input type='checkbox' id='drop-remove' />
+                <label for='drop-remove'>remove after drop</label>
+              </p>
+            </div>
+        
+            <div class="container">
+                <div id='calendar'></div>
+            </div>
+        
+        </div>
+        
+    </body>
+</html>

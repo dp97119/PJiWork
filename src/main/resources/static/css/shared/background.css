@@ -1,0 +1,11 @@
+html{
+    height: 100%;
+}
+body {
+    /* background-image: url(../img/bubble.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover; */
+    background: linear-gradient(white, #D5EFFA);
+}
