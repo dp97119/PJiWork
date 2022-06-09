@@ -2,43 +2,33 @@
 <html lang='zh-tw'>
     <head>
         <meta charset='utf-8' />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href='/resources/static/css/calendar_css/main.css' rel='stylesheet' />
         <script src='/resources/static/js/calendar_js/main.js'></script>
         <!-- 抓取語言，轉換zh-tw-->
         <script src="/resources/static/js/calendar_js/locales-all.js"></script>
+        <script src="/resources/static/js/calendar_js/jquery-3.6.0.js"></script>
         <script src="/resources/static/js/calendar_js/calendar.js"></script>
-        <link href='/resources/static/css/calendar_css/style.css' rel='stylesheet' />
+        <link href="/resources/static/css/calendar_css/style.css" rel='stylesheet' />
+        <link href="/resources/static/css/calendar_css/dialog.css" rel='stylesheet' />
+     
     </head>
     <body>
         <div id='wrap'>
-
             <div id='external-events'>
-              <h4>Draggable Events</h4>
-        
-              <div id='external-events-list'>
-                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                  <div class='fc-event-main'>My Event 1</div>
+                <h4>我的日曆</h4>
+            
+                <div id='external-events-list'>
+                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event' style="background-color:steelblue;" >
+                    <div class='fc-event-main'>個人</div>
+                    </div>
+                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event' style="background-color:mediumseagreen;">
+                    <div class='fc-event-main'>部門</div>
+                    </div>
+                    <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event' style="background-color:palevioletred;">
+                    <div class='fc-event-main'>公司</div>
+                    </div>
                 </div>
-                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                  <div class='fc-event-main'>My Event 2</div>
-                </div>
-                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                  <div class='fc-event-main'>My Event 3</div>
-                </div>
-                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                  <div class='fc-event-main'>My Event 4</div>
-                </div>
-                <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
-                  <div class='fc-event-main'>My Event 5</div>
-                </div>
-              </div>
-        
-              <p>
-                <input type='checkbox' id='drop-remove' />
-                <label for='drop-remove'>remove after drop</label>
-              </p>
+                <br>
             </div>
         
             <div class="container">
@@ -46,6 +36,48 @@
             </div>
         
         </div>
+
+        <dialog id="newEvents">
+            <form>
+                <table>
+                    <tr>
+                        <td style="text-align:right;" colspan="2">
+                            <input type="button" value="修改">
+                            <input type="button" value="刪除" id="delete">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>事件主旨</label></td>
+                        <td><input type="text" id="eventTitle"></td>
+                    </tr>
+                    <tr>
+                        <td><label>起始日期時間</label></td>
+                        <td><input type="datetime-local" id="start"></td>
+                    </tr>
+                    <tr>
+                        <td><label>結束日期時間</label></td>
+                        <td><input type="datetime-local" id="end"></td>
+                    </tr>
+                    <tr>
+                        <td><label>事件類別</label></td>
+                        <td><input type="radio" name="eventType" id="person">個人
+                            <input type="radio" name="eventType" id="depart">部門
+                            <input type="radio" name="eventType" id="company">公司
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label>全天</label></td>
+                        <td><input type="checkbox" id="allDay"></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:center;" colspan="2">
+                            <input type="submit" value="確定">
+                            <input type="button" value="取消" onclick="newEvents.close()">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </dialog>
         
     </body>
 </html>
