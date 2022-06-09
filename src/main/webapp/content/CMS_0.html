@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- style -->
+    <script src="/jQuery/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="/css/maininterface/4.4.1bootstrap.min.css" />
     <link rel="stylesheet" href="/css/maininterface/nueip_style.min.css" />
     <link rel="stylesheet" href="/css/maininterface/header.css" />
@@ -21,26 +22,26 @@
 
 
 <body class="zh-tw" id="zh-tw" onload="ShowTime()">
-    <div id="indexT">
+    <div class="indexT">
         <!-- 中間區塊 -->
         <div class="nup-static-banner" style="height: 180px;">
             <div class="left-box row no-gutters">
-                <div class="myMail col-1" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdropMail">
+                <div class="myMail col-1">
                     <!-- mail未讀提示圓圈 -->
                     <!-- 之後要判斷 => 小於1時圓圈不顯示，>=1顯示數字 -->
                     <div class="cycleMessage">1</div>
                     <!-- myMail trigger modal -->
-                    <div><img class="myMailImg" src="/img/mail.png" width="40px" alt="mail"></div>
+                    <div class="myMailDiv" data-bs-toggle="modal" data-bs-target="#staticBackdropMail"><img
+                            class="myMailImg" src="/img/mail.png" width="40px" alt="mail"></div>
                 </div>
 
                 <div class="myName col-2">
                     <!-- <img class="myNameImg" src="./img/circle.png" width="200px" alt="circle"> -->
                     <div class="myNameDiv"><img class="myNameImg" src="/img/logo.png" alt=""></div>
-                    
+
                     <!-- photo Button trigger modal -->
                     <div>
-                        <button type="button" class="cameraBtn" data-bs-toggle="modal" data-bs-target="#photoModal">
+                        <button class="cameraBtn" data-bs-toggle="modal" data-bs-target="#photoModal">
                             <img src="/img/camera.png" alt="" width="30px" height="25px">
                         </button>
                     </div>
@@ -53,7 +54,7 @@
                 </div>
 
                 <div class="myCard col-4" style="top:30px;">
-                    <div id="myTimediv">
+                    <div class="myTimediv">
                         <table class="myTimetable">
                             <tr>
                                 <td colspan="2">
@@ -98,14 +99,14 @@
                 </div>
                 <div class="myCard col-1" style="top:40px ;">
                     <!-- 上班打卡鈕 -->
-                    <button id="myCardbtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    <button class="myCardbtn" type="button" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropCard1">
                         <b>上班<br>打卡</b>
                     </button>
                 </div>
                 <div class="myCard col-1" style="top:40px ;">
                     <!-- 下班打卡鈕 -->
-                    <button id="myCardbtn" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    <button class="myCardbtn" type="button" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropCard2">
                         <b>下班<br>打卡</b>
                     </button>
@@ -182,7 +183,7 @@
 
             <!-- 個人資訊 -->
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <div id="information">
+                <div class="information">
                     <form action="">
                         <p>
                         <table style="border-collapse:separate; border-spacing:6px 6px;font-size: 15px;">
@@ -293,8 +294,7 @@
             integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
             crossorigin="anonymous"></script>
         <div>
-            <div id="messageImg" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exampleModal"></div>
+            <div class="messageImg" data-bs-toggle="modal" data-bs-target="#exampleModal"></div>
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" id="messagemodal">
@@ -344,13 +344,15 @@
                                 <th width="20%" style="text-align: center;">讀取訊息</th>
                                 <th width="20%">寄件人</th>
                                 <th width="20%">時間</th>
-                                <th width="40%">主旨</th>
+                                <th width="30%">主旨</th>
+                                <th width="10%">內容</th>
                             </tr>
                             <tr id="mailborder">
                                 <td style="text-align: center;"><input type="checkbox"></td>
                                 <td>XXX</td>
                                 <td>XXX</td>
                                 <td>XXX</td>
+                                <td><button id="mailContentbtn">...</button></td>
                             </tr>
                         </table>
                         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -363,6 +365,24 @@
                 </div>
             </div>
         </div>
+
+        <!-- 信件內容 -->
+        <dialog id="mailContentdialog" style="width: 300px;">
+            <div class="modal-header">
+                <button type="button" class="btn-close" aria-label="Close" onclick="mailContentdialog.close()"></button>
+            </div>
+            <div class="modal-body" style="height: 350px; overflow-y: auto;">
+                <form action="" method="" enctype="">
+                    信件內容
+
+                </form>
+            </div>
+        </dialog>
+        <script>
+            $('#mailContentbtn').on("click", function () {
+                mailContentdialog.showModal()
+            })
+        </script>
 
 
         <!-- myCard1 Modal(上班打卡) -->
