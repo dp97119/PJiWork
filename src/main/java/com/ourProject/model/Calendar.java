@@ -11,23 +11,22 @@ import javax.persistence.Table;
 @Table(name="calendar")
 public class Calendar {
 	@Id
-	@Column(name = "calendarId")
-
+	@Column(name = "calendarid")
 	private Integer calendarId;
-	
-	@Column(name = "calendarType")
-	private String calendarType;
-	
-	@Column(name = "calendarTitle")
-	private String calendarTitle;
-	
-	@Column(name = "eventStart")
-	private Date eventStart;
-	
-	@Column(name = "eventEnd")
-	private Date eventEnd;
-	
-	@Column(name = "allDay")
-	private String allDay;
+//	
+//	@Column(name = "calendartype")
+//	private String calendarType;
+//	
+//	@Column(name = "calendartitle")
+//	private String calendarTitle;
+//	
+//	@Column(name = "eventstart")
+//	private Date eventStart;
+//	
+//	@Column(name = "eventend")
+//	private Date eventEnd;
+//	
+//	@Column(name = "allday")
+//	private String allDay;
 	
 }

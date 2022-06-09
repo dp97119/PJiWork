@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table(name="email")
 public class Email {
 	@Id
-	@Column(name = "emailId")
-	
+	@Column(name = "emailid")
 	private Integer emailId;
 }

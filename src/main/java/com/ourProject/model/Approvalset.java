@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table(name="approvalset")
 public class Approvalset {
 	@Id
-	@Column(name = "approvalSetId")
-	
+	@Column(name = "approvalsetid")
 	private Integer approvalSetId;
 }

@@ -9,7 +9,6 @@ import javax.persistence.Table;
 @Table(name="attach")
 public class Attach {
 	@Id
-	@Column(name = "attachmentId")
-	
+	@Column(name = "attachmentid")
 	private Integer attachmentId;
 }

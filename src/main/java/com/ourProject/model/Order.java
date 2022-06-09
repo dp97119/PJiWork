@@ -10,6 +10,6 @@ import javax.persistence.Table;
 public class Order {
 	
 	@Id
-	@Column(name = "orderId")
+	@Column(name = "orderid")
 	private Integer orderId ;
 }
