@@ -8,11 +8,11 @@
     background-color: rgba(239, 255, 250, 0.305);
 }
 
-/* 左上mail */
+/* 撌虫�ail */
 #mailtable {
     width: 100%;
     word-wrap: break-word;
-    /*自動斷行*/
+    /*���銵�*/
     table-layout: fixed;
 }
 
@@ -27,13 +27,13 @@
     border-bottom: 1px #cccccc solid;
 }
 
-/* 左上mail圖片 */
+/* 撌虫�ail���� */
 .myMail {
     left: 50px;
     top: 30px;
 }
 
-/* 左上mail未讀提示圓圈 */
+/* 撌虫�ail�霈���內���� */
 .cycleMessage {
     width: 25px;
     height: 25px;
@@ -46,7 +46,7 @@
     color: white;
 }
 
-/* 員工照片 */
+/* �撌亦��� */
 .myNameDiv{
     position: absolute;
     top: 5px;
@@ -65,7 +65,7 @@
 }
 
 .cameraBtn{
-    /* 員工照片右下按鈕 */
+    /* �撌亦��銝��� */
     position: absolute;
     width: 40px;
     height: 30px;
@@ -85,7 +85,7 @@
 }
 
 
-/* 打卡紀錄區塊 */
+/* ��蝝����憛� */
 #myTimediv {
     height: 120px;
     width: 320px;
@@ -110,7 +110,7 @@
     border-bottom: 1px #cccccc solid;
 }
 
-/* 上下班按鈕 */
+/* 銝����� */
 #myCardbtn {
     width: 80px;
     height:80px;
@@ -120,14 +120,14 @@
     box-shadow: 0px 10px 5px -2px rgba(0, 0, 0, 0.3), 0px 1px 2px 3px rgba(0, 0, 0, 0.3) inset;
 }
 
-/* 右下角訊息圖示 */
+/* �銝����內 */
 #messageImg {
     width: 100px;
     height: 100px;
     position: fixed;
     bottom: 5px;
     right: 0px;
-    background-image: url(/static/img/message.png);
+    background-image: url(/img/message.png);
     background-color: transparent;
     background-size: contain;
     background-repeat: no-repeat;
@@ -143,7 +143,7 @@
     margin: 0;
 }
 
-/* 主介面按鈕 */
+/* 銝颱����� */
 .Img1 {
     height: 80px;
 }
@@ -157,7 +157,7 @@
     background-color: rgba(200, 234, 249, 0.774);
 }
 
-/* 個人資訊 */
+/* �犖鞈�� */
 #information {
     position: relative;
     width: 100%;
@@ -168,7 +168,7 @@
 }
 
 
-/* 左下公告 */
+/* 撌虫���� */
 .side-menu {
     position: fixed;
     width: 250px;
@@ -177,19 +177,19 @@
     display: flex;
     flex-direction: column;
     padding: 10px 0;
-    /* 文字與區塊的距離 */
+    /* �����憛�� */
     box-shadow: 5px 0px 10px rgba(246, 207, 237, 0.493);
     transform: translateX(0px);
     transition: 0.3s;
     top: 255px;
 }
 
-/* 公告標題 */
+/* ������ */
 .announcementText {
     text-align: center;
 }
 
-/* 公告內容 */
+/* ���摰� */
 .announcementDiv {
     width: 250px;
     height: 300px;
@@ -197,7 +197,7 @@
     word-wrap: break-word;
 }
 
-/* 鈕 */
+/* ��� */
 .side-menu label {
     position: fixed;
     width: 25px;
@@ -213,10 +213,10 @@
     font-size: 30px;
     border-radius: 0 10px 10px 0;
     z-index: 1;
-    /* 顯示在上層 */
+    /* 憿舐內�銝惜 */
 }
 
-/*隱藏checkbox*/
+/*���heckbox*/
 #side-menu-switch {
     position: fixed;
     opacity: 0;
@@ -227,7 +227,7 @@
     transform: translateX(-100%);
 }
 
-/*改變游標方向*/
+/*�霈虜璅���*/
 #side-menu-switch:checked+.side-menu label .fas {
     transform: scaleX(-1);
 }
