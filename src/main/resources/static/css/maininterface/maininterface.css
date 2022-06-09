@@ -135,6 +135,7 @@
     background-repeat: no-repeat;
     background-position: center;
     border: none;
+    cursor: pointer;/* 滑鼠移動上去變成小手 */
 }
 
 #messagemodal {
