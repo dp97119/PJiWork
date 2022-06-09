@@ -31,6 +31,10 @@
 .myMail {
     left: 50px;
     top: 30px;
+
+}
+
+.myMailDiv{
     cursor: pointer;/* 滑鼠移動上去變成小手 */
 }
 
