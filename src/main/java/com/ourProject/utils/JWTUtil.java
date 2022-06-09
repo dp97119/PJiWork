@@ -21,14 +21,16 @@ public class JWTUtil {
     /**
      * JWT SECRET KEY
      */
-    private static final String SECRET = "learn to dance in the rain";
+    private static final String SECRET = "i like to work hard";
 
     /**
      * 簽發JWT
      */
     public String generateToken(HashMap<String, String> userDetails) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put( "userName", userDetails.get("userName") );
+        claims.put( "empId", userDetails.get("empId") );
+        claims.put( "passwd", userDetails.get("passwd") );
+        claims.put( "adm", userDetails.get("adm") );
 
         return Jwts.builder()
                 .setClaims( claims )
