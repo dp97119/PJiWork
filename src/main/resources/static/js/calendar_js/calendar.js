@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var eventList=[  
         {   
-            id:0,
+            id:1,
             title:'Lab1',
             start:'2022-05-26',
             end:'2022-05-27',
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         },
         {
-            id:1,
+            id:2,
             title:'Lab2',
             start:'2022-05-25T15:00:00',
             end:'2022-05-25T16:00:00',
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         },
         {
-            id:2,
+            id:3,
             title:'Lab3',
             start:'2022-05-26',
             type:"公司",
@@ -56,24 +56,26 @@ document.addEventListener('DOMContentLoaded', function() {
         events:eventList,
         eventClick: function(info) {
             newEvents.showModal();
-            console.log(info.event.startStr.split("+")[0].split('T'));
+            
             $('#eventTitle').val(info.event.title);
-            var startT = info.event.startStr.split("+")[0].split('T');
-            var endT = info.event.endStr.split("+")[0].split('T');
-            if(startT[1] != null){
-                $('#start').val(startT[0]); 
-            }else{
+            var startDT = info.event.startStr.split("+")[0];
+            var startT = startDT.split('T');
+            var endDT = info.event.endStr.split("+")[0];
+            var endT = endDT.split('T');
+            if(startT[1] == null){
                 $('#start').val(startT[0] + 'T00:00:00');
+            }else{
+                $('#start').val(startDT); 
             }
 
-            if(info.event.endStr != null){
+            if(info.event.end != null){
                 if(endT[1] == null){
-                    $('#end').val(endT[0] + 'T23:59:00');
+                    $('#end').val(endT[0] + 'T23:59');
                 }else{
-                    $('#end').val(endT[0]);
+                    $('#end').val(endDT);
                 }
             }else{
-                $('#end').val(startT[0] + 'T23:59:59');
+                $('#end').val(startT[0] + 'T23:59');
             }
 
             if (info.event.allDay == true){
@@ -95,6 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let datetimes = date + 'T00:00:00'
         $('#eventTitle').val('');
         $('#start').val(datetimes);
+        $('#end').val('');
+        $('#allDay').prop("checked", false);
         
     });
     calendar.render();
