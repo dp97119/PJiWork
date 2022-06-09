@@ -10,6 +10,6 @@ import javax.persistence.Table;
 public class Restautant {
 	
 	@Id
-	@Column(name = "restaurantId")
+	@Column(name = "restaurantid")
 	private Integer restaurantId ;
 }

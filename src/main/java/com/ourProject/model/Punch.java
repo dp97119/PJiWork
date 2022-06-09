@@ -11,6 +11,6 @@ public class Punch {
 
 	
 	@Id
-	@Column(name = "punchId")
+	@Column(name = "punchid")
 	private Integer punchId ;
 }

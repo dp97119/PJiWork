@@ -10,6 +10,6 @@ import javax.persistence.Table;
 public class Salaryslip {
 
 	@Id
-	@Column(name = "salaryId ")
+	@Column(name = "salaryid ")
 	private Integer salaryId ;
 }

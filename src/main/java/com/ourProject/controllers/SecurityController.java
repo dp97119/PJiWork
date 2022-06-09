@@ -13,40 +13,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.ourProject.service.EmployeeService;
 import com.ourProject.utils.JWTUtil;
 
 @RestController
 public class SecurityController {
 	@Autowired
 	JWTUtil jwtToken;
-
-	@GetMapping("/login_page")
-	public String ToLoginPage() {
-
-		return "LoginPage.html";
-	}
-	
-	@GetMapping("/logout_page")
-	public String ToLogoutPage() {
-
-		return "logoutPage 還沒寫";
-	}
+	@Autowired
+	EmployeeService employeeService;
 	
 	@PostMapping("/loginAction")
-	public JSONObject LoginAction(@RequestBody String data) {
-		JSONArray jsonArray = JSONObject.parseArray(data);
+	public JSONObject LoginAction(@RequestBody String inputdata) {
+		JSONArray jsonArray = JSONObject.parseArray(inputdata);
 	 	JSONObject obj = null;
+	 	HashMap<String, String> userInfo = new HashMap<>();
+	 	
 	 	for(int i = 0 ;i<jsonArray.size();i++) {
 	 		obj = jsonArray.getJSONObject(i) ;
-		 	System.out.println("fastJson: account="+obj.get("username")+" ;passwd="+obj.get("password"));  
-		 	System.out.println(obj.toJSONString());  
+//			employeeService.userVerify(Integer. parseInt(obj.get("userEmp").toString()),obj.get("userPsw").toString());
+//			employeeService.userVerify(1,"root");
+	 		employeeService.selectAll();
+	 		
+	 		userInfo.put("empId",obj.get("userEmp").toString());
+	 		userInfo.put("passwd",obj.get("userPsw").toString());
+	 		userInfo.put("adm",obj.get("userEmp").toString());
 	 	}
-	 	HashMap<String, String> test = new HashMap<>();
-        test.put( "empId", "20220609001" );
-        test.put( "passwd", "root" );
-        test.put( "adm", "admin" );
-        System.out.println(""+test);
-	 	String token = jwtToken.generateToken(test);
+	 	String token = jwtToken.generateToken(userInfo);
+	 	try {
+	 	jwtToken.validateToken(token);
+	 	}catch(Exception e) {
+	 		System.out.println(e.toString());
+	 	}
 	 	obj.clear();
 	 	obj.put("state","100");
 	 	obj.put("token",token);
@@ -54,14 +52,7 @@ public class SecurityController {
 		return obj;
 	}
 	
-	
-	
-	@PostMapping("/welcome")
-	public String Wellcome1() {
 
-		return "登入成功 這是首頁";
-	}
-	
 
 }
 
