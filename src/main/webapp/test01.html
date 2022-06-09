@@ -105,8 +105,9 @@
     
     navigator.geolocation.getCurrentPosition(function(position){
       let date = new Date();
-      var nowData = date.toISOString().split('T')[0];
-      var nowTime = date.toISOString().split('T')[1].split('.')[0];
+      var nowData = date.toLocaleString().split(" ")[0];
+      var nowTime = date.toLocaleString().split(" ")[1];
+      console.log(date);
 
       alert("token:"+getCookie()+"\n"+
             "位置："+position.coords.latitude+"  "+position.coords.longitude+"\n"+
