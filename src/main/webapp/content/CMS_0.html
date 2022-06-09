@@ -21,7 +21,7 @@
 </head>
 
 
-<body class="zh-tw" id="zh-tw" onload="ShowTime()">
+<body class="zh-tw" id="zh-tw">
     <div class="indexT">
         <!-- 中間區塊 -->
         <div class="nup-static-banner" style="height: 180px;">
@@ -429,25 +429,6 @@
             </div>
         </div>
     </div>
-
-
-
-    <!-- time function -->
-    <script>
-        function ShowTime() {
-            var NowDate = new Date();
-            var yy = NowDate.getFullYear();
-            var mm = ('0' + (NowDate.getMonth() + 1)).slice(-2);
-            var dd = ('0' + NowDate.getDate()).slice(-2);
-            var h = ('0' + NowDate.getHours()).slice(-2);
-            var m = ('0' + NowDate.getMinutes()).slice(-2);
-            var s = ('0' + NowDate.getSeconds()).slice(-2);
-            document.getElementById('showbox').innerHTML = yy + '年' + mm + '月' + dd + '日' + '<br>' + h + ':' + m + ':' + s;
-            setTimeout('ShowTime()', 1000);
-        }
-
-    </script>
-
 
 </body>
 
