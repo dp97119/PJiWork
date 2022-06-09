@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- style -->
+    <script src="/jQuery/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="/css/maininterface/4.4.1bootstrap.min.css" />
     <link rel="stylesheet" href="/css/maininterface/nueip_style.min.css" />
     <link rel="stylesheet" href="/css/maininterface/header.css" />
@@ -22,7 +23,7 @@
 
 <body class="zh-tw" id="zh-tw" onload="ShowTime()">
     <div class="indexT">
-        <!-- 中間區塊.. -->
+        <!-- 中間區塊 -->
         <div class="nup-static-banner" style="height: 180px;">
             <div class="left-box row no-gutters">
                 <div class="myMail col-1">
@@ -343,13 +344,15 @@
                                 <th width="20%" style="text-align: center;">讀取訊息</th>
                                 <th width="20%">寄件人</th>
                                 <th width="20%">時間</th>
-                                <th width="40%">主旨</th>
+                                <th width="30%">主旨</th>
+                                <th width="10%">內容</th>
                             </tr>
                             <tr id="mailborder">
                                 <td style="text-align: center;"><input type="checkbox"></td>
                                 <td>XXX</td>
                                 <td>XXX</td>
                                 <td>XXX</td>
+                                <td><button id="mailContentbtn">...</button></td>
                             </tr>
                         </table>
                         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -362,6 +365,24 @@
                 </div>
             </div>
         </div>
+
+        <!-- 信件內容 -->
+        <dialog id="mailContentdialog" style="width: 300px;">
+            <div class="modal-header">
+                <button type="button" class="btn-close" aria-label="Close" onclick="mailContentdialog.close()"></button>
+            </div>
+            <div class="modal-body" style="height: 350px; overflow-y: auto;">
+                <form action="" method="" enctype="">
+                    信件內容
+
+                </form>
+            </div>
+        </dialog>
+        <script>
+            $('#mailContentbtn').on("click", function () {
+                mailContentdialog.showModal()
+            })
+        </script>
 
 
         <!-- myCard1 Modal(上班打卡) -->
@@ -411,7 +432,7 @@
 
 
 
-    <!-- time function... -->
+    <!-- time function -->
     <script>
         function ShowTime() {
             var NowDate = new Date();

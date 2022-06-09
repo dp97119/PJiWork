@@ -8,7 +8,7 @@
     background-color: rgba(239, 255, 250, 0.305);
 }
 
-/* 左上mail*/
+/* 左上mail */
 #mailtable {
     width: 100%;
     word-wrap: break-word;
@@ -37,6 +37,32 @@
 .myMailDiv{
     cursor: pointer;/* 滑鼠移動上去變成小手 */
 }
+
+/* 左上mail內容按鈕 */
+#mailContentbtn{
+    width: 30px;
+    height: 20px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #c5c5c2;
+    border-radius: 8px;
+    background: #c5c5c2;
+    font: normal normal bold 16px arial;
+    color: #111111;
+}
+
+/* mail 內容--第二層彈跳視窗 */
+#mailContentdialog{
+    position: relative;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+     /* 對話框線樣式 */
+     border: 2px solid;
+     border-radius: 9px;
+}
+
 
 /* 左上mail未讀提示圓圈 */
 .cycleMessage {
@@ -176,6 +202,10 @@
     justify-content: center;
 }
 
+
+
+
+/* -----------------------------我是分隔線---------------------------------- */
 
 /* 左下公告 */
 .side-menu {
