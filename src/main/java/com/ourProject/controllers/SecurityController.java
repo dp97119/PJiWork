@@ -22,37 +22,42 @@ public class SecurityController {
 	JWTUtil jwtToken;
 	@Autowired
 	EmployeeService employeeService;
-	
+
 	@PostMapping("/loginAction")
 	public JSONObject LoginAction(@RequestBody String inputdata) {
 		JSONArray jsonArray = JSONObject.parseArray(inputdata);
-	 	JSONObject obj = null;
-	 	HashMap<String, String> userInfo = new HashMap<>();
-	 	
-	 	for(int i = 0 ;i<jsonArray.size();i++) {
-	 		obj = jsonArray.getJSONObject(i) ;
-//			employeeService.userVerify(Integer. parseInt(obj.get("userEmp").toString()),obj.get("userPsw").toString());
-//			employeeService.userVerify(1,"root");
-	 		employeeService.selectAll();
-	 		
-	 		userInfo.put("empId",obj.get("userEmp").toString());
-	 		userInfo.put("passwd",obj.get("userPsw").toString());
-	 		userInfo.put("adm",obj.get("userEmp").toString());
-	 	}
-	 	String token = jwtToken.generateToken(userInfo);
-	 	try {
-	 	jwtToken.validateToken(token);
-	 	}catch(Exception e) {
-	 		System.out.println(e.toString());
-	 	}
-	 	obj.clear();
-	 	obj.put("state","100");
-	 	obj.put("token",token);
-	 	System.out.println("生成的Token"+token);
-		return obj;
-	}
-	
+		System.out.println(jsonArray);
+		JSONObject obj = null;
+		
+		HashMap<String, String> userInfo = new HashMap<>();
 
+		for (int i = 0; i < jsonArray.size(); i++) {
+			obj = jsonArray.getJSONObject(i);
+		}
+			System.out.println(obj.get("empId"));
+			String result = employeeService.userVerify(obj.get("empId").toString(), obj.get("passwd").toString());
+			if (result != "密碼不符") {
+				userInfo.put("empId", obj.get("empId").toString());
+				userInfo.put("passwd", obj.get("passwd").toString());
+				userInfo.put("adm", result);
+				String token = jwtToken.generateToken(userInfo);
+				try {
+					jwtToken.validateToken(token);
+				} catch (Exception e) {
+					System.out.println(e.toString());
+				}
+				obj.clear();
+				obj.put("state", "100");
+				obj.put("token", token);
+				System.out.println("生成的Token" + token);
+				return obj;
+			} else {
+				obj.clear();
+				obj.put("state", "200");
+				return obj;
+			}
+		
+
+	}
 
 }
-

@@ -13,8 +13,16 @@ public class EmployeeService {
 	@Autowired
 	public EmployeeRepo employeeRepo;
 	
-	public void userVerify(Integer empId ,String passwd) {
-		System.out.println(employeeRepo.findById(1)); 
+	public String userVerify(String empId ,String passwd) {
+		System.out.println(employeeRepo.findById(empId).get().getPasswd());
+		if(employeeRepo.findById(empId).get().getPasswd().equals(passwd)) {
+			
+			return employeeRepo.findById(empId).get().getAdm();
+		}else {
+			return "密碼不符";
+		}
+		
+		
 	}
 	public void selectAll() {
 		List<Employee> result = employeeRepo.findAll();

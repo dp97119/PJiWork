@@ -166,6 +166,8 @@
 					if(data.state == "100"){
 					document.cookie = `cookie1= ${data.token}`;  
 					window.location.href="/CMS_0interface.html";
+					}else if(data.state == "200"){
+					 alert("密碼錯誤");
 					}
 				}
 			});
