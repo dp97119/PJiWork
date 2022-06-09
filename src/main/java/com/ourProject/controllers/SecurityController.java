@@ -42,13 +42,15 @@ public class SecurityController {
 		 	System.out.println(obj.toJSONString());  
 	 	}
 	 	HashMap<String, String> test = new HashMap<>();
-        test.put( "userName", "root" );
-        System.out.println(test);
+        test.put( "empId", "20220609001" );
+        test.put( "passwd", "root" );
+        test.put( "adm", "admin" );
+        System.out.println(""+test);
 	 	String token = jwtToken.generateToken(test);
 	 	obj.clear();
-	 	obj.put("status","success");
+	 	obj.put("state","100");
 	 	obj.put("token",token);
-	 	System.out.println(token);
+	 	System.out.println("生成的Token"+token);
 		return obj;
 	}
 	
