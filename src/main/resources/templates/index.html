@@ -148,7 +148,7 @@
 				contentType: 'application/json',
 				success: function (data) {
 					console.log(data);
-					if(data.status == "success"){
+					if(data.state == "100"){
 					document.cookie = `cookie1= ${data.token}`;  
 					window.location.href="/CMS_0interface.html";
 					}
