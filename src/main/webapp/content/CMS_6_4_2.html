@@ -19,6 +19,7 @@
         crossorigin="anonymous"></script>
     <style type="text/css">
         @import url('https://pro.fontawesome.com/releases/v5.10.0/css/all.css');
+
         * {
             font-family: 'Noto Sans TC', sans-serif;
         }
@@ -48,8 +49,8 @@
                 <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button"
                     aria-expanded="false">出勤管理</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item active" href="#">層級紀錄</a></li>
-                    <li><a class="dropdown-item" href="./CMS_6_4_2.html">層級設定</a></li>
+                    <li><a class="dropdown-item" href="./CMS_6_4_1.html">層級紀錄</a></li>
+                    <li><a class="dropdown-item active" href="#">層級設定</a></li>
                 </ul>
             </li>
             <li class="nav-item">
@@ -58,45 +59,64 @@
         </ul>
     </div>
 
-    <!-- 出勤管理-層級紀錄 -->
+    <!-- 出勤管理-層級設定 -->
     <div>
-        <form action="">
+        <form action="" method="" enctype="">
             <div class="staffAll">
                 <br>
-                <div class="staffDiv">
-                    <table class="levelTable">
-                        <tr>
-                            <th class="tableStyle" width="5%">No.</th>
-                            <th class="tableStyle" width="19%">部門</th>
-                            <th class="tableStyle" width="19%">第一審核人員</th>
-                            <th class="tableStyle" width="19%">第二審核人員</th>
-                            <th class="tableStyle" width="19%">新增日期</th>
-                            <th class="tableStyle" width="19%">功能</th>
-                        </tr>
-                        <tr class="staffWord">
-                            <td class="tableStyle">1</td>
-                            <td class="tableStyle"></td>
-                            <td class="tableStyle"></td>
-                            <td class="tableStyle"></td>
-                            <td class="tableStyle"></td>
-                            <td class="tableStyle">
-                                <span class="icon-input-btn">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                    <input type="button" value="修改" class="function"
-                                        onClick="window.location.href='./CMS_6_4_2.html';">
-                                </span>&nbsp;&nbsp;
-                                <span class="icon-input-btn">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                    <input type="button" value="刪除" class="function">
-                                </span>&nbsp;&nbsp;
-                            </td>
-                        </tr>
-                    </table>
+                <div class="application">
+                    <div>
+                        <label
+                            for=""><b>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</b></label>&nbsp;&nbsp;&nbsp;
+                        <select name="" id="">
+                            <option></option>
+                            <option>總經理</option>
+                            <option>會計部</option>
+                            <option>總務部</option>
+                            <option>人事部</option>
+                            <option>資訊部</option>
+                            <option>業務部</option>
+                            <option>行政部</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div>
+                        <label for=""><b>第一審核人員：</b></label>&nbsp;&nbsp;&nbsp;
+                        <select name="" id="">
+                            <option></option>
+                            <option>總經理</option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <br>
+                    <div>
+                        <label for=""><b>第二審核人員：</b></label>&nbsp;&nbsp;&nbsp;
+                        <select name="" id="">
+                            <option></option>
+                            <option>總經理</option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <br>
+                    <div>
+                        <input type="submit" value="確定" class="btnStyle"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" value="取消" onClick="window.location.href='./CMS_6_3_1.html';"
+                        class="btnStyle"></input>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
-
 
 </body>
 
