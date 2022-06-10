@@ -35,8 +35,10 @@ public class SecurityController {
 			obj = jsonArray.getJSONObject(i);
 		}
 			System.out.println(obj.get("empId"));
+			
 			String result = employeeService.userVerify(obj.get("empId").toString(), obj.get("passwd").toString());
-			if (result != "密碼不符") {
+			
+			if (result != "200" && result != "300") {
 				userInfo.put("empId", obj.get("empId").toString());
 				userInfo.put("passwd", obj.get("passwd").toString());
 				userInfo.put("adm", result);
@@ -47,13 +49,13 @@ public class SecurityController {
 					System.out.println(e.toString());
 				}
 				obj.clear();
-				obj.put("state", "100");
+				obj.put("state", "100");//成功
 				obj.put("token", token);
 				System.out.println("生成的Token" + token);
 				return obj;
 			} else {
 				obj.clear();
-				obj.put("state", "200");
+				obj.put("state", result);//失敗,密碼不對
 				return obj;
 			}
 		
