@@ -14,7 +14,7 @@
 			success: function (data) {
         console.log(data);
         if(data.state=='201'){
-          window.location.href="/CMS_0interface.html";
+          window.location.href="/index.html";
         }
 			}
     })
