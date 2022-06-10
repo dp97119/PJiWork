@@ -83,12 +83,9 @@
         cookieObj[cookie[0]] = cookie[1];
         console.log(cookieObj);
         $( "p" ).append("<br>"+cookie[1].toString());
-        return cookie[1].toString();
     }
     function getCookie(){
-        var cookieObj = {};
         var cookie = document.cookie.split('=');
-        cookieObj[cookie[0]] = cookie[1];
         return cookie[1].toString();
     }
     
@@ -100,6 +97,27 @@
 <!-- 打卡 -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8gihp9ofr1QTDBTNKMxMMpfOcZiceLs4&callback=initMap&v=weekly" async defer></script>
 <script type="text/javascript">
+  $( document ).ready(function() {
+    if(document.cookie==""){
+      alert("請先登入");
+      window.location.href="/index.html";
+    };
+    var usertoken = JSON.stringify([{
+				usertoken: getCookie()
+			}]);
+    $.ajax({
+      type: "post",
+			url: "http://localhost:8080/loginAction/1",
+			data: usertoken,
+			contentType: 'application/json',
+			success: function (data) {
+        console.log(data);
+        if(data.state=='201'){
+          window.location.href="/CMS_0interface.html";
+        }
+			}
+    })
+  });
   $("#myPunch").click(getMyLocation());
   $("#punchOK").click(function(){
     

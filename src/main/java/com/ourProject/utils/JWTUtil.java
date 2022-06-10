@@ -17,7 +17,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JWTUtil {
-	private static final long EXPIRATION_TIME = 10 * 60 * 1000;
+	private static final long EXPIRATION_TIME = 1 * 10 * 1000;
     /**
      * JWT SECRET KEY
      */
@@ -45,8 +45,8 @@ public class JWTUtil {
     public void validateToken(String token) throws AuthException {
         try {
             Jwts.parser()
-                    .setSigningKey( SECRET )
-                    .parseClaimsJws( token );
+                    .setSigningKey(SECRET)
+                    .parseClaimsJws(token);
         } catch (SignatureException e) {
             throw new AuthException("Invalid JWT signature.");
         }
@@ -62,6 +62,15 @@ public class JWTUtil {
         catch (IllegalArgumentException e) {
             throw new AuthException("JWT token compact of handler are invalid");
         }
+    }
+    
+    public String getInfoFromJwtToken(String token,String param) {
+    	
+        return Jwts.parser()
+                            .setSigningKey(SECRET)
+                            .parseClaimsJws(token)
+                            .getBody().get(param).toString();
+    	
     }
 	
 }

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	
+	<title>Document</title>
+	  <!-- 背景泡泡 -->
+	  <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            background: linear-gradient(white, #78d7ff);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .bubble {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /*z-index defult value=1*/
+            z-index: -1;
+            /*upgrade gpu rendering*/
+            transform: translateZ(0);
+        }
+
+        .bubble li {
+            position: absolute;
+            list-style: none;
+            display: block;
+            background: rgba(255, 255, 255, 0.2);
+            /*make bubble on page bottom*/
+            bottom: -100px;
+            animation: bubble-ani 20s linear infinite;
+            border-radius: 100%;
+        }
+
+        /* glow of the bubbles*/
+        .bubble li:before {
+            position: absolute;
+            left: 20%;
+            top: 21%;
+            width: 25%;
+            content: '';
+            background: rgba(255, 255, 255, 0.2);
+            display: block;
+            height: 25%;
+            border-radius: 100%;
+        }
+
+        .bubble li:nth-child(1) {
+            width: 20px;
+            height: 20px;
+            left: 15%;
+        }
+
+        .bubble li:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            left: 40%;
+            animation-duration: 11s;
+            animation-delay: 2s;
+        }
+
+        .bubble li:nth-child(3) {
+            width: 25px;
+            height: 25px;
+            left: 30%;
+            animation-duration: 18s;
+            animation-delay: 3.5s;
+        }
+
+        .bubble li:nth-child(4) {
+            width: 60px;
+            height: 60px;
+            left: 55%;
+            animation-duration: 23s;
+            animation-delay: 1.5s;
+        }
+
+        .bubble li:nth-child(5) {
+            width: 20px;
+            height: 20px;
+            left: 35%;
+            animation-duration: 14s;
+            animation-delay: 1s;
+        }
+
+        .bubble li:nth-child(6) {
+            width: 50px;
+            height: 50px;
+            left: 10%;
+            animation-duration: 8s;
+            animation-delay: 2s;
+        }
+
+        .bubble li:nth-child(7) {
+            width: 23px;
+            height: 23px;
+            left: 50%;
+            animation-duration: 10s;
+            animation-delay: 3.5s;
+        }
+
+        .bubble li:nth-child(8) {
+            width: 15px;
+            height: 15px;
+            left: 90%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+        }
+
+        .bubble li:nth-child(9) {
+            width: 40px;
+            height: 40px;
+            left: 70%;
+            animation-duration: 11s;
+            animation-delay: 5s;
+        }
+
+        .bubble li:nth-child(10) {
+            width: 33px;
+            height: 33px;
+            left: 95%;
+            animation-duration: 7s;
+            animation-delay: 8s;
+        }
+
+        .bubble li:nth-child(11) {
+            width: 60px;
+            height: 60px;
+            left: 35%;
+            animation-duration: 14s;
+            animation-delay: 6s;
+        }
+
+        .bubble li:nth-child(12) {
+            width: 50px;
+            height: 50px;
+            left: 68%;
+            animation-duration: 16s;
+            animation-delay: 4s;
+        }
+
+        .bubble li:nth-child(13) {
+            width: 18px;
+            height: 18px;
+            left: 18%;
+            animation-duration: 13s;
+            animation-delay: 2s;
+        }
+
+        .bubble li:nth-child(14) {
+            width: 38px;
+            height: 38px;
+            left: 70%;
+            animation-duration: 8s;
+            animation-delay: 1s;
+        }
+
+        .bubble li:nth-child(15) {
+            width: 27px;
+            height: 27px;
+            left: 54%;
+            animation-duration: 9s;
+            animation-delay: 3s;
+        }
+
+        .bubble li:nth-child(16) {
+            width: 17px;
+            height: 17px;
+            left: 88%;
+            animation-duration: 16s;
+            animation-delay: 6s;
+        }
+
+        .bubble li:nth-child(17) {
+            width: 37px;
+            height: 37px;
+            left: 46%;
+            animation-duration: 14s;
+            animation-delay: 8s;
+        }
+
+        .bubble li:nth-child(18) {
+            width: 45px;
+            height: 45px;
+            left: 92%;
+            animation-duration: 11s;
+            animation-delay: 4s;
+        }
+
+        .bubble li:nth-child(19) {
+            width: 60px;
+            height: 60px;
+            left: 83%;
+            animation-duration: 12s;
+            animation-delay: 5s;
+        }
+
+        .bubble li:nth-child(20) {
+            width: 15px;
+            height: 15px;
+            left: 33%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+        }
+
+        .bubble li:nth-child(21) {
+            width: 50px;
+            height: 50px;
+            left: 13%;
+            animation-duration: 10s;
+            animation-delay: 1s;
+        }
+
+        .bubble li:nth-child(20) {
+            width: 30px;
+            height: 30px;
+            left: 8%;
+            animation-duration: 11s;
+            animation-delay: 2s;
+        }
+
+        .bubble li:nth-child(20) {
+            width: 20px;
+            height: 20px;
+            left: 5%;
+            animation-duration: 9s;
+            animation-delay: 3s;
+        }
+
+        .bubble li:nth-child(20) {
+            width: 11px;
+            height: 11px;
+            left: 11%;
+            animation-duration: 15s;
+            animation-delay: 1s;
+        }
+
+        .bubble li:nth-child(20) {
+            width: 40px;
+            height: 40px;
+            left: 9%;
+            animation-duration: 9s;
+            animation-delay: 0s;
+        }
+
+        @keyframes bubble-ani {
+            0% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            100% {
+                -webkit-transform: translateY(-1080px);
+                transform: translateY(-1080px);
+            }
+        }
+    </style>
+	<style>
+		
+
+		#titleImg{
+			margin-top: 30px;
+			margin-bottom: 50px;
+		
+		}
+		#login {
+			padding: 20px;
+			width: 350px;
+			height: 260px;
+			background-color: rgba(235, 229, 209);
+			border-radius: 10px;
+			text-align: center;
+		}
+
+		.label_input {
+			font-size: 12px;
+			width: 65px;
+			height: 28px;
+			line-height: 28px;
+			text-align: center;
+			color: white;
+			background-color: hsla(0, 100%, 42%, 0.779);
+		}
+
+		.text_field {
+			width: 100px;
+			height: 20px;
+			text-align: left;
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+			border: 0;
+		}
+
+		#btn_login {
+			font-size: 14px;
+			width: 110px;
+			height: 40px;
+			line-height: 20px;
+			text-align: center;
+			color: white;
+			background-color: #3BD9FF;
+			border-radius: 30px;
+			float: left;
+		}
+
+		#forget_pwd {
+			font-size: 12px;
+			color: blue;
+			text-decoration: none;
+			position: relative;
+			float: right;
+			top: 5px;
+		}
+
+		#forget_pwd:hover {
+			color: blue;
+			text-decoration: underline;
+		}
+
+		#login_control {
+			padding: 0 28px;
+		}
+
+		textarea {
+			resize: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container" id="titleImg">
+		<div class="row">
+			<img src="https://picsum.photos/1400/300" >
+		</div>
+	</div>
+	<div class="container " >
+		<div class="row  justify-content-around">
+			<div class="col-3">
+				<p id="announcement">
+					<TEXTAREA disabled cols=40 name=textfield rows=10 wrap=VIRTUAL style="color: darksalmon">
+						測試公告欄 :
+						test
+						1
+						1
+						1
+						1
+						1
+						1
+						1
+						1
+						1
+						1
+						1
+						1
+					</TEXTAREA>
+				</P>
+			</div>
+
+			<div class="col-4" id="login">
+				<div class="row">
+					<p>登入系統</p>
+					<hr>
+				</div>
+				<div class="row" id="labelEmp">
+					<div class="col-3">
+						<label class="label_input">使用者名稱</label>
+					</div>
+					<div class="col-6">
+						<input type="text" id="userEmp"  required />
+					</div>
+				</div>
+				<div class="row mt-2" id="labelPsw">
+					<div class="col-3">
+						<label class="label_input">密碼</label>
+					</div>
+					<div class="col-6">
+						<input type="password" id="userPsw"  required />
+					</div>
+				</div>
+
+				<div id="login_control" class="row mt-3">
+					<div id="login_control" >
+					<input type="button" id="btn_login" value="登入" onclick="login()" />
+					<a id="forget_pwd" href="還沒寫">忘記密碼？</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+	
+
+</div>
+
+    <!-- 背景泡泡 -->
+    <ul class="bubble">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+
+	<script>
+		function login() {
+			var inputData = JSON.stringify([{
+				empId: $("#userEmp").val(),
+				passwd: $("#userPsw").val()
+			}]);
+
+			$.ajax({
+				type: "post",
+				url: "http://localhost:8080/loginAction",
+				data: inputData,
+				contentType: 'application/json',
+				success: function (data) {
+					console.log(data);
+					if(data.state == "100"){
+					document.cookie = `cookie1= ${data.token}`;  
+					window.location.href="/test01.html";
+					}else if(data.state == "101"){
+					 alert("查無帳號");
+					}else if(data.state == "102"){
+					 alert("密碼錯誤");
+					 }
+				}
+			});
+		}
+
+
+
+	</script>
+
+
+</body>
+
+</html>

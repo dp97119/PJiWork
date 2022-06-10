@@ -19,8 +19,6 @@ import com.ourProject.utils.JWTUtil;
 @RestController
 public class SecurityController {
 	@Autowired
-	JWTUtil jwtToken;
-	@Autowired
 	EmployeeService employeeService;
 
 	@PostMapping("/loginAction")
@@ -28,38 +26,39 @@ public class SecurityController {
 		JSONArray jsonArray = JSONObject.parseArray(inputdata);
 		System.out.println(jsonArray);
 		JSONObject obj = null;
-		
-		HashMap<String, String> userInfo = new HashMap<>();
 
 		for (int i = 0; i < jsonArray.size(); i++) {
 			obj = jsonArray.getJSONObject(i);
 		}
-			System.out.println(obj.get("empId"));
-			
-			String result = employeeService.userVerify(obj.get("empId").toString(), obj.get("passwd").toString());
-			
-			if (result != "200" && result != "300") {
-				userInfo.put("empId", obj.get("empId").toString());
-				userInfo.put("passwd", obj.get("passwd").toString());
-				userInfo.put("adm", result);
-				String token = jwtToken.generateToken(userInfo);
-				try {
-					jwtToken.validateToken(token);
-				} catch (Exception e) {
-					System.out.println(e.toString());
-				}
-				obj.clear();
-				obj.put("state", "100");//成功
-				obj.put("token", token);
-				System.out.println("生成的Token" + token);
-				return obj;
-			} else {
-				obj.clear();
-				obj.put("state", result);//失敗,密碼不對
-				return obj;
-			}
-		
+		//驗證帳號密碼 （成功：回傳token ;查無帳號：101 ;密碼錯誤：102)
+		String result = employeeService.userVerify(obj.get("empId").toString(), obj.get("passwd").toString());
+		//帳號密碼正確  獲得token
+		if (result != "101" && result != "102") {
+			obj.clear();
+			obj.put("state", "100");// 成功
+			obj.put("token",result);
+			return obj;
+		} else {
+			obj.clear();
+			obj.put("state", result);// 失敗,傳入狀態101,102
+			return obj;
+		}
 
+	}
+	
+	@PostMapping("/loginAction/1")
+	public JSONObject verifyToken(@RequestBody String userToken) {
+		JSONArray jsonArray = JSONObject.parseArray(userToken);
+		System.out.println(jsonArray);
+		JSONObject obj = null;
+		for (int i = 0; i < jsonArray.size(); i++) {
+			obj = jsonArray.getJSONObject(i);
+		}
+		System.out.println(obj.getString("usertoken"));
+		String rb = employeeService.verifyToken(obj.getString("usertoken"));
+		obj.put("state", rb);
+		return obj;
+		
 	}
 
 }
