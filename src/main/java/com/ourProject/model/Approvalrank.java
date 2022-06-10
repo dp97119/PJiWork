@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,8 +16,9 @@ public class Approvalrank {
 	@Column(name = "approvalrankid")
 	private Integer approvalRankId;
 	
-	@Column(name = "attendanceid")
-	private Integer attendanceId;
+	@ManyToOne
+	@JoinColumn(name="attendanceid",referencedColumnName = "attendanceid")
+	private Attendance attendances;
 	
 	@Column(name = "attendancedate")
 	private java.util.Date attendanceDate;
