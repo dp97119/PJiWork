@@ -10,7 +10,7 @@
         <script src="/js/calendar_js/calendar.js"></script>
         <link href="/css/calendar_css/style.css" rel='stylesheet' />
         <link href="/css/calendar_css/dialog.css" rel='stylesheet' />
-     
+     	<link href="/css/calendar_css/clendar_button.css" rel='stylesheet' />
     </head>
     <body>
         <div id='wrap'>
@@ -42,8 +42,8 @@
                 <table>
                     <tr>
                         <td style="text-align:right;" colspan="2">
-                            <input type="button" value="修改">
-                            <input type="button" value="刪除" id="delete">
+                            <input type="button" class="pencilBtn">
+                            <input type="button" class="trashBtn" id="delete">
                         </td>
                     </tr>
                     <tr>
@@ -71,8 +71,8 @@
                     </tr>
                     <tr>
                         <td style="text-align:center;" colspan="2">
-                            <input type="submit" value="確定">
-                            <input type="button" value="取消" onclick="newEvents.close()">
+                            <input type="submit" class="btn btn-primary">
+                            <input type="button" value="取消" class="btn btn-primary" onclick="newEvents.close()">
                         </td>
                     </tr>
                 </table>
