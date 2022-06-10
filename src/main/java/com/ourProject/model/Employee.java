@@ -2,15 +2,15 @@ package com.ourProject.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="employee")
 public class Employee {
 	@Id
+	@OneToMany(targetEntity = Announcement.class)
 	@Column(name = "empid",columnDefinition="char(11)")
 	private String empId;
 	@Column(name = "passwd")
