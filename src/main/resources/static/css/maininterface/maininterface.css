@@ -34,12 +34,13 @@
 
 }
 
-.myMailDiv{
-    cursor: pointer;/* 滑鼠移動上去變成小手 */
+.myMailDiv {
+    cursor: pointer;
+    /* 滑鼠移動上去變成小手 */
 }
 
 /* 左上mail內容按鈕 */
-#mailContentbtn{
+#mailContentbtn {
     width: 30px;
     height: 20px;
     display: inline-block;
@@ -53,14 +54,14 @@
 }
 
 /* mail 內容--第二層彈跳視窗 */
-#mailContentdialog{
+#mailContentdialog {
     position: relative;
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-     /* 對話框線樣式 */
-     border: 2px solid;
-     border-radius: 9px;
+    /* 對話框線樣式 */
+    border: 2px solid;
+    border-radius: 9px;
 }
 
 
@@ -78,7 +79,7 @@
 }
 
 /* 員工照片 */
-.myNameDiv{
+.myNameDiv {
     position: absolute;
     top: 5px;
     width: 160px;
@@ -87,7 +88,7 @@
     background-color: rgb(249, 245, 213);
 }
 
-.myNameImg{
+.myNameImg {
     width: 160px;
     height: 160px;
     border-radius: 50%;
@@ -97,7 +98,7 @@
 
 
 /* 相機按鈕 */
-.cameraBtn{
+.cameraBtn {
     /* 員工照片右下按鈕 */
     position: absolute;
     width: 40px;
@@ -109,7 +110,7 @@
     top: 120px;
 }
 
-#photo_img{
+#photo_img {
     width: 160px;
     height: 160px;
     border-radius: 50%;
@@ -146,7 +147,7 @@
 /* 上下班按鈕 */
 .myCardbtn {
     width: 80px;
-    height:80px;
+    height: 80px;
     border-radius: 2px 40px 2px 40px;
     border: none;
     background-color: rgb(36, 227, 132);
@@ -167,7 +168,8 @@
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    cursor: pointer;/* 滑鼠移動上去變成小手 */
+    cursor: pointer;
+    /* 滑鼠移動上去變成小手 */
 }
 
 #messagemodal {
@@ -269,4 +271,25 @@
 /*改變游標方向*/
 #side-menu-switch:checked+.side-menu label .fas {
     transform: scaleX(-1);
+}
+
+/* 公告第二層--顯示全部公告內容 */
+.noticeTable {
+    width: 90%;
+    word-wrap: break-word;
+    /*自動斷行*/
+    table-layout: fixed;
+}
+
+#noticedialog {
+    position: relative;
+    margin: auto;
+    /* 對話框線樣式 */
+    border: 2px solid;
+    border-radius: 9px;
+}
+
+#notice{
+    cursor: pointer;
+    /* 滑鼠移動上去變成小手 */
 }
