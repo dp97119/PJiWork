@@ -1,5 +1,7 @@
 package com.ourProject.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,4 +13,22 @@ public class Approvalrank {
 	@Id
 	@Column(name = "approvalrankid")
 	private Integer approvalRankId;
+	
+	@Column(name = "attendanceid")
+	private Integer attendanceId;
+	
+	@Column(name = "attendancedate")
+	private java.util.Date attendanceDate;
+	
+	@Column(name = "approver1")
+	private String approver1;
+	
+	@Column(name = "dateapproved1")
+	private java.util.Date dateApproved1;
+	
+	@Column(name = "approver2")
+	private String approver2;
+	
+	@Column(name = "dateapproved2")
+	private java.util.Date dateApproved2;
 }

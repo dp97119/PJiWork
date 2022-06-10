@@ -1,5 +1,8 @@
 package com.ourProject.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,8 +12,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name="employee")
 public class Employee {
+	@OneToMany(mappedBy = "employees")
+	private Set<Announcement> announcements;
+	
+	
 	@Id
-	@OneToMany(targetEntity = Announcement.class)
 	@Column(name = "empid",columnDefinition="char(11)")
 	private String empId;
 	@Column(name = "passwd")

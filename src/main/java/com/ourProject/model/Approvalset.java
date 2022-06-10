@@ -11,4 +11,13 @@ public class Approvalset {
 	@Id
 	@Column(name = "approvalsetid")
 	private Integer approvalSetId;
+//	
+//	@Column(name = "approvalsetid")
+//	private Integer approvalSetId;
+//	
+//	@Column(name = "approvalsetid")
+//	private Integer approvalSetId;
+//	
+//	@Column(name = "approvalsetid")
+//	private Integer approvalSetId;
 }

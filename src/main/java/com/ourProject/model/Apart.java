@@ -11,4 +11,7 @@ public class Apart {
 	@Id
 	@Column(name = "apartid")
 	private Integer apartId;
+	
+	@Column(name = "apart")
+	private String apart;
 }

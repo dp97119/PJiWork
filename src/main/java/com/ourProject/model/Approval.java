@@ -11,4 +11,7 @@ public class Approval {
 	@Id
 	@Column(name = "approvalid")
 	private Integer approvalId;
+	
+	@Column(name = "approvaltype")
+	private String approvalType;
 }
