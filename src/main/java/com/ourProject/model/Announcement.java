@@ -7,18 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="announcement")
 
 public class Announcement {
-	@ManyToOne(optional=false)
-	@JoinColumn(name="uploader",referencedColumnName = "empid")
-	private Employee employees;
-
+	
 	@Id
 	@Column(name = "announceid")
 	private Integer announceId;
@@ -29,9 +24,12 @@ public class Announcement {
 	@Column(name = "uploaddate")
 	private java.util.Date uploadDate;
 	
-	
+	@ManyToOne
+	@JoinColumn(name="uploader",referencedColumnName = "empid")
+	private Employee employees;
+//  FK不需要，上面會產生
 //	@Column(name = "uploader",columnDefinition="char(11)")
-	private String uploader;
+//	private String uploader;
 	
 	@Column(name = "removed")
 	private java.util.Date removed;

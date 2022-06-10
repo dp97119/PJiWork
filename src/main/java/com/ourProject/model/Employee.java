@@ -12,9 +12,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="employee")
 public class Employee {
-	@OneToMany(mappedBy = "employees")
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Announcement> announcements;
-	
 	
 	@Id
 	@Column(name = "empid",columnDefinition="char(11)")
