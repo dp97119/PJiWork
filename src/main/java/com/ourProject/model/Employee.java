@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -14,6 +16,16 @@ import javax.persistence.Table;
 public class Employee {
 	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Announcement> announcements;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Attendance> attendances;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Email> emails;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Order> orders;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Punch> punches;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Salaryslip> salaryslips;
 	
 	@Id
 	@Column(name = "empid",columnDefinition="char(11)")
@@ -24,51 +36,23 @@ public class Employee {
 	private String empName;
 	@Column(name = "photo")
 	private String photo;
-	@Column(name = "apartid")
-	private Integer apartId;
+	@ManyToOne
+	@JoinColumn(name="apartid",referencedColumnName = "apartid")
+	private Apart aparts;
+	@Column(name = "tel")
+	private String tel;
+	@Column(name = "gender",columnDefinition="ENUM('男','女')")
+	private String gender;
+	@Column(name = "cellphone1",columnDefinition="char(10)")
+	private String cellphone1;
+	@Column(name = "cellphone2",columnDefinition="char(10)")
+	private String cellphone2;
+	@Column(name = "email")
+	private String email;
 	@Column(name = "adm",columnDefinition="ENUM('admin','user')")
 	private String adm;
+	@Column(name = "addr")
+	private String addr;
 	
-	
-	public String getAdm() {
-		return adm;
-	}
-	public void setAdm(String adm) {
-		this.adm = adm;
-	}
-	@Override
-	public String toString() {
-		return "Employee [empId=" + empId + ", passwd=" + passwd + ", empName=" + empName + ", photo=" + photo
-				+ ", apartId=" + apartId + ", adm=" + adm + "]";
-	}
-	public String getEmpId() {
-		return empId;
-	}
-	public void setEmpId(String empId) {
-		this.empId = empId;
-	}
-	public String getPasswd() {
-		return passwd;
-	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
-	}
-	public String getEmpName() {
-		return empName;
-	}
-	public void setEmpName(String empName) {
-		this.empName = empName;
-	}
-	public String getPhoto() {
-		return photo;
-	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-	public Integer getApartId() {
-		return apartId;
-	}
-	public void setApartId(Integer apartId) {
-		this.apartId = apartId;
-	}
+
 }

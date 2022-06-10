@@ -8,6 +8,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedBy;
@@ -29,16 +31,16 @@ public class Dish {
 	
 	@Column(name = "dishitem")
 	private String dishItem ;
-//	
-//	@Column(name = "dishphoto")
-//	private String dishPhoto ;
-//	
-//	@Column(name = "dishprice")
-//	private Integer dishPrice ;
-//	
-//	@Column(name = "restaurantid")
-//	private Integer restaurantId ;
-//	
+	
+	@Column(name = "dishphoto")
+	private String dishPhoto ;
+	
+	@Column(name = "dishprice")
+	private Integer dishPrice ;
+	
+	@ManyToOne
+	@JoinColumn(name="restaurantid",referencedColumnName = "restaurantid")
+	private Restautant restautants;
 //	@LastModifiedDate 
 //	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 //	@Column(name = "updatedate")
@@ -57,104 +59,4 @@ public class Dish {
 //	@Column(name = "updateperson")
 //	private Integer updatePerson ;
 //
-//
-//	public Integer getDishId() {
-//		return dishId;
-//	}
-
-
-//	public void setDishId(Integer dishId) {
-//		this.dishId = dishId;
-//	}
-//
-//
-//	public String getDishItem() {
-//		return dishItem;
-//	}
-//
-//
-//	public void setDishItem(String dishItem) {
-//		this.dishItem = dishItem;
-//	}
-//
-//
-//	public String getDishPhoto() {
-//		return dishPhoto;
-//	}
-//
-//
-//	public void setDishPhoto(String dishPhoto) {
-//		this.dishPhoto = dishPhoto;
-//	}
-//
-//
-//	public Integer getDishPrice() {
-//		return dishPrice;
-//	}
-//
-//
-//	public void setDishPrice(Integer dishPrice) {
-//		this.dishPrice = dishPrice;
-//	}
-//
-//
-//	public Integer getRestaurantId() {
-//		return restaurantId;
-//	}
-//
-//
-//	public void setRestaurantId(Integer restaurantId) {
-//		this.restaurantId = restaurantId;
-//	}
-//
-//
-//	public Date getUpdateDate() {
-//		return updateDate;
-//	}
-//
-//
-//	public void setUpdateDate(Date updateDate) {
-//		this.updateDate = updateDate;
-//	}
-//
-//
-//	public Date getCreateDate() {
-//		return createDate;
-//	}
-//
-//
-//	public void setCreateDate(Date createDate) {
-//		this.createDate = createDate;
-//	}
-//
-//
-//	public Integer getCreatePerson() {
-//		return createPerson;
-//	}
-//
-//
-//	public void setCreatePerson(Integer createPerson) {
-//		this.createPerson = createPerson;
-//	}
-//
-//
-//	public Integer getUpdatePerson() {
-//		return updatePerson;
-//	}
-//
-//
-//	public void setUpdatePerson(Integer updatePerson) {
-//		this.updatePerson = updatePerson;
-//	}
-//
-//
-//	@Override
-//	public String toString() {
-//		return "Dish [dishId=" + dishId + ", dishItem=" + dishItem + ", dishPhoto=" + dishPhoto + ", dishPrice="
-//				+ dishPrice + ", restaurantId=" + restaurantId + ", updateDate=" + updateDate + ", createDate="
-//				+ createDate + ", createPerson=" + createPerson + ", updatePerson=" + updatePerson + "]";
-//	}
-//	
-//	
-	
 }
