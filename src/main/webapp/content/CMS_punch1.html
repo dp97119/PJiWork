@@ -49,27 +49,6 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8gihp9ofr1QTDBTNKMxMMpfOcZiceLs4&callback=initMap&v=weekly"
 		async defer></script>
 	<script type="text/javascript">
-		$(document).ready(function () {
-			if (document.cookie == "") {
-				alert("請先登入");
-				window.location.href = "/index.html";
-			};
-			var usertoken = JSON.stringify([{
-				usertoken: getCookie()
-			}]);
-			$.ajax({
-				type: "post",
-				url: "http://localhost:8080/loginAction/1",
-				data: usertoken,
-				contentType: 'application/json',
-				success: function (data) {
-					console.log(data);
-					if (data.state == '201') {
-						window.location.href = "/index.html";
-					}
-				}
-			})
-		});
 		$("#myPunch").click(getMyLocation());
 		$("#punchOK").click(function () {
 

@@ -1,3 +1,8 @@
+function getCookie(){
+  var cookie = document.cookie.split('=');
+  return cookie[1].toString();
+}
+ 
  $( document ).ready(function() {
     if(document.cookie==""){
       alert("請先登入");

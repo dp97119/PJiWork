@@ -32,6 +32,7 @@ public class SecurityController {
 		}
 		//驗證帳號密碼 （成功：回傳token ;查無帳號：101 ;密碼錯誤：102)
 		String result = employeeService.userVerify(obj.get("empId").toString(), obj.get("passwd").toString());
+		System.out.println(result);
 		//帳號密碼正確  獲得token
 		if (result != "101" && result != "102") {
 			obj.clear();
