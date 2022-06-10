@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="/jQuery/jquery-3.6.0.js"></script>
     <!-- style -->
     <script src="/jQuery/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="/css/shared/button.css" />
@@ -110,8 +111,7 @@
                     <br>
                     <div>
                         <input type="submit" value="確定" class="btnStyle"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="button" value="取消" class="btnStyle"
-                            onClick="window.location.href='./CMS_6_2_1.html';"></input>
+                        <input type="button" value="取消" class="btnStyle" id="cancelbtn"></input>
                     </div>
                 </div>
             </div>
@@ -127,6 +127,15 @@
                 alert("只能傳五個檔案")
             }
         }
+
+        $("#cancelbtn").on("click", function () {
+            var yes = confirm("你確定取消嗎?");
+            if (yes) {
+                window.location.href = './CMS_6_2_1.html';
+            } else {
+                console.log("取消")
+            }
+        })
     </script>
 </body>
 
