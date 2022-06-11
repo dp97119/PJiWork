@@ -7,7 +7,7 @@
 		<version>2.7.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ourProject</groupId>
+	<groupId>tw.com.ourProject</groupId>
 	<artifactId>iWork</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>

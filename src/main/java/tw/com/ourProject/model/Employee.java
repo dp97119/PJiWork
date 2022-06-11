@@ -1,4 +1,4 @@
-package com.ourProject.model;
+package tw.com.ourProject.model;
 
 import java.io.Serializable;
 import java.util.Set;
