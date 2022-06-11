@@ -33,6 +33,7 @@ public class EmployeeService {
 			userInfo.put("passwd", passwd);
 			userInfo.put("adm", employeeRepo.findById(empId).get().getAdm());
 			String token = jwtToken.generateToken(userInfo);
+			System.out.println( employeeRepo.findAll());
 			return token ;
 		}else {
 			return "102";//密碼不符

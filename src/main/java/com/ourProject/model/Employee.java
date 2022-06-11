@@ -23,48 +23,45 @@ public class Employee implements Serializable {
 	private Set<Attendance> attendances;
 	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Email> emails;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Order> orders;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Punch> punches;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Salaryslip> salaryslips;
+	
+	@Id
+	@Column(name = "empid",columnDefinition="char(11)")
+	private String empId;
+	@Column(name = "passwd")
+	private String passwd;
+	@Column(name = "empname")
+	private String empName;
+	@Column(name = "photo")
+	private String photo;
+	@ManyToOne
+	@JoinColumn(name="apartid",referencedColumnName = "apartid")
+	private Apart aparts;
+	@Column(name = "tel")
+	private String tel;
+	@Column(name = "gender",columnDefinition="ENUM('男','女')")
+	private String gender;
+	@Column(name = "cellphone1",columnDefinition="char(10)")
+	private String cellphone1;
+	@Column(name = "cellphone2",columnDefinition="char(10)")
+	private String cellphone2;
+	@Column(name = "email")
+	private String email;
+	@Column(name = "adm",columnDefinition="ENUM('admin','user')")
+	private String adm;
+	@Column(name = "addr")
+	private String addr;
 
 	public String getEmpId() {
 		return empId;
 	}
 	public void setEmpId(String empId) {
 		this.empId = empId;
-	}
-	public Set<Announcement> getAnnouncements() {
-		return announcements;
-	}
-	public void setAnnouncements(Set<Announcement> announcements) {
-		this.announcements = announcements;
-	}
-	public Set<Attendance> getAttendances() {
-		return attendances;
-	}
-	public void setAttendances(Set<Attendance> attendances) {
-		this.attendances = attendances;
-	}
-	public Set<Email> getEmails() {
-		return emails;
-	}
-	public void setEmails(Set<Email> emails) {
-		this.emails = emails;
-	}
-	public Set<Order> getOrders() {
-		return orders;
-	}
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-	public Set<Punch> getPunches() {
-		return punches;
-	}
-	public void setPunches(Set<Punch> punches) {
-		this.punches = punches;
-	}
-	public Set<Salaryslip> getSalaryslips() {
-		return salaryslips;
-	}
-	public void setSalaryslips(Set<Salaryslip> salaryslips) {
-		this.salaryslips = salaryslips;
 	}
 	public String getPasswd() {
 		return passwd;
@@ -132,47 +129,14 @@ public class Employee implements Serializable {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
-	private Set<Order> orders;
-	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
-	private Set<Punch> punches;
-	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
-	private Set<Salaryslip> salaryslips;
-	
-	@Id
-	@Column(name = "empid",columnDefinition="char(11)")
-	private String empId;
-	@Column(name = "passwd")
-	private String passwd;
-	@Column(name = "empname")
-	private String empName;
-	@Column(name = "photo")
-	private String photo;
-	@ManyToOne
-	@JoinColumn(name="apartid",referencedColumnName = "apartid")
-	private Apart aparts;
-	@Column(name = "tel")
-	private String tel;
-	@Column(name = "gender",columnDefinition="ENUM('男','女')")
-	private String gender;
-	@Column(name = "cellphone1",columnDefinition="char(10)")
-	private String cellphone1;
-	@Column(name = "cellphone2",columnDefinition="char(10)")
-	private String cellphone2;
-	@Column(name = "email")
-	private String email;
-	@Column(name = "adm",columnDefinition="ENUM('admin','user')")
-	private String adm;
-	@Column(name = "addr")
-	private String addr;
 	@Override
 	public String toString() {
-		return "Employee [announcements=" + announcements + ", attendances=" + attendances + ", emails=" + emails
-				+ ", orders=" + orders + ", punches=" + punches + ", salaryslips=" + salaryslips + ", empId=" + empId
-				+ ", passwd=" + passwd + ", empName=" + empName + ", photo=" + photo + ", aparts=" + aparts + ", tel="
-				+ tel + ", gender=" + gender + ", cellphone1=" + cellphone1 + ", cellphone2=" + cellphone2 + ", email="
-				+ email + ", adm=" + adm + ", addr=" + addr + "]";
+		return "Employee [empId=" + empId + ", passwd=" + passwd + ", empName=" + empName + ", photo=" + photo
+				+ ", aparts=" + aparts + ", tel=" + tel + ", gender=" + gender + ", cellphone1=" + cellphone1
+				+ ", cellphone2=" + cellphone2 + ", email=" + email + ", adm=" + adm + ", addr=" + addr + "]";
 	}
+
+	
 	
 
 }
