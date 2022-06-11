@@ -6,44 +6,35 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-    <script src="/js/jquery.js"></script>
-    <script src="/js/punch/punch.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-      
-	    .siteMap {
-        width: 100% ;
-        height: 300px;
-        background-color: azure;
-        }
-	</style>
+	<script src="/jQuery/jquery-3.6.0.js"></script>
+	<script src="/js/punch/punch.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/maininterface/punch.css" rel="stylesheet">
 </head>
 
 <body onload="ShowTime()">
 
-
-			<div class="content">
-				<div class="header container  text-center">
-					<div class="col-12">
-						<h5 class=" modal-title" id="staticBackdropLabel">打卡時間</h5>
-						<h6 id="showbox"></h6>
-					</div>
-				</div>
-				<div class="container">
-					<div id="siteMap" class="siteMap "></div>
-				</div>
-				<div class="footer row">
-					<div class="col-2">
-						<button id="punchCancer" type="button" class="btn btn-secondary "
-							>關閉</button>
-					</div>
-					<div class="col-8 ">
-						<button id="punchOK" type="button" class="btn btn-primary">打卡</button>
-					</div>
-				</div>
+	<div class="content">
+		<div class="header container  text-center">
+			<div class="col-12">
+				<h5 class=" modal-title" id="staticBackdropLabel">打卡時間</h5>
+				<h6 id="showbox"></h6>
 			</div>
-	
+		</div>
+		<div class="container">
+			<div id="siteMap" class="siteMap "></div>
+		</div>
+		<br>
+		<div class="footer">	
+			<div class="CancerDiv ">
+				<button id="punchCancer" type="button" class="btn btn-secondary ">關閉</button>&nbsp;&nbsp;
+			</div>
+			<div class="OKDiv">
+				<button id="punchOK" type="button" class="btn btn-primary">打卡</button>&nbsp;&nbsp;
+			</div>
+		</div>
+	</div>
+
 
 	<!-- 打卡 -->
 	<script
@@ -61,16 +52,16 @@
 
 				alert("token:" + getCookie() + "\n" +
 					"位置：" + position.coords.latitude + "  " + position.coords.longitude + "\n" +
-					"時間：" + nowData + " " + nowTime+
-                    "下班卡");
+					"時間：" + nowData + " " + nowTime +
+					"下班卡");
 			})
-            parent.$(".modal").modal("hide");
+			parent.$(".modal").modal("hide");
 		})
 
-        $("#punchCancer").click(function () {
-            parent.$(".modal").modal("hide");
+		$("#punchCancer").click(function () {
+			parent.$(".modal").modal("hide");
 
-        });
+		});
 		//取得位置與顯示googleMap
 		function getMyLocation() {
 			window.initMap = initMap;
