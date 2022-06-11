@@ -6,7 +6,7 @@ function getCookie(){
  $( document ).ready(function() {
     if(document.cookie==""){
       alert("請先登入");
-      window.location.href="/index.html";
+      parent.location.href="/index.html";
     };
     var usertoken = JSON.stringify([{
 				usertoken: getCookie()
@@ -19,7 +19,8 @@ function getCookie(){
 			success: function (data) {
         console.log(data);
         if(data.state=='201'){
-          window.location.href="/index.html";
+          alert("登入時間過長，已自動登出");
+          parent.location.href="/index.html";
         }
 			}
     })
