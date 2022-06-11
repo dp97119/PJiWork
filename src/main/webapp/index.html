@@ -395,7 +395,7 @@
 
 				<div id="login_control" class="row mt-3">
 					<div id="login_control" >
-					<input type="button" id="btn_login" value="登入" onclick="login()" />
+                    <button id="btn_login">登入</button>
 					<a id="forget_pwd" href="還沒寫">忘記密碼？</a>
 				</div>
 			</div>
@@ -436,6 +436,12 @@
 
 
 	<script>
+        $("#btn_login").click(function(){
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span >Loading...</span>`);
+            login();           
+        });
+
 		function login() {
 			var inputData = JSON.stringify([{
 				empId: $("#userEmp").val(),
@@ -453,9 +459,11 @@
 					document.cookie = `cookie1= ${data.token}`;  
 					window.location.href="/CMS_0interface.html";
 					}else if(data.state == "101"){
-					 alert("查無帳號");
+                        $("#btn_login").html('登入');
+					    alert("查無帳號");
 					}else if(data.state == "102"){
-					 alert("密碼錯誤");
+                        $("#btn_login").html('登入');
+					    alert("密碼錯誤");
 					 }
 				}
 			});

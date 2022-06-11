@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- style -->
+    <script src="/jQuery/jquery-3.6.0.js"></script>
+    <script src="/js/usersecurity/userverify.js"></script>
     <link rel="stylesheet" href="/css/maininterface/4.4.1bootstrap.min.css" />
     <link rel="stylesheet" href="/css/maininterface/nueip_style.min.css" />
     <link rel="stylesheet" href="/css/maininterface/header.css" />
@@ -39,8 +41,9 @@
                         <li class="firstLayer free-btn  d-flex align-self-stretch">
                             <a class="mainLink d-flex align-items-center" href="./CMS_0interface.html ">回首頁</a>
                         </li>
-                        <li class="firstLayer free-btn  d-flex align-self-stretch">
-                            <a class="mainLink d-flex align-items-center" href=" " target="_blank">登出</a>
+                        <li class="firstLayer free-btn  d-flex align-self-stretch"> 
+                            <button class="mainLink d-flex align-items-center" href="javascript:void(0)" onclick="logOut()">登出</button>
+                            
                         </li>
                     </ul>
                 </div>

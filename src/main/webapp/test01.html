@@ -60,6 +60,14 @@
 <script type="text/javascript" src="/js/jquery.toast.js"></script>
 
 <script>
+  $(document).ready(function(){
+    if (confirm("你確定提交嗎？")) {  
+      alert("點選了確定");  
+      }  
+      else {  
+      alert("點選了取消");  
+      }  
+  }) 
 
     function findCookie(){
         console.log("ok");

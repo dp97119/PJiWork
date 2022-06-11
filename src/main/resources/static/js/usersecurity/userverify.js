@@ -1,9 +1,9 @@
-function getCookie(){
-  var cookie = document.cookie.split('=');
-  return cookie[1].toString();
-}
- 
- $( document ).ready(function() {
+
+ $( document ).ready(veritfyToken());
+
+ setInterval(veritfyToken, 60*60*1000);
+
+  function veritfyToken() {
     if(document.cookie==""){
       alert("請先登入");
       parent.location.href="/index.html";
@@ -24,4 +24,47 @@ function getCookie(){
         }
 			}
     })
+  }
+
+ //登出用
+  $("#logOutBtn").click(function(){
+    console.log("logout")
+    if (confirm("你確定登出嗎？")) {  
+        deleteCookie();
+        window.location.href="/index.html";
+      }  
+      else {  
+       
+      }  
+      
   });
+  function logOut(){
+    console.log("logout")
+    if (confirm("你確定登出嗎？")) {  
+        deleteCookie();
+        window.location.href="/index.html";
+      }  
+      else {  
+       
+      }  
+    }
+
+  //用於登出
+  function deleteCookie(){
+    console.log("delete");
+    var cookies = document.cookie.split(";");
+         for (var i = 0; i < cookies.length; i++) {
+             var cookie = cookies[i];
+             var eqPos = cookie.indexOf("=");
+             var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+             document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+         }
+    }
+
+  function getCookie(){
+      var cookie = document.cookie.split('=');
+      return cookie[1].toString();
+    }
+
+  
+     
