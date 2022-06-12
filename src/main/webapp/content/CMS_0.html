@@ -100,14 +100,14 @@
                 </div>
                 <div class="myCard col-1" style="top:40px ;">
                     <!-- 上班打卡鈕 -->
-                    <button class="myCardbtn" type="button" data-bs-toggle="modal"
+                    <button id="myCardbtn1" class="myCardbtn" type="button" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropCard1">
                         <b>上班<br>打卡</b>
                     </button>
                 </div>
                 <div class="myCard col-1" style="top:40px ;">
                     <!-- 下班打卡鈕 -->
-                    <button class="myCardbtn" type="button" data-bs-toggle="modal"
+                    <button id="myCardbtn2" class="myCardbtn" type="button" data-bs-toggle="modal"
                         data-bs-target="#staticBackdropCard2">
                         <b>下班<br>打卡</b>
                     </button>
@@ -279,7 +279,7 @@
             </div>
         </dialog>
         <script>
-            $('#notice').on("click",function(){
+            $('#notice').on("click", function () {
                 noticedialog.showModal()
             })
         </script>
@@ -422,11 +422,11 @@
 
         <!-- myCard1 Modal(上班打卡) -->
         <div class="modal fade" id="staticBackdropCard1" data-bs-backdrop="static" data-bs-keyboard="false"
-           tabindex="-1" aria-labelledby="staticBackdropLabelCard1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" >
+            tabindex="-1" aria-labelledby="staticBackdropLabelCard1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content" style="height: 450px;">
-                <!-- 視窗垂直置中 --> 
-                <iframe src="./CMS_punch1.html" style="height: 100%;width:100%;"></iframe>
+                    <!-- 視窗垂直置中 -->
+                    <iframe src="./CMS_punch1.html" style="height: 100%;width:100%;"></iframe>
                 </div>
             </div>
         </div>
@@ -437,7 +437,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <!-- 視窗垂直置中 -->
                 <div class="modal-content" style="height: 450px;">
-                <iframe src="./CMS_punch2.html" style="height: 100%;width:100%;"></iframe>
+                    <iframe src="./CMS_punch2.html" style="height: 100%;width:100%;"></iframe>
                 </div>
             </div>
         </div>

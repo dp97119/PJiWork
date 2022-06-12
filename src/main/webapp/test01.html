@@ -60,14 +60,7 @@
 <script type="text/javascript" src="/js/jquery.toast.js"></script>
 
 <script>
-  $(document).ready(function(){
-    if (confirm("你確定提交嗎？")) {  
-      alert("點選了確定");  
-      }  
-      else {  
-      alert("點選了取消");  
-      }  
-  }) 
+
 
     function findCookie(){
         console.log("ok");
@@ -105,6 +98,7 @@
 <!-- 打卡 -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8gihp9ofr1QTDBTNKMxMMpfOcZiceLs4&callback=initMap&v=weekly" async defer></script>
 <script type="text/javascript">
+  
   $( document ).ready(function() {
     if(document.cookie==""){
       alert("請先登入");
@@ -143,7 +137,7 @@
   })
   //取得位置與顯示googleMap
   function getMyLocation(){
-    window.initMap = initMap;
+    // window.initMap=initMap;
     var options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -159,14 +153,17 @@
       console.log('Longitude: ' + crd.longitude);
       console.log('More or less ' + crd.accuracy + ' meters.');
 
+      
       initMap(crd.latitude, crd.longitude);
-      getDistance(crd.latitude, crd.longitude);
+      getDistance(crd.latitude, crd.longitude);    
+
+
     };
 
     function error(err) {
       console.warn('ERROR(' + err.code + '): ' + err.message);
     };
-    navigator.geolocation.getCurrentPosition(success, error, options);
+    // navigator.geolocation.getCurrentPosition(success, error, options);
 
     function initMap(myLat, myLng) {
       var myLocation = {
@@ -237,7 +234,9 @@
     });
  
   }
-  
+
+
+
 </script>
 
 

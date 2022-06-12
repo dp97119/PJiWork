@@ -1,29 +1,26 @@
 package tw.com.ourProject.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.service.EmployeeService;
-import tw.com.ourProject.utils.JWTUtil;
+import tw.com.ourProject.service.TokenService;
 
 @RestController
 public class SecurityController {
 	@Autowired
 	EmployeeService employeeService;
+	@Autowired
+	TokenService tokenService;
 
 	@PostMapping("/loginAction")
-	public JSONObject LoginAction(@RequestBody String inputdata) {
+	public JSONObject loginAction(@RequestBody String inputdata) {
 		JSONArray jsonArray = JSONObject.parseArray(inputdata);
 		System.out.println(jsonArray);
 		JSONObject obj = null;
@@ -63,4 +60,8 @@ public class SecurityController {
 		
 	}
 
+	@PostMapping("/saveToken")
+	public void saveToken() {
+		tokenService.saveToken("3333OiJIUzUxMiJ9.eyJlbXBJZCI6Iml3b3JrYTAwMDAxIiwicGFzc3dkIjoicm9vdCIsImFkbSI6ImFkbWluIiwiZXhwIjoxNjU0OTYxNDU1fQ.9-zFuJcci8CVo6HN8WxmqQDyCUsKrd0E3RaUcQWohH77Jk24-S3wg5zHAog9zxoEY_nEfQ6pgS5xa04Y_HgwHg");
+	}
 }
