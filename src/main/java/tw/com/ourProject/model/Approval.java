@@ -21,4 +21,32 @@ public class Approval {
 	
 	@Column(name = "approvaltype")
 	private String approvalType;
+
+	public Set<Attendance> getAttendances() {
+		return attendances;
+	}
+
+
+	public Integer getApprovalId() {
+		return approvalId;
+	}
+
+	public void setApprovalId(Integer approvalId) {
+		this.approvalId = approvalId;
+	}
+
+	public String getApprovalType() {
+		return approvalType;
+	}
+
+	public void setApprovalType(String approvalType) {
+		this.approvalType = approvalType;
+	}
+
+	@Override
+	public String toString() {
+		return "Approval [approvalId=" + approvalId + ", approvalType=" + approvalType + "]";
+	}
+	
+	
 }

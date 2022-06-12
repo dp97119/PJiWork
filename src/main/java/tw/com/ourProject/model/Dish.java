@@ -27,6 +27,7 @@ public class Dish {
 
 	@Id
 	@Column(name = "dishid")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer dishId ;
 	
 	@Column(name = "dishitem")

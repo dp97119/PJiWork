@@ -18,8 +18,8 @@ public class Attendance {
 	private Set<Approvalrank> approvalranks;
 	
 	@Id
-	@Column(name = "attendanceid")
-	private Integer attendanceId;
+	@Column(name = "attendanceid",columnDefinition="char(11)")
+	private String attendanceId;
 	
 	@ManyToOne
 	@JoinColumn(name="empid",referencedColumnName = "empid")
