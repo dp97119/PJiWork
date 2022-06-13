@@ -74,7 +74,6 @@ function ShowTime() {
       icon: "/img/MarkRange.png",
       map: map
     });
-    console.log("5OK")
   }
 
 
@@ -111,7 +110,7 @@ $("#punchOK").click(function () {
     alert("token:" + getCookie() + "\n" +
       "位置：" + myLocation.lat + "  " + myLocation.lng + "\n" +
       "時間：" + nowData + " " + nowTime +
-      `${$("#punchOK").val()}`);
+      $(this).val());
   parent.$(".modal").modal("hide");
 });
 
@@ -120,10 +119,10 @@ $("#punchCancer").click(function () {
 });
 
 $(parent.$("#myCardbtn1")).click(function () {
-  console.log("OKKKK")
+  $("#punchOK").val("上班");
   navigator.geolocation.getCurrentPosition(success, error, options);
-  console.log("in")
 })
-// $(parent.$("#myCardbtn2")).click(function () {
-//   navigator.geolocation.getCurrentPosition(success, error, options);
-// })
+$(parent.$("#myCardbtn2")).click(function () {
+  $("#punchOK").val("下班");
+  navigator.geolocation.getCurrentPosition(success, error, options);
+})

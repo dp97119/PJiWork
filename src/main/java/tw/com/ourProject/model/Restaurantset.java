@@ -23,7 +23,7 @@ public class Restaurantset {
 	
 	@ManyToOne
 	@JoinColumn(name="restaurantid",referencedColumnName = "restaurantid")
-	private Restautant restautants;
+	private Restaurant restaurants;
 	
 
 	
