@@ -39,7 +39,6 @@ function ShowTime() {
     setLocation(crd.latitude, crd.longitude);
     getDistance(crd.latitude, crd.longitude);
     initMap();
-
   };
 
   function error(err) {
@@ -75,7 +74,7 @@ function ShowTime() {
       icon: "/img/MarkRange.png",
       map: map
     });
-
+    console.log("5OK")
   }
 
 
@@ -97,13 +96,11 @@ function getDistance(myLat, myLng) {
       }
 
     });
-
 }
 function getCookie() {
   var cookie = document.cookie.split('=');
   return cookie[1].toString();
 }
-
 
 $("#punchOK").click(function () {
 
@@ -115,11 +112,18 @@ $("#punchOK").click(function () {
       "位置：" + myLocation.lat + "  " + myLocation.lng + "\n" +
       "時間：" + nowData + " " + nowTime +
       `${$("#punchOK").val()}`);
-  
   parent.$(".modal").modal("hide");
 });
 
 $("#punchCancer").click(function () {
   parent.$(".modal").modal("hide");
-
 });
+
+$(parent.$("#myCardbtn1")).click(function () {
+  console.log("OKKKK")
+  navigator.geolocation.getCurrentPosition(success, error, options);
+  console.log("in")
+})
+// $(parent.$("#myCardbtn2")).click(function () {
+//   navigator.geolocation.getCurrentPosition(success, error, options);
+// })
