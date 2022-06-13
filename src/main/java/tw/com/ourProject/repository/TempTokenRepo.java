@@ -6,5 +6,6 @@ import tw.com.ourProject.model.Temptoken;
 
 public interface TempTokenRepo extends JpaRepository<Temptoken, Integer>{
 	
-	
+	Boolean existsBy();
+
 }

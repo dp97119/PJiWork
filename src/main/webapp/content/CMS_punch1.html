@@ -30,7 +30,7 @@
 				<button id="punchCancer" type="button" class="btn btn-secondary ">關閉</button>&nbsp;&nbsp;
 			</div>
 			<div class="OKDiv">
-				<button id="punchOK" type="button" class="btn btn-primary">打卡</button>&nbsp;&nbsp;
+				<button id="punchOK" type="button" class="btn btn-primary" value="上班卡">打卡</button>&nbsp;&nbsp;
 			</div>
 		</div>
 	</div>
@@ -41,133 +41,10 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8gihp9ofr1QTDBTNKMxMMpfOcZiceLs4&callback=initMap&v=weekly"
 		async defer></script>
 	<script src="/js/punch/punch.js"></script>
+	<script src="/js/punch/moment.min.js"></script>
+
 	<script type="text/javascript">
 
-		$(parent.$("#myCardbtn1")).click(function () {
-			getMyLocation();
-		})
-		function getCookie() {
-			var cookie = document.cookie.split('=');
-			return cookie[1].toString();
-		}
-
-		$("#punchOK").click(function () {
-
-			navigator.geolocation.getCurrentPosition(function (position) {
-				let date = new Date();
-				var nowData = date.toLocaleString().split(" ")[0];
-				var nowTime = date.toLocaleString().split(" ")[1];
-				console.log(date);
-
-				alert("token:" + getCookie() + "\n" +
-					"位置：" + position.coords.latitude + "  " + position.coords.longitude + "\n" +
-					"時間：" + nowData + " " + nowTime +
-					"上班卡");
-			})
-			parent.$(".modal").modal("hide");
-		})
-
-		$("#punchCancer").click(function () {
-			parent.$(".modal").modal("hide");
-
-		});
-		//取得位置與顯示googleMap
-		function getMyLocation() {
-			window.initMap = initMap;
-			navigator.geolocation.getCurrentPosition(success, error, options);
-
-			var options = {
-				enableHighAccuracy: true,
-				timeout: 5000,
-				maximumAge: 0
-			};
-
-			function success(pos) {
-
-				var crd = pos.coords;
-
-				console.log('Your current position is:');
-				console.log('Latitude : ' + crd.latitude);
-				console.log('Longitude: ' + crd.longitude);
-				console.log('More or less ' + crd.accuracy + ' meters.');
-
-				initMap(crd.latitude, crd.longitude);
-				getDistance(crd.latitude, crd.longitude);
-			};
-
-			function error(err) {
-				console.warn('ERROR(' + err.code + '): ' + err.message);
-			};
-
-			function initMap(myLat, myLng) {
-				var myLocation = {
-					lat: myLat,
-					lng: myLng
-				};
-				map = new google.maps.Map(document.getElementById("siteMap"), {
-					//設置地圖樣式
-					center: myLocation,
-					zoom: 15,
-					mapTypeId: 'terrain',
-					scrollwheel: false,
-					mapTypeControl: false,
-					zoomControl: false,
-					scaleControl: false,
-					streetViewControl: false,
-					rotateControl: false,
-					fullscreenControl: false
-				});
-				// Mark位置
-				var marker = new google.maps.Marker({
-					position: myLocation,
-					map: map
-				});
-				var myRangeLocation = {
-					lat: myLat - 0.0035,
-					lng: myLng
-				};
-				var markerRange = new google.maps.Marker({
-					position: myRangeLocation,
-					icon: "/img/MarkRange.png",
-					map: map
-				});
-
-			}
-
-		}
-		//顯示當前時間
-		function ShowTime() {
-			var NowDate = new Date();
-			var yy = NowDate.getFullYear();
-			var mm = ('0' + (NowDate.getMonth() + 1)).slice(-2);
-			var dd = ('0' + NowDate.getDate()).slice(-2);
-			var h = ('0' + NowDate.getHours()).slice(-2);
-			var m = ('0' + NowDate.getMinutes()).slice(-2);
-			var s = ('0' + NowDate.getSeconds()).slice(-2);
-			document.getElementById('showbox').innerHTML = yy + '年' + mm + '月' + dd + '日' + '   ' + h + ':' + m + ':' + s;
-			setTimeout('ShowTime()', 1000);
-		}
-		//計算googleMap 打卡點與公司的距離
-		function getDistance(myLat, myLng) {
-			var origin1 = new google.maps.LatLng(24.15062949399325, 120.65117611577809); // 公司位置
-			var myLocation = new google.maps.LatLng(myLat, myLng); // 打卡位置
-			var service = new google.maps.DistanceMatrixService();
-			service.getDistanceMatrix(
-				{
-					origins: [origin1],
-					destinations: [myLocation],
-					travelMode: 'WALKING', // 交通方式：BICYCLING(自行車)、DRIVING(開車，預設)、TRANSIT(大眾運輸)、WALKING(走路)
-					unitSystem: google.maps.UnitSystem.METRIC, // 單位 METRIC(公里，預設)、IMPERIAL(哩)
-				}, function (response, status) {
-					if (status !== google.maps.DistanceMatrixStatus.OK) {
-						window.alert('Error was' + status);
-					} else {
-						console.log(response.rows[0].elements[0].distance);
-					}
-
-				});
-
-		}
 
 	</script>
 

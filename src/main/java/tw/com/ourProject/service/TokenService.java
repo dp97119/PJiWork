@@ -15,7 +15,9 @@ public class TokenService {
 	
 	public void saveToken(String userToken) {
 //		tempToken.setTokenId(1);
-		tempToken.setTokenValue(userToken);
-		tempTokenRepo.save(tempToken);
+//		tempToken.setTokenValue(userToken);
+//		tempTokenRepo.save(tempToken);
+		Boolean rs = tempTokenRepo.existsBy();
+		System.out.println(rs);
 	}
 }
