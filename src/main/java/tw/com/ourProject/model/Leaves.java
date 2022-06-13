@@ -21,4 +21,29 @@ public class Leaves {
 	
 	@Column(name = "leavetype")
 	private String leaveType;
+
+
+	public Integer getLeaveId() {
+		return leaveId;
+	}
+
+	public void setLeaveId(Integer leaveId) {
+		this.leaveId = leaveId;
+	}
+
+	public String getLeaveType() {
+		return leaveType;
+	}
+
+	public void setLeaveType(String leaveType) {
+		this.leaveType = leaveType;
+	}
+
+	@Override
+	public String toString() {
+		return "Leaves [ leaveId=" + leaveId + ", leaveType=" + leaveType + "]";
+	}
+	
+	
+	
 }
