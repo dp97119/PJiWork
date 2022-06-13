@@ -23,4 +23,5 @@ public class TokenService {
 	public void deleteToken(String userToken) {
 		tempTokenRepo.deleteByTokenValue(userToken);
 	}
+	
 }

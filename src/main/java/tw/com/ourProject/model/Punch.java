@@ -23,15 +23,70 @@ public class Punch {
 	private String status;
 	
 	@Column(name = "time")
-	private java.util.Date time;
+	private String time;
 	
-	@ManyToOne
-	@JoinColumn(name="person",referencedColumnName = "empid")
-	private Employee employees;
+	@Column(name = "empid",columnDefinition="char(11)")
+	private String empId;
 	
 	@Column(name = "locationlat")
 	private String locationLat;
 	
 	@Column(name = "locationlng")
 	private String locationLng;
+
+	@Override
+	public String toString() {
+		return "Punch [punchId=" + punchId + ", status=" + status + ", time=" + time + ", empId=" + empId
+				+ ", locationLat=" + locationLat + ", locationLng=" + locationLng + "]";
+	}
+
+	public Integer getPunchId() {
+		return punchId;
+	}
+
+	public void setPunchId(Integer punchId) {
+		this.punchId = punchId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(String empId) {
+		this.empId = empId;
+	}
+
+	public String getLocationLat() {
+		return locationLat;
+	}
+
+	public void setLocationLat(String locationLat) {
+		this.locationLat = locationLat;
+	}
+
+	public String getLocationLng() {
+		return locationLng;
+	}
+
+	public void setLocationLng(String locationLng) {
+		this.locationLng = locationLng;
+	}
+	
+	
 }
