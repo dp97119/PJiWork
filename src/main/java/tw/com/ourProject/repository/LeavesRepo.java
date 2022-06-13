@@ -1,9 +1,11 @@
 package tw.com.ourProject.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import tw.com.ourProject.model.Approval;
+import tw.com.ourProject.model.Leaves;
 
-public interface ApprovalRepo extends JpaRepository<Approval, Integer>{
+@Repository
+public interface LeavesRepo extends JpaRepository<Leaves, Integer>{
 
 }

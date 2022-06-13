@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import tw.com.ourProject.model.Approval;
-import tw.com.ourProject.repository.ApprovalRepo;
+import tw.com.ourProject.model.Leaves;
+import tw.com.ourProject.repository.LeavesRepo;
 
 @Service
-public class ApprovalService {
+public class LeavesService {
 	@Autowired
-	public ApprovalRepo approvalRepo;
+	public LeavesRepo leavesRepo;
 	
-	public List<Approval> findApproval() {
-		return approvalRepo.findAll();
+	public List<Leaves> findLeaves() {
+		return leavesRepo.findAll();
 	}
 }
