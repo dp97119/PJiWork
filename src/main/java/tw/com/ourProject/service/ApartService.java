@@ -15,7 +15,5 @@ public class ApartService {
 	
 	public List<Apart> findApart(){
 		return apartRepo.findAll();
-
-		
 	}
 }
