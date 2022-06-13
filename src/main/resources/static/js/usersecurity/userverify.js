@@ -1,70 +1,64 @@
 
- $( document ).ready(veritfyToken());
+$(document).ready(veritfyToken());
 
- setInterval(veritfyToken, 60*60*1000);
+setInterval(veritfyToken, 60 * 60 * 1000);
 
-  function veritfyToken() {
-    if(document.cookie==""){
-      alert("請先登入");
-      parent.location.href="/index.html";
-    };
+function veritfyToken() {
+  if (document.cookie == "") {
+    alert("請先登入");
+    parent.location.href = "/index.html";
+  };
+  var usertoken = JSON.stringify([{
+    usertoken: getCookie()
+  }]);
+  $.ajax({
+    type: "post",
+    url: "http://localhost:8080/loginAction/1",
+    data: usertoken,
+    contentType: 'application/json',
+    success: function (data) {
+      console.log(data);
+      if (data.state == '201') {
+        alert("登入時間過長，已自動登出");
+        parent.location.href = "/index.html";
+      }
+    }
+  })
+}
+
+function logOut() {
+  if (confirm("你確定登出嗎？")) {
     var usertoken = JSON.stringify([{
-				usertoken: getCookie()
-			}]);
+      userToken: getCookie()
+    }]);
     $.ajax({
       type: "post",
-			url: "http://localhost:8080/loginAction/1",
-			data: usertoken,
-			contentType: 'application/json',
-			success: function (data) {
-        console.log(data);
-        if(data.state=='201'){
-          alert("登入時間過長，已自動登出");
-          parent.location.href="/index.html";
-        }
-			}
-    })
+      url: "/logOut",
+      contentType: 'application/json',
+      data: usertoken,
+      success: function () {
+        deleteCookie();
+        window.location.href = "/index.html";
+      }
+    });
   }
+}
 
- //登出用
-  $("#logOutBtn").click(function(){
-    console.log("logout")
-    if (confirm("你確定登出嗎？")) {  
-        deleteCookie();
-        window.location.href="/index.html";
-      }  
-      else {  
-       
-      }  
-      
-  });
-  function logOut(){
-    console.log("logout")
-    if (confirm("你確定登出嗎？")) {  
-        deleteCookie();
-        window.location.href="/index.html";
-      }  
-      else {  
-       
-      }  
-    }
+function deleteCookie() {
+  console.log("delete");
+  var cookies = document.cookie.split(";");
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    var eqPos = cookie.indexOf("=");
+    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  }
+}
 
-  //用於登出
-  function deleteCookie(){
-    console.log("delete");
-    var cookies = document.cookie.split(";");
-         for (var i = 0; i < cookies.length; i++) {
-             var cookie = cookies[i];
-             var eqPos = cookie.indexOf("=");
-             var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-             document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-         }
-    }
+function getCookie() {
+  var cookie = document.cookie.split('=');
+  return cookie[1].toString();
+}
 
-  function getCookie(){
-      var cookie = document.cookie.split('=');
-      return cookie[1].toString();
-    }
 
-  
-     
+
