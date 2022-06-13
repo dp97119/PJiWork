@@ -22,13 +22,6 @@ function ShowTime() {
   setTimeout('ShowTime()', 1000);
 }
 
-
-//取得位置與顯示googleMap
-$(parent.$("#myCardbtn1")).click(function () {
-  console.log(parent.$("#myCardbtn1").html());
-  navigator.geolocation.getCurrentPosition(success, error, options);
-})
-
   var options = {
     enableHighAccuracy: true,
     timeout: 5000,
