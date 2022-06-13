@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import tw.com.ourProject.repository.TempTokenRepo;
 import tw.com.ourProject.service.EmployeeService;
 import tw.com.ourProject.service.TokenService;
 
@@ -60,8 +61,16 @@ public class SecurityController {
 		
 	}
 
-	@PostMapping("/saveToken")
-	public void saveToken() {
-		tokenService.saveToken("3333OiJIUzUxMiJ9.eyJlbXBJZCI6Iml3b3JrYTAwMDAxIiwicGFzc3dkIjoicm9vdCIsImFkbSI6ImFkbWluIiwiZXhwIjoxNjU0OTYxNDU1fQ.9-zFuJcci8CVo6HN8WxmqQDyCUsKrd0E3RaUcQWohH77Jk24-S3wg5zHAog9zxoEY_nEfQ6pgS5xa04Y_HgwHg");
+	@PostMapping("/countToken")
+	public JSONObject countToken() {
+		JSONObject obj = new JSONObject();
+		obj.put("countRs",tokenService.countToken().toString());
+		return obj;
+	}
+	
+	@PostMapping("/logOut")
+	public void logOut(@RequestBody String userToken) {
+		String obj = JSONObject.parseArray(userToken).getJSONObject(0).get("userToken").toString();
+		tokenService.deleteToken(obj);
 	}
 }
