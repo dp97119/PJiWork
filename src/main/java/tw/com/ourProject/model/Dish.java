@@ -1,33 +1,26 @@
 package tw.com.ourProject.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Embeddable
 @Entity
 @Table(name="dish")
 @EntityListeners(AuditingEntityListener.class)
-public class Dish implements Serializable {
-
+public class Dish {
+	
 	@Id
 	@Column(name = "dishid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +35,8 @@ public class Dish implements Serializable {
 	@Column(name = "dishprice")
 	private Integer dishPrice ;
 	
-	@ManyToOne
-	@JoinColumn(name="restaurantid",referencedColumnName = "restaurantid")
-	private Restaurant restaurants;
+	@Column(name="restaurantid")
+	private Integer restaurantid;
 	
 	
 	@Column(name = "createperson",columnDefinition="char(11)")
@@ -62,13 +54,6 @@ public class Dish implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "createdate")
 	private Date createDate ;
-
-	@Override
-	public String toString() {
-		return "Dish [dishId=" + dishId + ", dishItem=" + dishItem + ", dishPhoto=" + dishPhoto + ", dishPrice="
-				+ dishPrice + ", restautants=" + restaurants + ", createPerson=" + createPerson + ", updatePerson="
-				+ updatePerson + ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
-	}
 
 	public Integer getDishId() {
 		return dishId;
@@ -102,12 +87,12 @@ public class Dish implements Serializable {
 		this.dishPrice = dishPrice;
 	}
 
-	public Restaurant getRestautants() {
-		return restaurants;
+	public Integer getRestaurantid() {
+		return restaurantid;
 	}
 
-	public void setRestautants(Restaurant restautants) {
-		this.restaurants = restautants;
+	public void setRestaurantid(Integer restaurantid) {
+		this.restaurantid = restaurantid;
 	}
 
 	public String getCreatePerson() {
@@ -126,22 +111,13 @@ public class Dish implements Serializable {
 		this.updatePerson = updatePerson;
 	}
 
-	public Date getUpdateDate() {
-		return updateDate;
+	@Override
+	public String toString() {
+		return "Dish [dishId=" + dishId + ", dishItem=" + dishItem + ", dishPhoto=" + dishPhoto + ", dishPrice="
+				+ dishPrice + ", restaurantid=" + restaurantid + ", createPerson=" + createPerson + ", updatePerson="
+				+ updatePerson + ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
 	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
+	
 	
 
 }

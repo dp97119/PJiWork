@@ -26,11 +26,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name="restaurant")
 @EntityListeners(AuditingEntityListener.class)
 public class Restaurant {
-	@OneToMany(mappedBy = "restaurants",cascade = CascadeType.ALL)
-	private Set<Dish> dishes;
-	@OneToMany(mappedBy = "restaurants",cascade = CascadeType.ALL)
-	private Set<Restaurantset> restaurantsets;
-	
+//	@OneToMany(mappedBy = "restaurants",cascade = CascadeType.ALL)
+//	private Set<Dish> dishes;
+//	@OneToMany(mappedBy = "restaurants",cascade = CascadeType.ALL)
+//	private Set<Restaurantset> restaurantsets;
+//	
 	@Id
 	@Column(name = "restaurantid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,15 +62,12 @@ public class Restaurant {
 	@Column(name = "createdate")
 	private Date createDate ;
 
-	
-
 	@Override
 	public String toString() {
-		return "Restautant [restaurantId=" + restaurantId + ", restaurantName=" + restaurantName + ", tel=" + tel
+		return "Restaurant [restaurantId=" + restaurantId + ", restaurantName=" + restaurantName + ", tel=" + tel
 				+ ", addr=" + addr + ", createPerson=" + createPerson + ", updatePerson=" + updatePerson
 				+ ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
 	}
-
 
 	public Integer getRestaurantId() {
 		return restaurantId;
@@ -119,6 +116,6 @@ public class Restaurant {
 	public void setUpdatePerson(String updatePerson) {
 		this.updatePerson = updatePerson;
 	}
-	
+
 	
 }
