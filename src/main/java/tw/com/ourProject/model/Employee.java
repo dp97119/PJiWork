@@ -22,6 +22,10 @@ public class Employee implements Serializable {
 	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Attendance> attendances;
 	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+	private Set<Approvalset> approvalsets;
+	@OneToMany(mappedBy = "employee",cascade = CascadeType.ALL)
+	private Set<Approvalset> approvalset;
+	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Email> emails;
 	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Order> orders;

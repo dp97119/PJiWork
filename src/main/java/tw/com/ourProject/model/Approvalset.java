@@ -20,8 +20,11 @@ public class Approvalset {
 	
 	@ManyToOne
 	@JoinColumn(name="firstapproval",referencedColumnName = "empid")
-	@JoinColumn(name="secondapproval",referencedColumnName = "empid")
 	private Employee employees;
+	
+	@ManyToOne
+	@JoinColumn(name="secondapproval",referencedColumnName = "empid")
+	private Employee employee;
 
 	public Integer getApprovalSetId() {
 		return approvalSetId;
@@ -47,10 +50,22 @@ public class Approvalset {
 		this.employees = employees;
 	}
 
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
 	@Override
 	public String toString() {
-		return "Approvalset [approvalSetId=" + approvalSetId + ", aparts=" + aparts + ", employees=" + employees + "]";
+		return "Approvalset [approvalSetId=" + approvalSetId + ", aparts=" + aparts + ", employees=" + employees
+				+ ", employee=" + employee + "]";
 	}
+
+
+	
 	
 	
 
