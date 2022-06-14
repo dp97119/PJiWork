@@ -108,7 +108,7 @@ $("#punchOK").click(function () {
   var punchInfo = JSON.stringify([{
     status: $(this).val(),
     time: date,
-    empId: getCookie(),
+    person: getCookie(),
     locationLat: myLocation.lat,
     locationLng: myLocation.lng,
   }]);
@@ -117,11 +117,14 @@ $("#punchOK").click(function () {
     type: "post",
     url: "http://localhost:8080/Punch/saveInfo",
     data: punchInfo,
+    contentType: 'application/json',
     success: function () {
       alert("打卡成功");
       $.ajax({
         type: "post",
         url: "http://localhost:8080/Punch/getInfo",
+        data : JSON.stringify([{person : getCookie()}]),
+        contentType: 'application/json',
         success: function (){
           alert("拿到資料");
         }

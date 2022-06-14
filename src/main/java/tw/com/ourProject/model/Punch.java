@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="punch")
 public class Punch {
@@ -22,11 +24,12 @@ public class Punch {
 	@Column(name = "status",columnDefinition="ENUM('上班','下班')")
 	private String status;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "time")
 	private Date time;
 	
 	@Column(name = "person",columnDefinition="char(11)")
-	private String empId;
+	private String person;
 	
 	@Column(name = "locationlat")
 	private String locationLat;
@@ -36,7 +39,7 @@ public class Punch {
 
 	@Override
 	public String toString() {
-		return "Punch [punchId=" + punchId + ", status=" + status + ", time=" + time + ", empId=" + empId
+		return "Punch [punchId=" + punchId + ", status=" + status + ", time=" + time + ", person=" + person
 				+ ", locationLat=" + locationLat + ", locationLng=" + locationLng + "]";
 	}
 
@@ -65,11 +68,11 @@ public class Punch {
 	}
 
 	public String getEmpId() {
-		return empId;
+		return person;
 	}
 
-	public void setEmpId(String empId) {
-		this.empId = empId;
+	public void setEmpId(String person) {
+		this.person = person;
 	}
 
 	public String getLocationLat() {
