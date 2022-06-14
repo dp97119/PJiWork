@@ -1,12 +1,12 @@
 package tw.com.ourProject.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,9 +23,9 @@ public class Punch {
 	private String status;
 	
 	@Column(name = "time")
-	private String time;
+	private Date time;
 	
-	@Column(name = "empid",columnDefinition="char(11)")
+	@Column(name = "person",columnDefinition="char(11)")
 	private String empId;
 	
 	@Column(name = "locationlat")
@@ -56,11 +56,11 @@ public class Punch {
 		this.status = status;
 	}
 
-	public String getTime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 

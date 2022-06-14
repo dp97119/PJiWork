@@ -25,8 +25,8 @@ public class Employee implements Serializable {
 	private Set<Email> emails;
 	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Order> orders;
-	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
-	private Set<Punch> punches;
+//	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+//	private Set<Punch> punches;
 	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Salaryslip> salaryslips;
 	

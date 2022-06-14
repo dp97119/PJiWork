@@ -14,7 +14,7 @@ public class PunchService {
 	@Autowired
 	public PunchRepo punchRepo;
 	
-	public void savePunchInfo(String status,String time,String empId,String locationLat,String locationLng) {
+	public void savePunchInfo(String status,Date time,String empId,String locationLat,String locationLng) {
 		Punch punchInfo = new Punch();
 		punchInfo.setStatus(status);
 		punchInfo.setTime(time);
