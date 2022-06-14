@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!-- 
+                                                     __----~~~~~~~~~~~------___
+                                    .  .   ~~//====......          __--~ ~~
+                    -.            \_|//     |||\\  ~~~~~~::::... /~
+                 ___-==_       _-~o~  \/    |||  \\            _/~~-
+         __---~~~.==~||\=_    -_--~/_-~|-   |\\   \\        _/~
+     _-~~     .=~    |  \\-_    '-~7  /-   /  ||    \      /
+   .~       .~       |   \\ -_    /  /-   /   ||      \   /
+  /  ____  /         |     \\ ~-_/  /|- _/   .||       \ /
+  |~~    ~~|--~~~~--_ \     ~==-/   | \~--===~~        .\
+           '         ~-|      /|    |-~\~~       __--~~
+                       |-~~-_/ |    |   ~\_   _-~            /\
+                            /  \     \__   \/~                \__
+                        _--~ _/ | .-~~____--~-/                  ~~==.
+                       ((->/~   '.|||' -_|    ~~-/ ,              . _||
+                                  -_     ~\      ~~---l__i__i__i--~~_/
+                                  _-~-__   ~)  \--______________--~~
+                                //.-~~~-~_--~- |-------~~~~~~~~
+                                       //.-~~~--\
+                                神獸保佑，程式碼沒Bug! 
+-->
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="/code/jquery-3.6.0.js"></script>
+   <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+   <script src="/code/bootstrap-5.2.0-beta1-dist/css/bootstrap.css"></script>
+   <script src="/code/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js"></script>
+   <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+   <link rel="stylesheet" href="style.css">
+   <title>Orderpage</title>
+   <style type="text/css">
+      #DIV1 {
+         width: 50%;
+         /*DIV區塊寬度*/
+         height: 800px;
+         /*DIV區塊高度*/
+         /* padding:20px;          DIV區塊內距，參閱：CSS padding 內距。 */
+         background-color: gainsboro;
+         /*DIV區塊邊框，參閱：CSS border 邊框設計。*/
+         /* margin-right:10px;     靠右外距，參閱：CSS margin 邊界使用介紹範例教學。 */
+         float: left;
+      }
+
+      #DIV2 {
+         width: 50%;
+         /*DIV區塊寬度*/
+         height: 800px;
+         /*DIV區塊高度*/
+         /* padding:20px;          DIV區塊內距，參閱：CSS padding 內距。 */
+         background-color: grey;
+         float: right;
+      }
+      #menus{
+         display: flex ;
+         flex-wrap: wrap;
+      }
+      .menu{
+         margin: 0px 10px ;
+      }
+      
+   </style>
+
+
+
+</head>
+
+<body>
+   <!-- header + 日期＆餐廳option -->
+   <header class="header" style="display:table;width:100%;background-color: gainsboro;font-size: 30px;">訂餐系統</header>
+   <ul class="" style="margin:auto"></ul>
+   <div class="" style="width: fit-content;"></div>
+   <p style="font-size: 25px;">今日餐廳：
+
+   <div style="text-align:right;">
+      <input type="button" value="訂餐紀錄" style="font-size: 20px;" />
+   </div>
+
+   <!-- 左邊DIV1菜單區 -->
+   <div id="DIV1">
+      <h2 style="margin-left:20px;color: black;">菜單區</h2>
+      <br>
+      <div id="menus" class="container"></div>
+
+      <!-- 菜單數量增加、減少 -->
+      <script>
+         function adder(a) {
+            var tmp = document.getElementById(`dish_qty${a}`).innerHTML;
+            tmp++;
+            document.getElementById(`dish_qty${a}`).innerHTML = tmp;
+         }
+         function minuser(a) {
+            var tmp = document.getElementById(`dish_qty${a}`).innerHTML;
+            tmp = tmp - 1;
+            if (tmp < 0) { tmp = 0 }
+            document.getElementById(`dish_qty${a}`).innerHTML = tmp;
+         }
+
+         function addcart() {
+            var jsonObj = [];
+            var tempPrdList = [];
+            for (i = 1; i < 4; i++) {    //數字要改成菜單的數量
+               var allcounter = document.getElementById(`dish_qty${i}`).innerHTML;
+               if (allcounter != 0) {
+                  tempPrdList.push(allcounter)
+               }
+            }
+            for (i = 0, j = tempPrdList.length; i < j; i++) {
+               var obj = new Object;
+               obj.dishId = tempPrdList[i];  //key=id   //待處理：資料無法回傳完整
+               jsonObj.push(obj);
+            }
+            console.log(JSON.stringify(jsonObj));
+         }
+      </script>
+      <script>
+      var menu;
+      window.onload = function(){
+         $.ajax({
+            type:"get",
+            url:"http://localhost:8080/getMenu",
+            success:function(testData){
+               
+               var left_menu = document.getElementById("menus");
+
+         for(var i=0; i <testData.length; i++){
+            menu = document.createElement("div");
+            menu.setAttribute("class","menu")
+
+            var data = testData[i];
+            menu.innerHTML += `<img src="${testData[i].dishPhoto}" width="110" height="110" alt="${testData[i].dishItem}" title="${testData[i].dishItem}" class="pic row" />`
+            menu.innerHTML += `<div class="row">`;
+            menu.innerHTML += `<input id="dish_minus${testData[i].dishId}" type="button" onclick="minuser(${testData[i].dishId})"" value=" - " style="font-size: 20px;" />`;
+            menu.innerHTML += `<type id="dish_qty${testData[i].dishId}" style="font-size: 15px; margin-left: 15px;margin-right: 15px;">0</type>`;
+            menu.innerHTML += `<input id="dish_add${testData[i].dishId}" type="button" onclick="adder(${testData[i].dishId})" value=" + " style="font-size: 19px;" /></div>`;
+            menu.innerHTML += `<p class="row" style="margin-top: 0px; font-size:15px; margin-left: 15px;">${testData[i].dishItem}</p>`;
+            menu.innerHTML += `<p class="row" style=" margin-top: -15px;font-size:15px; margin-left: 15px;">$${testData[i].dishPrice}</p>`;
+            left_menu.appendChild(menu);
+                  }
+               }
+            })
+         };
+
+         // 添加購物車按鈕添增事件
+            // var submit1 = getClass(app, "add_btn"); //左邊選取之菜單添加至購物車
+            //       var number = 0;  //初始化數量
+            //       for(var i=0;i<submit1.length; i++){
+            //          number++;
+            //          submit1[i].index = i ;
+            //          submit[i].onclick = function(){
+            //                var DIV1 = document.createElement("div");
+            //                var data = testData[this.index];
+            //                DIV1.className = "row hid";
+            //                DIV1.innerHTML +='<div class="div1_name"><span>'+data["dishItem"]+'</span></div>';
+            //                DIV1.innerHTML +='<div class="div1_price"><span>'+data["dishPrice"]+'</span></div>'
+            //                DIV1.innerHTML +='<div class="pic"><span>'+data["dishPhoto"]+'</span></div>'
+            //                app.appendChild(DIV1);
+            //          }
+            //       }
+
+
+      </script>
+
+      <hr>
+      <br>
+      <!-- 左方DIV1下單btn -->
+      <div>
+         <button type="button" id="addcart" style="width: 80%; height: 40px; font-size: 20px; ">加入右方購物車</button>
+      </div>
+      <script>
+         $("#addcart").click(function(){
+            for (i=1; i< 8 ; i++){
+            var dish_qty = document.getElementById(`dish_qty${i}`);
+            console.log(dish_qty.innerHTML);
+            }
+         })
+      </script>
+
+
+      <!-- // let btn=document.querySelector("#submit");
+               // let inforesult=document.querySelector("#inforesult");
+               // let close=document.querySelector("#close");
+               //    btn.addEventListener("click", function(){
+               //       inforesult.showModal();
+               //    })
+               //  close.addEventListener("click", function(){  //待處理：目前close沒反應
+               //    //    inforesult.close();
+               //    $(document).ready(function(){
+               //    $('.btn-close').click(function(){
+               //          $('.submit').hide();
+               //    })
+               // }) -->
+
+
+
+
+   </div>
+
+   <!-- 右邊DIV2下單區 -->
+   <div id="DIV2">
+      <h2 style="margin-left:20px;color: black;">購物車下單區</h2>
+      <div id="app">
+         <div class="container">
+            <div class="item_header">
+               <div class="item_detail">商品</div>
+               <div class="price">單價</div>
+               <div class="count">數量</div>
+               <div class="amount">總計</div>
+               <div class="operate">操作</div>
+            </div>
+            <div class="item_container" v-for="(item, index) in itemList" :key="dish.dishIid">
+               <div class="item_header item_body">
+                  <div class="item_detail">
+
+                     <!-- <img v-bind:src="item.imgUrl" alt=""> -->
+                     <div class="dishName">{{dish.dishName}}</div>
+                  </div>
+
+                  <div class="dishPrice"><span>$</span>{{dishPrice}}</div>
+                  <div class="dishqty">
+                     <button onclick="minuser(item)">-</button>
+                     {{dish.dishqty}}
+                     <button onclick="adder(item)">+</button>
+                  </div>
+                  <div class="amount">{{dish.Price * dish.dishqty}}</div>
+                  <div class="operate">
+                     <button onclick="handledelete(index)">刪除</button>
+                  </div>
+               </div>
+            </div>
+
+
+         </div>
+      </div>
+
+      <script>
+         //商品選取框
+         var check = oDiv.firstChild.getElementsByTagName("i")[0];
+         check.onclick = function () {
+            // console.log(check.className);
+            if (check.className == "i_check i_acity") {
+               check.classList.remove("i_acity");
+
+            } else {
+               check.classList.add("i_acity");
+            }
+            getAmount();
+         }
+
+         //進行價格計算
+         function getAmount() {
+            //獲取選取的選擇框
+            ns = document.getElementsByClassName("i_acity");
+            //初始化總價
+            sum = 0;
+            //選取框
+            document.getElementById("price_num").innerText = sum;
+            for (y = 0; y < ns.length; y++) {
+               //小計
+               amount_info = ns[y].parentElement.parentElement.lastElementChild.previousElementSibling;
+               num = parseInt(amount_info.innerText);
+               sum += num;
+               document.getElementById("price_num").innerText = sum;
+            }
+         }
+            //   methods:{
+            //    handlePlus: function(item){
+            //    item.count++;
+            //    },
+            //    handleSub: function(item){
+            //       if(item.count>1){
+            //       item.count--;
+            //       }
+            //    },
+            //    handledelete: function(index){
+            //       console.log(this);
+            //       this.itemList.splice(index,1);
+            //       }
+            //    },
+            //       computed:{
+            //       }
+            //    })
+      </script>
+
+
+
+
+      <div id="submit2">
+         <div type="button" style="width: 80%; height: 40px; font-size: 20px;">我要下單</div>
+         <div id="pay_amount">合計：<span id="price-num">0</span></div>
+         <dialog class="inforesult" title="請確認購物車數量唷！">
+            <dialog class="dialog1">謝謝訂購！</dialog>
+
+      </div>
+   </div>
+
+   <script>
+      btn.onclick = function () {
+         $("#submit1").appendTo("#DIV2");
+      }
+
+
+      $(function () {
+         $("#dialog1").dialog({
+            autoOpen: false,
+         });
+
+         $("#submit2").on("click", function () {
+            $("#dialog1").dialog("open");
+         });
+      });
+   </script>
+
+
+
+
+</body>
+
+</html>
