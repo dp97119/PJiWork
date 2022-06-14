@@ -1,13 +1,64 @@
-$(function(){
+$(function () {
     $.ajax({
-        url:"http://localhost:8080/apart/",
-        type:"GET",
-        success:function(data){
-            $.each(data,function(){
-                var option = $("<option>"+this.apart+"</option>");
+        url: "http://localhost:8080/apart/",
+        type: "GET",
+        success: function (data) {
+            $.each(data, function () {
+                var option = $("<option value=" + this.apartId + ">" + this.apart + "</option>");
                 option.appendTo("#aparts");
-                console.log("OK");
             })
         }
     })
 })
+
+// 第一審核人員
+$("#aparts").change(function () {
+    var selectaparts = $("#aparts").find("option:selected").val();
+    if (selectaparts != 0) {
+        $("#reviewerone").empty().append("<option></option>");
+        $("#reviewertwo").empty().append("<option></option>");
+        $.ajax({
+            url: "http://localhost:8080/setAdm/",
+            type: "GET",
+            success: function (data) {
+                $.each(data, function () {
+                    if (selectaparts == this.aparts.apartId && (this.adm) == "admin") {
+                        var option1 = $("<option>" + this.empName + "</option>");
+                        option1.appendTo("#reviewerone");
+                    }
+                })
+            }
+        })
+    }else{
+        $("#reviewerone").empty().append("<option></option>");
+        $("#reviewertwo").empty().append("<option></option>");
+    }
+})
+
+// 第二審核人員
+$("#aparts").change(function () {
+    var selectaparts = $("#aparts").find("option:selected").val();
+    if (selectaparts != 0) {
+        $("#reviewerone").empty().append("<option></option>");
+        $("#reviewertwo").empty().append("<option></option>");
+        $.ajax({
+            url: "http://localhost:8080/setAdm/",
+            type: "GET",
+            success: function (data) {
+                $.each(data, function () {
+                    if (this.aparts.apartId == "1" || this.aparts.apartId == "2") {
+                        var option2 = $("<option>" + this.empName + "</option>");
+                        option2.appendTo("#reviewertwo");
+                    }
+                })
+            }
+        })
+    }else{
+        $("#reviewerone").empty().append("<option></option>");
+        $("#reviewertwo").empty().append("<option></option>");
+    }
+})
+
+
+
+
