@@ -82,7 +82,7 @@
 					</div>
 					<br>
 					<div>
-						<input type="submit" value="確定" class="btnStyle"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" value="確定" class="btnStyle" id="sendbtn"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" value="取消" id="cancelbtn" class="btnStyle"></input>
 					</div>
 				</div>
@@ -91,6 +91,7 @@
 	</div>
 	<script src="/js/apart/apart.js"></script>
 	<script src="/js/reviewer/reviewer.js"></script>
+	<script src="/js/approvalset/approvalset.js"></script>
 	<script>
 		$("#cancelbtn").on("click", function() {
 			var yes = confirm("你確定取消嗎?");
@@ -100,6 +101,8 @@
 				console.log("取消")
 			}
 		})
+
+		
 	</script>
 
 </body>
