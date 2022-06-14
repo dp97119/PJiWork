@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="calendar")
 public class Calendar {
@@ -21,9 +23,11 @@ public class Calendar {
 	private String calendarTitle;
 	
 	@Column(name = "eventstart")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date eventStart;
 	
 	@Column(name = "eventend")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date eventEnd;
 	
 	@Column(name = "allday",columnDefinition="ENUM('Y','N')")

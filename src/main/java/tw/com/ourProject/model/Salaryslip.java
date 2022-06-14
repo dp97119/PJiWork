@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="salaryslip")
 public class Salaryslip {
@@ -23,6 +25,7 @@ public class Salaryslip {
 	private Employee employees;
 	
 	@Column(name = "paymonth")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date payMonth;
 	
 	@Column(name = "basesalary")

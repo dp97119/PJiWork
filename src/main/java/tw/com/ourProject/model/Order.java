@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="order")
 public class Order {
@@ -23,6 +25,7 @@ public class Order {
 	private Employee employees;
 	
 	@Column(name = "date")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date date;
 	
 	@ManyToOne

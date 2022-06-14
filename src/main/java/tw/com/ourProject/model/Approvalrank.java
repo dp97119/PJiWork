@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="approvalrank")
 public class Approvalrank {
@@ -22,17 +24,20 @@ public class Approvalrank {
 	private Attendance attendances;
 	
 	@Column(name = "attendancedate")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date attendanceDate;
 	
 	@Column(name = "approver1")
 	private String approver1;
 	
 	@Column(name = "dateapproved1")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date dateApproved1;
 	
 	@Column(name = "approver2")
 	private String approver2;
 	
 	@Column(name = "dateapproved2")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date dateApproved2;
 }

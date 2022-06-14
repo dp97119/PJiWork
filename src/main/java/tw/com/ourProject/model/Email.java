@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="email")
 public class Email {
@@ -29,6 +31,7 @@ public class Email {
 	private Employee employees;
 	
 	@Column(name = "sendtime")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date sendtime;
 	
 }

@@ -26,7 +26,7 @@ public class Punch {
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "time")
-	private Date time;
+	private java.util.Date time;
 	
 	@Column(name = "person",columnDefinition="char(11)")
 	private String person;

@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="attendance")
 public class Attendance {
@@ -30,9 +32,11 @@ public class Attendance {
 	private Leaves leaves;
 	
 	@Column(name = "startdate")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date startDate;
 	
 	@Column(name = "enddate")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date endDate;
 	
 	@Column(name = "hours")

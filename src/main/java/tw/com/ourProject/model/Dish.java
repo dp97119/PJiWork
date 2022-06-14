@@ -48,12 +48,12 @@ public class Dish {
 	@LastModifiedDate 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "updatedate")
-	private Date updateDate ;
+	private java.util.Date updateDate ;
 	
 	@CreatedDate 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "createdate")
-	private Date createDate ;
+	private java.util.Date createDate ;
 
 	public Integer getDishId() {
 		return dishId;
