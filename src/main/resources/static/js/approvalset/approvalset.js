@@ -23,7 +23,7 @@ $(function () {
                     </td>
                 </tr>`);
                 
-                approvalsetrecord.appendTo("#staff1");
+                approvalsetrecord.appendTo("#leavelRecord");
                 i++;
                 console.log(data);
             })
