@@ -4,7 +4,6 @@ $(function(){
         type:"POST",
         data:"void",
         success:function(data){
-            console.log(data.countRs);
             countpeople.innerText = data.countRs; 
         
         }
