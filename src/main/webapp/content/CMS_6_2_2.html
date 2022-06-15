@@ -126,11 +126,11 @@
     <script>
         var i = 3;
         btnAdd.onclick = function () {
-            if (i < 10) {
+            if (i < 5) {
                 i = i + 1;
                 $(".addli").append(`<li><div><label for="">附件${i}：</label>&nbsp;&nbsp;&nbsp;<input type="text" class="inputSize">&nbsp;&nbsp;&nbsp;<button class="function">上傳</button>&nbsp;&nbsp;&nbsp;<button class="function">移除</button>&nbsp;&nbsp;&nbsp;<button class="function">預覽</button></div></li>`);
             } else {
-                alert("只能傳十個檔案")
+                alert("只能傳五個檔案")
             }
         }
 
