@@ -7,7 +7,7 @@ $(function() {
 		success: function(data) {
 			var i = 1;
 			$.each(data, function() {
-				var approvalsetrecord = $('<tr class="staffWord"><td class="tableStyle">' + i + `</td>
+				var approvalsetrecord = $('<tr class="staffWord" id='+this.approvalSetId+'><td class="tableStyle">' + i + `</td>
                     <td class="tableStyle">`+ this.aparts.apart + `</td>
                     <td class="tableStyle">`+ this.employees.empName + `</td>
                     <td class="tableStyle">`+ this.employee.empName + `</td>
@@ -19,7 +19,7 @@ $(function() {
                         </span>&nbsp;&nbsp;
                         <span class="icon-input-btn">
                             <i class="glyphicon glyphicon-trash"></i>
-                            <input type="button" value="刪除" class="function"/>
+                            <input type="button" value="刪除" class="function" onClick="console.log("OK");"/>
                         </span>&nbsp;&nbsp;
                     </td>
                 </tr>`);
@@ -30,6 +30,8 @@ $(function() {
 		}
 	})
 })
+
+
 
 // 新增
 $("#sendbtn").on("click", function() {
@@ -81,6 +83,9 @@ $("#sendbtn").on("click", function() {
 
 
 // 刪除
-
+$("#testtest").on("click",function(){
+	console.log("OK");
+	console.log(document.getElementsByTagName("tr")[1].getAttribute('id'));
+});
 
 
