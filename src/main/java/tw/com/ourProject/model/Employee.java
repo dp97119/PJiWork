@@ -33,8 +33,8 @@ public class Employee implements Serializable {
 //	private Set<Order> orders;
 //	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 //	private Set<Punch> punches;
-	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
-	private Set<Salaryslip> salaryslips;
+//	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
+//	private Set<Salaryslip> salaryslips;
 	
 	@Id
 	@Column(name = "empid",columnDefinition="char(11)")
