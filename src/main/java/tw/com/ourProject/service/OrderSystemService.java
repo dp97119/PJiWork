@@ -9,7 +9,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Dish;
+import tw.com.ourProject.model.Order;
 import tw.com.ourProject.repository.DishRepo;
+import tw.com.ourProject.repository.OrderRepo;
 import tw.com.ourProject.repository.RestaurantRepo;
 
 @Service
@@ -21,6 +23,13 @@ public class OrderSystemService {
 	@Autowired
 	public RestaurantRepo restaurantRepo;
 	
+	@Autowired
+	public OrderRepo orderRepo ;
+	
+
+	public Order order = new Order();
+
+	public Dish dish = new Dish();
 	
 	public void findMenuByDate(String date) {
 		dishRepo.findAll();
@@ -38,5 +47,16 @@ public class OrderSystemService {
 			jsonArr.add(obj);
 		}
 		return jsonArr;
+	}
+	
+	public void saveToDb(String empId , JSONArray data) {
+		for(int i=0 ; i<data.size() ;i++) {
+			Dish dish = dishRepo.findById(Integer.parseInt(data.getJSONObject(i).get("dishId").toString())).get();
+			order.setEmpId(empId);
+			order.setDishes(dish);
+			order.setQty(Integer.parseInt(data.getJSONObject(i).get("qty").toString()));
+//			order.setType('購物車');
+			orderRepo.save(order);
+		}
 	}
 }

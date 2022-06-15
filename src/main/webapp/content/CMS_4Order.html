@@ -167,31 +167,45 @@
          }
       </script>
       <script>
-         var menu;
-         var data;
+         var menu, data, param;
+         var date = new Date();
          window.onload = function () {
-            $.ajax({
-               type: "get",
-               url: "http://localhost:8080/getMenu",
-               success: function (testData) {
-                  var left_menu = document.getElementById("menus");
-                  data = testData;
-                  for (var i = 0; i < testData.length; i++) {
-
-                     menu = document.createElement("div");
-                     menu.setAttribute("class", "menu")
-
-                     menu.innerHTML += `<img src="${testData[i].dishPhoto}" width="110" height="110" alt="${testData[i].dishItem}" title="${testData[i].dishItem}" class="pic row" />`
-                     menu.innerHTML += `<div class="row">`;
-                     menu.innerHTML += `<input id="dish_minus${testData[i].dishId}" type="button" onclick="minuser(${testData[i].dishId})"" value=" - " style="font-size: 20px;" />`;
-                     menu.innerHTML += `<type id="dish_qty${testData[i].dishId}" style="font-size: 15px; margin-left: 15px;margin-right: 15px;">0</type>`;
-                     menu.innerHTML += `<input id="dish_add${testData[i].dishId}" type="button" onclick="adder(${testData[i].dishId})" value=" + " style="font-size: 19px;" /></div>`;
-                     menu.innerHTML += `<p class="row" style="margin-top: 0px; font-size:15px; margin-left: 15px;">${testData[i].dishItem}</p>`;
-                     menu.innerHTML += `<p class="row" style=" margin-top: -15px;font-size:15px; margin-left: 15px;">$${testData[i].dishPrice}</p>`;
-                     left_menu.appendChild(menu);
-                  }
+            // 判斷時間 下午2點到隔天11點前 結果1:顯示菜單
+            if (date.getHours() <= 11 || date.getHours() >= 14) {
+               if(date.getHours <= 11){
+                  param = JSON.stringify({"userToken": getCookie() ,"date": date.getDate() });
+               }else{
+                  param = JSON.stringify({"userToken": getCookie() ,"date": date.getDate()+1 });
                }
-            })
+               $.ajax({
+                  type: "POST",
+                  url: "http://localhost:8080/orderSys/getMenu",
+                  data : param,
+                  contentType: 'application/json',
+                  success: function (testData) {
+                     var left_menu = document.getElementById("menus");
+                     data = testData;
+                     for (var i = 0; i < testData.length; i++) {
+
+                        menu = document.createElement("div");
+                        menu.setAttribute("class", "menu")
+
+                        menu.innerHTML += `<img src="${testData[i].dishPhoto}" width="110" height="110" alt="${testData[i].dishItem}" title="${testData[i].dishItem}" class="pic row" />`
+                        menu.innerHTML += `<div class="row">`;
+                        menu.innerHTML += `<input id="dish_minus${testData[i].dishId}" type="button" onclick="minuser(${testData[i].dishId})"" value=" - " style="font-size: 20px;" />`;
+                        menu.innerHTML += `<type id="dish_qty${testData[i].dishId}" style="font-size: 15px; margin-left: 15px;margin-right: 15px;">0</type>`;
+                        menu.innerHTML += `<input id="dish_add${testData[i].dishId}" type="button" onclick="adder(${testData[i].dishId})" value=" + " style="font-size: 19px;" /></div>`;
+                        menu.innerHTML += `<p class="row" style="margin-top: 0px; font-size:15px; margin-left: 15px;">${testData[i].dishItem}</p>`;
+                        menu.innerHTML += `<p class="row" style=" margin-top: -15px;font-size:15px; margin-left: 15px;">$${testData[i].dishPrice}</p>`;
+                        left_menu.appendChild(menu);
+                     }
+                  }
+               });
+               //時間判斷 結果2
+            }else{
+               //顯示尚未上架 敬請期待
+               alert("商品尚未上架 敬請期待");
+            }
          };
 
          // 添加購物車按鈕添增事件
@@ -222,12 +236,30 @@
       </div>
       <script>
          $("#addcart").click(function () {
-            for (i = 0; i <= data.length; i++) {
+            var tempData = [];
+            for (i = 0; i < data.length; i++) {
                var dish_qty = document.getElementById(`dish_qty${data[i].dishId}`);
-               console.log(data[i].dishItem + "的數量為：" + dish_qty.innerHTML);
+               if (dish_qty.innerHTML != "0") {
+                  console.log(data[i].dishItem + "的數量為：" + dish_qty.innerHTML);
+                  tempData.push(JSON.parse(`{"dishId" : ${data[i].dishId} ,"qty" : ${dish_qty.innerHTML}}`));
+               }
             }
+            tempData.splice(0, 0, { userToken: getCookie() });
+            var sendData = JSON.stringify(tempData);
+            $.ajax({
+               type: "post",
+               url: "http://localhost:8080/orderSys/saveToDb",
+               data: sendData,
+               contentType: 'application/json',
+               success: function () {
+                  //更新右方購物出畫面
+               }
+            });
          })
-
+         function getCookie() {
+            var cookie = document.cookie.split('=');
+            return cookie[1].toString();
+         }
 
          // $(document).ready(function(){
          //    $('addcart').on('click',function(e){}

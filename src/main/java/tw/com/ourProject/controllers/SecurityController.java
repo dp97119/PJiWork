@@ -53,8 +53,8 @@ public class SecurityController {
 		for (int i = 0; i < userToken.size(); i++) {
 			obj = userToken.getJSONObject(i);
 		}
-		System.out.println(obj.getString("usertoken"));
-		String rb = employeeService.verifyToken(obj.getString("usertoken"));
+		System.out.println(obj.getString("userToken"));
+		String rb = employeeService.verifyToken(obj.getString("userToken"));
 		obj.put("state", rb);
 		return obj;
 		
