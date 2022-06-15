@@ -2,9 +2,12 @@ package tw.com.ourProject.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tw.com.ourProject.model.Apart;
 import tw.com.ourProject.model.Approvalset;
 import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.repository.ApartRepo;
@@ -12,6 +15,7 @@ import tw.com.ourProject.repository.ApprovalsetRepo;
 import tw.com.ourProject.repository.EmployeeRepo;
 
 @Service
+@Transactional
 public class ApprovalsetService {
 	@Autowired
 	public ApprovalsetRepo approvalsetRepo;
@@ -29,6 +33,15 @@ public class ApprovalsetService {
 	
 	public List<Approvalset> findApprovalset(){
 		return approvalsetRepo.findAll();
+	}
+	
+	public void saveApprovalset(Apart apartid, Employee firstapproval, Employee secondapproval) {
+		Approvalset approvalInfo = new Approvalset();
+		approvalInfo.setAparts(apartid);
+		approvalInfo.setEmployees(firstapproval);
+		approvalInfo.setEmployee(secondapproval);
+		approvalsetRepo.save(approvalInfo);
+		
 	}
 	
 

@@ -36,9 +36,25 @@ $("#sendbtn").on("click",function(){
     if($("#aparts").find("option:selected").val() == "" || $("#reviewerone").find("option:selected").val() == "" || $("#reviewertwo").find("option:selected").val() == "" ){
         confirm("欄位不可為空白");
     }else{
-        console.log($("#aparts").find("option:selected").val());
-        console.log($("#reviewerone").find("option:selected").val());
-        console.log($("#reviewertwo").find("option:selected").val());
+        var insertSet = JSON.stringify([{
+            apartId: $("#aparts").find("option:selected").val(),
+            fisrtApproval:$("#reviewerone").find("option:selected").val(),
+            secondApproval: $("#reviewertwo").find("option:selected").val()
+        }]);
+
+        
+        $.ajax({
+            url: "http://localhost:8080/saveApprovalset/",
+            type: "POST",
+            data: insertSet,
+            contentType:"application/json",
+            success:function(){
+                var yes = confirm("確認完成");
+                if (yes) {
+                    window.location.href = './CMS_2Leaverecorded.html';
+                }
+            }
+        })
     }
 
 })

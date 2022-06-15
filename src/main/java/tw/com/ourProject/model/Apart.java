@@ -9,8 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Configuration;
+
 @Entity
 @Table(name="apart")
+@Configuration
 public class Apart {
 	@OneToMany(mappedBy = "aparts",cascade = CascadeType.ALL)
 	private Set<Approvalset> approvalsets;
