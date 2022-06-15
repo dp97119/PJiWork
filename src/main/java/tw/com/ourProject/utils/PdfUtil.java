@@ -38,7 +38,7 @@ public class PdfUtil {
     			float[] pointColumnWidths = { 80F, 200F };
     			Table table = new Table(pointColumnWidths);
 //    		表格資料
-    		for (i=1 )
+    		
     			
 //    			table.addCell(colum);
 //    			table.addCell(value);
