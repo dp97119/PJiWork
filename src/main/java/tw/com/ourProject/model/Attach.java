@@ -23,4 +23,37 @@ public class Attach {
 	@ManyToOne
 	@JoinColumn(name="announceid",referencedColumnName = "announceid")
 	private Announcement announcements;
+
+	public Integer getAttachmentId() {
+		return attachmentId;
+	}
+
+	public void setAttachmentId(Integer attachmentId) {
+		this.attachmentId = attachmentId;
+	}
+
+	public String getAttName() {
+		return attName;
+	}
+
+	public void setAttName(String attName) {
+		this.attName = attName;
+	}
+
+	public Announcement getAnnouncements() {
+		return announcements;
+	}
+
+	public void setAnnouncements(Announcement announcements) {
+		this.announcements = announcements;
+	}
+
+	@Override
+	public String toString() {
+		return "Attach [attachmentId=" + attachmentId + ", attName=" + attName + ", announcements=" + announcements
+				+ "]";
+	}
+	
+	
 }
+
