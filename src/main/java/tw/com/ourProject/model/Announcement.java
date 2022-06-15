@@ -49,6 +49,9 @@ public class Announcement {
 	@Column(name = "removed")
 	private java.util.Date removed;
 	
+	@Column(name = "title")
+	private String title;
+	
 	@Column(name = "content")
 	private String content;
 	
@@ -108,6 +111,14 @@ public class Announcement {
 		this.removed = removed;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -151,10 +162,12 @@ public class Announcement {
 	@Override
 	public String toString() {
 		return "Announcement [attaches=" + attaches + ", announceId=" + announceId + ", type=" + type + ", uploadDate="
-				+ uploadDate + ", employees=" + employees + ", removed=" + removed + ", content=" + content
-				+ ", createPerson=" + createPerson + ", updatePerson=" + updatePerson + ", updateDate=" + updateDate
-				+ ", createDate=" + createDate + "]";
+				+ uploadDate + ", employees=" + employees + ", removed=" + removed + ", title=" + title + ", content="
+				+ content + ", createPerson=" + createPerson + ", updatePerson=" + updatePerson + ", updateDate="
+				+ updateDate + ", createDate=" + createDate + "]";
 	}
+
+
 
 	
 	
