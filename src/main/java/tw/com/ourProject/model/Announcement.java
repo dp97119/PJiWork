@@ -33,6 +33,7 @@ public class Announcement {
 	@Column(name = "type",columnDefinition="ENUM('最新公告')")
 	private String type;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "uploaddate")
 	private java.util.Date uploadDate;
 	
@@ -44,6 +45,7 @@ public class Announcement {
 //	@Column(name = "uploader",columnDefinition="char(11)")
 //	private String uploader;
 	
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "removed")
 	private java.util.Date removed;
 	
