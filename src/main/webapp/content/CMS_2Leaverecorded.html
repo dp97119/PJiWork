@@ -37,62 +37,58 @@
         </ul>
     </div>
 
-
     <!-- 出勤/請假紀錄 -->
-    <div>
-        <form action="" method="" enctype="">
-            <div class="staffAll">
-                <br>
-                <div class="staffSearch">
-                    <label><b>類別：</b></label>&nbsp;&nbsp;
-                    <select id="leaves">
-                        <option value="" class="vacation"></option>
-                    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="icon-input-btn">
-                        <i class="glyphicon glyphicon-search"></i>
-                        <input type="button" value="查詢" class="btnStyle" id="editbtn"></input>
-                    </span>
-                </div>
+    <div class="staffAll">
+        <br>
+        <div class="staffSearch">
+            <label><b>類別：</b></label>&nbsp;&nbsp;
+            <select id="leaves">
+                <option value="" class="vacation"></option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="icon-input-btn">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="button" value="查詢" class="btnStyle" id="editbtn"></input>
+            </span>
+        </div>
 
-                <br>
+        <br>
 
-                <div class="staffDiv">
-                    <table class="staffTable" id="attendanceTable1">
-                        <tr>
-                            <th class="tableStyle" width="10%">出勤/假單編號</th>
-                            <th class="tableStyle" width="10%">申請類別</th>
-                            <th class="tableStyle" width="20%">起訖日期</th>
-                            <th class="tableStyle" width="10%">時數</th>
-                            <th class="tableStyle" width="10%">狀態</th>
-                            <!-- 申請單成立、申請人審核通過，部門主管審核中，部門主管審核完成，會計審核中，會計審核完成 -->
-                            <th class="tableStyle" width="30%">功能</th>
-                        </tr>
-                        <tr class="staffWord">
-                            <td class="tableStyle">20220531001</td>
-                            <td class="tableStyle"></td>
-                            <td class="tableStyle"></td>
-                            <td class="tableStyle"></td>
-                            <td class="tableStyle"></td>
-                            <td class="tableStyle">
-                                <!-- 申請人按下審核按鈕後修改和刪除的按鈕會不見 -->
-                                <span class="icon-input-btn">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                    <input type="button" value="修改" class="function"
-                                        onClick="window.location.href='./CMS_2_2.html';">
-                                </span>&nbsp;&nbsp;
-                                <span class="icon-input-btn">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                    <input type="button" value="刪除" class="function deleteB">
-                                </span>&nbsp;&nbsp;
-                                <input type="button" value="申請人審核" class="function">&nbsp;&nbsp;
-                                <input type="button" value="審核歷程" class="function" id="review">
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </form>
+        <div class="staffDiv">
+            <table class="staffTable" id="attendanceTable1">
+                <tr>
+                    <th class="tableStyle" width="10%">出勤/假單編號</th>
+                    <th class="tableStyle" width="10%">申請類別</th>
+                    <th class="tableStyle" width="20%">起訖日期</th>
+                    <th class="tableStyle" width="10%">時數</th>
+                    <th class="tableStyle" width="10%">狀態</th>
+                    <!-- 申請單成立、申請人審核通過，部門主管審核中，部門主管審核完成，會計審核中，會計審核完成 -->
+                    <th class="tableStyle" width="30%">功能</th>
+                </tr>
+                <tr class="staffWord">
+                    <td class="tableStyle">20220531001</td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle">
+                        <!-- 申請人按下審核按鈕後修改和刪除的按鈕會不見 -->
+                        <span class="icon-input-btn">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                            <input type="button" value="修改" class="function"
+                                onClick="window.location.href='./CMS_2_2.html';">
+                        </span>&nbsp;&nbsp;
+                        <span class="icon-input-btn">
+                            <i class="glyphicon glyphicon-trash"></i>
+                            <input type="button" value="刪除" class="function deleteB">
+                        </span>&nbsp;&nbsp;
+                        <input type="button" value="申請人審核" class="function">&nbsp;&nbsp;
+                        <input type="button" value="審核歷程" class="function" id="review">
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
+
 
     <!-- 審核歷程 -->
     <dialog id="reviewdialog">

@@ -57,71 +57,72 @@
                 <a class="nav-link" aria-current="page" href="./CMS_6_5_1.html">訂餐系統</a>
             </li>
         </ul>
-        <div>
-            <div class="staffAll">
+    </div>
+    <div>
+        <div class="staffAll">
+            <br>
+            <div class="application">
+                <div>
+                    <label><b>主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;旨：</b></label>&nbsp;&nbsp;
+                    <input type="text" class="inputSize" id="" style="width: 375px;">
+                </div>
+                <div>
+                    <label><b>類&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</b></label>&nbsp;&nbsp;
+                    <select name="" id="">
+                        <option value="" class="">最新公告</option>
+                    </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div>
+                    <label><b>內&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容：</b></label><br>
+                    <textarea id="" cols="62" rows="7"></textarea>
+                </div>
+                <div>
+                    <label><b>上架日期：</b></label>&nbsp;&nbsp;
+                    <input type="date" class="inputSize" id="">
+                </div>
+                <div>
+                    <ol class="addli">
+                        <li>
+                            <div>
+                                <label for="">附件1：</label>&nbsp;&nbsp;
+                                <input type="text" class="inputSize">&nbsp;&nbsp;
+                                <button class="function">上傳</button>&nbsp;&nbsp;
+                                <button class="function">移除</button>&nbsp;&nbsp;
+                                <button class="function">預覽</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <label for="">附件2：</label>&nbsp;&nbsp;
+                                <input type="text" class="inputSize">&nbsp;&nbsp;
+                                <button class="function">上傳</button>&nbsp;&nbsp;
+                                <button class="function">移除</button>&nbsp;&nbsp;
+                                <button class="function">預覽</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <label for="">附件3：</label>&nbsp;&nbsp;
+                                <input type="text" class="inputSize">&nbsp;&nbsp;
+                                <button class="function">上傳</button>&nbsp;&nbsp;
+                                <button class="function">移除</button>&nbsp;&nbsp;
+                                <button class="function">預覽</button>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div>
+                    <button id="btnAdd" class="function">+</button>
+                </div>
                 <br>
-                <div class="application">
-                    <div>
-                        <label><b>主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;旨：</b></label>&nbsp;&nbsp;
-                        <input type="text" class="inputSize" id="" style="width: 375px;">
-                    </div>
-                    <div>
-                        <label><b>類&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</b></label>&nbsp;&nbsp;
-                        <select name="" id="">
-                            <option value="" class="">最新公告</option>
-                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
-                    <div>
-                        <label><b>內&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容：</b></label><br>
-                        <textarea id="" cols="62" rows="7"></textarea>
-                    </div>
-                    <div>
-                        <label><b>上架日期：</b></label>&nbsp;&nbsp;
-                        <input type="date" class="inputSize" id="">
-                    </div>
-                    <div>
-                        <ol class="addli">
-                            <li>
-                                <div>
-                                    <label for="">附件1：</label>&nbsp;&nbsp;
-                                    <input type="text" class="inputSize">&nbsp;&nbsp;
-                                    <button class="function">上傳</button>&nbsp;&nbsp;
-                                    <button class="function">移除</button>&nbsp;&nbsp;
-                                    <button class="function">預覽</button>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <label for="">附件2：</label>&nbsp;&nbsp;
-                                    <input type="text" class="inputSize">&nbsp;&nbsp;
-                                    <button class="function">上傳</button>&nbsp;&nbsp;
-                                    <button class="function">移除</button>&nbsp;&nbsp;
-                                    <button class="function">預覽</button>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <label for="">附件3：</label>&nbsp;&nbsp;
-                                    <input type="text" class="inputSize">&nbsp;&nbsp;
-                                    <button class="function">上傳</button>&nbsp;&nbsp;
-                                    <button class="function">移除</button>&nbsp;&nbsp;
-                                    <button class="function">預覽</button>
-                                </div>
-                            </li>
-                        </ol>
-                    </div>
-                    <div>
-                        <button id="btnAdd" class="function">+</button>
-                    </div>
-                    <br>
-                    <div>
-                        <input type="submit" value="確定" class="btnStyle"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="button" value="取消" class="btnStyle" id="cancelbtn"></input>
-                    </div>
+                <div>
+                    <input type="submit" value="確定" class="btnStyle"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" value="取消" class="btnStyle" id="cancelbtn"></input>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         var i = 3;
         btnAdd.onclick = function () {
