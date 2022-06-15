@@ -1,25 +1,4 @@
 <!DOCTYPE html>
-<!-- 
-                                                     __----~~~~~~~~~~~------___
-                                    .  .   ~~//====......          __--~ ~~
-                    -.            \_|//     |||\\  ~~~~~~::::... /~
-                 ___-==_       _-~o~  \/    |||  \\            _/~~-
-         __---~~~.==~||\=_    -_--~/_-~|-   |\\   \\        _/~
-     _-~~     .=~    |  \\-_    '-~7  /-   /  ||    \      /
-   .~       .~       |   \\ -_    /  /-   /   ||      \   /
-  /  ____  /         |     \\ ~-_/  /|- _/   .||       \ /
-  |~~    ~~|--~~~~--_ \     ~==-/   | \~--===~~        .\
-           '         ~-|      /|    |-~\~~       __--~~
-                       |-~~-_/ |    |   ~\_   _-~            /\
-                            /  \     \__   \/~                \__
-                        _--~ _/ | .-~~____--~-/                  ~~==.
-                       ((->/~   '.|||' -_|    ~~-/ ,              . _||
-                                  -_     ~\      ~~---l__i__i__i--~~_/
-                                  _-~-__   ~)  \--______________--~~
-                                //.-~~~-~_--~- |-------~~~~~~~~
-                                       //.-~~~--\
-                                神獸保佑，程式碼沒Bug! 
--->
 <html lang="en">
 
 <head>
@@ -27,113 +6,44 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <script src="/code/jquery-3.6.0.js"></script>
+   <link rel="stylesheet" href="/css/shared/button.css" />
+   <link rel="stylesheet" href="/css/shared/content4_style.css" />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+      crossorigin="anonymous"></script>
    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
    <script src="/code/bootstrap-5.2.0-beta1-dist/css/bootstrap.css"></script>
    <script src="/code/bootstrap-5.2.0-beta1-dist/js/bootstrap.bundle.min.js"></script>
    <script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
    <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
    <link rel="stylesheet" href="style.css">
+
    <title>Orderpage</title>
-   <style type="text/css">
-      #DIV1 {
-         width: 50%;
-         /*DIV區塊寬度*/
-         height: 500px;
-         /*DIV區塊高度*/
-         /* padding:20px;          DIV區塊內距，參閱：CSS padding 內距。 */
-         background-color: gainsboro;
-         /*DIV區塊邊框，參閱：CSS border 邊框設計。*/
-         /* margin-right:10px;     靠右外距，參閱：CSS margin 邊界使用介紹範例教學。 */
-         float: left;
-      }
 
-      #DIV2 {
-         width: 50%;
-         /*DIV區塊寬度*/
-         height: 500px;
-         /*DIV區塊高度*/
-         /* padding:20px;          DIV區塊內距，參閱：CSS padding 內距。 */
-         background-color: grey;
-         float: right;
-      }
-
-      #menus {
-         display: flex;
-         flex-wrap: wrap;
-      }
-
-      .menu {
-         margin: 0px 10px;
-      }
-
-      body {
-         background-color: rgba(0, 0, 0, .2);
-      }
-
-      .item_header {
-         display: flex;
-         width: auto;
-         margin: 0 auto;
-         height: 50px;
-         background-color: #fff;
-         border-radius: 10px;
-         /*框框：圓弧*/
-         padding-left: 30px;
-         /*body 與外框距離*/
-      }
-
-      .item_header div {
-         width: 200px;
-         color: black;
-         line-height: 50px;
-      }
-
-      .item_header .item_detail {
-         /*購物車「商品」與「單價」的距離*/
-         width: fixed;
-      }
-
-      .item_body {
-         /*兩個白色快的距離*/
-         margin-top: 20px;
-         height: auto;
-         align-items: center;
-      }
-
-      /* .item_detail img{
-      width: 80px;
-      height: 80px;
-      border-radius: 3px;
-      margin-top: 20px;
-      float: left;
-   } */
-      .item_detail .name {
-         /*「商品名稱」與左邊、上面距離*/
-         margin-left: 2px;
-         margin-top: 20px;
-      }
-   </style>
 
 
 
 </head>
 
 <body>
-   <!-- header + 日期＆餐廳option -->
-   <header class="header" style="display:table;width:100%;background-color: gainsboro;font-size: 30px;">訂餐系統</header>
-   <ul class="" style="margin:auto"></ul>
-   <div class="" style="width: fit-content;"></div>
-   <p style="font-size: 25px;">今日餐廳：
-
-   <div style="text-align:right;">
-      <input type="button" value="訂餐紀錄" style="font-size: 20px;" />
+   <div class="grid-container">
+      <div>
+         <label for=""><b>今日餐廳：</b></label>&nbsp;&nbsp;
+         <input type="text" disabled="none" class="inputSize">
+      </div>
+      <div>
+         <button type="button" class="function" data-bs-toggle="modal" data-bs-target="#orderSearchModal">訂單紀錄</button>
+      </div>
    </div>
 
    <!-- 左邊DIV1菜單區 -->
    <div id="DIV1">
-      <h2 style="margin-left:20px;color: black;">菜單區</h2>
-      <br>
-      <div id="menus" class="container"></div>
+      <p style="margin-left:20px;"><b>菜單區：</b></p>
+      <div class="menusDiv">
+         <div id="menus" class="container"></div>
+      </div>
 
       <!-- 菜單數量增加、減少 -->
       <script>
@@ -172,15 +82,15 @@
          window.onload = function () {
             // 判斷時間 下午2點到隔天11點前 結果1:顯示菜單
             if (date.getHours() <= 11 || date.getHours() >= 14) {
-               if(date.getHours <= 11){
-                  param = JSON.stringify({"userToken": getCookie() ,"date": date.getDate() });
-               }else{
-                  param = JSON.stringify({"userToken": getCookie() ,"date": date.getDate()+1 });
+               if (date.getHours <= 11) {
+                  param = JSON.stringify({ "userToken": getCookie(), "date": date.getDate() });
+               } else {
+                  param = JSON.stringify({ "userToken": getCookie(), "date": date.getDate() + 1 });
                }
                $.ajax({
                   type: "POST",
                   url: "http://localhost:8080/orderSys/getMenu",
-                  data : param,
+                  data: param,
                   contentType: 'application/json',
                   success: function (testData) {
                      var left_menu = document.getElementById("menus");
@@ -202,37 +112,17 @@
                   }
                });
                //時間判斷 結果2
-            }else{
+            } else {
                //顯示尚未上架 敬請期待
                alert("商品尚未上架 敬請期待");
             }
          };
-
-         // 添加購物車按鈕添增事件
-            // var submit1 = getClass(app, "add_btn"); //左邊選取之菜單添加至購物車
-            //       var number = 0;  //初始化數量
-            //       for(var i=0;i<submit1.length; i++){
-            //          number++;
-            //          submit1[i].index = i ;
-            //          submit[i].onclick = function(){
-            //                var DIV1 = document.createElement("div");
-            //                var data = testData[this.index];
-            //                DIV1.className = "row hid";
-            //                DIV1.innerHTML +='<div class="div1_name"><span>'+data["dishItem"]+'</span></div>';
-            //                DIV1.innerHTML +='<div class="div1_price"><span>'+data["dishPrice"]+'</span></div>'
-            //                DIV1.innerHTML +='<div class="pic"><span>'+data["dishPhoto"]+'</span></div>'
-            //                app.appendChild(DIV1);
-            //          }
-            //       }
-
-
       </script>
 
-      <hr>
-      <br>
       <!-- 左方DIV1下單btn -->
+      <br>
       <div>
-         <button type="button" id="addcart" style="width: 80%; height: 40px; font-size: 20px; ">加入右方購物車</button>
+         <button type="button" id="addcart" class="btnStyle">加入右方購物車</button>
       </div>
       <script>
          $("#addcart").click(function () {
@@ -261,33 +151,13 @@
             return cookie[1].toString();
          }
 
-         // $(document).ready(function(){
-         //    $('addcart').on('click',function(e){}
       </script>
-
-
-      <!-- // let btn=document.querySelector("#submit");
-               // let inforesult=document.querySelector("#inforesult");
-               // let close=document.querySelector("#close");
-               //    btn.addEventListener("click", function(){
-               //       inforesult.showModal();
-               //    })
-               //  close.addEventListener("click", function(){  //待處理：目前close沒反應
-               //    //    inforesult.close();
-               //    $(document).ready(function(){
-               //    $('.btn-close').click(function(){
-               //          $('.submit').hide();
-               //    })
-               // }) -->
-
-
-
 
    </div>
 
    <!-- 右邊DIV2下單區 -->
    <div id="DIV2">
-      <h2 style="margin-left:20px;color: black;">購物車下單區</h2>
+      <p style="margin-left:20px;"><b>購物車下單區：</b></p>
       <div id="app">
          <div class="container">
             <div class="item_header">
@@ -317,8 +187,6 @@
                   </div>
                </div>
             </div>
-
-
          </div>
       </div>
 
@@ -352,33 +220,14 @@
                document.getElementById("price_num").innerText = sum;
             }
          }
-            //   methods:{
-            //    handlePlus: function(item){
-            //    item.count++;
-            //    },
-            //    handleSub: function(item){
-            //       if(item.count>1){
-            //       item.count--;
-            //       }
-            //    },
-            //    handledelete: function(index){
-            //       console.log(this);
-            //       this.itemList.splice(index,1);
-            //       }
-            //    },
-            //       computed:{
-            //       }
-            //    })
       </script>
 
-
-
-
+      <br>
       <div id="submit2">
-         <div type="button" style="width: 80%; height: 40px; font-size: 20px;">我要下單</div>
-         <div id="pay_amount">合計：<span id="price-num">0</span></div>
-         <dialog class="inforesult" title="請確認購物車數量唷！">
-            <dialog class="dialog1">謝謝訂購！</dialog>
+         <b><span id="pay_amount">合計：</span><span id="price-num">$$$</span></b>
+         <button class="btnStyle btnright">我要下單</button>
+         <!-- <dialog class="inforesult" title="請確認購物車數量唷！">
+            <dialog class="dialog1">謝謝訂購！</dialog> -->
 
       </div>
    </div>
@@ -400,6 +249,53 @@
       });
    </script>
 
+    <!-- 訂單紀錄 Modal -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
+        crossorigin="anonymous"></script>
+    <div class="modal fade" id="orderSearchModal" tabindex="-1" aria-labelledby="orderSearchModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" style="width: 380px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderSearchModalLabel">訂單查詢</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body orderSearchDiv">
+                    <div>
+                        <label><b>日期：</b></label>&nbsp;&nbsp;
+                        <input type="date" class="inputSize" style="width: 130px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="submit" value="查詢" class="btnStyle">
+                    </div>
+                    <br>
+                    <div class="orderRespond">
+                        <div>
+                            <h6><b>餐廳：</b></h6>
+                        </div>
+                        <div class="respondDiv">
+                            <table class="myfoodTable">
+                                <tr class="myfoodBorder">
+                                    <td class="foodL">
+                                        <div>牛肉漢堡</div>
+                                        <div>備註</div>
+                                    </td>
+                                    <td class="foodR">
+                                        <div>NT</div>
+                                        <div>數量</div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br><br><br><br><br><br><br><br><br><br>
+                        </div>
+                        <div>
+                            <label><b>小計：NT $$$</b></label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

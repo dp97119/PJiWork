@@ -1,0 +1,97 @@
+.grid-container > div {
+    margin: 10px;
+}
+
+.grid-container {
+    /* 改變指定元素的顯示方式 */
+    display: grid;
+    /* 指定有多少欄*/
+    grid-template-columns: 50% 50%;
+}
+
+
+#DIV1 {
+    width: 50%;
+    height: 450px;
+    background-color: #e2fdf0bb;
+    float: left;
+}
+
+#DIV2 {
+    width: 50%;
+    height: 450px;
+    background-color: #fffaf3;
+    float: right;
+}
+
+.menusDiv,#app{
+    height: 350px;
+    overflow-y: auto;
+}
+
+#menus {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.menu {
+    margin: 0px 10px;
+}
+
+.btnright{
+    position: absolute;
+    right: 10px;
+}
+
+.item_header {
+    display: flex;
+    width: auto;
+    margin: 0 auto;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    /*框框：圓弧*/
+    padding-left: 30px;
+    /*body 與外框距離*/
+}
+
+.item_header div {
+    width: 200px;
+    color: black;
+    line-height: 50px;
+}
+
+.item_header .item_detail {
+    /*購物車「商品」與「單價」的距離*/
+    width: fixed;
+}
+
+.item_body {
+    /*兩個白色快的距離*/
+    margin-top: 20px;
+    height: auto;
+    align-items: center;
+}
+
+.item_detail .name {
+    /*「商品名稱」與左邊、上面距離*/
+    margin-left: 2px;
+    margin-top: 20px;
+}
+
+/* <!-- 訂單紀錄 Modal --> */
+    .orderSearchDiv {
+        height: 430px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .orderRespond {
+        height: 300px;
+        background-color: rgb(222, 222, 222);
+    }
+
+    .respondDiv {
+        height: 240px;
+        overflow-y: auto;
+    }
