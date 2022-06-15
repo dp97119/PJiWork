@@ -47,12 +47,11 @@ public class SecurityController {
 	}
 	
 	@PostMapping("/loginAction/1")
-	public JSONObject verifyToken(@RequestBody String userToken) {
-		JSONArray jsonArray = JSONObject.parseArray(userToken);
-		System.out.println(jsonArray);
+	public JSONObject verifyToken(@RequestBody JSONArray userToken) {
+		System.out.println(userToken);
 		JSONObject obj = null;
-		for (int i = 0; i < jsonArray.size(); i++) {
-			obj = jsonArray.getJSONObject(i);
+		for (int i = 0; i < userToken.size(); i++) {
+			obj = userToken.getJSONObject(i);
 		}
 		System.out.println(obj.getString("usertoken"));
 		String rb = employeeService.verifyToken(obj.getString("usertoken"));

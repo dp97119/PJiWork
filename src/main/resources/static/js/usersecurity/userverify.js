@@ -1,7 +1,7 @@
 
 $(document).ready(veritfyToken());
 
-setInterval(veritfyToken, 60 * 60 * 1000);
+setInterval(veritfyToken, 10 * 60 * 1000);
 
 function veritfyToken() {
   if (document.cookie == "") {

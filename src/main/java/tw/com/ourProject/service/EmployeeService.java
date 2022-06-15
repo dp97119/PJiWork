@@ -8,6 +8,7 @@ import javax.security.auth.message.AuthException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.model.Temptoken;
@@ -51,7 +52,7 @@ public class EmployeeService {
 		List<Employee> result = employeeRepo.findAll();
 		System.out.println(result);
 	}
-	
+	@Transactional
 	public String verifyToken(String userToken) {
 		try {
 		jwtToken.validateToken(userToken);
