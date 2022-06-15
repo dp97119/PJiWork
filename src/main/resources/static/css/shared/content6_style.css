@@ -26,9 +26,11 @@
     table-layout: fixed;
 }
 
+
 .tableStyle {
-    border: 1px solid #AC915D;
+    border: 1px solid black;
     text-align: center;
+    height: 30px;
 }
 
 /* -----------------CMS_6_3_2----------------- */
