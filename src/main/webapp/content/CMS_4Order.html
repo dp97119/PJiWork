@@ -56,49 +56,62 @@
          background-color: grey;
          float: right;
       }
-      #menus{
-         display: flex ;
+
+      #menus {
+         display: flex;
          flex-wrap: wrap;
       }
-      .menu{
-         margin: 0px 10px ;
+
+      .menu {
+         margin: 0px 10px;
       }
-      body{
-   background-color: rgba(0, 0, 0,.2);
-   }
-   .item_header{
-      display: flex;
-      width: auto;
-      margin: 0 auto;
-      height: 50px;
-      background-color:#fff;
-      border-radius: 10px;  /*框框：圓弧*/
-      padding-left: 30px;  /*body 與外框距離*/
-   }
-   .item_header div{
-      width: 200px;
-      color:black;
-      line-height: 50px;
-   }
-   .item_header .item_detail{  /*購物車「商品」與「單價」的距離*/
-      width: fixed;
-   }
-   .item_body{       /*兩個白色快的距離*/
-      margin-top: 20px;
-      height: auto;
-      align-items: center;    
-   }
-   /* .item_detail img{
+
+      body {
+         background-color: rgba(0, 0, 0, .2);
+      }
+
+      .item_header {
+         display: flex;
+         width: auto;
+         margin: 0 auto;
+         height: 50px;
+         background-color: #fff;
+         border-radius: 10px;
+         /*框框：圓弧*/
+         padding-left: 30px;
+         /*body 與外框距離*/
+      }
+
+      .item_header div {
+         width: 200px;
+         color: black;
+         line-height: 50px;
+      }
+
+      .item_header .item_detail {
+         /*購物車「商品」與「單價」的距離*/
+         width: fixed;
+      }
+
+      .item_body {
+         /*兩個白色快的距離*/
+         margin-top: 20px;
+         height: auto;
+         align-items: center;
+      }
+
+      /* .item_detail img{
       width: 80px;
       height: 80px;
       border-radius: 3px;
       margin-top: 20px;
       float: left;
    } */
-   .item_detail .name{     /*「商品名稱」與左邊、上面距離*/
-      margin-left: 2px;
-      margin-top: 20px;
-   } 
+      .item_detail .name {
+         /*「商品名稱」與左邊、上面距離*/
+         margin-left: 2px;
+         margin-top: 20px;
+      }
    </style>
 
 
@@ -154,28 +167,28 @@
          }
       </script>
       <script>
-      var menu;
-      window.onload = function(){
-         $.ajax({
-            type:"get",
-            url:"http://localhost:8080/getMenu",
-            success:function(testData){
-               
-               var left_menu = document.getElementById("menus");
+         var menu;
+         var data;
+         window.onload = function () {
+            $.ajax({
+               type: "get",
+               url: "http://localhost:8080/getMenu",
+               success: function (testData) {
+                  var left_menu = document.getElementById("menus");
+                  data = testData;
+                  for (var i = 0; i < testData.length; i++) {
 
-         for(var i=0; i <testData.length; i++){
-            menu = document.createElement("div");
-            menu.setAttribute("class","menu")
+                     menu = document.createElement("div");
+                     menu.setAttribute("class", "menu")
 
-            var data = testData[i];
-            menu.innerHTML += `<img src="${testData[i].dishPhoto}" width="110" height="110" alt="${testData[i].dishItem}" title="${testData[i].dishItem}" class="pic row" />`
-            menu.innerHTML += `<div class="row">`;
-            menu.innerHTML += `<input id="dish_minus${testData[i].dishId}" type="button" onclick="minuser(${testData[i].dishId})"" value=" - " style="font-size: 20px;" />`;
-            menu.innerHTML += `<type id="dish_qty${testData[i].dishId}" style="font-size: 15px; margin-left: 15px;margin-right: 15px;">0</type>`;
-            menu.innerHTML += `<input id="dish_add${testData[i].dishId}" type="button" onclick="adder(${testData[i].dishId})" value=" + " style="font-size: 19px;" /></div>`;
-            menu.innerHTML += `<p class="row" style="margin-top: 0px; font-size:15px; margin-left: 15px;">${testData[i].dishItem}</p>`;
-            menu.innerHTML += `<p class="row" style=" margin-top: -15px;font-size:15px; margin-left: 15px;">$${testData[i].dishPrice}</p>`;
-            left_menu.appendChild(menu);
+                     menu.innerHTML += `<img src="${testData[i].dishPhoto}" width="110" height="110" alt="${testData[i].dishItem}" title="${testData[i].dishItem}" class="pic row" />`
+                     menu.innerHTML += `<div class="row">`;
+                     menu.innerHTML += `<input id="dish_minus${testData[i].dishId}" type="button" onclick="minuser(${testData[i].dishId})"" value=" - " style="font-size: 20px;" />`;
+                     menu.innerHTML += `<type id="dish_qty${testData[i].dishId}" style="font-size: 15px; margin-left: 15px;margin-right: 15px;">0</type>`;
+                     menu.innerHTML += `<input id="dish_add${testData[i].dishId}" type="button" onclick="adder(${testData[i].dishId})" value=" + " style="font-size: 19px;" /></div>`;
+                     menu.innerHTML += `<p class="row" style="margin-top: 0px; font-size:15px; margin-left: 15px;">${testData[i].dishItem}</p>`;
+                     menu.innerHTML += `<p class="row" style=" margin-top: -15px;font-size:15px; margin-left: 15px;">$${testData[i].dishPrice}</p>`;
+                     left_menu.appendChild(menu);
                   }
                }
             })
@@ -208,10 +221,10 @@
          <button type="button" id="addcart" style="width: 80%; height: 40px; font-size: 20px; ">加入右方購物車</button>
       </div>
       <script>
-         $("#addcart").click(function(){
-            for (i=1; i<=testData  ; i++){
-            var dish_qty = document.getElementById(`dish_qty${i}`);
-            console.log(dish_qty.innerHTML);
+         $("#addcart").click(function () {
+            for (i = 0; i <= data.length; i++) {
+               var dish_qty = document.getElementById(`dish_qty${data[i].dishId}`);
+               console.log(data[i].dishItem + "的數量為：" + dish_qty.innerHTML);
             }
          })
 

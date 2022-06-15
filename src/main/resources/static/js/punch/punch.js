@@ -149,4 +149,7 @@ $(parent.$("#myCardbtn2")).click(function () {
   navigator.geolocation.getCurrentPosition(success, error, options);
 })
 
+function checkPunchState(){
+  
+}
 
