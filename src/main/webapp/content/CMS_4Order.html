@@ -38,7 +38,7 @@
       #DIV1 {
          width: 50%;
          /*DIV區塊寬度*/
-         height: 800px;
+         height: 500px;
          /*DIV區塊高度*/
          /* padding:20px;          DIV區塊內距，參閱：CSS padding 內距。 */
          background-color: gainsboro;
@@ -50,7 +50,7 @@
       #DIV2 {
          width: 50%;
          /*DIV區塊寬度*/
-         height: 800px;
+         height: 500px;
          /*DIV區塊高度*/
          /* padding:20px;          DIV區塊內距，參閱：CSS padding 內距。 */
          background-color: grey;
@@ -63,7 +63,42 @@
       .menu{
          margin: 0px 10px ;
       }
-      
+      body{
+   background-color: rgba(0, 0, 0,.2);
+   }
+   .item_header{
+      display: flex;
+      width: auto;
+      margin: 0 auto;
+      height: 50px;
+      background-color:#fff;
+      border-radius: 10px;  /*框框：圓弧*/
+      padding-left: 30px;  /*body 與外框距離*/
+   }
+   .item_header div{
+      width: 200px;
+      color:black;
+      line-height: 50px;
+   }
+   .item_header .item_detail{  /*購物車「商品」與「單價」的距離*/
+      width: fixed;
+   }
+   .item_body{       /*兩個白色快的距離*/
+      margin-top: 20px;
+      height: auto;
+      align-items: center;    
+   }
+   /* .item_detail img{
+      width: 80px;
+      height: 80px;
+      border-radius: 3px;
+      margin-top: 20px;
+      float: left;
+   } */
+   .item_detail .name{     /*「商品名稱」與左邊、上面距離*/
+      margin-left: 2px;
+      margin-top: 20px;
+   } 
    </style>
 
 
@@ -174,11 +209,15 @@
       </div>
       <script>
          $("#addcart").click(function(){
-            for (i=1; i< 8 ; i++){
+            for (i=1; i<=testData  ; i++){
             var dish_qty = document.getElementById(`dish_qty${i}`);
             console.log(dish_qty.innerHTML);
             }
          })
+
+
+         // $(document).ready(function(){
+         //    $('addcart').on('click',function(e){}
       </script>
 
 
