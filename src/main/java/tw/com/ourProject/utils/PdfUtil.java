@@ -2,6 +2,8 @@ package tw.com.ourProject.utils;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.Collection;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -19,7 +21,7 @@ public class PdfUtil {
 	private static final byte[] USERPASS = "user".getBytes();
     private static final byte[] OWNERPASS = "owner".getBytes();
     PdfWriter pdfWriter;
-    public void converPdf (Salaryslip salaryslip){
+    public void converPdf (Set<String> col ,Collection<Object> val){
 		try {
 			pdfWriter = new PdfWriter(new FileOutputStream("D:/test6.pdf"));
 		} catch (FileNotFoundException e) {
@@ -38,7 +40,10 @@ public class PdfUtil {
     			float[] pointColumnWidths = { 80F, 200F };
     			Table table = new Table(pointColumnWidths);
 //    		表格資料
-    		
+    			for(int i = 0 ;i<col.size();i++) {
+    				table.addCell(col.toArray()[i].toString());
+        			table.addCell(val.toArray()[i].toString());
+    			}
     			
 //    			table.addCell(colum);
 //    			table.addCell(value);
