@@ -18,7 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name="order")
+@Table(name="orders")
 @EntityListeners(AuditingEntityListener.class)
 public class Order {
 	

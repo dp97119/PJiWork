@@ -8,13 +8,13 @@ function veritfyToken() {
     alert("請先登入");
     parent.location.href = "/index.html";
   };
-  var usertoken = JSON.stringify([{
-    usertoken: getCookie()
+  var userToken = JSON.stringify([{
+    userToken: getCookie()
   }]);
   $.ajax({
     type: "post",
     url: "http://localhost:8080/loginAction/1",
-    data: usertoken,
+    data: userToken,
     contentType: 'application/json',
     success: function (data) {
       console.log(data);
@@ -29,14 +29,14 @@ function veritfyToken() {
 
 function logOut() {
   if (confirm("你確定登出嗎？")) {
-    var usertoken = JSON.stringify([{
+    var userToken = JSON.stringify([{
       userToken: getCookie()
     }]);
     $.ajax({
       type: "post",
       url: "/logOut",
       contentType: 'application/json',
-      data: usertoken,
+      data: userToken,
       success: function () {
         deleteCookie();
         window.location.href = "/index.html";
