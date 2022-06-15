@@ -19,7 +19,7 @@ public class PunchService {
 		Punch punchInfo = new Punch();
 		punchInfo.setStatus(status);
 		punchInfo.setTime(time);
-		punchInfo.setEmpId(person);
+		punchInfo.setPerson(person);
 		punchInfo.setLocationLat(locationLat);
 		punchInfo.setLocationLng(locationLng);
 		punchRepo.save(punchInfo);
