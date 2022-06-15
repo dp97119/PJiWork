@@ -31,8 +31,9 @@
 
 /* 2_1,2_3,CMS_5Staffcontact */
 .tableStyle {
-    border: 1px solid #AC915D;
+    border: 1px solid black;
     text-align: center;
+    height: 30px;
 }
 
 /* 簽核流程table */
