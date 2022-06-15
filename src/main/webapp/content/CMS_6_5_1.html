@@ -6,18 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="/jQuery/jquery-3.6.0.js"></script>
     <!-- style -->
+    <link rel="stylesheet" href="/css/shared/content6_5_style.css" />
     <link rel="stylesheet" href="/css/shared/button.css" />
-    <link rel="stylesheet" href="/css/shared/background.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
-    <!-- 修改、刪除紐前面圖式 -->
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+        integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
-
+    <!-- 修改、刪除紐前面圖式 -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    
 </head>
 
 
@@ -52,8 +51,101 @@
             </li>
         </ul>
         <div>
-            訂餐系統編輯區
+            <!-- 訂餐系統編輯區 -->
+            <form action="">
+                <br>
+                <div class="orderSearch">
+                    <label for=""><b>日期：</b></label>&nbsp;&nbsp;
+                    <input type="date" class="inputSize"
+                        id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="icon-input-btn">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <input class="function" type="button" value="查尋">
+                    </span>
+                </div>
+                <br>
+                <div>
 
+                    <div class="orderleftDiv">
+                        <div>
+                            <table class="orderTable" style="background-color:rgba(173, 173, 173, 0.756);">
+                                <tr>
+                                    <th class="ordertableStyle" colspan="7">員工訂餐明細</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="middlerDiv">
+                            <table class="orderTable">
+                                <tr>
+                                    <th class="ordertableStyle" width="6%">NO.</th>
+                                    <th class="ordertableStyle" width="10%">員工</th>
+                                    <th class="ordertableStyle" width="18%">日期</th>
+                                    <th class="ordertableStyle" width="25%">品項</th>
+                                    <th class="ordertableStyle" width="6%">數量</th>
+                                    <th class="ordertableStyle" width="25%">備註</th>
+                                    <th class="ordertableStyle" width="10%">小計</th>
+                                </tr>
+                                <tr>
+                                    <td class="ordertableStyle">1</td>
+                                    <td class="ordertableStyle">林子吟</td>
+                                    <td class="ordertableStyle">2022年10月10號</td>
+                                    <td class="ordertableStyle"></td>
+                                    <td class="ordertableStyle"></td>
+                                    <td class="ordertableStyle"></td>
+                                    <td class="ordertableStyle"></td>
+                                </tr>
+                            </table>
+                            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        </div>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>總計金額：&nbsp;&nbsp;</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <div class="orderrightDiv">
+                        <div>
+                            <table class="orderTable" style="background-color:rgba(173, 173, 173, 0.756);">
+                                <tr>
+                                    <th class="ordertableStyle" colspan="7">品項總明細</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="middlerDiv">
+                            <table class="orderTable">
+                                <tr>
+                                    <th class="ordertableStyle" width="6%">NO.</th>
+                                    <th class="ordertableStyle" width="35%">品項</th>
+                                    <th class="ordertableStyle" width="6%">數量</th>
+                                    <th class="ordertableStyle" width="35%">備註</th>
+                                    <th class="ordertableStyle" width="15%">小計</th>
+                                </tr>
+                                <tr>
+                                    <td class="ordertableStyle">1</td>
+                                    <td class="ordertableStyle">XXX</td>
+                                    <td class="ordertableStyle"></td>
+                                    <td class="ordertableStyle"></td>
+                                    <td class="ordertableStyle"></td>
+                                </tr>
+                            </table>
+                            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                        </div>
+                        <div>
+                            <table>
+                                <tr>
+                                    <th>總計金額：&nbsp;&nbsp;</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
 
 
 
