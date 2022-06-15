@@ -29,11 +29,11 @@ public class Order {
 	
 	@Column(name="empid",columnDefinition = "char(11)")
 	private String empId;
-//	
-//	@CreatedDate 
-//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-//	@Column(name = "date")
-//	private Date date;
+	
+	@CreatedDate 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+	@Column(name = "date")
+	private Date date;
 	
 	@ManyToOne
 	@JoinColumn(name="dishid ",referencedColumnName = "dishid")
@@ -45,13 +45,13 @@ public class Order {
 	@Column(name = "ordermemo")
 	private String orderMemo;
 	
-//	@Column(name = "type",columnDefinition="ENUM('購物車','出貨')")
-//	private String type;
+	@Column(name = "type",columnDefinition="ENUM('購物車','出貨')")
+	private String type;
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", empId=" + empId + ", date=" + empId + ", dishes=" + dishes + ", qty="
-				+ qty + ", orderMemo=" + orderMemo + ", type=" + "type" + "]";
+		return "Order [orderId=" + orderId + ", empId=" + empId + ", date=" + date + ", dishes=" + dishes + ", qty="
+				+ qty + ", orderMemo=" + orderMemo + ", type=" + type + "]";
 	}
 
 	public Integer getOrderId() {
@@ -70,13 +70,13 @@ public class Order {
 		this.empId = empId;
 	}
 
-//	public java.util.Date getDate() {
-//		return date;
-//	}
-//
-//	public void setDate(java.util.Date date) {
-//		this.date = date;
-//	}
+	public java.util.Date getDate() {
+		return date;
+	}
+
+	public void setDate(java.util.Date date) {
+		this.date = date;
+	}
 
 	public Dish getDishes() {
 		return dishes;
@@ -102,13 +102,13 @@ public class Order {
 		this.orderMemo = orderMemo;
 	}
 
-//	public String getType() {
-//		return type;
-//	}
-//
-//	public void setType(String type) {
-//		this.type = type;
-//	}
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 	
 	
 }

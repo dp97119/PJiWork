@@ -27,9 +27,9 @@ public class OrderSystemService {
 	public OrderRepo orderRepo ;
 	
 
-	public Order order = new Order();
+	public Order order;
+	public Dish dish = new Dish();
 
-	public Dish dish ;
 	
 	public void findMenuByDate(String date) {
 		dishRepo.findAll();
@@ -51,13 +51,14 @@ public class OrderSystemService {
 	
 	public void saveToDb(String empId , JSONArray data) {
 		for(int i=0 ; i<data.size() ;i++) {
-			dish = new Dish();
-			Dish dish = dishRepo.findById(Integer.parseInt(data.getJSONObject(i).get("dishId").toString())).get();
+			order = new Order();
+			dish.setDishId(Integer.parseInt(data.getJSONObject(i).get("dishId").toString()));
 			order.setEmpId(empId);
 			order.setDishes(dish);
 			order.setQty(Integer.parseInt(data.getJSONObject(i).get("qty").toString()));
-//			order.setType("購物車");
+			order.setType("購物車");
 			orderRepo.save(order);
+
 		}
 		
 	}
