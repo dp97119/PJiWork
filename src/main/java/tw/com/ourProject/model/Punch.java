@@ -1,13 +1,13 @@
 package tw.com.ourProject.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -24,6 +24,7 @@ public class Punch {
 	@Column(name = "status",columnDefinition="ENUM('上班','下班')")
 	private String status;
 	
+	@CreatedDate 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "time")
 	private java.util.Date time;
@@ -59,19 +60,19 @@ public class Punch {
 		this.status = status;
 	}
 
-	public Date getTime() {
+	public java.util.Date getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(java.util.Date time) {
 		this.time = time;
 	}
 
-	public String getEmpId() {
+	public String getPerson() {
 		return person;
 	}
 
-	public void setEmpId(String person) {
+	public void setPerson(String person) {
 		this.person = person;
 	}
 
@@ -90,6 +91,5 @@ public class Punch {
 	public void setLocationLng(String locationLng) {
 		this.locationLng = locationLng;
 	}
-	
 	
 }
