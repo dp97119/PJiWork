@@ -1,0 +1,30 @@
+.resDiv{
+    width: 80%;
+    margin: auto;
+}
+.selectDiv{
+    width: 80%;
+    float:left;
+}
+
+.uploadbtn{
+    width: 20%;
+    float:left;
+}
+
+.resimgDiv{
+    width: 90%;
+    height: 350px;
+    background-color: rgba(248, 242, 242, 0.615);
+}
+
+.resimg{
+    height: 320px;
+    overflow-y: auto;
+    word-wrap:break-word;
+}
+
+.sendbtn{
+    position: absolute;
+    right: 250px;
+}
