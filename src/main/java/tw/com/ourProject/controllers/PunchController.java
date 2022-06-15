@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Punch;
@@ -25,10 +26,10 @@ public class PunchController {
 	
 	 
 	@PostMapping("/Punch/saveInfo")
-	public void savePunchInfo(@RequestBody String punchData) {
+	public void savePunchInfo(@RequestBody JSONArray punchData) {
 	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    try {
-		JSONObject infoObj = JSONObject.parseArray(punchData).getJSONObject(0);
+		JSONObject infoObj = punchData.getJSONObject(0);
 		System.out.println("存入的打卡資訊："+infoObj.toJSONString());
 		System.out.println("存入的打卡人："+jwtUtil.getInfoFromJwtToken(infoObj.getString("person"), "empId"));
 		punchService.savePunchInfo(infoObj.getString("status"),
@@ -44,8 +45,8 @@ public class PunchController {
 	}
 	
 	@PostMapping("/Punch/getInfo")
-	public List<Punch> getPunchInfo(@RequestBody String punchData) {
-		List<Punch> getPunchInfo = punchService.getPunchInfo(jwtUtil.getInfoFromJwtToken((JSONObject.parseArray(punchData).getJSONObject(0).getString("person")),"empId"));
+	public List<Punch> getPunchInfo(@RequestBody JSONArray punchData) {
+		List<Punch> getPunchInfo = punchService.getPunchInfo(jwtUtil.getInfoFromJwtToken((punchData.getJSONObject(0).getString("person")),"empId"));
 		return getPunchInfo;
 	}
 }
