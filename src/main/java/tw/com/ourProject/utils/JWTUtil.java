@@ -17,7 +17,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JWTUtil {
-	private static final long EXPIRATION_TIME = 60 * 60 * 1000;
+	private static final long EXPIRATION_TIME = 1 * 60 * 1000;
     /**
      * JWT SECRET KEY
      */

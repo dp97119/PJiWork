@@ -20,6 +20,7 @@ function veritfyToken() {
       console.log(data);
       if (data.state == '201') {
         alert("登入時間過長，已自動登出");
+        deleteCookie();
         parent.location.href = "/index.html";
       }
     }
