@@ -1,10 +1,9 @@
 package tw.com.ourProject.model;
 
-public class dishExcelBean {
+public class DishExcelBean {
 
 	private String Num;
 	private String dishnum;
-	private String setcontent;
 	private String dishphoto;
 	private Integer price;
 	private String restnum;
@@ -19,12 +18,6 @@ public class dishExcelBean {
 	}
 	public void setDishnum(String dishnum) {
 		this.dishnum = dishnum;
-	}
-	public String getSetcontent() {
-		return setcontent;
-	}
-	public void setSetcontent(String setcontent) {
-		this.setcontent = setcontent;
 	}
 	public String getDishphoto() {
 		return dishphoto;
@@ -46,7 +39,7 @@ public class dishExcelBean {
 	}
 	@Override
 	public String toString() {
-		return "dishExcelBean [Num=" + Num + ", dishnum=" + dishnum + ", setcontent=" + setcontent + ", dishphoto="
+		return "dishExcelBean [Num=" + Num + ", dishnum=" + dishnum + ", setcontent="  + ", dishphoto="
 				+ dishphoto + ", price=" + price + ", restnum=" + restnum + "]";
 	}
 	

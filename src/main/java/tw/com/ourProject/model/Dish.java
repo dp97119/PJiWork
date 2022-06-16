@@ -29,6 +29,7 @@ public class Dish {
 	@Column(name = "dishitem")
 	private String dishItem ;
 	
+	
 	@Column(name = "dishphoto")
 	private String dishPhoto ;
 	
@@ -66,6 +67,7 @@ public class Dish {
 	public String getDishItem() {
 		return dishItem;
 	}
+	
 
 	public void setDishItem(String dishItem) {
 		this.dishItem = dishItem;
