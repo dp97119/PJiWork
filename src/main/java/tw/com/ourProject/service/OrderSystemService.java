@@ -1,5 +1,6 @@
 package tw.com.ourProject.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,22 @@ public class OrderSystemService {
 
 		}
 		
+	}
+
+	public JSONArray getOrderInCar(String empId , Date startDate , Date endDate) {
+		List<Order> rs = orderRepo.findByEmpIdAndDateBetweenAndType(empId,startDate,endDate,"購物車");
+		
+		JSONArray jArry = new JSONArray();
+		for(Order order : rs) {
+			JSONObject obj = new JSONObject();
+			obj.put("orderId", order.getOrderId());
+			obj.put("dishItem", order.getDishes().getDishItem());
+//			obj.put("dishPhoto", order.getDishes().getDishPhoto());
+			obj.put("dishPrice", order.getDishes().getDishPrice());
+			obj.put("qty", order.getQty());
+//			obj.put("orderMemo", order.getOrderMemo());
+			jArry.add(obj);
+		}
+		return jArry;
 	}
 }
