@@ -44,5 +44,9 @@ public class ApprovalsetService {
 		
 	}
 	
+	public void deleteApprovalset(Integer approvalsetid) {
+		approvalsetRepo.deleteById(approvalsetid);
+	}
+	
 
 }
