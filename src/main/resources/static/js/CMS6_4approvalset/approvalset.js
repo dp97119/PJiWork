@@ -7,19 +7,19 @@ $(function() {
 		success: function(data) {
 			var i = 1;
 			$.each(data, function() {
-				var approvalsetrecord = $('<tr class="staffWord" id='+this.approvalSetId+'><td class="tableStyle">' + i + `</td>
-                    <td class="tableStyle">`+ this.aparts.apart + `</td>
-                    <td class="tableStyle">`+ this.employees.empName + `</td>
-                    <td class="tableStyle">`+ this.employee.empName + `</td>
+				var approvalsetrecord = $(`<tr class="staffWord" id="${this.approvalSetId}"><td class="tableStyle"> ${i} </td>
+                    <td class="tableStyle"> ${this.aparts.apart}</td>
+                    <td class="tableStyle">${this.employees.empName} </td>
+                    <td class="tableStyle"> ${this.employee.empName} </td>
                     <td class="tableStyle">
                         <span class="icon-input-btn">
                             <i class="glyphicon glyphicon-pencil"></i>
                             <input type="button" value="修改" class="function"
-                                onClick="window.location.href='./CMS_6_4_2.html';"/>
+							onClick="window.location.href='./CMS_6_4_2.html';editbtn( ${i})"/>
                         </span>&nbsp;&nbsp;
                         <span class="icon-input-btn">
                             <i class="glyphicon glyphicon-trash"></i>
-                            <input type="button" value="刪除" class="function" onClick="console.log("OK");"/>
+                            <input type="button" value="刪除" class="function" onClick="deletebtn( ${i})"/>
                         </span>&nbsp;&nbsp;
                     </td>
                 </tr>`);
@@ -76,16 +76,20 @@ $("#sendbtn").on("click", function() {
 })
 
 
-
 // 修改
-
+function editbtn(i){
+	console.log("hihi");
+    console.log(document.getElementsByTagName("tr")[i].getAttribute('id'));
+	
+}
 
 
 
 // 刪除
-$("#testtest").on("click",function(){
-	console.log("OK");
-	console.log(document.getElementsByTagName("tr")[1].getAttribute('id'));
-});
 
+// getAttribute回傳屬性值
+function deletebtn(i){
+	console.log("haha");
+    console.log(document.getElementsByTagName("tr")[i].getAttribute('id'));
 
+}
