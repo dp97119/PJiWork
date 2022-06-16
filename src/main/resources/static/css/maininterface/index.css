@@ -261,6 +261,10 @@
       }
   }
 
+
+
+  /* -------我是分隔線----------- */
+
   #titleImg{
       margin-top: 30px;
       margin-bottom: 50px;
@@ -346,8 +350,3 @@
     word-wrap: break-word;
     overflow-y: auto;
   }
-
-  #notice{
-    cursor: pointer;
-    /* 滑鼠移動上去變成小手 */
-}
