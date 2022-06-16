@@ -6,14 +6,14 @@ setInterval(veritfyToken, 10 * 60 * 1000);
 function veritfyToken() {
   if (document.cookie == "") {
     alert("請先登入");
-    parent.location.href = "/index.html";
+    parent.location.href = "/";
   };
-  var userToken = JSON.stringify([{
-    userToken: getCookie()
-  }]);
+  var userToken = JSON.stringify({
+    "userToken": getCookie()
+  });
   $.ajax({
     type: "post",
-    url: "http://localhost:8080/loginAction/1",
+    url: "/security/verifyToken",
     data: userToken,
     contentType: 'application/json',
     success: function (data) {
@@ -21,7 +21,7 @@ function veritfyToken() {
       if (data.state == '201') {
         alert("登入時間過長，已自動登出");
         deleteCookie();
-        parent.location.href = "/index.html";
+        parent.location.href = "/";
       }
     }
   })
@@ -29,17 +29,17 @@ function veritfyToken() {
 
 function logOut() {
   if (confirm("你確定登出嗎？")) {
-    var userToken = JSON.stringify([{
-      userToken: getCookie()
-    }]);
+    var userToken = JSON.stringify({
+      "userToken": getCookie()
+    });
     $.ajax({
       type: "post",
-      url: "/logOut",
+      url: "/security/logOut",
       contentType: 'application/json',
       data: userToken,
       success: function () {
         deleteCookie();
-        window.location.href = "/index.html";
+        window.location.href = "/";
       }
     });
   }

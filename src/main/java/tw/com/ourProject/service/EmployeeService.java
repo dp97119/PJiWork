@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
+
 import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.model.Temptoken;
 import tw.com.ourProject.repository.EmployeeRepo;
@@ -62,5 +64,11 @@ public class EmployeeService {
 			return "201";
 		}
 		return "200";
+	}
+
+	public JSONObject checkAdm(String userToken) {
+		JSONObject obj = new JSONObject();
+		obj.put("userAdm", jwtToken.getInfoFromJwtToken(userToken, "adm"));
+		return obj;
 	}
 }

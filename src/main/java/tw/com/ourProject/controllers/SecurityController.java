@@ -20,8 +20,8 @@ public class SecurityController {
 	@Autowired
 	TokenService tokenService;
 
-	@PostMapping("/loginAction")
-	public JSONObject loginAction(@RequestBody String inputdata) {
+	@PostMapping("/security/login")
+	public JSONObject login(@RequestBody String inputdata) {
 		JSONArray jsonArray = JSONObject.parseArray(inputdata);
 		System.out.println(jsonArray);
 		JSONObject obj = null;
@@ -46,30 +46,29 @@ public class SecurityController {
 
 	}
 	
-	@PostMapping("/loginAction/1")
-	public JSONObject verifyToken(@RequestBody JSONArray userToken) {
-		System.out.println(userToken);
-		JSONObject obj = null;
-		for (int i = 0; i < userToken.size(); i++) {
-			obj = userToken.getJSONObject(i);
-		}
-		System.out.println(obj.getString("userToken"));
-		String rb = employeeService.verifyToken(obj.getString("userToken"));
-		obj.put("state", rb);
+	@PostMapping("/security/verifyToken")
+	public JSONObject verifyToken(@RequestBody JSONObject userToken) {
+		JSONObject obj = new JSONObject();
+		obj.put("state", employeeService.verifyToken(userToken.getString("userToken")));
 		return obj;
 		
 	}
 
-	@PostMapping("/countToken")
+	@PostMapping("/security/countToken")
 	public JSONObject countToken() {
 		JSONObject obj = new JSONObject();
 		obj.put("countRs",tokenService.countToken().toString());
 		return obj;
 	}
 	
-	@PostMapping("/logOut")
-	public void logOut(@RequestBody String userToken) {
-		String obj = JSONObject.parseArray(userToken).getJSONObject(0).get("userToken").toString();
-		tokenService.deleteToken(obj);
+	@PostMapping("/security/logOut")
+	public void logOut(@RequestBody JSONObject userToken) {
+		tokenService.deleteToken(userToken.getString("userToken"));
+	}
+	
+	@PostMapping("/security/checkAdm")
+	public JSONObject checkAdm(@RequestBody JSONObject userToken) {
+	
+		return employeeService.checkAdm(userToken.getString("userToken"));
 	}
 }
