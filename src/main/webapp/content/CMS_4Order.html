@@ -22,9 +22,6 @@
 
    <title>Orderpage</title>
 
-
-
-
 </head>
 
 <body>
@@ -44,115 +41,11 @@
       <div class="menusDiv">
          <div id="menus" class="container"></div>
       </div>
-
-      <!-- 菜單數量增加、減少 -->
-      <script>
-         function adder(a) {
-            var tmp = document.getElementById(`dish_qty${a}`).innerHTML;
-            tmp++;
-            document.getElementById(`dish_qty${a}`).innerHTML = tmp;
-         }
-         function minuser(a) {
-            var tmp = document.getElementById(`dish_qty${a}`).innerHTML;
-            tmp = tmp - 1;
-            if (tmp < 0) { tmp = 0 }
-            document.getElementById(`dish_qty${a}`).innerHTML = tmp;
-         }
-
-         function addcart() {
-            var jsonObj = [];
-            var tempPrdList = [];
-            for (i = 1; i < 4; i++) {    //數字要改成菜單的數量
-               var allcounter = document.getElementById(`dish_qty${i}`).innerHTML;
-               if (allcounter != 0) {
-                  tempPrdList.push(allcounter)
-               }
-            }
-            for (i = 0, j = tempPrdList.length; i < j; i++) {
-               var obj = new Object;
-               obj.dishId = tempPrdList[i];  //key=id   //待處理：資料無法回傳完整
-               jsonObj.push(obj);
-            }
-            console.log(JSON.stringify(jsonObj));
-         }
-      </script>
-      <script>
-         var menu, data, param;
-         var date = new Date();
-         window.onload = function () {
-            // 判斷時間 下午2點到隔天11點前 結果1:顯示菜單
-            if (date.getHours() <= 11 || date.getHours() >= 14) {
-               if (date.getHours <= 11) {
-                  param = JSON.stringify({ "userToken": getCookie(), "date": date.getDate() });
-               } else {
-                  param = JSON.stringify({ "userToken": getCookie(), "date": date.getDate() + 1 });
-               }
-               $.ajax({
-                  type: "POST",
-                  url: "http://localhost:8080/orderSys/getMenu",
-                  data: param,
-                  contentType: 'application/json',
-                  success: function (testData) {
-                     var left_menu = document.getElementById("menus");
-                     data = testData;
-                     for (var i = 0; i < testData.length; i++) {
-
-                        menu = document.createElement("div");
-                        menu.setAttribute("class", "menu")
-
-                        menu.innerHTML += `<img src="${testData[i].dishPhoto}" width="110" height="110" alt="${testData[i].dishItem}" title="${testData[i].dishItem}" class="pic row" />`
-                        menu.innerHTML += `<div class="row">`;
-                        menu.innerHTML += `<input id="dish_minus${testData[i].dishId}" type="button" onclick="minuser(${testData[i].dishId})"" value=" - " style="font-size: 20px;" />`;
-                        menu.innerHTML += `<type id="dish_qty${testData[i].dishId}" style="font-size: 15px; margin-left: 15px;margin-right: 15px;">0</type>`;
-                        menu.innerHTML += `<input id="dish_add${testData[i].dishId}" type="button" onclick="adder(${testData[i].dishId})" value=" + " style="font-size: 19px;" /></div>`;
-                        menu.innerHTML += `<p class="row" style="margin-top: 0px; font-size:15px; margin-left: 15px;">${testData[i].dishItem}</p>`;
-                        menu.innerHTML += `<p class="row" style=" margin-top: -15px;font-size:15px; margin-left: 15px;">$${testData[i].dishPrice}</p>`;
-                        left_menu.appendChild(menu);
-                     }
-                  }
-               });
-               //時間判斷 結果2
-            } else {
-               //顯示尚未上架 敬請期待
-               alert("商品尚未上架 敬請期待");
-            }
-         };
-      </script>
-
       <!-- 左方DIV1下單btn -->
       <br>
       <div>
          <button type="button" id="addcart" class="btnStyle">加入右方購物車</button>
       </div>
-      <script>
-         $("#addcart").click(function () {
-            var tempData = [];
-            for (i = 0; i < data.length; i++) {
-               var dish_qty = document.getElementById(`dish_qty${data[i].dishId}`);
-               if (dish_qty.innerHTML != "0") {
-                  console.log(data[i].dishItem + "的數量為：" + dish_qty.innerHTML);
-                  tempData.push(JSON.parse(`{"dishId" : ${data[i].dishId} ,"qty" : ${dish_qty.innerHTML}}`));
-               }
-            }
-            tempData.splice(0, 0, { userToken: getCookie() });
-            var sendData = JSON.stringify(tempData);
-            $.ajax({
-               type: "post",
-               url: "http://localhost:8080/orderSys/saveToDb",
-               data: sendData,
-               contentType: 'application/json',
-               success: function () {
-                  //更新右方購物出畫面
-               }
-            });
-         })
-         function getCookie() {
-            var cookie = document.cookie.split('=');
-            return cookie[1].toString();
-         }
-
-      </script>
-
    </div>
 
    <!-- 右邊DIV2下單區 -->
@@ -173,76 +66,8 @@
             </div>
          </div>
       </div>
-
-
-      <script>
-         $(document).ready(getOrdersinCar());
-
-         function getOrdersinCar() {
-            console.log("開始查詢購物車資訊");
-            var tokenAndDate = JSON.stringify({
-               "userToken": getCookie(),
-               "startDate": "2022-06-15 12:00:00",
-               "endDate": "2022-06-16 12:00:00"
-            });
-
-            $.ajax({
-               type: "post",
-               url: "http://localhost:8080/orderSys/getOrder",
-               data: tokenAndDate,
-               contentType: 'application/json',
-               success: function (orderData) {
-                  var orderRows;
-                  var carDiv = document.getElementById("orderCar");
-                  for (var i = 0; i < orderData.length; i++) {
-                     orderRows = document.createElement("table");
-                     orderRows.setAttribute("class", "orderRows");
-                     orderRows.innerHTML = `<tr class = "" id="${i}" style="border-bottom:1px solid gray " >
-                                                <td class = "" id="" width="150px">${orderData[i].dishItem}</td>
-                                                <td class = "" id="" width="20%">${orderData[i].dishPrice}</td>
-                                                <td class = "" id="" width="20%">${orderData[i].qty}</td> 
-                                                <td class = "" id="" width="20%">${orderData[i].qty * orderData[i].dishPrice}</td>
-                                                <td class = "" id="" width="15%"><button>刪除</button></td>
-                                          </tr>`;
-
-                     carDiv.appendChild(orderRows);
-                  }
-               }
-            });
-         }
-
-         //商品選取框
-         var check = oDiv.firstChild.getElementsByTagName("i")[0];
-         check.onclick = function () {
-            // console.log(check.className);
-            if (check.className == "i_check i_acity") {
-               check.classList.remove("i_acity");
-
-            } else {
-               check.classList.add("i_acity");
-            }
-            getAmount();
-         }
-
-         //進行價格計算
-         function getAmount() {
-            //獲取選取的選擇框
-            ns = document.getElementsByClassName("i_acity");
-            //初始化總價
-            sum = 0;
-            //選取框
-            document.getElementById("price_num").innerText = sum;
-            for (y = 0; y < ns.length; y++) {
-               //小計
-               amount_info = ns[y].parentElement.parentElement.lastElementChild.previousElementSibling;
-               num = parseInt(amount_info.innerText);
-               sum += num;
-               document.getElementById("price_num").innerText = sum;
-            }
-         }
-      </script>
-
       <br>
+
       <div id="submit2">
          <b><span id="pay_amount">合計：</span><span id="price-num">$$$</span></b>
          <button class="btnStyle btnright">我要下單</button>
@@ -252,25 +77,8 @@
       </div>
    </div>
 
-   <script>
-      btn.onclick = function () {
-         $("#submit1").appendTo("#DIV2");
-      }
-
-
-      $(function () {
-         $("#dialog1").dialog({
-            autoOpen: false,
-         });
-
-         $("#submit2").on("click", function () {
-            $("#dialog1").dialog("open");
-         });
-      });
-   </script>
-
    <!-- 訂單紀錄 Modal -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bＦootstrap.min.js"
       integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
       crossorigin="anonymous"></script>
    <div class="modal fade" id="orderSearchModal" tabindex="-1" aria-labelledby="orderSearchModalLabel"
@@ -317,6 +125,178 @@
       </div>
    </div>
 
+	<script src="/js/punch/moment.min.js"></script>
+   <script>
+      $(document).ready(getOrdersInCar());
+      function getCookie() {
+         var cookie = document.cookie.split('=');
+         return cookie[1].toString();
+      }
+
+      function adder(a) {
+         var tmp = document.getElementById(`dish_qty${a}`).innerHTML;
+         tmp++;
+         document.getElementById(`dish_qty${a}`).innerHTML = tmp;
+      }
+      function minuser(a) {
+         var tmp = document.getElementById(`dish_qty${a}`).innerHTML;
+         tmp = tmp - 1;
+         if (tmp < 0) { tmp = 0 }
+         document.getElementById(`dish_qty${a}`).innerHTML = tmp;
+      }
+      function addcart() {
+         var jsonObj = [];
+         var tempPrdList = [];
+         for (i = 1; i < 4; i++) {    //數字要改成菜單的數量
+            var allcounter = document.getElementById(`dish_qty${i}`).innerHTML;
+            if (allcounter != 0) {
+               tempPrdList.push(allcounter)
+            }
+         }
+         for (i = 0, j = tempPrdList.length; i < j; i++) {
+            var obj = new Object;
+            obj.dishId = tempPrdList[i];  //key=id   //待處理：資料無法回傳完整
+            jsonObj.push(obj);
+         }
+         console.log(JSON.stringify(jsonObj));
+      }
+
+
+      var menu, data, param;
+      var date = new Date();
+      window.onload = function () {
+         // 判斷時間 下午2點到隔天11點前 結果1:顯示菜單
+         if (date.getHours() <= 11 || date.getHours() >= 14) {
+            if (date.getHours <= 11) {
+               param = JSON.stringify({ "setDate": moment().format('YYYY-MM-DD') });
+            } else {
+               param = JSON.stringify({ "setDate": moment().add(1,'days').format('YYYY-MM-DD') });
+            }
+            $.ajax({
+               type: "POST",
+               url: "/orderSys/getMenu",
+               data: param,
+               contentType: 'application/json',
+               success: function (testData) {
+                  var left_menu = document.getElementById("menus");
+                  data = testData;
+                  for (var i = 0; i < testData.length; i++) {
+
+                     menu = document.createElement("div");
+                     menu.setAttribute("class", "menu")
+
+                     menu.innerHTML += `<img src="${testData[i].dishPhoto}" width="110" height="110" alt="${testData[i].dishItem}" title="${testData[i].dishItem}" class="pic row" />`
+                     menu.innerHTML += `<div class="row">`;
+                     menu.innerHTML += `<input id="dish_minus${testData[i].dishId}" type="button" onclick="minuser(${testData[i].dishId})"" value=" - " style="font-size: 20px;" />`;
+                     menu.innerHTML += `<type id="dish_qty${testData[i].dishId}" style="font-size: 15px; margin-left: 15px;margin-right: 15px;">0</type>`;
+                     menu.innerHTML += `<input id="dish_add${testData[i].dishId}" type="button" onclick="adder(${testData[i].dishId})" value=" + " style="font-size: 19px;" /></div>`;
+                     menu.innerHTML += `<p class="row" style="margin-top: 0px; font-size:15px; margin-left: 15px;">${testData[i].dishItem}</p>`;
+                     menu.innerHTML += `<p class="row" style=" margin-top: -15px;font-size:15px; margin-left: 15px;">$${testData[i].dishPrice}</p>`;
+                     left_menu.appendChild(menu);
+                  }
+               }
+            });
+            //時間判斷 結果2
+         } else {
+            //顯示尚未上架 敬請期待
+            alert("商品尚未上架 敬請期待");
+         }
+      };
+
+      $("#addcart").click(function () {
+         var tempData = [];
+         for (i = 0; i < data.length; i++) {
+            var dish_qty = document.getElementById(`dish_qty${data[i].dishId}`);
+            if (dish_qty.innerHTML != "0") {
+               console.log(data[i].dishItem + "的數量為：" + dish_qty.innerHTML);
+               tempData.push(JSON.parse(`{"dishId" : ${data[i].dishId} ,"qty" : ${dish_qty.innerHTML}}`));
+            }
+         }
+         tempData.splice(0, 0, { userToken: getCookie() });
+         var sendData = JSON.stringify(tempData);
+         $.ajax({
+            type: "post",
+            url: "/orderSys/saveToDb",
+            data: sendData,
+            contentType: 'application/json',
+            success: function () {
+               //更新右方購物出畫面
+            }
+         });
+      })
+
+      function getOrdersInCar() {
+         console.log("開始查詢購物車資訊");
+         var tokenAndDate = JSON.stringify({
+            "userToken": getCookie(),
+            "startDate": "2022-06-15 12:00:00",
+            "endDate": "2022-06-16 12:00:00"
+         });
+
+         $.ajax({
+            type: "post",
+            url: "/orderSys/getOrder",
+            data: tokenAndDate,
+            contentType: 'application/json',
+            success: function (orderData) {
+               var orderRows;
+               var carDiv = document.getElementById("orderCar");
+               for (var i = 0; i < orderData.length; i++) {
+                  orderRows = document.createElement("table");
+                  orderRows.setAttribute("class", "orderRows");
+                  orderRows.innerHTML = `<tr class = "" id="${i}" style="border-bottom:1px solid gray " >
+                                                <td class = "" id="" width="150px">${orderData[i].dishItem}</td>
+                                                <td class = "" id="" width="20%">${orderData[i].dishPrice}</td>
+                                                <td class = "" id="" width="20%">${orderData[i].qty}</td> 
+                                                <td class = "" id="" width="20%">${orderData[i].qty * orderData[i].dishPrice}</td>
+                                                <td class = "" id="" width="15%"><button id="deleteOrder"n>刪除</button></td>
+                                          </tr>`;
+
+                  carDiv.appendChild(orderRows);
+               }
+            }
+         });
+      }
+
+      $("#deleteOrder").click(function(){
+
+
+      });
+
+      
+
+
+      //商品選取框
+      var check = oDiv.firstChild.getElementsByTagName("i")[0];
+      check.onclick = function () {
+         // console.log(check.className);
+         if (check.className == "i_check i_acity") {
+            check.classList.remove("i_acity");
+
+         } else {
+            check.classList.add("i_acity");
+         }
+         getAmount();
+      }
+
+      //進行價格計算
+      function getAmount() {
+         //獲取選取的選擇框
+         ns = document.getElementsByClassName("i_acity");
+         //初始化總價
+         sum = 0;
+         //選取框
+         document.getElementById("price_num").innerText = sum;
+         for (y = 0; y < ns.length; y++) {
+            //小計
+            amount_info = ns[y].parentElement.parentElement.lastElementChild.previousElementSibling;
+            num = parseInt(amount_info.innerText);
+            sum += num;
+            document.getElementById("price_num").innerText = sum;
+         }
+      }
+
+   </script>
 
 
 </body>
