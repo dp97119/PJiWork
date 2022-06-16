@@ -2,7 +2,6 @@ package tw.com.ourProject.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +12,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import tw.com.ourProject.model.Order;
 import tw.com.ourProject.service.OrderSystemService;
 import tw.com.ourProject.utils.JWTUtil;
 
@@ -24,12 +22,16 @@ public class OrderSystemController {
 	@Autowired
 	public JWTUtil jwt;
 	
-
-	//測試版 尚未加入時間參數
 	@PostMapping("/orderSys/getMenu")
 	public JSONArray getMenu(@RequestBody JSONObject data) {
-		System.out.println(data.toJSONString());
-		return orderSystemService.findDishByRestaurantId(1);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+		Date date = format.parse(data.getString("setDate"));
+		return orderSystemService.findMenuByDate(date);
+		}catch(Exception e) {
+			System.out.println(e.toString());
+			return JSON.parseArray("[{state : "+ e.toString()+"}]");
+		}
 	}
 	
 	@PostMapping("/orderSys/saveToDb")

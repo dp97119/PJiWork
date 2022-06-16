@@ -27,6 +27,35 @@ public class Restaurantset {
 	@ManyToOne
 	@JoinColumn(name="restaurantid",referencedColumnName = "restaurantid")
 	private Restaurant restaurants;
+
+	@Override
+	public String toString() {
+		return "Restaurantset [setId=" + setId + ", setDate=" + setDate + ", restaurants=" + restaurants + "]";
+	}
+
+	public Integer getSetId() {
+		return setId;
+	}
+
+	public void setSetId(Integer setId) {
+		this.setId = setId;
+	}
+
+	public java.util.Date getSetDate() {
+		return setDate;
+	}
+
+	public void setSetDate(java.util.Date setDate) {
+		this.setDate = setDate;
+	}
+
+	public Restaurant getRestaurants() {
+		return restaurants;
+	}
+
+	public void setRestaurants(Restaurant restaurants) {
+		this.restaurants = restaurants;
+	}
 	
 
 	

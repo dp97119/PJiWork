@@ -11,9 +11,11 @@ import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Dish;
 import tw.com.ourProject.model.Order;
+import tw.com.ourProject.model.Restaurant;
 import tw.com.ourProject.repository.DishRepo;
 import tw.com.ourProject.repository.OrderRepo;
 import tw.com.ourProject.repository.RestaurantRepo;
+import tw.com.ourProject.repository.RestaurantSetRepo;
 
 @Service
 public class OrderSystemService {
@@ -27,13 +29,29 @@ public class OrderSystemService {
 	@Autowired
 	public OrderRepo orderRepo ;
 	
+	@Autowired
+	public RestaurantSetRepo restaurantSetRepo;
 
-	public Order order;
+	public Order order = new Order();
+	
 	public Dish dish = new Dish();
 
+	public Restaurant restaurant = new Restaurant();
+
 	
-	public void findMenuByDate(String date) {
-		dishRepo.findAll();
+	public JSONArray findMenuByDate(Date date) {
+		restaurant = restaurantSetRepo.findBySetDate(date).getRestaurants();
+		List<Dish> menus =dishRepo.findByRestaurantid(restaurant.getRestaurantId());
+		JSONArray jsonArr = new JSONArray();
+		for(int i = 0 ;i<menus.size() ;i++) {
+			JSONObject obj = new JSONObject();
+			obj.put("dishId",menus.get(i).getDishId());
+			obj.put("dishItem",menus.get(i).getDishItem());
+			obj.put("dishPrice",menus.get(i).getDishPrice());
+			obj.put("dishPhoto",menus.get(i).getDishPhoto());
+			jsonArr.add(obj);
+		}
+		return jsonArr;
 	}
 	
 	public JSONArray findDishByRestaurantId(Integer restaurantId) {
@@ -45,6 +63,7 @@ public class OrderSystemService {
 			obj.put("dishItem",menus.get(i).getDishItem());
 			obj.put("dishPrice",menus.get(i).getDishPrice());
 			obj.put("dishPhoto",menus.get(i).getDishPhoto());
+			
 			jsonArr.add(obj);
 		}
 		return jsonArr;
