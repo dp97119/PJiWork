@@ -158,39 +158,59 @@
    <!-- 右邊DIV2下單區 -->
    <div id="DIV2">
       <p style="margin-left:20px;"><b>購物車下單區：</b></p>
+      <div class="item_header">
+         <div class="item_detail">商品</div>
+         <div class="price">單價</div>
+         <div class="count">數量</div>
+         <div class="amount">總計</div>
+         <div class="operate">操作</div>
+      </div>
       <div id="app">
          <div class="container">
-            <div class="item_header">
-               <div class="item_detail">商品</div>
-               <div class="price">單價</div>
-               <div class="count">數量</div>
-               <div class="amount">總計</div>
-               <div class="operate">操作</div>
-            </div>
-            <div class="item_container" v-for="(item, index) in itemList" :key="dish.dishIid">
-               <div class="item_header item_body">
-                  <div class="item_detail">
 
-                     <!-- <img v-bind:src="item.imgUrl" alt=""> -->
-                     <div class="dishName">{{dish.dishName}}</div>
-                  </div>
-
-                  <div class="dishPrice"><span>$</span>{{dishPrice}}</div>
-                  <div class="dishqty">
-                     <button onclick="minuser(item)">-</button>
-                     {{dish.dishqty}}
-                     <button onclick="adder(item)">+</button>
-                  </div>
-                  <div class="amount">{{dish.Price * dish.dishqty}}</div>
-                  <div class="operate">
-                     <button onclick="handledelete(index)">刪除</button>
-                  </div>
-               </div>
+            <div id="orderCar" class="item_container" v-for="(item, index) in itemList" :key="dish.dishIid">
+               <!-- 購物車的東西長在這裡面 -->
             </div>
          </div>
       </div>
 
+
       <script>
+         $(document).ready(getOrdersinCar());
+
+         function getOrdersinCar() {
+            console.log("開始查詢購物車資訊");
+            var tokenAndDate = JSON.stringify({
+               "userToken": getCookie(),
+               "startDate": "2022-06-15 12:00:00",
+               "endDate": "2022-06-16 12:00:00"
+            });
+
+            $.ajax({
+               type: "post",
+               url: "http://localhost:8080/orderSys/getOrder",
+               data: tokenAndDate,
+               contentType: 'application/json',
+               success: function (orderData) {
+                  var orderRows;
+                  var carDiv = document.getElementById("orderCar");
+                  for (var i = 0; i < orderData.length; i++) {
+                     orderRows = document.createElement("table");
+                     orderRows.setAttribute("class", "orderRows");
+                     orderRows.innerHTML = `<tr class = "" id="${i}" style="border-bottom:1px solid gray " >
+                                                <td class = "" id="" width="150px">${orderData[i].dishItem}</td>
+                                                <td class = "" id="" width="20%">${orderData[i].dishPrice}</td>
+                                                <td class = "" id="" width="20%">${orderData[i].qty}</td> 
+                                                <td class = "" id="" width="20%">${orderData[i].qty * orderData[i].dishPrice}</td>
+                                                <td class = "" id="" width="15%"><button>刪除</button></td>
+                                          </tr>`;
+
+                     carDiv.appendChild(orderRows);
+                  }
+               }
+            });
+         }
+
          //商品選取框
          var check = oDiv.firstChild.getElementsByTagName("i")[0];
          check.onclick = function () {
@@ -249,53 +269,53 @@
       });
    </script>
 
-    <!-- 訂單紀錄 Modal -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
-        crossorigin="anonymous"></script>
-    <div class="modal fade" id="orderSearchModal" tabindex="-1" aria-labelledby="orderSearchModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" style="width: 380px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="orderSearchModalLabel">訂單查詢</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body orderSearchDiv">
-                    <div>
-                        <label><b>日期：</b></label>&nbsp;&nbsp;
-                        <input type="date" class="inputSize" style="width: 130px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="submit" value="查詢" class="btnStyle">
-                    </div>
-                    <br>
-                    <div class="orderRespond">
-                        <div>
-                            <h6><b>餐廳：</b></h6>
-                        </div>
-                        <div class="respondDiv">
-                            <table class="myfoodTable">
-                                <tr class="myfoodBorder">
-                                    <td class="foodL">
-                                        <div>牛肉漢堡</div>
-                                        <div>備註</div>
-                                    </td>
-                                    <td class="foodR">
-                                        <div>NT</div>
-                                        <div>數量</div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <br><br><br><br><br><br><br><br><br><br>
-                        </div>
-                        <div>
-                            <label><b>小計：NT $$$</b></label>
-                        </div>
-
-                    </div>
-                </div>
+   <!-- 訂單紀錄 Modal -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
+      crossorigin="anonymous"></script>
+   <div class="modal fade" id="orderSearchModal" tabindex="-1" aria-labelledby="orderSearchModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" style="width: 380px;">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="orderSearchModalLabel">訂單查詢</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
+            <div class="modal-body orderSearchDiv">
+               <div>
+                  <label><b>日期：</b></label>&nbsp;&nbsp;
+                  <input type="date" class="inputSize" style="width: 130px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="submit" value="查詢" class="btnStyle">
+               </div>
+               <br>
+               <div class="orderRespond">
+                  <div>
+                     <h6><b>餐廳：</b></h6>
+                  </div>
+                  <div class="respondDiv">
+                     <table class="myfoodTable">
+                        <tr class="myfoodBorder">
+                           <td class="foodL">
+                              <div>牛肉漢堡</div>
+                              <div>備註</div>
+                           </td>
+                           <td class="foodR">
+                              <div>NT</div>
+                              <div>數量</div>
+                           </td>
+                        </tr>
+                     </table>
+                     <br><br><br><br><br><br><br><br><br><br>
+                  </div>
+                  <div>
+                     <label><b>小計：NT $$$</b></label>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
 
 

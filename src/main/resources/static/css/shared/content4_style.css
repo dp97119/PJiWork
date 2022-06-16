@@ -24,8 +24,13 @@
     float: right;
 }
 
-.menusDiv,#app{
+.menusDiv{
     height: 350px;
+    overflow-y: auto;
+}
+
+#app{
+    height: 300px;
     overflow-y: auto;
 }
 
@@ -57,27 +62,9 @@
 
 .item_header div {
     width: 200px;
-    color: black;
     line-height: 50px;
 }
 
-.item_header .item_detail {
-    /*購物車「商品」與「單價」的距離*/
-    width: fixed;
-}
-
-.item_body {
-    /*兩個白色快的距離*/
-    margin-top: 20px;
-    height: auto;
-    align-items: center;
-}
-
-.item_detail .name {
-    /*「商品名稱」與左邊、上面距離*/
-    margin-left: 2px;
-    margin-top: 20px;
-}
 
 /* <!-- 訂單紀錄 Modal --> */
     .orderSearchDiv {
