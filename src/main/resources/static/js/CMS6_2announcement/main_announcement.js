@@ -6,9 +6,9 @@ $(function () {
         url: "http://localhost:8080/showAnnouncement/",
         type: "GET",
         success: function (data) {
-            $.each(data, function () {                
-                    var announcementRecord = $(`<li id="notice">`+ this.title +`</li>`);
-                announcementRecord.appendTo("#mainAnnouncement");
+            $.each(data, function () {
+                var announcementRecord = $(`<li id="notice">` + this.title + `</li>`);
+                $("#notice").before(announcementRecord);
             })
         }
     })
