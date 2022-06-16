@@ -7,8 +7,17 @@ $(function () {
         type: "GET",
         success: function (data) {
             $.each(data, function () {
-                var announcementRecord = $(`<li id="notice">` + this.title + `</li>`);
-                $("#notice").before(announcementRecord);
+                var NowDate = new Date();
+                var yy = NowDate.getFullYear();
+                var mm = ('0' + (NowDate.getMonth() + 1)).slice(-2);
+                var dd = ('0' + NowDate.getDate()).slice(-2);
+                var today = yy + '-' + mm + '-' + dd;
+                // console.log(today);
+
+                if (today < this.removed) {
+                    var announcementRecord = $(`<li id="notice">` + this.title + `</li>`);
+                    $("#notice").before(announcementRecord);
+                }
             })
         }
     })
