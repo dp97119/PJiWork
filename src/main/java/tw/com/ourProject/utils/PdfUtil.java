@@ -21,9 +21,11 @@ public class PdfUtil {
 	private static final byte[] USERPASS = "user".getBytes();
     private static final byte[] OWNERPASS = "owner".getBytes();
     PdfWriter pdfWriter;
-    public void converPdf (Set<String> col ,Collection<Object> val){
+    String path = "src/main/resources/static/myPdf/test.pdf";
+    public String converPdf (Set<String> col ,Collection<Object> val){
 		try {
-			pdfWriter = new PdfWriter(new FileOutputStream("D:/test6.pdf"));
+			
+			pdfWriter = new PdfWriter(new FileOutputStream(path));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,7 +34,7 @@ public class PdfUtil {
     		WriterProperties ps =new WriterProperties();
     		ps.setStandardEncryption(USERPASS, OWNERPASS, EncryptionConstants.ALLOW_PRINTING, EncryptionConstants.ENCRYPTION_AES_128);
     	    PdfDocument pdf = new PdfDocument(pdfWriter);
-    	   
+//    	    C:\Windows\Fonts\mingliu.ttc
 //    		  介面物件
     		Document doc = new Document(pdf);
     		doc.setMargins(80, 0, 60, 150);
@@ -52,6 +54,7 @@ public class PdfUtil {
     			doc.add(table);
     			doc.close();
     			pdf.close();
+    			return path ;
     }
 
 }

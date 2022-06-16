@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Salaryslip;
 import tw.com.ourProject.repository.SalaryslipRepo;
+import tw.com.ourProject.utils.MailUtil;
 import tw.com.ourProject.utils.PdfUtil;
 
 
@@ -20,7 +21,10 @@ public class SalaryslipService {
 	public PdfUtil pdfUtil;
 	@Autowired
 	public SalaryslipRepo salaryslipRepo ;
-
+	@Autowired
+	public MailUtil mailUtil ;
+	
+	
 	public void convertPdf(){
 		
 		Salaryslip s = salaryslipRepo.findByEmpId("iworka00001");
@@ -33,6 +37,12 @@ public class SalaryslipService {
 		System.out.println(a.toArray()[3]);
 		System.out.println(c);
 		System.out.println(c.toArray()[3]);
-		pdfUtil.converPdf(a,c);
+		String path = pdfUtil.converPdf(a,c);
+		
+//		mailUtil.mailOnlyText("k123ke123e@gmail.com", "薪資測試", "薪水");
+//		mailUtil.mailWithAttchMent("k123ke123e@gmail.com", "薪資測試111", "薪水111", path);
 	}
+	
+	
+	
 }

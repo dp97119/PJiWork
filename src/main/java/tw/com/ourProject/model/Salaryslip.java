@@ -25,8 +25,7 @@ public class Salaryslip {
 	private String empId;
 	
 	@Column(name = "paymonth")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-	private java.util.Date payMonth;
+	private String payMonth;
 	
 	@Column(name = "basesalary")
 	private Integer baseSalary;
@@ -131,11 +130,11 @@ public class Salaryslip {
 		this.empId = empId;
 	}
 
-	public java.util.Date getPayMonth() {
+	public String getPayMonth() {
 		return payMonth;
 	}
 
-	public void setPayMonth(java.util.Date payMonth) {
+	public void setPayMonth(String payMonth) {
 		this.payMonth = payMonth;
 	}
 
