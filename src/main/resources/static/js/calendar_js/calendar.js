@@ -113,12 +113,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 calendar.on('dateClick', function (info) {
                     //點擊日期空白處發生的事情
+                    $('#eventTitle').prop("disabled", false);
+                    $('#start').prop("disabled", false);
+                    $('#end').prop("disabled", false);
+                    $(':radio').prop("disabled", false);
+                    $('#allDay').prop("disabled", false);
                     let date = info.dateStr;   //抓日期
                     newEvents.showModal();
                     let datetimes = date + 'T00:00:00'
                     $('#eventTitle').val('');
                     $('#start').val(datetimes);
                     $('#end').val('');
+                    $(':radio').prop("checked",false);
                     $('#allDay').prop("checked", false);
 
                 });
