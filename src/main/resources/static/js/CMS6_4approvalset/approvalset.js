@@ -37,9 +37,7 @@ $(function () {
 // 新增
 $("#sendbtn").on("click", function () {
 	if ($("#aparts").find("option:selected").val() == "" || $("#reviewerone").find("option:selected").val() == "" || $("#reviewertwo").find("option:selected").val() == "") {
-
 		confirm("欄位不可為空白");
-
 	} else {
 		var j = false;
 		for (var i = 0; i < approvalList.length; i++) {
@@ -50,11 +48,11 @@ $("#sendbtn").on("click", function () {
 		}
 		if (j == false) {
 			var insertSet = JSON.stringify([{
-				apartId: $("#aparts").find("this.approvalSetId").val(),
+				apartId: $("#aparts").find("option:selected").val(),
 				fisrtApproval: $("#reviewerone").find("option:selected").val(),
 				secondApproval: $("#reviewertwo").find("option:selected").val()
 			}]);
-
+			console.log(insertSet);
 			$.ajax({
 				url: "http://localhost:8080/saveApprovalset/",
 				type: "POST",
