@@ -16,94 +16,95 @@
     <!-- 修改、刪除紐前面圖式 -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <script src="/js/apart/apart.js"></script>
+    <script src="/js/CMS5staff.staff.js"></script>
 </head>
 
 <body class="zh-tw">
-    <form action="" method="" enctype="">
-        <div class="staffAll">
-            <br>
-            <div class="staffSearch">
-                <div>
-                    <label for=""><b>姓名：</b></label>&nbsp;&nbsp;<input type="search" class="inputSize">
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div>
-                    <label for=""><b>部門：</b></label>&nbsp;&nbsp;
-                    <select  name="" id="aparts">
-                        <option></option>
-                    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="icon-input-btn">
-                        <i class="glyphicon glyphicon-search"></i>
-                        <input type="button" value="查詢" class="btnStyle"></input>
-                    </span>
-                </div>
+
+    <div class="staffAll">
+        <br>
+        <div class="staffSearch">
+            <div>
+                <label for=""><b>姓名：</b></label>&nbsp;&nbsp;<input type="search" class="inputSize">
             </div>
-            <br>
-            <div class="staffDiv">
-                <table class="staffTable" id="staffRecord">
-                    <tr>
-                        <th class="tableStyle" width="5%">NO.</th>
-                        <th class="tableStyle" width="10%">部門</th>
-                        <th class="tableStyle" width="10%">姓名</th>
-                        <th class="tableStyle" width="10%">電話</th>
-                        <th class="tableStyle" width="15%">手機</th>
-                        <th class="tableStyle" width="20%">E-Mail</th>
-                    </tr>
-                    <tr class="staffWord">
-                        <td class="tableStyle">1</td>
-                        <td class="tableStyle">總經理</td>
-                        <td class="tableStyle">蘇晉寬</td>
-                        <td class="tableStyle"></td>
-                        <td class="tableStyle">0911-111111</td>
-                        <td class="tableStyle"></td>
-
-                    </tr>
-                    <tr class="staffWord">
-                        <td class="tableStyle">2</td>
-                        <td class="tableStyle">法務部</td>
-                        <td class="tableStyle">林志翰</td>
-                        <td class="tableStyle"></td>
-                        <td class="tableStyle">0922-222222</td>
-                        <td class="tableStyle"></td>
-                    </tr>
-                    <tr class="staffWord">
-                        <td class="tableStyle">3</td>
-                        <td class="tableStyle">資訊部</td>
-                        <td class="tableStyle">林子吟</td>
-                        <td class="tableStyle"></td>
-                        <td class="tableStyle">0933-333333</td>
-                        <td class="tableStyle"></td>
-                    </tr>
-                    <tr class="staffWord">
-                        <td class="tableStyle">4</td>
-                        <td class="tableStyle">業務部</td>
-                        <td class="tableStyle">梁雅棋</td>
-                        <td class="tableStyle"></td>
-                        <td class="tableStyle">0955-555555</td>
-                        <td class="tableStyle"></td>
-                    </tr>
-                    <tr class="staffWord">
-                        <td class="tableStyle">5</td>
-                        <td class="tableStyle">會計部</td>
-                        <td class="tableStyle">施孟慧</td>
-                        <td class="tableStyle"></td>
-                        <td class="tableStyle">0966-666666</td>
-                        <td class="tableStyle"></td>
-
-                    </tr>
-                    <tr class="staffWord">
-                        <td class="tableStyle">6</td>
-                        <td class="tableStyle">總務部</td>
-                        <td class="tableStyle">黃千瑀</td>
-                        <td class="tableStyle"></td>
-                        <td class="tableStyle">0977-777777</td>
-                        <td class="tableStyle"></td>
-                    </tr>
-                </table>
-
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div>
+                <label for=""><b>部門：</b></label>&nbsp;&nbsp;
+                <select name="" id="aparts">
+                    <option></option>
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="icon-input-btn">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input type="button" value="查詢" class="btnStyle"></input>
+                </span>
             </div>
         </div>
-    </form>
+        <br>
+        <div class="staffDiv">
+            <table class="staffTable" id="staffRecord">
+                <tr>
+                    <th class="tableStyle" width="5%">NO.</th>
+                    <th class="tableStyle" width="10%">部門</th>
+                    <th class="tableStyle" width="10%">姓名</th>
+                    <th class="tableStyle" width="10%">電話</th>
+                    <th class="tableStyle" width="15%">手機</th>
+                    <th class="tableStyle" width="20%">E-Mail</th>
+                </tr>
+                <tr class="staffWord">
+                    <td class="tableStyle">1</td>
+                    <td class="tableStyle">總經理</td>
+                    <td class="tableStyle">蘇晉寬</td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle">0911-111111</td>
+                    <td class="tableStyle"></td>
+
+                </tr>
+                <tr class="staffWord">
+                    <td class="tableStyle">2</td>
+                    <td class="tableStyle">法務部</td>
+                    <td class="tableStyle">林志翰</td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle">0922-222222</td>
+                    <td class="tableStyle"></td>
+                </tr>
+                <tr class="staffWord">
+                    <td class="tableStyle">3</td>
+                    <td class="tableStyle">資訊部</td>
+                    <td class="tableStyle">林子吟</td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle">0933-333333</td>
+                    <td class="tableStyle"></td>
+                </tr>
+                <tr class="staffWord">
+                    <td class="tableStyle">4</td>
+                    <td class="tableStyle">業務部</td>
+                    <td class="tableStyle">梁雅棋</td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle">0955-555555</td>
+                    <td class="tableStyle"></td>
+                </tr>
+                <tr class="staffWord">
+                    <td class="tableStyle">5</td>
+                    <td class="tableStyle">會計部</td>
+                    <td class="tableStyle">施孟慧</td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle">0966-666666</td>
+                    <td class="tableStyle"></td>
+
+                </tr>
+                <tr class="staffWord">
+                    <td class="tableStyle">6</td>
+                    <td class="tableStyle">總務部</td>
+                    <td class="tableStyle">黃千瑀</td>
+                    <td class="tableStyle"></td>
+                    <td class="tableStyle">0977-777777</td>
+                    <td class="tableStyle"></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
 </body>
 
 </html>
