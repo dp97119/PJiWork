@@ -1,6 +1,6 @@
 $(function(){
     $.ajax({
-        url:"http://localhost:8080/countToken/",
+        url:"/security/countToken",
         type:"POST",
         data:"void",
         success:function(data){
