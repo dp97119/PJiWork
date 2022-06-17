@@ -115,15 +115,15 @@ $("#punchOK").click(function () {
 
   $.ajax({
     type: "post",
-    url: "http://localhost:8080/Punch/saveInfo",
+    url: "/punch/saveInfo",
     data: punchInfo,
     contentType: 'application/json',
     success: function () {
       alert("打卡成功");
       $.ajax({
         type: "post",
-        url: "http://localhost:8080/Punch/getInfo",
-        data : JSON.stringify([{person : getCookie()}]),
+        url: "/punch/getInfo",
+        data : JSON.stringify({"userToken" : getCookie()}),
         contentType: 'application/json',
         success: function (){
           alert("拿到資料");

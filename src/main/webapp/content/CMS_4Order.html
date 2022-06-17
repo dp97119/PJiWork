@@ -28,7 +28,7 @@
    <div class="grid-container">
       <div>
          <label for=""><b>今日餐廳：</b></label>&nbsp;&nbsp;
-         <input type="text" disabled="none" class="inputSize">
+         <h3 type="text" disabled="none" class="inputSize" id="TodayRestaurantName">
       </div>
       <div>
          <button type="button" class="function" data-bs-toggle="modal" data-bs-target="#orderSearchModal">訂單紀錄</button>
@@ -178,9 +178,11 @@
                data: param,
                contentType: 'application/json',
                success: function (testData) {
+                  $("#TodayRestaurantName").html(oestData[0].restaurantName);
+
                   var left_menu = document.getElementById("menus");
                   data = testData;
-                  for (var i = 0; i < testData.length; i++) {
+                  for (var i = 1; i < testData.length; i++) {
 
                      menu = document.createElement("div");
                      menu.setAttribute("class", "menu")

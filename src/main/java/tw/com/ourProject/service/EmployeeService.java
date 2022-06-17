@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Employee;
@@ -69,6 +70,32 @@ public class EmployeeService {
 	public JSONObject checkAdm(String userToken) {
 		JSONObject obj = new JSONObject();
 		obj.put("userAdm", jwtToken.getInfoFromJwtToken(userToken, "adm"));
+		return obj;
+	}
+	
+	public JSONArray getEmpsInfo() {
+		List<Employee> emps = employeeRepo.findAll();
+		JSONArray arry = new JSONArray();
+		for(Employee emp : emps) {
+			JSONObject obj = new JSONObject();
+			obj.put("apart", emp.getAparts().getApart());
+			obj.put("empName", emp.getEmpName());
+			obj.put("empTel", emp.getTel());
+			obj.put("empPhone", emp.getCellphone1());
+			obj.put("empEmail", emp.getEmail());
+			arry.add(obj);
+		}
+		return arry;
+	}
+	
+	public JSONObject getUserInfo(String userToken) {
+		String empId = jwtToken.getInfoFromJwtToken(userToken,"empId");
+		System.out.println(empId);
+		Employee emp = employeeRepo.findById(empId).get();
+			JSONObject obj = new JSONObject();
+			obj.put("apart", emp.getAparts().getApart());
+			obj.put("empId", empId);
+			obj.put("empName", emp.getEmpName());
 		return obj;
 	}
 }
