@@ -38,4 +38,15 @@ public class CalendarService {
 	public void deleteEvent(Integer calendarid) {
 		calendarRepo.deleteById(calendarid);
 	}
+	
+	public void updateEvent(Integer calendarid, String calendartype, String calendartitle, Date eventstart, Date eventEnd, String allday) {
+		Calendar calendarInfo = calendarRepo.findByCalendarId(calendarid);
+		calendarInfo.setCalendarType(calendartype);
+		calendarInfo.setCalendarTitle(calendartitle);
+		calendarInfo.setEventStart(eventstart);
+		calendarInfo.setEventEnd(eventEnd);
+		calendarInfo.setAllDay(allday);
+		calendarRepo.save(calendarInfo);
+		
+	}
 }

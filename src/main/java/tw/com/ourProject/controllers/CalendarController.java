@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,5 +53,24 @@ public class CalendarController {
 	public void delApprovalset(@RequestBody JSONArray eventInfo) {
 		Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("id").toString());
 		calendarService.deleteEvent(obj1);
+	}
+	
+	@PutMapping("/Calendar/updateEvent")
+	public void updateCalendar(@RequestBody JSONArray eventInfo) {
+		try{
+			Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("calendarId").toString());
+			String obj2 = eventInfo.getJSONObject(0).get("calendarType").toString();
+			String obj3 = eventInfo.getJSONObject(0).get("calendarTitle").toString();
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date obj4 = format.parse(eventInfo.getJSONObject(0).get("eventStart").toString());
+			Date obj5 = format.parse(eventInfo.getJSONObject(0).get("eventEnd").toString());
+			String obj6 = eventInfo.getJSONObject(0).get("allDay").toString();
+			
+			calendarService.updateEvent(obj1 , obj2 , obj3 , obj4 , obj5 , obj6);
+			
+		}catch(Exception e) {
+			System.out.println(e.toString());
+		}
+
 	}
 }
