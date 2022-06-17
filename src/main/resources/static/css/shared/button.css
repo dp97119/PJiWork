@@ -100,3 +100,8 @@
 }
 
 /* -------------------------------我是分隔線------------------------------- */
+
+.sendimgbtn{
+    background-color: transparent;  
+    display: inline-block;
+}

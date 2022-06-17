@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     $('#start').val(datetimes);
                     $('#end').val('');
                     $('#allDay').prop("checked", false);
-                    $(":radio").removeAttr("checked");
+                    
                 });
                 calendar.render();   //產生事件
             
