@@ -45,4 +45,70 @@ public class Attendance {
 	@ManyToOne
 	@JoinColumn(name="approvalid",referencedColumnName = "approvalid")
 	private Approval approvals;
+
+	public String getAttendanceId() {
+		return attendanceId;
+	}
+
+	public void setAttendanceId(String attendanceId) {
+		this.attendanceId = attendanceId;
+	}
+
+	public Employee getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Employee employees) {
+		this.employees = employees;
+	}
+
+	public Leaves getLeaves() {
+		return leaves;
+	}
+
+	public void setLeaves(Leaves leaves) {
+		this.leaves = leaves;
+	}
+
+	public java.util.Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(java.util.Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public java.util.Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(java.util.Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Integer getHours() {
+		return hours;
+	}
+
+	public void setHours(Integer hours) {
+		this.hours = hours;
+	}
+
+	public Approval getApprovals() {
+		return approvals;
+	}
+
+	public void setApprovals(Approval approvals) {
+		this.approvals = approvals;
+	}
+
+	@Override
+	public String toString() {
+		return "Attendance [attendanceId=" + attendanceId + ", employees="
+				+ employees + ", leaves=" + leaves + ", startDate=" + startDate + ", endDate=" + endDate + ", hours="
+				+ hours + ", approvals=" + approvals + "]";
+	}
+	
+	
+	
 }
