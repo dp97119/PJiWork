@@ -2,10 +2,13 @@ package tw.com.ourProject.controllers;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +20,7 @@ import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.service.ApprovalsetService;
 
 @RestController
+@Transactional
 public class ApprovalsetController {
 	@Autowired
 	public ApprovalsetService approvalsetService;
@@ -58,4 +62,19 @@ public class ApprovalsetController {
 		approvalsetService.deleteApprovalset(obj1);
 	}
 	
+//	@PutMapping("/updateApprovalset")
+//	public void updateApprovalset(@RequestBody JSONArray approvalInfo) {
+//		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("").toString());
+//		String obj2 = approvalInfo.getJSONObject(0).get("apartId").toString();
+//		
+//		apid.setApartId(Integer.parseInt(obj2));
+//		String obj3 = approvalInfo.getJSONObject(0).get("fisrtApproval").toString();
+//		String obj4 = approvalInfo.getJSONObject(0).get("secondApproval").toString();
+//		
+//		emp1.setEmpId(obj3);
+//		emp2.setEmpId(obj4);
+//
+//		approvalsetService.updateApprovalset(obj1, apid , emp1 , emp2);
+//	}
+//	
 }

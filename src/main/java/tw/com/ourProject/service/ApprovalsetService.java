@@ -48,5 +48,11 @@ public class ApprovalsetService {
 		approvalsetRepo.deleteById(approvalsetid);
 	}
 	
-
+//	public void updateApprovalset(Integer approvalsetid,Apart apartid, Employee firstapproval, Employee secondapproval) {
+//		approvalsetRepo.findById(approvalsetid);
+//		approvalsetRepo.saveApart(apartid);
+//		approvalsetRepo.saveFirstApproval(firstapproval);
+//		approvalsetRepo.saveSecondApproval(secondapproval);
+//		
+//	}
 }
