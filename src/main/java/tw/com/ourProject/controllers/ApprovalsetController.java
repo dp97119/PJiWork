@@ -58,13 +58,13 @@ public class ApprovalsetController {
 	
 	@DeleteMapping("/deleteApprovalset")
 	public void delApprovalset(@RequestBody JSONArray approvalInfo) {
-		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("").toString());
+		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("approvalSetId").toString());
 		approvalsetService.deleteApprovalset(obj1);
 	}
 	
 //	@PutMapping("/updateApprovalset")
 //	public void updateApprovalset(@RequestBody JSONArray approvalInfo) {
-//		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("").toString());
+//		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("approvalSetId").toString());
 //		String obj2 = approvalInfo.getJSONObject(0).get("apartId").toString();
 //		
 //		apid.setApartId(Integer.parseInt(obj2));
@@ -76,5 +76,5 @@ public class ApprovalsetController {
 //
 //		approvalsetService.updateApprovalset(obj1, apid , emp1 , emp2);
 //	}
-//	
+	
 }

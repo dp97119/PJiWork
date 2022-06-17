@@ -112,7 +112,6 @@ function deletebtn(i) {
 			if (yes) {
 				window.location.href = './CMS_6_4_1.html';
 			}
-			console.log(deleteSet);
 		}
 	})
 
