@@ -90,12 +90,17 @@ public class EmployeeService {
 	
 	public JSONObject getUserInfo(String userToken) {
 		String empId = jwtToken.getInfoFromJwtToken(userToken,"empId");
-		System.out.println(empId);
 		Employee emp = employeeRepo.findById(empId).get();
 			JSONObject obj = new JSONObject();
 			obj.put("apart", emp.getAparts().getApart());
 			obj.put("empId", empId);
 			obj.put("empName", emp.getEmpName());
-		return obj;
+			obj.put("empPwd", emp.getPasswd());
+			obj.put("empTel", emp.getTel());
+			obj.put("empPhone", emp.getCellphone1());
+			obj.put("empEmail", emp.getEmail());
+			obj.put("empAddr", emp.getAddr());		
+			return obj;
 	}
+
 }
