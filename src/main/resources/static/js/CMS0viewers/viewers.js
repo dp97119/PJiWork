@@ -1,3 +1,4 @@
+// 瀏覽人數
 $(function(){
     $.ajax({
         url:"/security/countToken",
@@ -5,7 +6,6 @@ $(function(){
         data:"void",
         success:function(data){
             countpeople.innerText = data.countRs; 
-        
         }
     })
 })
