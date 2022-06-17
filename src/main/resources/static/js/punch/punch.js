@@ -32,10 +32,6 @@ function success(pos) {
 
   var crd = pos.coords;
 
-  console.log('Your current position is:');
-  console.log('Latitude : ' + crd.latitude);
-  console.log('Longitude: ' + crd.longitude);
-  console.log('More or less ' + crd.accuracy + ' meters.');
   setLocation(crd.latitude, crd.longitude);
   getDistance(crd.latitude, crd.longitude);
   initMap();
@@ -91,7 +87,6 @@ function getDistance(myLat, myLng) {
       if (status !== google.maps.DistanceMatrixStatus.OK) {
         window.alert('Error was' + status);
       } else {
-        console.log(response.rows[0].elements[0].distance.value);
         distance = response.rows[0].elements[0].distance.value;
       }
 
@@ -127,8 +122,8 @@ $("#punchOK").click(function () {
           data: JSON.stringify({ "userToken": getCookie() }),
           contentType: 'application/json',
           success: function (data) {
+            parent.punchdialog.close();
             parent.displayPunchInfo(data);
-            window.parent.location.reload();
           }
         });
       }
@@ -162,8 +157,8 @@ $(parent.$("#myCardbtn1")).click(function () {
 $(parent.$("#myCardbtn2")).click(function () {
   // var onWorkTime = moment(parent.document.getElementById("onWork0").innerText).valueOf();
   // var noWorkTime = moment(parent.document.getElementById("noWork0").innerText).valueOf();
-  console.log(parent.document.getElementById("noWork0").innerHTML);
-  console.log(parent.document.getElementById("onWork0").innerHTML);
+  // console.log(parent.document.getElementById("noWork0").innerHTML);
+  // console.log(parent.document.getElementById("onWork0").innerHTML);
   // console.log(noWorkTime);
   if (checkPunchState() == "200") {
     if (confirm("尚未打上班卡，無法操作")) {

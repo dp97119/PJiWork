@@ -1,14 +1,11 @@
 // 限定只能撈三筆資料
 function displayPunchInfo(userPunchData) {
+    $("#punchRecord").empty();
     if (userPunchData[0].status == "下班") {
         for (var i = 0; i < userPunchData.length; i+=2) {
-            var dateday = userPunchData[i].time.split(" ")[0];
-            var datetime = userPunchData[i].time.split(" ")[1];
-            console.log(dateday + "+" + datetime);
-           
             var precord = $(`<tr>
                                 <td colspan="2">
-                                    <h5>${dateday}</h5>
+                                    <h5>${userPunchData[i].time.split(" ")[0]  }</h5>
                                 </td>
                             </tr>
                             <tr class="myTimeborder">
@@ -43,13 +40,9 @@ function displayPunchInfo(userPunchData) {
                         </tr>`);
         precord.appendTo("#punchRecord");
         for (var i = 1; i < userPunchData.length-1; i+=2) {
-            var dateday = userPunchData[i].time.split(" ")[0];
-            var datetime = userPunchData[i].time.split(" ")[1];
-            console.log(dateday + "+" + datetime);
-
             var precord = $(`<tr>
                                 <td colspan="2">
-                                <h5>${dateday}</h5>
+                                <h5>${userPunchData[i].time.split(" ")[0]}</h5>
                                 </td>
                             </tr>
                             <tr class="myTimeborder">
@@ -85,7 +78,6 @@ $(function () {
         dataType : 'json',
         success:function(data){
             displayPunchInfo(data);
-            console.log(data);
         } 
     });
 })
