@@ -22,7 +22,7 @@ public class OrderSystemController {
 	@Autowired
 	public JWTUtil jwt;
 	
-	@PostMapping("/orderSys/getMenu")
+	@PostMapping("/orderSys/getMenu") //陣列的第一筆object是restaurantName
 	public JSONArray getMenu(@RequestBody JSONObject data) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {

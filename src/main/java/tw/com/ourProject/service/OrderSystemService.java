@@ -43,6 +43,9 @@ public class OrderSystemService {
 		restaurant = restaurantSetRepo.findBySetDate(date).getRestaurants();
 		List<Dish> menus =dishRepo.findByRestaurantid(restaurant.getRestaurantId());
 		JSONArray jsonArr = new JSONArray();
+		JSONObject restaurantName = new JSONObject();
+		restaurantName.put("restaurantName", restaurant.getRestaurantName());
+		jsonArr.add(restaurantName);
 		for(int i = 0 ;i<menus.size() ;i++) {
 			JSONObject obj = new JSONObject();
 			obj.put("dishId",menus.get(i).getDishId());

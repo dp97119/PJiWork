@@ -25,7 +25,7 @@ public class PunchController {
 	JWTUtil jwtUtil;
 	
 	 
-	@PostMapping("/Punch/saveInfo")
+	@PostMapping("/punch/saveInfo")
 	public void savePunchInfo(@RequestBody JSONArray punchData) {
 	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    try {
@@ -44,9 +44,9 @@ public class PunchController {
 	    }
 	}
 	
-	@PostMapping("/Punch/getInfo")
-	public List<Punch> getPunchInfo(@RequestBody JSONArray punchData) {
-		List<Punch> getPunchInfo = punchService.getPunchInfo(jwtUtil.getInfoFromJwtToken((punchData.getJSONObject(0).getString("person")),"empId"));
-		return getPunchInfo;
+	@PostMapping("/punch/getInfo")
+	public JSONArray getPunchInfo(@RequestBody JSONObject data) {
+		return  punchService.getPunchInfo(jwtUtil.getInfoFromJwtToken(data.getString("userToken"),"empId"));
+		
 	}
 }
