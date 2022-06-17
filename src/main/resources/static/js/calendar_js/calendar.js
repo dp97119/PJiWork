@@ -126,10 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#end').val('');
                     $(':radio').prop("checked",false);
                     $('#allDay').prop("checked", false);
-
                 });
                 calendar.render();   //產生事件
-
             }
         })
     })
@@ -185,8 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: insertEvent,
                 contentType: "application/json",
                 success: function () {
-                    var yes = confirm("確認完成");
-                    if (yes) {
+                    if (confirm("確認完成")) {
                         window.location.href = './CMS_1Calendar.html';
                     }
                 }
@@ -207,8 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 contentType: "application/json",
                 success: function () {
                     console.log(updateEvent);
-                    var yes = confirm("確認完成");
-                    if (yes) {
+                    if (confirm("刪除成功")) {
                         window.location.href = './CMS_1Calendar.html';
                     }
                 }
@@ -229,8 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
             contentType: "application/json",
             success: function () {
                 console.log(deleteEvent);
-                var yes = confirm("刪除成功");
-                if (yes) {
+                if (confirm("刪除成功")) {
                     window.location.href = './CMS_1Calendar.html';
                 }
 
