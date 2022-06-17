@@ -122,7 +122,7 @@
 /* 打卡紀錄區塊 */
 .myTimediv {
     height: 120px;
-    width: 320px;
+    width: 280px;
     background-color: #fff;
     overflow-y: auto;
     overflow-x: auto;
