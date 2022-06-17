@@ -74,7 +74,8 @@
                 <div>
                     <label><b>類&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</b></label>&nbsp;&nbsp;
                     <select name="" id="">
-                        <option value="" class="">最新公告</option>
+                        <option value="1" class="">最新公告</option>
+                        <option value="2" class="">公司文件</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div>
@@ -90,28 +91,25 @@
                         <li>
                             <div>
                                 <label for="">附件1：</label>&nbsp;&nbsp;
-                                <input type="text" class="inputSize">&nbsp;&nbsp;
-                                <button class="function">上傳</button>&nbsp;&nbsp;
-                                <button class="function">移除</button>&nbsp;&nbsp;
-                                <button class="function">預覽</button>
+                                <input type="file" class="sendimgbtn"
+                                    accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                    style="display: inline-block;">
                             </div>
                         </li>
                         <li>
                             <div>
                                 <label for="">附件2：</label>&nbsp;&nbsp;
-                                <input type="text" class="inputSize">&nbsp;&nbsp;
-                                <button class="function">上傳</button>&nbsp;&nbsp;
-                                <button class="function">移除</button>&nbsp;&nbsp;
-                                <button class="function">預覽</button>
+                                <input type="file" class="sendimgbtn"
+                                    accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                    style="display: inline-block;">
                             </div>
                         </li>
                         <li>
                             <div>
                                 <label for="">附件3：</label>&nbsp;&nbsp;
-                                <input type="text" class="inputSize">&nbsp;&nbsp;
-                                <button class="function">上傳</button>&nbsp;&nbsp;
-                                <button class="function">移除</button>&nbsp;&nbsp;
-                                <button class="function">預覽</button>
+                                <input type="file" class="sendimgbtn"
+                                    accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                    style="display: inline-block;">
                             </div>
                         </li>
                     </ol>
@@ -133,7 +131,9 @@
         btnAdd.onclick = function () {
             if (i < 5) {
                 i = i + 1;
-                $(".addli").append(`<li><div><label for="">附件${i}：</label>&nbsp;&nbsp;&nbsp;<input type="text" class="inputSize">&nbsp;&nbsp;&nbsp;<button class="function">上傳</button>&nbsp;&nbsp;&nbsp;<button class="function">移除</button>&nbsp;&nbsp;&nbsp;<button class="function">預覽</button></div></li>`);
+                $(".addli").append(`<li><div><label for="">附件${i}：</label>&nbsp;&nbsp;&nbsp;<input type="file" class="sendimgbtn"
+                                    accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                    style="display: inline-block;"></div></li>`);
             } else {
                 alert("只能傳五個檔案")
             }
