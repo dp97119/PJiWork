@@ -13,7 +13,7 @@ function displayPunchInfo(userPunchData) {
                             </tr>
                             <tr class="myTimeborder">
                                 <td class="myTime" >上班</td>
-                                <td class="myTime">${userPunchData[i + 1].time.split(" ")[1]}</td>
+                                <td class="myTime" id="onWork${i}">${userPunchData[i + 1].time.split(" ")[1]}</td>
                             </tr>
                             <tr class="myTimeborder">
                                 <td class="myTime" >下班</td>
@@ -31,8 +31,8 @@ function displayPunchInfo(userPunchData) {
                             </td>
                         </tr>
                         <tr class="myTimeborder">
-                            <td class="myTime" id="onWork0">上班</td>
-                            <td class="myTime">${userPunchData[0].time.split(" ")[1]}</td>
+                            <td class="myTime" >上班</td>
+                            <td class="myTime" id="onwork0">${userPunchData[0].time.split(" ")[1]}</td>
                         </tr>
                         <tr class="myTimeborder">
                             <td class="myTime" >下班</td>

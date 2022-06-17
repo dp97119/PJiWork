@@ -50,7 +50,7 @@ function initMap() {
   map = new google.maps.Map(document.getElementById("siteMap"), {
     //設置地圖樣式
     center: myLocation,
-    zoom: 15,
+    zoom: 17,
     mapTypeId: 'terrain',
     scrollwheel: false,
     mapTypeControl: false,
@@ -66,7 +66,7 @@ function initMap() {
     map: map
   });
   var myRangeLocation = {
-    lat: myLocation.lat - 0.0035,
+    lat: myLocation.lat - 0.00085,
     lng: myLocation.lng
   };
   var markerRange = new google.maps.Marker({
@@ -76,7 +76,7 @@ function initMap() {
   });
 }
 
-
+var distance;
 //計算googleMap 打卡點與公司的距離
 function getDistance(myLat, myLng) {
   var origin1 = new google.maps.LatLng(24.15062949399325, 120.65117611577809); // 公司位置
@@ -91,7 +91,8 @@ function getDistance(myLat, myLng) {
       if (status !== google.maps.DistanceMatrixStatus.OK) {
         window.alert('Error was' + status);
       } else {
-        console.log(response.rows[0].elements[0].distance);
+        console.log(response.rows[0].elements[0].distance.value);
+        distance = response.rows[0].elements[0].distance.value;
       }
 
     });
@@ -112,26 +113,33 @@ $("#punchOK").click(function () {
     locationLat: myLocation.lat,
     locationLng: myLocation.lng,
   }]);
+  if (distance < 50000) {
+    $.ajax({
+      type: "post",
+      url: "/punch/saveInfo",
+      data: punchInfo,
+      contentType: 'application/json',
+      success: function () {
+        alert("打卡成功");
+        $.ajax({
+          type: "post",
+          url: "/punch/getInfo",
+          data: JSON.stringify({ "userToken": getCookie() }),
+          contentType: 'application/json',
+          success: function (data) {
+            parent.displayPunchInfo(data);
+            window.parent.location.reload();
+          }
+        });
+      }
+    });
+  } else {
+    alert("離公司太遠囉，不能這樣");
+  }
+  var onWorkTime = moment(parent.document.getElementById("onWork0").innerHTML).valueOf();
+  var noWorkTime = moment(parent.document.getElementById("noWork0").innerHTML).valueOf();
 
-  $.ajax({
-    type: "post",
-    url: "/punch/saveInfo",
-    data: punchInfo,
-    contentType: 'application/json',
-    success: function () {
-      alert("打卡成功");
-      $.ajax({
-        type: "post",
-        url: "/punch/getInfo",
-        data : JSON.stringify({"userToken" : getCookie()}),
-        contentType: 'application/json',
-        success: function (data){
-          parent.displayPunchInfo(data);
-          window.parent.location.reload();
-        }
-      });
-    }
-  });
+
   parent.$(".modal").modal("hide");
 });
 
@@ -140,26 +148,32 @@ $("#punchCancer").click(function () {
 });
 
 $(parent.$("#myCardbtn1")).click(function () {
-  if(checkPunchState()=="200"){
+  if (checkPunchState() == "200") {
     $("#punchOK").val("上班");
     navigator.geolocation.getCurrentPosition(success, error, options);
-  }else{
-    if (confirm("尚未打下班卡，無法操作")) {
+  } else {
+    alert("尚未打下班卡，無法操作");
+    setTimeout(() => {
       parent.$(".modal").modal("hide");
-    }
+    }, "500")
 
   }
 });
 $(parent.$("#myCardbtn2")).click(function () {
-  if(checkPunchState()=="200"){
+  // var onWorkTime = moment(parent.document.getElementById("onWork0").innerText).valueOf();
+  // var noWorkTime = moment(parent.document.getElementById("noWork0").innerText).valueOf();
+  console.log(parent.document.getElementById("noWork0").innerHTML);
+  console.log(parent.document.getElementById("onWork0").innerHTML);
+  // console.log(noWorkTime);
+  if (checkPunchState() == "200") {
     alert("尚未打上班卡，無法操作");
-  }else{
+  } else {
     $("#punchOK").val("下班");
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
 });
 
-function checkPunchState(){
+function checkPunchState() {
   return PunchState = parent.document.getElementById("noWork0").getAttribute("value");
 }
 
