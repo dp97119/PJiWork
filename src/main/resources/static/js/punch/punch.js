@@ -125,14 +125,13 @@ $("#punchOK").click(function () {
         url: "/punch/getInfo",
         data : JSON.stringify({"userToken" : getCookie()}),
         contentType: 'application/json',
-        success: function (){
-          alert("拿到資料");
+        success: function (data){
+          parent.displayPunchInfo(data);
+          window.parent.location.reload();
         }
-
       });
     }
   });
-
   parent.$(".modal").modal("hide");
 });
 
@@ -141,15 +140,26 @@ $("#punchCancer").click(function () {
 });
 
 $(parent.$("#myCardbtn1")).click(function () {
-  $("#punchOK").val("上班");
-  navigator.geolocation.getCurrentPosition(success, error, options);
-})
+  if(checkPunchState()=="200"){
+    $("#punchOK").val("上班");
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  }else{
+    if (confirm("尚未打下班卡，無法操作")) {
+      parent.$(".modal").modal("hide");
+    }
+
+  }
+});
 $(parent.$("#myCardbtn2")).click(function () {
-  $("#punchOK").val("下班");
-  navigator.geolocation.getCurrentPosition(success, error, options);
-})
+  if(checkPunchState()=="200"){
+    alert("尚未打上班卡，無法操作");
+  }else{
+    $("#punchOK").val("下班");
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  }
+});
 
 function checkPunchState(){
-  
+  return PunchState = parent.document.getElementById("noWork0").getAttribute("value");
 }
 

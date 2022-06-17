@@ -8,5 +8,5 @@ import tw.com.ourProject.model.Punch;
 
 public interface PunchRepo  extends JpaRepository<Punch, Integer> {
 
-	List<Punch> findTop5ByPersonOrderByTimeDesc(String person);
+	List<Punch> findTop10ByPersonOrderByTimeDesc(String person);
 }

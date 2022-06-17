@@ -32,7 +32,7 @@ public class PunchService {
 	}
 	
 	public JSONArray getPunchInfo(String person) {
-		List<Punch> infos =punchRepo.findTop5ByPersonOrderByTimeDesc(person);
+		List<Punch> infos =punchRepo.findTop10ByPersonOrderByTimeDesc(person);
 		JSONArray arry = new JSONArray();
 		for(Punch info : infos) {
 			JSONObject obj = new JSONObject();
