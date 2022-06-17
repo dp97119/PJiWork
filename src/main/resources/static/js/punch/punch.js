@@ -113,7 +113,7 @@ $("#punchOK").click(function () {
     locationLat: myLocation.lat,
     locationLng: myLocation.lng,
   }]);
-  if (distance < 50000) {
+  if (distance < 500000) {
     $.ajax({
       type: "post",
       url: "/punch/saveInfo",
@@ -144,7 +144,7 @@ $("#punchOK").click(function () {
 });
 
 $("#punchCancer").click(function () {
-  parent.$(".modal").modal("hide");
+  parent.punchdialog.close();
 });
 
 $(parent.$("#myCardbtn1")).click(function () {
@@ -152,11 +152,11 @@ $(parent.$("#myCardbtn1")).click(function () {
     $("#punchOK").val("上班");
     navigator.geolocation.getCurrentPosition(success, error, options);
   } else {
-    alert("尚未打下班卡，無法操作");
-    setTimeout(() => {
-      parent.$(".modal").modal("hide");
-    }, "500")
-
+    if (confirm("尚未打下班卡，無法操作")) {
+      parent.punchdialog.close();
+    } else {
+      parent.punchdialog.close();
+    }
   }
 });
 $(parent.$("#myCardbtn2")).click(function () {
@@ -166,7 +166,12 @@ $(parent.$("#myCardbtn2")).click(function () {
   console.log(parent.document.getElementById("onWork0").innerHTML);
   // console.log(noWorkTime);
   if (checkPunchState() == "200") {
-    alert("尚未打上班卡，無法操作");
+    if (confirm("尚未打上班卡，無法操作")) {
+      parent.punchdialog.close();
+    } else {
+      parent.punchdialog.close();
+    }
+
   } else {
     $("#punchOK").val("下班");
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -176,4 +181,5 @@ $(parent.$("#myCardbtn2")).click(function () {
 function checkPunchState() {
   return PunchState = parent.document.getElementById("noWork0").getAttribute("value");
 }
+
 

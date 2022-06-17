@@ -293,3 +293,20 @@
     cursor: pointer;
     /* 滑鼠移動上去變成小手 */
 }
+
+/* 打卡對話框 */
+#punchdialog{
+    width: 500px; 
+    height: 480px; 
+    overflow-y: hidden ;
+    overflow-x: hidden;
+    border: none;
+    margin: auto;
+    padding: auto;
+}
+
+#punchDiv{
+    width: 500px; 
+    height: 100%;
+    margin: auto;
+}

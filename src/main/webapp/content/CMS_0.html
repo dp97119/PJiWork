@@ -63,15 +63,13 @@
                 </div>
                 <div class="myCard col-1" style="top:40px ;">
                     <!-- 上班打卡鈕 -->
-                    <button id="myCardbtn1" class="myCardbtn" type="button" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdropCard">
+                    <button id="myCardbtn1" class="myCardbtn" type="button">
                         <b>上班<br>打卡</b>
                     </button>
                 </div>
                 <div class="myCard col-1" style="top:40px ;">
                     <!-- 下班打卡鈕 -->
-                    <button id="myCardbtn2" class="myCardbtn" type="button" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdropCard">
+                    <button id="myCardbtn2" class="myCardbtn" type="button" >
                         <b>下班<br>打卡</b>
                     </button>
                 </div>
@@ -161,11 +159,11 @@
                             </tr>
                             <tr>
                                 <td><label for="">電&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;話：</label></td>
-                                <td><input type="tel" class="inputSize" id="inUserTel"></td>
+                                <td><input type="text" class="inputSize" id="inUserTel"></td>
                             </tr>
                             <tr>
                                 <td><label for="">行動電話：</label></td>
-                                <td><input type="tel" class="inputSize" id="inUserPhone"></td>
+                                <td><input type="text" class="inputSize" id="inUserPhone"></td>
                             </tr>
                             <tr>
                                 <td><label for="">E&nbsp;-&nbsp;Mail&nbsp;：</label></td>
@@ -369,10 +367,10 @@
                 <button type="button" class="btn-close" aria-label="Close" onclick="mailContentdialog.close()"></button>
             </div>
             <div class="modal-body" style="height: 350px; overflow-y: auto;">
-                <form action="" method="" enctype="">
+                <div>
                     信件內容
 
-                </form>
+                </div>
             </div>
         </dialog>
         <script>
@@ -383,15 +381,19 @@
 
 
         <!-- myCard1 Modal(上班打卡) -->
-        <div class="modal fade" id="staticBackdropCard" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabelCard1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" style="height: 450px;">
-                    <!-- 視窗垂直置中 -->
-                    <iframe src="./CMS_punch.html" style="height: 100%;width:100%;"></iframe>
-                </div>
+        <dialog id="punchdialog">
+            <div id="punchDiv">
+                <iframe src="./CMS_punch.html" style="height: 100%;width:100%;"></iframe>  
             </div>
-        </div>
+        </dialog>
+        <script>
+            $('#myCardbtn1').on("click", function () {
+                punchdialog.showModal();
+            })
+            $('#myCardbtn2').on("click", function () {
+                punchdialog.showModal();
+            })
+        </script>
 
     </div>
     <script src="/js/CMS0viewers/punchRecord.js"></script>
