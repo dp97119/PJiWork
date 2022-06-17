@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 calendar.on('dateClick', function (info) {
                     //點擊日期空白處發生的事情
+                    $("#calendarid").val('');
                     $('#eventTitle').prop("disabled", false);
                     $('#start').prop("disabled", false);
                     $('#end').prop("disabled", false);
