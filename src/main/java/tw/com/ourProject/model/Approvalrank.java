@@ -40,4 +40,69 @@ public class Approvalrank {
 	@Column(name = "dateapproved2")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private java.util.Date dateApproved2;
+
+	public Integer getApprovalRankId() {
+		return approvalRankId;
+	}
+
+	public void setApprovalRankId(Integer approvalRankId) {
+		this.approvalRankId = approvalRankId;
+	}
+
+	public Attendance getAttendances() {
+		return attendances;
+	}
+
+	public void setAttendances(Attendance attendances) {
+		this.attendances = attendances;
+	}
+
+	public java.util.Date getAttendanceDate() {
+		return attendanceDate;
+	}
+
+	public void setAttendanceDate(java.util.Date attendanceDate) {
+		this.attendanceDate = attendanceDate;
+	}
+
+	public String getApprover1() {
+		return approver1;
+	}
+
+	public void setApprover1(String approver1) {
+		this.approver1 = approver1;
+	}
+
+	public java.util.Date getDateApproved1() {
+		return dateApproved1;
+	}
+
+	public void setDateApproved1(java.util.Date dateApproved1) {
+		this.dateApproved1 = dateApproved1;
+	}
+
+	public String getApprover2() {
+		return approver2;
+	}
+
+	public void setApprover2(String approver2) {
+		this.approver2 = approver2;
+	}
+
+	public java.util.Date getDateApproved2() {
+		return dateApproved2;
+	}
+
+	public void setDateApproved2(java.util.Date dateApproved2) {
+		this.dateApproved2 = dateApproved2;
+	}
+
+	@Override
+	public String toString() {
+		return "Approvalrank [approvalRankId=" + approvalRankId + ", attendances=" + attendances + ", attendanceDate="
+				+ attendanceDate + ", approver1=" + approver1 + ", dateApproved1=" + dateApproved1 + ", approver2="
+				+ approver2 + ", dateApproved2=" + dateApproved2 + "]";
+	}
+	
+	
 }
