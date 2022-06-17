@@ -4,7 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +19,7 @@ import tw.com.ourProject.model.Calendar;
 import tw.com.ourProject.service.CalendarService;
 
 @RestController
+@Transactional
 public class CalendarController {
 	@Autowired
 	public CalendarService calendarService;
@@ -41,8 +45,12 @@ public class CalendarController {
 		}catch(Exception e) {
 			System.out.println(e.toString());
 		}
-		
-		
+
 	}
 
+	@DeleteMapping("/Calendar/deleteEvent")
+	public void delApprovalset(@RequestBody JSONArray eventInfo) {
+		Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("id").toString());
+		calendarService.deleteEvent(obj1);
+	}
 }

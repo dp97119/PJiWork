@@ -3,6 +3,8 @@ package tw.com.ourProject.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.repository.CalendarRepo;
 
 @Service
+@Transactional
 public class CalendarService {
 	@Autowired
 	public CalendarRepo calendarRepo;
@@ -30,5 +33,9 @@ public class CalendarService {
 		calendarInfo.setAllDay(allday);
 		calendarRepo.save(calendarInfo);
 		
+	}
+	
+	public void deleteEvent(Integer calendarid) {
+		calendarRepo.deleteById(calendarid);
 	}
 }

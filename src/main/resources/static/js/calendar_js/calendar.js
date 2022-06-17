@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     events:eventList,
                     eventClick: function(info) {
                         newEvents.showModal();
+                        $('#calendarid').val(info.event._def.publicId)
                         $('#eventTitle').val(info.event.title);
                         var startDT = info.event.startStr.split("+")[0];
                         var startT = startDT.split('T');
@@ -173,16 +174,28 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     })
 
-    $('#delete').on('click',function(info){
-        if (confirm('是否刪除此事件?')) {
-            arg.event.remove();     //刪除事件
-        }
+    $('#delete').on('click',function(){
+        var deleteEvent = JSON.stringify([{
+            id: $('#calendarid').val(),
+        }]);
+
+        $.ajax({
+            url: "http://localhost:8080/Calendar/deleteEvent/",
+            type: "DELETE",
+            data: deleteEvent,
+            contentType: "application/json",
+            success: function() {
+                console.log(deleteEvent);
+                var yes = confirm("刪除成功");
+                if (yes) {
+					window.location.href = './CMS_1Calendar.html';
+				}
+			
+            }
+        })
     })
 
     $('#cancel').on('click',function(){
-        // $("input[name='eventType']").each(function() {  
-        //     $(this).removeAttr("checked");
-        // });
         newEvents.close();
     })
 });
