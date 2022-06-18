@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,4 +56,10 @@ public class OrderSystemController {
 			return error;
 		}
 	}
+	
+	@DeleteMapping("/orderSys/deleteOrderInCar")
+	public void deleteOrderInCarById(@RequestBody JSONObject data) {
+		orderSystemService.deleteOrderInCar(Integer.parseInt(data.getString("orderId")));
+	}
+	
 }

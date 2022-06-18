@@ -3,6 +3,8 @@ package tw.com.ourProject.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,5 +103,10 @@ public class OrderSystemService {
 			jArry.add(obj);
 		}
 		return jArry;
+	}
+	
+	@Transactional
+	public void deleteOrderInCar(Integer orderId) {
+		orderRepo.deleteById(orderId);
 	}
 }

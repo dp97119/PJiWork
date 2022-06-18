@@ -162,7 +162,7 @@
       }
 
 
-      var menu, data, param;
+      var menu, dishData, param;
       var date = new Date();
       window.onload = function () {
          // 判斷時間 下午2點到隔天11點前 結果1:顯示菜單
@@ -181,7 +181,7 @@
                   $("#TodayRestaurantName").html(oestData[0].restaurantName);
 
                   var left_menu = document.getElementById("menus");
-                  data = testData;
+                  dishData = testData;
                   for (var i = 1; i < testData.length; i++) {
 
                      menu = document.createElement("div");
@@ -223,6 +223,7 @@
             contentType: 'application/json',
             success: function () {
                //更新右方購物出畫面
+               getOrdersInCar();
             }
          });
       })
@@ -234,36 +235,51 @@
             "startDate": "2022-06-15 12:00:00",
             "endDate": "2022-06-16 12:00:00"
          });
-
          $.ajax({
             type: "post",
             url: "/orderSys/getOrder",
             data: tokenAndDate,
             contentType: 'application/json',
             success: function (orderData) {
-               var orderRows;
+               updateCarContent(orderData);
+            }
+         });
+      }
+      function updateCarContent(orderData){
+         var orderRows;
                var carDiv = document.getElementById("orderCar");
+               $('#orderCar').empty();
                for (var i = 0; i < orderData.length; i++) {
                   orderRows = document.createElement("table");
                   orderRows.setAttribute("class", "orderRows");
                   orderRows.innerHTML = `<tr class = "" id="${i}" style="border-bottom:1px solid gray " >
-                                                <td class = "" id="" width="150px">${orderData[i].dishItem}</td>
+                                                <td class = "" id="orderId${i}" width="150px" value="${orderData[i].orderId}">${orderData[i].dishItem}</td>
                                                 <td class = "" id="" width="20%">${orderData[i].dishPrice}</td>
                                                 <td class = "" id="" width="20%">${orderData[i].qty}</td> 
                                                 <td class = "" id="" width="20%">${orderData[i].qty * orderData[i].dishPrice}</td>
-                                                <td class = "" id="" width="15%"><button id="deleteOrder"n>刪除</button></td>
+                                                <td class = "" id="" width="15%"><button onClick="deleteOrder(${i})">刪除</button></td>
                                           </tr>`;
 
                   carDiv.appendChild(orderRows);
                }
-            }
-         });
+
       }
 
-      $("#deleteOrder").click(function(){
 
-
+     function deleteOrder(id){
+      var orderId = document.getElementById(`orderId${id}`).getAttribute('value');
+      var targetData = JSON.stringify({ orderId : orderId});
+      $.ajax({
+         type : "delete",
+         url : "/orderSys/deleteOrderInCar",
+         data : targetData, 
+         contentType : 'application/json',
+         success : function(){
+            getOrdersInCar();
+            alert("刪除成功");
+         }
       });
+     }
 
       
 
