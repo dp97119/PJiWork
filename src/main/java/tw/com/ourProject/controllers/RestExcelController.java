@@ -21,9 +21,9 @@ public class RestExcelController {
 	@Autowired
 	public tw.com.ourProject.service.RestaurantService restservice;
 	
-	@GetMapping("/index")
+	@GetMapping("/restindex")
 	public String index() {
-		return "index";
+		return "restindex";
 	}
 
 	@RequestMapping(value = "/uploadExcel", method = RequestMethod.POST, consumes = {"multipart/form-data"})
