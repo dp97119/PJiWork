@@ -69,7 +69,7 @@
                 </div>
                 <div class="myCard col-1" style="top:40px ;">
                     <!-- 下班打卡鈕 -->
-                    <button id="myCardbtn2" class="myCardbtn" type="button" >
+                    <button id="myCardbtn2" class="myCardbtn" type="button">
                         <b>下班<br>打卡</b>
                     </button>
                 </div>
@@ -175,7 +175,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="text-align: center;">
-                                    <input type="submit" value="修改" class="btnStyle">&emsp;&emsp;&emsp;&emsp;
+                                    <input type="button" value="修改" class="btnStyle" onClick="informationBtn()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="button" value="取消" class="btnStyle"
                                         onClick="window.location.href='./CMS_0.html';">
                                 </td>
@@ -215,27 +215,24 @@
                 <button type="button" class="btn-close" aria-label="Close" onclick="noticedialog.close()"></button>
             </div>
             <div class="modal-body" style="height: 350px; overflow-y: auto;">
-                <form action="" method="" enctype="">
-                    <table class="noticeTable">
-                        <tr>
-                            <th width="15%">主旨：</th>
-                            <th width="85%">XXXXXXXXXXX</th>
-                        </tr>
-                        <tr>
-                            <th>時間：</th>
-                            <th class="noticeline"></th>
-                        </tr>
-                        <tr>
-                            <th>附件：</th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <th>內容：</th>
-                            <th></th>
-                        </tr>
-                    </table>
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                </form>
+                <table class="noticeTable">
+                    <tr>
+                        <th width="15%">主旨：</th>
+                        <th width="85%">XXXXXXXXXXX</th>
+                    </tr>
+                    <tr>
+                        <th>時間：</th>
+                        <th class="noticeline"></th>
+                    </tr>
+                    <tr>
+                        <th>附件：</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th>內容：</th>
+                        <th></th>
+                    </tr>
+                </table>
             </div>
         </dialog>
         <script>
@@ -383,7 +380,7 @@
         <!-- myCard1 Modal(上班打卡) -->
         <dialog id="punchdialog">
             <div id="punchDiv">
-                <iframe src="./CMS_punch.html" style="height: 100%;width:100%;"></iframe>  
+                <iframe src="./CMS_punch.html" style="height: 100%;width:100%;"></iframe>
             </div>
         </dialog>
         <script>
