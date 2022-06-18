@@ -72,7 +72,6 @@ $("#sendbtn").on("click", function () {
 })
 
 // 修改
-var aa = [];
 function editbtn(i) {
 	var findId = JSON.stringify({
 		approvalSetId: document.getElementsByTagName("tr")[i].getAttribute('id')
@@ -86,11 +85,10 @@ function editbtn(i) {
 			data: findId,
 			contentType: "application/json",
 			success: function (data) {
-				aa[0] = data.approvalSetId
 				console.log(findId)
 				console.log(data.firstApprovalId);
 				console.log(data.secondApprovalId);
-				window.location.href = './CMS_6_4_2.html?findId='+data.approvalSetId;
+				window.location.href = './CMS_6_4_2.html';
 				$("approvalsetid").val(data.approvalSetId)
 				$('#aparts').find(`option[value=${data.apartId}]`).prop('selected',true);  //可以抓
 				$("#reviewerone").find(`option[value=${data.firstApprovalId}]`).prop('selected',true);
@@ -100,10 +98,7 @@ function editbtn(i) {
 			}
 		})
 	})
-	console.log(aa);
-	console.log(approvalList);
 	
-
 }
 	// var editSet = JSON.stringify([{
 	// 	approvalSetId: document.getElementsByTagName("tr")[i].getAttribute('id'),
