@@ -281,7 +281,7 @@
     table-layout: fixed;
 }
 
-#noticedialog {
+.noticedialog {
     position: relative;
     margin: auto;
     /* 對話框線樣式 */
@@ -289,7 +289,7 @@
     border-radius: 9px;
 }
 
-#notice{
+.noticeContent{
     cursor: pointer;
     /* 滑鼠移動上去變成小手 */
 }
