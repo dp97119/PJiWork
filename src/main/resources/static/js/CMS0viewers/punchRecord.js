@@ -5,7 +5,7 @@ function displayPunchInfo(userPunchData) {
         for (var i = 0; i < userPunchData.length; i+=2) {
             var precord = $(`<tr>
                                 <td colspan="2">
-                                    <h5>${userPunchData[i].time.split(" ")[0]  }</h5>
+                                    <h5>${userPunchData[i+1].time.split(" ")[0]  }</h5>
                                 </td>
                             </tr>
                             <tr class="myTimeborder">
