@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Apart;
 import tw.com.ourProject.model.Approvalset;
@@ -31,7 +32,7 @@ public class ApprovalsetController {
 		return empAdm;
 	}
 
-	@GetMapping("/findApprovalset")
+	@GetMapping("/Approvalset/find")
 	public List<Approvalset> findApprovalset(){
 		List<Approvalset> approvalsets = approvalsetService.findApprovalset();
 		return approvalsets;
@@ -42,10 +43,9 @@ public class ApprovalsetController {
 	public Employee emp1 = new Employee();
 	public Employee emp2 = new Employee();
 	
-	@PostMapping("/saveApprovalset")
+	@PostMapping("/Approvalset/save")
 	public void insertApprovalset(@RequestBody JSONArray approvalInfo) {
 		String obj1 = approvalInfo.getJSONObject(0).get("apartId").toString();
-		
 		apid.setApartId(Integer.parseInt(obj1));
 		String obj2 = approvalInfo.getJSONObject(0).get("fisrtApproval").toString();
 		String obj3 = approvalInfo.getJSONObject(0).get("secondApproval").toString();
@@ -56,25 +56,32 @@ public class ApprovalsetController {
 		approvalsetService.saveApprovalset(apid , emp1 , emp2);
 	}
 	
-	@DeleteMapping("/deleteApprovalset")
+	@DeleteMapping("/Approvalset/delete")
 	public void delApprovalset(@RequestBody JSONArray approvalInfo) {
 		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("approvalSetId").toString());
 		approvalsetService.deleteApprovalset(obj1);
 	}
 	
-//	@PutMapping("/updateApprovalset")
-//	public void updateApprovalset(@RequestBody JSONArray approvalInfo) {
-//		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("approvalSetId").toString());
-//		String obj2 = approvalInfo.getJSONObject(0).get("apartId").toString();
-//		
-//		apid.setApartId(Integer.parseInt(obj2));
-//		String obj3 = approvalInfo.getJSONObject(0).get("fisrtApproval").toString();
-//		String obj4 = approvalInfo.getJSONObject(0).get("secondApproval").toString();
-//		
-//		emp1.setEmpId(obj3);
-//		emp2.setEmpId(obj4);
-//
-//		approvalsetService.updateApprovalset(obj1, apid , emp1 , emp2);
-//	}
+	@PutMapping("/Approvalset/update")
+	public void updateApprovalset(@RequestBody JSONArray approvalInfo) {
+		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("approvalSetId").toString());
+		String obj2 = approvalInfo.getJSONObject(0).get("apartId").toString();
+		apid.setApartId(Integer.parseInt(obj2));
+		String obj3 = approvalInfo.getJSONObject(0).get("fisrtApproval").toString();
+		String obj4 = approvalInfo.getJSONObject(0).get("secondApproval").toString();
+		
+		emp1.setEmpId(obj3);
+		emp2.setEmpId(obj4);
+
+		approvalsetService.updateApprovalset(obj1, apid , emp1 , emp2);
+	}
+	
+	//回傳ID搜尋其他資料並回傳給前端，使跳轉畫面時可使用該資料顯示預設值
+	@PostMapping("/Approval/dataresponse")
+	public JSONObject responseData(@RequestBody JSONObject approvalInfo) {
+		System.out.println(approvalInfo);
+		return approvalsetService.findsetData(Integer.parseInt(approvalInfo.get("approvalSetId").toString()));
+		
+	}
 	
 }

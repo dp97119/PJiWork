@@ -71,6 +71,7 @@
 				<br>
 				<div class="application">
 					<div>
+						<input id="approvalsetid">
 						<label for=""><b>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</b></label>&nbsp;&nbsp;&nbsp;
 						<select id="aparts">
 							<option></option>
@@ -101,7 +102,6 @@
 	</div>
 	<script src="/js/apart/apart.js"></script>
 	<script src="/js/CMS6_4approvalset/reviewer.js"></script>
-	<script src="/js/CMS6_4approvalset/approvalset.js"></script>
 	<script>
 		$("#cancelbtn").on("click", function() {
 			var yes = confirm("你確定取消嗎?");
@@ -111,9 +111,8 @@
 				console.log("取消")
 			}
 		})
-
-		
 	</script>
+	<script src="/js/CMS6_4approvalset/approvalset.js"></script>
 
 </body>
 

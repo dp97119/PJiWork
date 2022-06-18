@@ -7,8 +7,9 @@ $(function () {
                 var option = $("<option value=" + this.apartId + ">" + this.apart + "</option>");
                 option.appendTo("#aparts");
             })
+            
         }
     })
 })
-
+    
 

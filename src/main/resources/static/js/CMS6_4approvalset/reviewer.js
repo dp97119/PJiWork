@@ -45,6 +45,3 @@ $("#aparts").change(function () {
         $("#reviewertwo").empty().append("<option></option>");
     }
 })
-
-
-

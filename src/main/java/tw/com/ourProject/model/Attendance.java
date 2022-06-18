@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -45,6 +48,23 @@ public class Attendance {
 	@ManyToOne
 	@JoinColumn(name="approvalid",referencedColumnName = "approvalid")
 	private Approval approvals;
+	
+	@Column(name = "createperson",columnDefinition="char(11)")
+	private String createPerson ;
+	
+	@Column(name = "updateperson",columnDefinition="char(11)")
+	private String updatePerson ;
+	
+	@LastModifiedDate 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+	@Column(name = "updatedate")
+	private java.util.Date updateDate ;
+	
+	@CreatedDate 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+	@Column(name = "createdate")
+	private java.util.Date createDate ;
+
 
 	public String getAttendanceId() {
 		return attendanceId;
@@ -102,13 +122,44 @@ public class Attendance {
 		this.approvals = approvals;
 	}
 
+	public String getCreatePerson() {
+		return createPerson;
+	}
+
+	public void setCreatePerson(String createPerson) {
+		this.createPerson = createPerson;
+	}
+
+	public String getUpdatePerson() {
+		return updatePerson;
+	}
+
+	public void setUpdatePerson(String updatePerson) {
+		this.updatePerson = updatePerson;
+	}
+
+	public java.util.Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(java.util.Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public java.util.Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(java.util.Date createDate) {
+		this.createDate = createDate;
+	}
+
 	@Override
 	public String toString() {
-		return "Attendance [attendanceId=" + attendanceId + ", employees="
+		return "Attendance [approvalranks=" + approvalranks + ", attendanceId=" + attendanceId + ", employees="
 				+ employees + ", leaves=" + leaves + ", startDate=" + startDate + ", endDate=" + endDate + ", hours="
-				+ hours + ", approvals=" + approvals + "]";
+				+ hours + ", approvals=" + approvals + ", createPerson=" + createPerson + ", updatePerson="
+				+ updatePerson + ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
 	}
-	
-	
-	
+
 }

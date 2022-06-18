@@ -2,7 +2,7 @@
 var approvalList = [];
 $(function () {
 	$.ajax({
-		url: "http://localhost:8080/findApprovalset/",
+		url: "http://localhost:8080/Approvalset/find/",
 		type: "GET",
 		success: function (data) {
 			var i = 1;
@@ -16,7 +16,7 @@ $(function () {
                     	<td class="tableStyle">
                         	<span class="icon-input-btn">
                             	<i class="glyphicon glyphicon-pencil"></i>
-                            	<input type="button" value="修改" class="function" onClick="window.location.href='./CMS_6_4_2.html';editbtn( ${i})"/>
+                            	<input type="button" value="修改" class="function" onClick="editbtn( ${i})"; />
                         	</span>&nbsp;&nbsp;
                         	<span class="icon-input-btn">
                             	<i class="glyphicon glyphicon-trash"></i>
@@ -24,8 +24,8 @@ $(function () {
                         	</span>&nbsp;&nbsp;
                     	</td>
                 	</tr>`);
-				approvalsetrecord.appendTo("#leavelRecord");
-				approvalList[i - 1] = this.aparts.apartId;
+					approvalsetrecord.appendTo("#leavelRecord");
+					approvalList[i - 1] = this.aparts.apartId;
 				i++;
 			})
 		}
@@ -52,42 +52,79 @@ $("#sendbtn").on("click", function () {
 				fisrtApproval: $("#reviewerone").find("option:selected").val(),
 				secondApproval: $("#reviewertwo").find("option:selected").val()
 			}]);
-			console.log(insertSet);
 			$.ajax({
-				url: "http://localhost:8080/saveApprovalset/",
+				url: "http://localhost:8080/Approvalset/save/",
 				type: "POST",
 				data: insertSet,
 				contentType: "application/json",
 				success: function () {
-					var yes = confirm("確認完成");
-					if (yes) {
+					if (confirm("確認完成")) {
 						window.location.href = './CMS_6_4_1.html';
 					}
 				}
 			})
 		} else {
-			var yes = confirm("資料已存在");
-			if (yes) {
+			if (confirm("資料已存在")) {
 				window.location.href = './CMS_6_4_1.html';
 			}
 		}
-
 	}
-
 })
 
-
 // 修改
+var aa = [];
 function editbtn(i) {
-	// var editSet = JSON.stringify([{
-	// 	approvalSetId: document.getElementsByTagName("tr")[i].getAttribute('id')
-	// }]);
-	// console.log(editSet);
-
-	// console.log("hihi");
-	// console.log(document.getElementsByTagName("tr")[i].getAttribute('id'));
+	var findId = JSON.stringify({
+		approvalSetId: document.getElementsByTagName("tr")[i].getAttribute('id')
+	});
+	$(function () {
+		console.log(findId)
+		console.log("--------")
+		$.ajax({
+			url: "http://localhost:8080/Approval/dataresponse/",
+			type: "POST",
+			data: findId,
+			contentType: "application/json",
+			success: function (data) {
+				aa[0] = data.approvalSetId
+				console.log(findId)
+				console.log(data.firstApprovalId);
+				console.log(data.secondApprovalId);
+				window.location.href = './CMS_6_4_2.html?findId='+data.approvalSetId;
+				$("approvalsetid").val(data.approvalSetId)
+				$('#aparts').find(`option[value=${data.apartId}]`).prop('selected',true);  //可以抓
+				$("#reviewerone").find(`option[value=${data.firstApprovalId}]`).prop('selected',true);
+				$("#reviewertwo").find(`option[value=${data.secondApprovalId}]`).prop('selected',true);
+				$('#aparts').prop('disabled',true); //可以鎖
+				console.log("確認收到")
+			}
+		})
+	})
+	console.log(aa);
+	console.log(approvalList);
+	
 
 }
+	// var editSet = JSON.stringify([{
+	// 	approvalSetId: document.getElementsByTagName("tr")[i].getAttribute('id'),
+	// 	fisrtApproval: $("#reviewerone").find("option:selected").val(),
+	// 	secondApproval: $("#reviewertwo").find("option:selected").val()
+	// }]);
+	// console.log(editSet);
+	// $.ajax({
+	// 	url: "http://localhost:8080/Approvalset/update/",
+	// 	type: "PUT",
+	// 	data: editSet,
+	// 	contentType: "application/json",
+	// 	success: function () {
+	// 		console.log(editSet);
+	// 		if (confirm("修改成功")) {
+	// 			window.location.href = './CMS_6_4_1.html';
+	// 		}
+	// 	}
+	// })
+
+// }
 
 
 
@@ -101,22 +138,15 @@ function deletebtn(i) {
 	}]);
 
 	$.ajax({
-		url: "http://localhost:8080/deleteApprovalset/",
+		url: "http://localhost:8080/Approvalset/delete/",
 		type: "DELETE",
 		data: deleteSet,
 		contentType: "application/json",
 		success: function () {
-			var yes = confirm("刪除成功");
-			if (yes) {
+			if (confirm("刪除成功")) {
 				window.location.href = './CMS_6_4_1.html';
 			}
 		}
 	})
-
-
-
-
-
-	// console.log("haha");
-	// console.log(document.getElementsByTagName("tr")[i].getAttribute('id'));
 }
+

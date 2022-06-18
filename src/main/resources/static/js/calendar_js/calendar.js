@@ -204,8 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: updateEvent,
                 contentType: "application/json",
                 success: function () {
-                    console.log(updateEvent);
-                    if (confirm("刪除成功")) {
+                    if (confirm("修改成功")) {
                         window.location.href = './CMS_1Calendar.html';
                     }
                 }
@@ -225,7 +224,6 @@ document.addEventListener('DOMContentLoaded', function () {
             data: deleteEvent,
             contentType: "application/json",
             success: function () {
-                console.log(deleteEvent);
                 if (confirm("刪除成功")) {
                     window.location.href = './CMS_1Calendar.html';
                 }
