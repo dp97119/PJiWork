@@ -112,7 +112,7 @@ public class EmployeeService {
 		 employee.setEmpName(userInfo.getString("empName"));
 		 employee.setPasswd(userInfo.getString("empPwd"));
 		 employee.setTel(userInfo.getString("empTel"));
-		 employee.setPhoto(userInfo.getString("empPhone"));
+		 employee.setCellphone1(userInfo.getString("empPhone"));
 		 employee.setEmail(userInfo.getString("empEmail"));
 		 employee.setAddr(userInfo.getString("empAddr"));
 		 employeeRepo.save(employee);
