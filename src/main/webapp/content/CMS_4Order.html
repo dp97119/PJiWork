@@ -27,8 +27,8 @@
 <body>
    <div class="grid-container">
       <div>
-         <label for=""><b>今日餐廳：</b></label>&nbsp;&nbsp;
-         <h3 type="text" disabled="none" class="inputSize" id="TodayRestaurantName">
+         <label for=""><b>今日餐廳:</b></label>&nbsp;&nbsp;
+         <h3  id="TodayRestaurantName"></h3>
       </div>
       <div>
          <button type="button" class="function" data-bs-toggle="modal" data-bs-target="#orderSearchModal">訂單紀錄</button>
@@ -70,7 +70,7 @@
 
       <div id="submit2">
          <b><span id="pay_amount">合計：</span><span id="price-num">$$$</span></b>
-         <button class="btnStyle btnright">我要下單</button>
+         <button class="btnStyle btnright" id="orderFinishBtn">我要下單</button>
          <!-- <dialog class="inforesult" title="請確認購物車數量唷！">
             <dialog class="dialog1">謝謝訂購！</dialog> -->
 
@@ -124,8 +124,11 @@
          </div>
       </div>
    </div>
+   <div id="dialog" title="通知">
+      <p>正在送出訂單中 <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span></p>
+   </div>
 
-	<script src="/js/punch/moment.min.js"></script>
+   <script src="/js/punch/moment.min.js"></script>
    <script>
       $(document).ready(getOrdersInCar());
       function getCookie() {
@@ -170,7 +173,7 @@
             if (date.getHours <= 11) {
                param = JSON.stringify({ "setDate": moment().format('YYYY-MM-DD') });
             } else {
-               param = JSON.stringify({ "setDate": moment().add(1,'days').format('YYYY-MM-DD') });
+               param = JSON.stringify({ "setDate": moment().add(1, 'days').format('YYYY-MM-DD') });
             }
             $.ajax({
                type: "POST",
@@ -178,7 +181,7 @@
                data: param,
                contentType: 'application/json',
                success: function (testData) {
-                  $("#TodayRestaurantName").html(oestData[0].restaurantName);
+                  $("#TodayRestaurantName").html(testData[0].restaurantName);
 
                   var left_menu = document.getElementById("menus");
                   dishData = testData;
@@ -207,11 +210,11 @@
 
       $("#addcart").click(function () {
          var tempData = [];
-         for (i = 0; i < data.length; i++) {
-            var dish_qty = document.getElementById(`dish_qty${data[i].dishId}`);
-            if (dish_qty.innerHTML != "0") {
-               console.log(data[i].dishItem + "的數量為：" + dish_qty.innerHTML);
-               tempData.push(JSON.parse(`{"dishId" : ${data[i].dishId} ,"qty" : ${dish_qty.innerHTML}}`));
+         for (var a = 1; a < dishData.length; a++) {
+            var dish_qty = document.getElementById(`dish_qty${dishData[a].dishId}`);
+             if(dish_qty.innerHTML != "0") {
+               console.log(dishData[a].dishItem + "的數量為：" + dish_qty.innerHTML);
+               tempData.push(JSON.parse(`{"dishId" : ${dishData[a].dishId} ,"qty" : ${dish_qty.innerHTML}}`));
             }
          }
          tempData.splice(0, 0, { userToken: getCookie() });
@@ -221,19 +224,39 @@
             url: "/orderSys/saveToDb",
             data: sendData,
             contentType: 'application/json',
+            sendData: function () {
+               $("#dialog").dialog("open");
+               $("#addcart").attr('disabled', 'disabled');
+               $("#addcart").css({ "color": "white" });
+            },
             success: function () {
-               //更新右方購物出畫面
                getOrdersInCar();
+               $("#dialog").dialog("close");
+               $("#addcart").removeAttr('disabled');
+               //更新右方購物出畫面
             }
          });
       })
+      $("#orderFinishBtn").click(orderFinish);
+
+      var allOrdersInCar;
 
       function getOrdersInCar() {
          console.log("開始查詢購物車資訊");
+         var date = new Date();
+         var startDate, endDate;
+         if (date.getHours() >= 14) {
+            startDate = moment().format("YYYY-MM-DD 12:00:00");
+            endDate = moment().add(1, 'days').format("YYYY-MM-DD 12:00:00");
+         }else{
+            startDate = moment().format("YYYY-MM-DD 12:00:00");
+            endDate = moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00");
+         }
+         console.log(startDate);
          var tokenAndDate = JSON.stringify({
             "userToken": getCookie(),
-            "startDate": "2022-06-15 12:00:00",
-            "endDate": "2022-06-16 12:00:00"
+            "startDate": startDate,
+            "endDate": endDate
          });
          $.ajax({
             type: "post",
@@ -241,18 +264,19 @@
             data: tokenAndDate,
             contentType: 'application/json',
             success: function (orderData) {
+               allOrdersInCar = orderData;
                updateCarContent(orderData);
             }
          });
       }
-      function updateCarContent(orderData){
+      function updateCarContent(orderData) {
          var orderRows;
-               var carDiv = document.getElementById("orderCar");
-               $('#orderCar').empty();
-               for (var i = 0; i < orderData.length; i++) {
-                  orderRows = document.createElement("table");
-                  orderRows.setAttribute("class", "orderRows");
-                  orderRows.innerHTML = `<tr class = "" id="${i}" style="border-bottom:1px solid gray " >
+         var carDiv = document.getElementById("orderCar");
+         $('#orderCar').empty();
+         for (var i = 0; i < orderData.length; i++) {
+            orderRows = document.createElement("table");
+            orderRows.setAttribute("class", "orderRows");
+            orderRows.innerHTML = `<tr class = "" id="${i}" style="border-bottom:1px solid gray " >
                                                 <td class = "" id="orderId${i}" width="150px" value="${orderData[i].orderId}">${orderData[i].dishItem}</td>
                                                 <td class = "" id="" width="20%">${orderData[i].dishPrice}</td>
                                                 <td class = "" id="" width="20%">${orderData[i].qty}</td> 
@@ -260,42 +284,63 @@
                                                 <td class = "" id="" width="15%"><button onClick="deleteOrder(${i})">刪除</button></td>
                                           </tr>`;
 
-                  carDiv.appendChild(orderRows);
-               }
+            carDiv.appendChild(orderRows);
+         }
 
       }
 
 
-     function deleteOrder(id){
-      var orderId = document.getElementById(`orderId${id}`).getAttribute('value');
-      var targetData = JSON.stringify({ orderId : orderId});
-      $.ajax({
-         type : "delete",
-         url : "/orderSys/deleteOrderInCar",
-         data : targetData, 
-         contentType : 'application/json',
-         success : function(){
-            getOrdersInCar();
-            alert("刪除成功");
+      function deleteOrder(id) {
+         var orderId = document.getElementById(`orderId${id}`).getAttribute('value');
+         var targetData = JSON.stringify({ orderId: orderId });
+         $.ajax({
+            type: "delete",
+            url: "/orderSys/deleteOrderInCar",
+            data: targetData,
+            contentType: 'application/json',
+            success: function () {
+               getOrdersInCar();
+               alert("刪除成功");
+            }
+         });
+      }
+
+      function orderFinish() {
+         var data = [];
+         for (var i = 0; i < allOrdersInCar.length; i++) {
+            data.push({ orderId: allOrdersInCar[i].orderId });
          }
+         $("#dialog").dialog("open");
+
+         $.ajax({
+            type: "post",
+            url: "/orderSys/changeOrderType",
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            sendData: function () {
+               $("#dialog").dialog("open");
+               $("#orderFinishBtn").attr('disabled', 'disabled');
+               $("#orderFinishBtn").css({ "color": "white" });
+
+            },
+            success: function () {
+               $("#dialog").dialog("close");
+               $("#orderFinishBtn").removeAttr('disabled');
+            },
+         });
+      }
+
+      $(function () {
+         $("#dialog").dialog({
+            modal: true,
+            autoOpen: false,
+            closeOnEscape: false
+         });
       });
-     }
-
-      
 
 
-      //商品選取框
-      var check = oDiv.firstChild.getElementsByTagName("i")[0];
-      check.onclick = function () {
-         // console.log(check.className);
-         if (check.className == "i_check i_acity") {
-            check.classList.remove("i_acity");
 
-         } else {
-            check.classList.add("i_acity");
-         }
-         getAmount();
-      }
+
 
       //進行價格計算
       function getAmount() {
@@ -313,6 +358,8 @@
             document.getElementById("price_num").innerText = sum;
          }
       }
+
+
 
    </script>
 

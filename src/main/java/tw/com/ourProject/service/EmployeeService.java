@@ -9,6 +9,7 @@ import javax.security.auth.message.AuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -18,6 +19,7 @@ import tw.com.ourProject.model.Temptoken;
 import tw.com.ourProject.repository.EmployeeRepo;
 import tw.com.ourProject.repository.TempTokenRepo;
 import tw.com.ourProject.utils.JWTUtil;
+import tw.com.ourProject.utils.UploadFileUtil;
 
 @Service
 public class EmployeeService {
@@ -29,6 +31,9 @@ public class EmployeeService {
 	
 	@Autowired
 	public TempTokenRepo tempTokenRepo;
+	
+	@Autowired
+	public UploadFileUtil uploadPhoto;
 	
 	public Temptoken tempToken = new Temptoken();
 
@@ -103,6 +108,7 @@ public class EmployeeService {
 			obj.put("empPhone", emp.getCellphone1());
 			obj.put("empEmail", emp.getEmail());
 			obj.put("empAddr", emp.getAddr());		
+			obj.put("empPhoto", emp.getPhoto());		
 			return obj;
 	}
 	
@@ -116,6 +122,18 @@ public class EmployeeService {
 		 employee.setEmail(userInfo.getString("empEmail"));
 		 employee.setAddr(userInfo.getString("empAddr"));
 		 employeeRepo.save(employee);
+	}
+	
+	@Transactional
+	public String updateUserPhoto(MultipartFile multipartFile,String userToken) {
+		 String empId = jwtToken.getInfoFromJwtToken(userToken,"empId");
+		 String imgUrl = uploadPhoto.uploadUserPhoto(multipartFile, empId);		
+		 System.out.println(imgUrl);
+		 Employee employee = employeeRepo.findById(empId).get();
+		 System.out.println("更新empPhoto");
+		 employee.setPhoto(imgUrl);
+		 employeeRepo.save(employee);
+		 return imgUrl ;
 	}
 
 }

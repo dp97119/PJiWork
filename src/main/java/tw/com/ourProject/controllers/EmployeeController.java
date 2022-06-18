@@ -45,27 +45,13 @@ public class EmployeeController {
 
 	}
 
-	private final static String FILE_UPLOAD_PATH_FINAL = "/src/main/resources/static/img/userPhoto/";
-
 	@PostMapping("/emp/uploadUserPhoto")
-	public String uploadUserPhoto(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-		if (multipartFile.isEmpty()) {
-			return "上傳失敗";
-		}
-        System.out.println(System.getProperty("user.dir"));
-		String fileName = multipartFile.getOriginalFilename();
-		try {
-			File photo = new File(System.getProperty("user.dir") + FILE_UPLOAD_PATH_FINAL + fileName);
-			if (!photo.getParentFile().exists()) {
-				photo.getParentFile().mkdir();
-			}
-			multipartFile.transferTo(photo);
-
-			return "上傳成功";
-		} catch (Exception e) {
-			return e.toString();
-
-		}
+	public JSONObject uploadUserPhoto(@RequestParam("file") MultipartFile multipartFile , @RequestParam("userToken")String userToken) {
+		String userImgUrl = employeeService.updateUserPhoto(multipartFile, userToken);
+		JSONObject obj = new JSONObject();
+		obj.put("empPhoto", userImgUrl);
+		return obj;
+		
 
 	}
 

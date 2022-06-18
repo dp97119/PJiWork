@@ -39,7 +39,7 @@
 
                 <div class="myName col-2">
                     <!-- <img class="myNameImg" src="./img/circle.png" width="200px" alt="circle"> -->
-                    <div class="myNameDiv"><img class="myNameImg" src="/img/logo.png" alt=""></div>
+                    <div class="myNameDiv"><img class="myNameImg" id="myNameImg" src="/img/logo.png" alt=""></div>
 
                     <!-- photo Button trigger modal -->
                     <div>
@@ -175,7 +175,8 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="text-align: center;">
-                                    <input type="button" value="修改" class="btnStyle" onClick="informationBtn()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="button" value="修改" class="btnStyle"
+                                     onClick="informationCancel()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="button" value="取消" class="btnStyle"
                                         onClick="window.location.href='./CMS_0.html';">
                                 </td>
@@ -251,10 +252,13 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="/somewhere/to/upload" enctype="multipart/form-data">
-                            <input type="file" onchange="readURL(this)" targetID="photo_img"
+                        <form id="userPhoto" enctype="multipart/form-data">
+                            <input type="file" onchange="readURL(this)" name="file" targetID="photo_img"
                                 accept="image/gif, image/jpeg, image/png" /><br><br>
+                            <input type="hidden" name="uesrToken">
                             <div><img id="photo_img" src="/img/spacing.png" /></div>
+                            <button type="submit">上傳檔案</button>
+
                         </form>
 
                         <!-- photo JavaScript part -->
@@ -394,7 +398,38 @@
 
     </div>
     <script src="/js/CMS0viewers/punchRecord.js"></script>
+    <script>
+        function getCookie() {
+            var cookie = document.cookie.split('=');
+            return cookie[1].toString();
+        }
 
+        $("#userPhoto").submit(function (e) {
+            e.preventDefault(); // 停止觸發submit
+            console.log("upload");
+            var formData = new FormData($("#userPhoto")[0]);
+            formData.append("userToken", getCookie());
+            $.ajax({
+                type: "POST",
+                url: "/emp/uploadUserPhoto",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    //找時間加入等待提示
+                },
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById('myNameImg').setAttribute('src', `${data.empPhoto}`);
+                    alert('大頭照更新完成囉');
+                },
+                error: function (data) {
+                    alert(data.exception);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
