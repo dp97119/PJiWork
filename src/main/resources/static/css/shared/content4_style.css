@@ -97,5 +97,11 @@
     }
 
     .foodR {
+        width: 40%;
         text-align: right;
+    }
+
+    .foodL{
+        width: 80%;
+        text-align: left;
     }
