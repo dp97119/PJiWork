@@ -23,7 +23,7 @@ function getCookie() {
 }
 
 // 修改information(PUT) 
-$(function () {
+$(function () {    //先傳出值
     var usertoken = JSON.stringify({ "userToken": getCookie() });
     $.ajax({
         type: "POST",
@@ -45,7 +45,7 @@ $(function () {
 
 })
 
-function informationBtn() {
+function informationBtn() { //點下去後修改
 	console.log("OK")
     var usertoken = JSON.stringify({"userToken": getCookie(),   
     "empName": $("#inUserName").val(),
@@ -63,9 +63,18 @@ function informationBtn() {
         contentType:'application/json',
         success: function () {
             console.log($("#inUserName").val());
-            alert("修改成功")
+            alert("修改成功");
         }
     })
 
 }
+
+function informationCancel(){
+    var yes = confirm("確定要取消嗎?");
+    if(yes){
+        window.location.href='./CMS_0.html';
+    }
+}
+
+
 
