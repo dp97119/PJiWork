@@ -97,11 +97,26 @@
     }
 
     .foodR {
-        width: 40%;
+        width: 80px;
         text-align: right;
     }
 
     .foodL{
-        width: 80%;
+        width: 180px;
         text-align: left;
+    }
+
+    .delBtn{
+        width: 30px;
+    }
+
+    .deleteBtn{
+        border: none;
+        background-color: transparent;
+    }
+
+    .navDiv{
+        margin: 10px;
+        text-align: left;
+        background-color: #fff;
     }
