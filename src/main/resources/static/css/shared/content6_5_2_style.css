@@ -28,3 +28,20 @@
     position: absolute;
     right: 250px;
 }
+
+/* 上傳菜單彈跳視窗 */
+#dishdialog{
+    width: 500px; 
+    height: 200px; 
+    overflow-y: hidden ;
+    overflow-x: hidden;
+    border: none;
+    margin: auto;
+    padding: auto;
+}
+
+#punchDiv{
+    width: 500px; 
+    height: 100%;
+    margin: auto;
+}

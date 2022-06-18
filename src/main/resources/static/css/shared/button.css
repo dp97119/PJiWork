@@ -3,7 +3,11 @@
     width: 190px;
     border: 1px rgb(98, 98, 98) solid;
 }
+@import url('https://pro.fontawesome.com/releases/v5.10.0/css/all.css');
 
+* {
+	font-family: 'Noto Sans TC', sans-serif;
+}
 /* -------------------------------我是分隔線------------------------------- */
 
 /* btnStyle */

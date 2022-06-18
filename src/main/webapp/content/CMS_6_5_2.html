@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- style -->
+    <script src="/jQuery/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="/css/shared/content6_5_style.css" />
     <link rel="stylesheet" href="/css/shared/button.css" />
     <link rel="stylesheet" href="/css/shared/background.css" />
@@ -18,6 +19,7 @@
         crossorigin="anonymous"></script>
     <!-- 修改、刪除紐前面圖式 -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <!-- <script src="/js/CMS_6dish/dish.js"></script> -->
 
 </head>
 
@@ -75,21 +77,52 @@
                 </select>
             </div>
             <div class="uploadbtn">
-                <button class="function">上傳餐廳</button>&nbsp;&nbsp;
-                <button class="function">上傳菜單</button>
+                <button type="submit" class="function" id="restaurantBtn">上傳餐廳</button>&nbsp;&nbsp;
+                <button type="submit" class="function" id="dishBtn">上傳菜單</button>
             </div>
         </div>
         <br><br><br>
-            <div class="resimgDiv">
-                <div class="resimg" >
-                    111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111122222222222222222222222
-                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                </div>
-                <div class="sendbtn">
-                    <button class="btnStyle">確定餐廳</button>
-                </div>
+        <div class="resimgDiv">
+            <div class="resimg">
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
-            
+            <div class="sendbtn">
+                <button class="btnStyle">確定餐廳</button>
+            </div>
+        </div>
+
+        <!-- 上傳菜單的彈跳視窗 -->
+        <dialog id="dishdialog" style="width: 500px;">
+            <div class="modal-header">
+                <h5>上傳菜單</h5>
+                <button type="button" class="btn-close" aria-label="Close" onclick="dishdialog.close()"></button>
+            </div>
+            <div class="modal-body dishDiv">
+                <iframe src="./CMS_senddish.html" style="height: 100%;width:100%;"></iframe>
+            </div>
+        </dialog>
+        <script>
+            $('#dishBtn').on("click", function () {
+                dishdialog.showModal();
+            })
+        </script>
+
+        <!-- 上傳餐廳的彈跳視窗 -->
+        <dialog id="restaurantdialog" style="width: 500px;">
+            <div class="modal-header">
+                <h5>上傳餐廳</h5>
+                <button type="button" class="btn-close" aria-label="Close" onclick="restaurantdialog.close()"></button>
+            </div>
+            <div class="modal-body dishDiv">
+                <iframe src="./CMS_senddish.html" style="height: 100%;width:100%;"></iframe>
+            </div>
+        </dialog>
+        <script>
+            $('#restaurantBtn').on("click", function () {
+                restaurantdialog.showModal();
+            })
+        </script>
+
 
 </body>
 
