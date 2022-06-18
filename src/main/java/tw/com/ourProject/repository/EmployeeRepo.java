@@ -6,5 +6,7 @@ import tw.com.ourProject.model.Employee;
 
 
 public interface EmployeeRepo extends JpaRepository<Employee, String>{
-
+	
+	
+	Employee findByEmpId(String empId);
 }

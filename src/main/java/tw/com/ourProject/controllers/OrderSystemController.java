@@ -83,4 +83,19 @@ public class OrderSystemController {
 			return error;
 		}
 	}
+	
+	@PostMapping("/orderSys/getAllOrdersByDate")
+	public JSONArray getAllOrdersByDate(@RequestBody JSONObject data) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+		Date startDate = format.parse(data.getString("startDate"));
+		Date endDate = format.parse(data.getString("endDate"));
+		System.out.println(startDate +"   "+endDate);
+		JSONArray orders = orderSystemService.getAllOrdersByDate(startDate,endDate);
+		return orders;
+		}catch(Exception e) {
+			JSONArray error = JSON.parseArray("[{state : "+ e.toString()+"}]");
+			return error;
+		}
+	}
 }

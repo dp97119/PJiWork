@@ -84,8 +84,8 @@
                     </table>
                 </div>
                 <div class="middlerDiv">
-                    <table class="orderTable">
-                        <tr>
+                    <table class="orderTable" id="ordersTable">
+                        <tr id="firstTr">
                             <th class="ordertableStyle" width="6%">NO.</th>
                             <th class="ordertableStyle" width="10%">員工</th>
                             <th class="ordertableStyle" width="18%">日期</th>
@@ -161,7 +161,66 @@
 
 
     </div>
+    <script src="/jQuery/jquery-3.6.0.js"></script>
+    <script src="/js/punch/moment.min.js"></script>
+    <script src="/js/CMS_6_5order/CMS_6_5_1.js"></script>
+    <script>
+        $(document).ready(function () {
+    var date = new Date();
+    findAllOrdersByDate(date);
+});
 
+function findAllOrdersByDate(date) {
+    var param = 0;
+    if (date.getHours() <= 13) {
+        param = JSON.stringify({
+            "startDate": moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00"),
+            "endDate": moment().format("YYYY-MM-DD 12:00:00")
+        });
+    } else {
+        param = JSON.stringify({
+            "startDate": moment().format("YYYY-MM-DD 12:00:00"),
+            "endDate": moment().add(1, 'days').format("YYYY-MM-DD 12:00:00")
+        });
+    }
+    $.ajax({
+        type: "post",
+        url: "/orderSys/getAllOrdersByDate",
+        data: param,
+        contentType: "application/json",
+        dataType: 'json',
+        success: function (data) {
+
+            var ordersTable = document.getElementById("ordersTable");
+            console.log(ordersTable);
+            var firstTr = document.createElement("tr");
+            firstTr.innerHTML=`<tr id="firstTr">
+                            <th class="ordertableStyle" width="6%">NO.</th>
+                            <th class="ordertableStyle" width="10%">員工</th>
+                            <th class="ordertableStyle" width="18%">日期</th>
+                            <th class="ordertableStyle" width="25%">品項</th>
+                            <th class="ordertableStyle" width="6%">數量</th>
+                            <th class="ordertableStyle" width="25%">備註</th>
+                            <th class="ordertableStyle" width="10%">小計</th>
+                        </tr>`;
+            $('#ordersTable').empty();
+            ordersTable.append(firstTr);
+            for (var i = 0; i < data.length; i++) {
+                orderTr = document.createElement("tr");
+                orderTr.innerHTML = `   <td class="ordertableStyle">${i+1}</td>
+                                        <td class="ordertableStyle">${data[i].empName}</td>
+                                        <td class="ordertableStyle">2022年10月10號</td>
+                                        <td class="ordertableStyle">${data[i].dishItem}</td>
+                                        <td class="ordertableStyle"> ${data[i].dishPrice}</td>
+                                        <td class="ordertableStyle"></td>
+                                        <td class="ordertableStyle"></td>`;
+                ordersTable.append(orderTr);
+            }
+        }
+    });
+
+}
+    </script>
 </body>
 
 </html>

@@ -15,6 +15,7 @@ import tw.com.ourProject.model.Dish;
 import tw.com.ourProject.model.Order;
 import tw.com.ourProject.model.Restaurant;
 import tw.com.ourProject.repository.DishRepo;
+import tw.com.ourProject.repository.EmployeeRepo;
 import tw.com.ourProject.repository.OrderRepo;
 import tw.com.ourProject.repository.RestaurantRepo;
 import tw.com.ourProject.repository.RestaurantSetRepo;
@@ -33,6 +34,9 @@ public class OrderSystemService {
 	
 	@Autowired
 	public RestaurantSetRepo restaurantSetRepo;
+	
+	@Autowired
+	public EmployeeRepo employeeRepo;
 
 	public Order order = new Order();
 	
@@ -131,6 +135,22 @@ public class OrderSystemService {
 		for(Order order : orders) {
 			JSONObject obj = new JSONObject();
 			obj.put("orderId", order.getOrderId());
+			obj.put("dishItem", order.getDishes().getDishItem());
+			obj.put("dishPrice", order.getDishes().getDishPrice());
+			obj.put("qty", order.getQty());
+			jArry.add(obj);
+		}
+		return jArry;
+	}
+	
+	public  JSONArray getAllOrdersByDate(Date startDate , Date endDate) {
+		List<Order> orders = orderRepo.findByDateBetweenAndType(startDate,endDate,"出貨");
+		
+		JSONArray jArry = new JSONArray();
+		for(Order order : orders) {
+			JSONObject obj = new JSONObject();
+			obj.put("orderId", order.getOrderId());
+			obj.put("empName",employeeRepo.findByEmpId(order.getEmpId()).getEmpName());
 			obj.put("dishItem", order.getDishes().getDishItem());
 			obj.put("dishPrice", order.getDishes().getDishPrice());
 			obj.put("qty", order.getQty());
