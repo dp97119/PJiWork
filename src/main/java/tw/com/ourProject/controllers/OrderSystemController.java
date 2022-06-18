@@ -62,4 +62,9 @@ public class OrderSystemController {
 		orderSystemService.deleteOrderInCar(Integer.parseInt(data.getString("orderId")));
 	}
 	
+	@PostMapping("/orderSys/changeOrderType")
+	public void changeOrderType(@RequestBody JSONArray data) {
+		orderSystemService.changeOrderType(data);
+	}
+	
 }

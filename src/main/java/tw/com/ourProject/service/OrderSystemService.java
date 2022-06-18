@@ -109,4 +109,15 @@ public class OrderSystemService {
 	public void deleteOrderInCar(Integer orderId) {
 		orderRepo.deleteById(orderId);
 	}
+
+	@Transactional
+	public void changeOrderType(JSONArray data) {
+		for(int i = 0 ; i<data.size() ;i++) {
+		Integer orderId = Integer.parseInt(data.getJSONObject(i).getString("orderId"));
+		order = orderRepo.findById(orderId).get();
+		order.setType("出貨");
+		orderRepo.save(order);
+		}
+	}
+	
 }
