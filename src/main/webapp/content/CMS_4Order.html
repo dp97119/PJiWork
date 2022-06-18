@@ -99,7 +99,7 @@
                <br>
                <div class="orderRespond">
                   <div>
-                     <h6><b>餐廳：</b></h6>
+                     <h6><b id="historyOrderRestaurant">餐廳：</b></h6>
                   </div>
                   <div class="respondDiv" id="respondDiv">
                      
@@ -353,6 +353,7 @@
                var ordersPriceCount = 0;
                $('#respondDiv').empty();
                $("#historyOrderCount").text("小計：NT");
+               $("#historyOrderRestaurant").text("餐廳 : "+data[0].restaurantName);
                for (var i = 1; i < data.length; i++) {
                   foodTable = document.createElement("table");
                   foodTable.setAttribute("class", "myFoodTable");
