@@ -23,10 +23,13 @@ import tw.com.ourProject.utils.JWTUtil;
 public class EmployeeService {
 	@Autowired
 	public EmployeeRepo employeeRepo;
+	
 	@Autowired
 	JWTUtil jwtToken;
+	
 	@Autowired
 	public TempTokenRepo tempTokenRepo;
+	
 	public Temptoken tempToken = new Temptoken();
 
 	
@@ -101,6 +104,18 @@ public class EmployeeService {
 			obj.put("empEmail", emp.getEmail());
 			obj.put("empAddr", emp.getAddr());		
 			return obj;
+	}
+	
+	@Transactional
+	public void updateUserInfoById(JSONObject userInfo) {
+		 Employee employee = employeeRepo.findById(jwtToken.getInfoFromJwtToken(userInfo.getString("userToken"),"empId")).get();
+		 employee.setEmpName(userInfo.getString("empName"));
+		 employee.setPasswd(userInfo.getString("empPwd"));
+		 employee.setTel(userInfo.getString("empTel"));
+		 employee.setPhoto(userInfo.getString("empPhone"));
+		 employee.setEmail(userInfo.getString("empEmail"));
+		 employee.setAddr(userInfo.getString("empAddr"));
+		 employeeRepo.save(employee);
 	}
 
 }
