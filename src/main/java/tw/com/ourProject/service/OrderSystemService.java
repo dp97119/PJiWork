@@ -120,4 +120,23 @@ public class OrderSystemService {
 		}
 	}
 	
+	//查詢個人訂單記錄，第一筆資料為餐廳名字
+	public  JSONArray getHistoryOrder(String empId, Date startDate , Date endDate,Date date) {
+		List<Order> orders = orderRepo.findByEmpIdAndDateBetweenAndType(empId,startDate,endDate,"出貨");
+		restaurant = restaurantSetRepo.findBySetDate(date).getRestaurants();
+		JSONArray jArry = new JSONArray();
+		JSONObject restaurantName = new JSONObject();
+		restaurantName.put("restaurantName", restaurant.getRestaurantName());
+		jArry.add(restaurantName);
+		for(Order order : orders) {
+			JSONObject obj = new JSONObject();
+			obj.put("orderId", order.getOrderId());
+			obj.put("dishItem", order.getDishes().getDishItem());
+			obj.put("dishPrice", order.getDishes().getDishPrice());
+			obj.put("qty", order.getQty());
+			jArry.add(obj);
+		}
+		return jArry;
+	}
+	
 }

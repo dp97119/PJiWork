@@ -10,4 +10,6 @@ import tw.com.ourProject.model.Order;
 public interface OrderRepo  extends JpaRepository<Order, Integer>{
 
 	List<Order> findByEmpIdAndDateBetweenAndType(String empId,Date startDate,Date endDate,String type);
+	
+	List<Order> findByEmpIdAndDateAndType(String empId,Date date ,String type);
 }

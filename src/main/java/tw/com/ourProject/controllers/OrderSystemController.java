@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import tw.com.ourProject.model.Order;
 import tw.com.ourProject.service.OrderSystemService;
 import tw.com.ourProject.utils.JWTUtil;
 
@@ -67,4 +68,19 @@ public class OrderSystemController {
 		orderSystemService.changeOrderType(data);
 	}
 	
+	@PostMapping("/orderSys/getHistoryOrder")
+	public JSONArray getHistoryOrder(@RequestBody JSONObject data) {
+		String empId = jwt.getInfoFromJwtToken(data.getString("userToken"), "empId");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+		Date startDate = format.parse(data.getString("startDate"));
+		Date endDate = format.parse(data.getString("endDate"));
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(data.getString("date"));
+		JSONArray orders= orderSystemService.getHistoryOrder(empId,startDate,endDate,date);
+		return orders;
+		}catch(Exception e) {
+			JSONArray error = JSON.parseArray("[{state : "+ e.toString()+"}]");
+			return error;
+		}
+	}
 }

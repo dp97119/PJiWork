@@ -28,7 +28,7 @@
    <div class="grid-container">
       <div>
          <label for=""><b>今日餐廳:</b></label>&nbsp;&nbsp;
-         <h3  id="TodayRestaurantName"></h3>
+         <h3 id="TodayRestaurantName"></h3>
       </div>
       <div>
          <button type="button" class="function" data-bs-toggle="modal" data-bs-target="#orderSearchModal">訂單紀錄</button>
@@ -69,7 +69,7 @@
       <br>
 
       <div id="submit2">
-         <b><span id="pay_amount">合計：</span><span id="price-num">$$$</span></b>
+         <b><span id="ordersPriceCount">合計：<span></b>
          <button class="btnStyle btnright" id="orderFinishBtn">我要下單</button>
          <!-- <dialog class="inforesult" title="請確認購物車數量唷！">
             <dialog class="dialog1">謝謝訂購！</dialog> -->
@@ -92,31 +92,20 @@
             <div class="modal-body orderSearchDiv">
                <div>
                   <label><b>日期：</b></label>&nbsp;&nbsp;
-                  <input type="date" class="inputSize" style="width: 130px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="submit" value="查詢" class="btnStyle">
+                  <input type="date" id="targetDate" class="inputSize"
+                     style="width: 130px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="submit" value="查詢" class="btnStyle" id="modalFindBtn">
                </div>
                <br>
                <div class="orderRespond">
                   <div>
                      <h6><b>餐廳：</b></h6>
                   </div>
-                  <div class="respondDiv">
-                     <table class="myfoodTable">
-                        <tr class="myfoodBorder">
-                           <td class="foodL">
-                              <div>牛肉漢堡</div>
-                              <div>備註</div>
-                           </td>
-                           <td class="foodR">
-                              <div>NT</div>
-                              <div>數量</div>
-                           </td>
-                        </tr>
-                     </table>
-                     <br><br><br><br><br><br><br><br><br><br>
+                  <div class="respondDiv" id="respondDiv">
+                     
                   </div>
                   <div>
-                     <label><b>小計：NT $$$</b></label>
+                     <label><b id="historyOrderCount">小計：NT $$$</b></label>
                   </div>
 
                </div>
@@ -210,32 +199,40 @@
 
       $("#addcart").click(function () {
          var tempData = [];
+         var count;
          for (var a = 1; a < dishData.length; a++) {
             var dish_qty = document.getElementById(`dish_qty${dishData[a].dishId}`);
-             if(dish_qty.innerHTML != "0") {
+            if (dish_qty.innerHTML != "0") {
                console.log(dishData[a].dishItem + "的數量為：" + dish_qty.innerHTML);
                tempData.push(JSON.parse(`{"dishId" : ${dishData[a].dishId} ,"qty" : ${dish_qty.innerHTML}}`));
             }
          }
-         tempData.splice(0, 0, { userToken: getCookie() });
-         var sendData = JSON.stringify(tempData);
-         $.ajax({
-            type: "post",
-            url: "/orderSys/saveToDb",
-            data: sendData,
-            contentType: 'application/json',
-            sendData: function () {
-               $("#dialog").dialog("open");
-               $("#addcart").attr('disabled', 'disabled');
-               $("#addcart").css({ "color": "white" });
-            },
-            success: function () {
-               getOrdersInCar();
-               $("#dialog").dialog("close");
-               $("#addcart").removeAttr('disabled');
-               //更新右方購物出畫面
+
+         if (tempData != 0) {
+            for (var a = 1; a < dishData.length; a++) {
+               document.getElementById(`dish_qty${dishData[a].dishId}`).innerHTML = 0;
             }
-         });
+            tempData.splice(0, 0, { userToken: getCookie() });
+            var sendData = JSON.stringify(tempData);
+            $.ajax({
+               type: "post",
+               url: "/orderSys/saveToDb",
+               data: sendData,
+               contentType: 'application/json',
+               sendData: function () {
+                  $("#dialog").dialog("open");
+                  $("#addcart").attr('disabled', 'disabled');
+                  $("#addcart").css({ "color": "white" });
+               },
+               success: function () {
+
+                  getOrdersInCar();
+                  $("#dialog").dialog("close");
+                  $("#addcart").removeAttr('disabled');
+                  //更新右方購物出畫面
+               }
+            });
+         }
       })
       $("#orderFinishBtn").click(orderFinish);
 
@@ -248,9 +245,9 @@
          if (date.getHours() >= 14) {
             startDate = moment().format("YYYY-MM-DD 12:00:00");
             endDate = moment().add(1, 'days').format("YYYY-MM-DD 12:00:00");
-         }else{
-            startDate = moment().format("YYYY-MM-DD 12:00:00");
-            endDate = moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00");
+         } else {
+            startDate = moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00");
+            endDate = moment().format("YYYY-MM-DD 12:00:00");
          }
          console.log(startDate);
          var tokenAndDate = JSON.stringify({
@@ -266,13 +263,16 @@
             success: function (orderData) {
                allOrdersInCar = orderData;
                updateCarContent(orderData);
+               console.log(orderData);
             }
          });
       }
       function updateCarContent(orderData) {
          var orderRows;
          var carDiv = document.getElementById("orderCar");
+         var ordersPriceCount = 0;
          $('#orderCar').empty();
+         $("#ordersPriceCount").text("合計：");
          for (var i = 0; i < orderData.length; i++) {
             orderRows = document.createElement("table");
             orderRows.setAttribute("class", "orderRows");
@@ -283,10 +283,10 @@
                                                 <td class = "" id="" width="20%">${orderData[i].qty * orderData[i].dishPrice}</td>
                                                 <td class = "" id="" width="15%"><button onClick="deleteOrder(${i})">刪除</button></td>
                                           </tr>`;
-
             carDiv.appendChild(orderRows);
+            ordersPriceCount += (orderData[i].qty * orderData[i].dishPrice);
+            $("#ordersPriceCount").text("合計：NT" + ordersPriceCount);
          }
-
       }
 
 
@@ -300,7 +300,6 @@
             contentType: 'application/json',
             success: function () {
                getOrdersInCar();
-               alert("刪除成功");
             }
          });
       }
@@ -324,42 +323,72 @@
 
             },
             success: function () {
-               $("#dialog").dialog("close");
+               getOrdersInCar();
+               setTimeout((() => $("#dialog").dialog("close")), 2000);
                $("#orderFinishBtn").removeAttr('disabled');
             },
          });
       }
 
-      $(function () {
-         $("#dialog").dialog({
-            modal: true,
-            autoOpen: false,
-            closeOnEscape: false
+      function findHistoryOrders() {
+         var date = $("#targetDate").val();
+         startDate = moment(date).add(-1, 'days').format("YYYY-MM-DD 12:00:00");
+         endDate = moment(date).format("YYYY-MM-DD 12:00:00");
+
+         $.ajax({
+            type: "post",
+            url: "/orderSys/getHistoryOrder",
+            data: JSON.stringify({
+               "userToken": getCookie(),
+               "startDate": startDate,
+               "endDate": endDate,
+               "date": date
+            }),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+
+               var foodTable;
+               var historyOrderDiv = document.getElementById("respondDiv");
+               var ordersPriceCount = 0;
+               $('#respondDiv').empty();
+               $("#historyOrderCount").text("小計：NT");
+               for (var i = 1; i < data.length; i++) {
+                  foodTable = document.createElement("table");
+                  foodTable.setAttribute("class", "myFoodTable");
+                  foodTable.innerHTML = `<tr class="myfoodBorder">
+                                            <td class="foodL">
+                                               <div>${data[i].dishItem}</div>
+                                               <div>備註</div>
+                                            </td>
+                                            <td class="foodR">
+                                               <div>${data[i].dishPrice} NT</div>
+                                               <div>X${data[i].qty}</div>
+                                            </td>
+                                         </tr>`;
+                  historyOrderDiv.appendChild(foodTable);
+
+                  ordersPriceCount += (data[i].dishPrice * data[i].qty);
+                  $("#historyOrderCount").text("小計：NT" + ordersPriceCount);
+               }
+
+            },
+            error: function () {
+               $('#respondDiv').empty();
+               alert("查無資料，請重新選取時間")
+            }
          });
-      });
-
-
-
-
-
-      //進行價格計算
-      function getAmount() {
-         //獲取選取的選擇框
-         ns = document.getElementsByClassName("i_acity");
-         //初始化總價
-         sum = 0;
-         //選取框
-         document.getElementById("price_num").innerText = sum;
-         for (y = 0; y < ns.length; y++) {
-            //小計
-            amount_info = ns[y].parentElement.parentElement.lastElementChild.previousElementSibling;
-            num = parseInt(amount_info.innerText);
-            sum += num;
-            document.getElementById("price_num").innerText = sum;
-         }
       }
 
+      $("#modalFindBtn").click(findHistoryOrders);
 
+         $(function () {
+            $("#dialog").dialog({
+               modal: true,
+               autoOpen: false,
+               closeOnEscape: false
+            });
+         });
 
    </script>
 
