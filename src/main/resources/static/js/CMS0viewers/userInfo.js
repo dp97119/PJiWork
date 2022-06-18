@@ -13,6 +13,7 @@ $(function () {
             userApart.innerText = data.apart;
             userNumber.innerText = data.empId;
             userName.innerText = data.empName;
+            document.getElementById('myNameImg').setAttribute('src', `${data.empPhoto}`);
         }
     })
 })
@@ -75,6 +76,8 @@ function informationCancel(){
         window.location.href='./CMS_0.html';
     }
 }
+
+// 大頭照更換
 
 
 

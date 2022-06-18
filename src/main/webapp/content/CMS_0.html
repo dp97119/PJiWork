@@ -38,7 +38,6 @@
                 </div>
 
                 <div class="myName col-2">
-                    <!-- <img class="myNameImg" src="./img/circle.png" width="200px" alt="circle"> -->
                     <div class="myNameDiv"><img class="myNameImg" id="myNameImg" src="/img/logo.png" alt=""></div>
 
                     <!-- photo Button trigger modal -->
@@ -176,7 +175,7 @@
                             <tr>
                                 <td colspan="2" style="text-align: center;">
                                     <input type="button" value="修改" class="btnStyle"
-                                     onClick="informationCancel()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        onClick="informationCancel()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type="button" value="取消" class="btnStyle"
                                         onClick="window.location.href='./CMS_0.html';">
                                 </td>
@@ -205,7 +204,7 @@
             <!-- 公告內容 -->
             <div class="announcementDiv">
                 <ul id="mainAnnouncement">
-                    <li id="notice" style="list-style-type: none;"></li>
+                    <li class="noticeContent" style="list-style-type: none;"></li>
                 </ul>
             </div>
         </div>
@@ -243,8 +242,8 @@
         </script>
 
         <!-- photo Modal -->
-        <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-dialog-scrollable" style="height: 370px;width: 350px;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="photoModalLabel">照片上傳</h5>
@@ -257,8 +256,7 @@
                                 accept="image/gif, image/jpeg, image/png" /><br><br>
                             <input type="hidden" name="uesrToken">
                             <div><img id="photo_img" src="/img/spacing.png" /></div>
-                            <button type="submit">上傳檔案</button>
-
+                            <button type="submit" class="btn btn-primary fileSend">上傳檔案</button>
                         </form>
 
                         <!-- photo JavaScript part -->
@@ -277,124 +275,121 @@
                         </script>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">上傳檔案</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- 右下角訊息圖示 -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
-            integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
-            crossorigin="anonymous"></script>
-        <div>
-            <div class="messageImg" data-bs-toggle="modal" data-bs-target="#exampleModal"></div>
-        </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" id="messagemodal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">新郵件</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="subject1" class="col-form-label">主旨：</label>
-                                <input type="text" class="form-control" id="subject1">
-                            </div>
-                            <div class="mb-3">
-                                <label for="recipient-name" class="col-form-label">收件人：</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">訊息:</label>
-                                <textarea class="form-control" id="message-text" style="height: 100px;"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">傳送</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    </div>
+    <!-- 右下角訊息圖示 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
+        crossorigin="anonymous"></script>
+    <div>
+        <div class="messageImg" data-bs-toggle="modal" data-bs-target="#exampleModal"></div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="messagemodal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新郵件</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="subject1" class="col-form-label">主旨：</label>
+                            <input type="text" class="form-control" id="subject1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">收件人：</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">訊息:</label>
+                            <textarea class="form-control" id="message-text" style="height: 100px;"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">傳送</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <!-- mail--Modal -->
-        <div class="modal fade" id="staticBackdropMail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog" id="mailmodal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabelMail">信箱</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" style="height:250px; overflow-y:auto">
-                        <!-- ... -->
-                        <table id="mailtable">
-                            <tr id="mailborder">
-                                <th width="20%" style="text-align: center;">讀取訊息</th>
-                                <th width="20%">寄件人</th>
-                                <th width="20%">時間</th>
-                                <th width="30%">主旨</th>
-                                <th width="10%">內容</th>
-                            </tr>
-                            <tr id="mailborder">
-                                <td style="text-align: center;"><input type="checkbox"></td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td>XXX</td>
-                                <td><button id="mailContentbtn">...</button></td>
-                            </tr>
-                        </table>
-                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">顯示全部</button>
-                        <button type="button" class="btn btn-primary">隱藏已讀</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                    </div>
+    <!-- mail--Modal -->
+    <div class="modal fade" id="staticBackdropMail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" id="mailmodal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabelMail">信箱</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height:250px; overflow-y:auto">
+                    <!-- ... -->
+                    <table id="mailtable">
+                        <tr id="mailborder">
+                            <th width="20%" style="text-align: center;">讀取訊息</th>
+                            <th width="20%">寄件人</th>
+                            <th width="20%">時間</th>
+                            <th width="30%">主旨</th>
+                            <th width="10%">內容</th>
+                        </tr>
+                        <tr id="mailborder">
+                            <td style="text-align: center;"><input type="checkbox"></td>
+                            <td>XXX</td>
+                            <td>XXX</td>
+                            <td>XXX</td>
+                            <td><button id="mailContentbtn">...</button></td>
+                        </tr>
+                    </table>
+                    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">顯示全部</button>
+                    <button type="button" class="btn btn-primary">隱藏已讀</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- 信件內容 -->
-        <dialog id="mailContentdialog" style="width: 300px;">
-            <div class="modal-header">
-                <button type="button" class="btn-close" aria-label="Close" onclick="mailContentdialog.close()"></button>
+    <!-- 信件內容 -->
+    <dialog id="mailContentdialog" style="width: 300px;">
+        <div class="modal-header">
+            <button type="button" class="btn-close" aria-label="Close" onclick="mailContentdialog.close()"></button>
+        </div>
+        <div class="modal-body" style="height: 350px; overflow-y: auto;">
+            <div>
+                信件內容
+
             </div>
-            <div class="modal-body" style="height: 350px; overflow-y: auto;">
-                <div>
-                    信件內容
-
-                </div>
-            </div>
-        </dialog>
-        <script>
-            $('#mailContentbtn').on("click", function () {
-                mailContentdialog.showModal()
-            })
-        </script>
+        </div>
+    </dialog>
+    <script>
+        $('#mailContentbtn').on("click", function () {
+            mailContentdialog.showModal()
+        })
+    </script>
 
 
-        <!-- myCard1 Modal(上班打卡) -->
-        <dialog id="punchdialog">
-            <div id="punchDiv">
-                <iframe src="./CMS_punch.html" style="height: 100%;width:100%;"></iframe>
-            </div>
-        </dialog>
-        <script>
-            $('#myCardbtn1').on("click", function () {
-                punchdialog.showModal();
-            })
-            $('#myCardbtn2').on("click", function () {
-                punchdialog.showModal();
-            })
-        </script>
+    <!-- myCard1 Modal(上班打卡) -->
+    <dialog id="punchdialog">
+        <div id="punchDiv">
+            <iframe src="./CMS_punch.html" style="height: 100%;width:100%;"></iframe>
+        </div>
+    </dialog>
+    <script>
+        $('#myCardbtn1').on("click", function () {
+            punchdialog.showModal();
+        })
+        $('#myCardbtn2').on("click", function () {
+            punchdialog.showModal();
+        })
+    </script>
 
     </div>
     <script src="/js/CMS0viewers/punchRecord.js"></script>
@@ -420,9 +415,13 @@
                     //找時間加入等待提示
                 },
                 success: function (data) {
-                    console.log(data);
+                    var yes = confirm('大頭照更新完成囉');
                     document.getElementById('myNameImg').setAttribute('src', `${data.empPhoto}`);
-                    alert('大頭照更新完成囉');
+                    if(yes){
+                        $(".modal").modal("hide");
+                    }else{
+                        $(".modal").modal("hide");
+                    }
                 },
                 error: function (data) {
                     alert(data.exception);

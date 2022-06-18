@@ -82,3 +82,20 @@
         height: 240px;
         overflow-y: auto;
     }
+
+    .myfoodDiv {
+        height: 340px;
+        overflow-y: auto;
+    }
+
+    .myfoodTable {
+        width: 95%;
+    }
+
+    .myfoodBorder {
+        border-bottom: 2px solid black;
+    }
+
+    .foodR {
+        text-align: right;
+    }
