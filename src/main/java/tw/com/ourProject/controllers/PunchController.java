@@ -1,7 +1,6 @@
 package tw.com.ourProject.controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import tw.com.ourProject.model.Punch;
 import tw.com.ourProject.service.PunchService;
 import tw.com.ourProject.utils.JWTUtil;
 
