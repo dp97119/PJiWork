@@ -40,8 +40,9 @@
 					<li><a class="dropdown-item" href="./CMS_6_2_2.html">新增/修改公告</a></li>
 				</ul>
 			</li>
-			<li class="nav-item"><a class="nav-link active " aria-current="page" href="#">推播</a></li>
-            <li class="nav-item">
+			<li class="nav-item"><a class="nav-link active " aria-current="page" href="./broadcast.html">推播</a></li>
+			
+			<li class="nav-item">
                 <a class="nav-link " aria-current="page" href="./CMS_6_4_1.html">出勤管理</a>
             </li>
 			<li class="nav-item dropdown">
@@ -64,14 +65,38 @@
 			</div>
 			<br>
 			<div>
-				<button class="btnStyle">確定</button>
+				<button class="btnStyle" id="btn_send">確定</button>
 				&nbsp;&nbsp;
 				<button class="btnStyle" id="cleanString">清除</button>
 			</div>
 		</div>
 	</div>
+	<!-- <div >
+		<input type="text" id="systemtext"  />
+		<button id="btn_send">傳送</button>
+	</div> -->
+	<script>
+        $("#btn_send").click(function(){
+           sendout();           
+        });
 
+		function sendout() {
+			var inputData = JSON.stringify({
+				from:"system",
+				text: $("#pushText").val()
+			});
 
+			$.ajax({
+				type: "post",
+				url: "/system/broadcast",
+				data: inputData,
+				contentType: 'application/json',
+				success: function (data) {
+					console.log(data); 
+				}
+			});
+		}
+	</script>
 
 	<script>
 		$("#cleanString").on("click", function () {
