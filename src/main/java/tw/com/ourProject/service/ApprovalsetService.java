@@ -50,8 +50,8 @@ public class ApprovalsetService {
 		approvalsetRepo.deleteById(approvalsetid);
 	}
 	
-	public void updateApprovalset(Apart apartid, Employee firstapproval, Employee secondapproval) {
-		Approvalset updateSet = approvalsetRepo.findByAparts(apartid);
+	public void updateApprovalset(Integer approvalsetid, Employee firstapproval, Employee secondapproval) {
+		Approvalset updateSet = approvalsetRepo.findByApprovalSetId(approvalsetid);
 		updateSet.setEmployees(firstapproval);
 		updateSet.setEmployee(secondapproval);
 		approvalsetRepo.save(updateSet);

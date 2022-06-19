@@ -10,5 +10,4 @@ import tw.com.ourProject.model.Approvalset;
 @Transactional
 public interface ApprovalsetRepo extends JpaRepository<Approvalset, Integer>{
 	Approvalset findByApprovalSetId(Integer approvalSetId);
-	Approvalset findByAparts(Apart apartId);
 }
