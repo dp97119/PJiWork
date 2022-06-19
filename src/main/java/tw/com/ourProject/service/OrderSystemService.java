@@ -1,10 +1,8 @@
 package tw.com.ourProject.service;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -17,6 +15,7 @@ import com.alibaba.fastjson.JSONObject;
 import tw.com.ourProject.model.Dish;
 import tw.com.ourProject.model.Order;
 import tw.com.ourProject.model.Restaurant;
+import tw.com.ourProject.model.Restaurantset;
 import tw.com.ourProject.repository.DishRepo;
 import tw.com.ourProject.repository.EmployeeRepo;
 import tw.com.ourProject.repository.OrderRepo;
@@ -40,12 +39,13 @@ public class OrderSystemService {
 	
 	@Autowired
 	public EmployeeRepo employeeRepo;
+	
+	
 
 	public Order order = new Order();
-	
 	public Dish dish = new Dish();
-
 	public Restaurant restaurant = new Restaurant();
+	public Restaurantset restaurantset = new Restaurantset();
 
 	
 	public JSONArray findMenuByDate(Date date) {
@@ -183,4 +183,39 @@ public class OrderSystemService {
 	
 	}
 	
+	public JSONArray getRestaurants() {
+		List<Restaurant> restaurants= restaurantRepo.findAll();
+		JSONArray jArry = new JSONArray();
+		for(Restaurant restaurant :restaurants) {
+			JSONObject obj = new JSONObject();
+			obj.put("restaurantId", restaurant.getRestaurantId());
+			obj.put("restaurantName", restaurant.getRestaurantName());
+			jArry.add(obj);
+		}
+		return jArry;
+	}
+
+	public void setRestaurant(JSONObject data ,String empId) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+		Date date = format.parse(data.getString("setDate"));
+		System.out.println(date);
+		restaurantset = restaurantSetRepo.findBySetDate(date);
+		if(restaurantset == null) {
+			Restaurantset newRestaurantset = new Restaurantset();
+			newRestaurantset.setSetDate(date);
+			newRestaurantset.setRestaurants(restaurantRepo.findById(data.getInteger("restaurantId")).get());
+			newRestaurantset.setCreatePerson(empId);
+			newRestaurantset.setUpdatePerson(empId);
+			restaurantSetRepo.save(newRestaurantset);
+		}else {
+			restaurantset.setSetDate(date);
+			restaurantset.setRestaurants(restaurantRepo.findById(data.getInteger("restaurantId")).get());
+			restaurantset.setUpdatePerson(empId);
+			restaurantSetRepo.save(restaurantset);			
+		}
+		}catch(Exception e) {
+			System.out.println(e.toString());
+		}
+	}
 }

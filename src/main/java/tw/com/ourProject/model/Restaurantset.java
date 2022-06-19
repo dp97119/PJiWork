@@ -28,9 +28,18 @@ public class Restaurantset {
 	@JoinColumn(name="restaurantid",referencedColumnName = "restaurantid")
 	private Restaurant restaurants;
 
+	@Column(name = "createperson" ,columnDefinition = "char(11)")
+	private String createPerson;
+	
+	@Column(name = "updateperson" ,columnDefinition = "char(11)")
+	private String updatePerson;
+
+	
+
 	@Override
 	public String toString() {
-		return "Restaurantset [setId=" + setId + ", setDate=" + setDate + ", restaurants=" + restaurants + "]";
+		return "Restaurantset [setId=" + setId + ", setDate=" + setDate + ", restaurants=" + restaurants
+				+ ", createPerson=" + createPerson + ", updatePerson=" + updatePerson + "]";
 	}
 
 	public Integer getSetId() {
@@ -55,6 +64,22 @@ public class Restaurantset {
 
 	public void setRestaurants(Restaurant restaurants) {
 		this.restaurants = restaurants;
+	}
+
+	public String getCreatePerson() {
+		return createPerson;
+	}
+
+	public void setCreatePerson(String createPerson) {
+		this.createPerson = createPerson;
+	}
+
+	public String getUpdatePerson() {
+		return updatePerson;
+	}
+
+	public void setUpdatePerson(String updatePerson) {
+		this.updatePerson = updatePerson;
 	}
 	
 

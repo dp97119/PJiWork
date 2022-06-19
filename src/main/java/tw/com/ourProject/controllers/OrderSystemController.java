@@ -25,8 +25,8 @@ public class OrderSystemController {
 	@Autowired
 	public JWTUtil jwt;
 	
-	@PostMapping("/orderSys/getMenu") //陣列的第一筆object是restaurantName
-	public JSONArray getMenu(@RequestBody JSONObject data) {
+	@PostMapping("/orderSys/getMenuByDate") //陣列的第一筆object是restaurantName
+	public JSONArray getMenuByDate(@RequestBody JSONObject data) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 		Date date = format.parse(data.getString("setDate"));
@@ -112,5 +112,22 @@ public class OrderSystemController {
 			JSONArray error = JSON.parseArray("[{state : "+ e.toString()+"}]");
 			return error;
 		}
+	}
+	
+	@PostMapping("/orderSys/getRestaurants")
+	public JSONArray getRestaurants() {
+		return orderSystemService.getRestaurants();
+	}
+
+	@PostMapping("/orderSys/getMenuByRestaurantId")
+	public JSONArray getMenuByRestaurantId(@RequestBody JSONObject data) {
+		return orderSystemService.findDishByRestaurantId(Integer.parseInt(data.getString("restaurantId")));
+	}
+	
+	@PostMapping("/orderSys/setRestaurant")
+	public void setRestaurant(@RequestBody JSONObject data) {
+		System.out.println(data);
+		String empId = jwt.getInfoFromJwtToken(data.getString("userToken"), "empId");
+		orderSystemService.setRestaurant(data,empId);
 	}
 }

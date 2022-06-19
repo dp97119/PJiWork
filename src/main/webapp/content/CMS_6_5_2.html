@@ -20,6 +20,16 @@
     <!-- 修改、刪除紐前面圖式 -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 
+    <style>
+        #displayMenuDiv {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .menu {
+            margin: 10px 20px;
+        }
+    </style>
 </head>
 
 
@@ -64,9 +74,9 @@
         <div>
             <div class="selectDiv">
                 <label><b>選擇日期：</b></label>&nbsp;&nbsp;
-                <input type="datetime" class="inputSize" id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="date" class="inputSize" id="inputDate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <label><b>選擇餐廳：</b></label>&nbsp;&nbsp;
-                <select name="" id="">
+                <select name="" id="restaurauts">
                     <option value=""></option>
                 </select>
             </div>
@@ -77,11 +87,11 @@
         </div>
         <br><br><br>
         <div class="resimgDiv">
-            <div class="resimg">
+            <div class="resimg" id="displayMenuDiv">
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
             <div class="sendbtn">
-                <button class="btnStyle">確定餐廳</button>
+                <button class="btnStyle" id="btnStyle">確定餐廳</button>
             </div>
         </div>
 
@@ -122,12 +132,13 @@
                 restaurantdialog.showModal();
             })
         </script>
-        
 
 
 
-        <!-- 上傳菜單 -->
+
+
         <script>
+            // 上傳菜單 
             $("#myFormR").submit(function (e) {
                 e.preventDefault(); // 停止觸發submit
                 console.log("upload");
@@ -146,10 +157,7 @@
                     }
                 });
             });
-        </script>
-
-        <!-- 上傳菜單 -->
-        <script>
+            // 上傳菜單 
             $("#myFormD").submit(function (e) {
                 e.preventDefault(); // 停止觸發submit
                 console.log("upload");
@@ -167,6 +175,74 @@
                         alert("上傳成功");
                     }
                 });
+            });
+
+            function getCookie() {
+                var cookie = document.cookie.split('=');
+                return cookie[1].toString();
+            }
+            //讀取現有餐廳至下拉選單
+            $(document).ready(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/orderSys/getRestaurants",
+                    success: function (data) {
+                        var optionContent = "";
+                        for (i = 0; i < data.length; i++) {
+                            optionContent += `<option id="op${data[i].restaurantId}" value="${data[i].restaurantId}">${data[i].restaurantName}</option>`;
+                        }
+                        $("#restaurauts").append(optionContent);
+                    }
+                });
+                $("#restaurauts").change(function () {
+                    var targetRestaurant = JSON.stringify({ restaurantId: $("#restaurauts").val() });
+                    $.ajax({
+                        type: "POST",
+                        url: "/orderSys/getMenuByRestaurantId",
+                        data: targetRestaurant,
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            $("")
+                            var displayMenuDiv = $("#displayMenuDiv");
+                            displayMenuDiv.empty();
+                            for (i = 0; i < data.length; i++) {
+                                menu = document.createElement("div");
+                                menu.setAttribute("class", "menu")
+
+                                menu.innerHTML +=
+                                    `<img src="${data[i].dishPhoto}" width="110" height="110" alt="${data[i].dishItem}" title="${data[i].dishItem}" class="pic row" />
+                                <p class="row" style="margin-top: 0px; font-size:15px; margin-left: 15px;">${data[i].dishItem}</p>
+                                <p class="row" style=" margin-top: -15px;font-size:15px; margin-left: 15px;">$${data[i].dishPrice}</p>`;
+
+                                displayMenuDiv.append(menu);
+                            }
+
+                            $("#btnStyle").click(function () {
+                                console.log($("#inputDate").val());
+                                console.log($("#restaurauts"));
+                                if (confirm("選擇於" + $("#inputDate").val() + "上架『" + $("#restaurauts").find("option:selected").text() + "』" + "\n\t\t\t\t是否確定?")) {
+                                    var restaurantSet = JSON.stringify({ userToken: getCookie(), setDate: $("#inputDate").val(), restaurantId: $("#restaurauts").val() });
+                                    $.ajax({
+                                        type: "post",
+                                        url: "/orderSys/setRestaurant",
+                                        data: restaurantSet,
+                                        contentType: "application/json",
+                                        success: function () {
+                                            alert("上傳成功");
+                                        }
+
+                                    });
+                                }
+                            });
+
+                        }
+
+
+                    });
+                });
+
             });
         </script>
 
