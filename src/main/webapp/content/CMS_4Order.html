@@ -168,7 +168,7 @@
       window.onload = function () {
          // 判斷時間 下午2點到隔天11點前 結果1:顯示菜單
          if (date.getHours() <= 11 || date.getHours() >= 14) {
-            if (date.getHours <= 11) {
+            if (date.getHours() <= 11) {
                param = JSON.stringify({ "setDate": moment().format('YYYY-MM-DD') });
             } else {
                param = JSON.stringify({ "setDate": moment().add(1, 'days').format('YYYY-MM-DD') });
