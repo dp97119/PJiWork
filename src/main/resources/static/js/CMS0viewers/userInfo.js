@@ -80,4 +80,29 @@ function informationCancel(){
 // 大頭照更換
 
 
+function getCookie() {
+    var cookie = document.cookie.split('=');
+    return cookie[1].toString();
+}
+
+
+
+$(function () {
+    var usertoken = JSON.stringify({ "userToken": getCookie() });
+    $.ajax({
+        type: "POST",
+        url: "/security/checkAdm",
+        data: usertoken,
+        contentType:'application/json',
+        success: function (data) {
+        //    console.log("HOOOOOOOOOOO")
+        if(data.userAdm != "admin"){
+            document.getElementById("AdminUse").style.visibility = "hidden";
+         }else{
+            console.log("使用者")
+         }
+        }
+    })
+})
+
 
