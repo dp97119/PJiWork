@@ -1,29 +1,29 @@
 // CMS_6_2管理系統，公告
 
 // 查詢
+var annList = [];
 $(function () {
     $.ajax({
         url: "http://localhost:8080/showAnnouncement/",
         type: "GET",
         success: function (data) {
-            // var i = -1;
+            var i = 1;
             $.each(data, function () {
                 var NowDate = new Date();
                 var yy = NowDate.getFullYear();
                 var mm = ('0' + (NowDate.getMonth() + 1)).slice(-2);
                 var dd = ('0' + NowDate.getDate()).slice(-2);
                 var today = yy + '-' + mm + '-' + dd;
-                // console.log(today);
 
                 if (today < this.removed) {
-                    var announcementRecord = $(`<li id="${this.announceId}" class="noticeContent" onclick="openbtn(${this.announceId})">${this.title}</li>`);
-                    $("#mainAnnouncement").after(announcementRecord);
-                    // i++;
-
+                    var announcementRecord = $(`<li id="${i}" value="${this.announceId}" class="noticeContent" onclick="openbtn(${this.announceId})">${this.title}</li>`);
+                    // $("#mainAnnouncement").after(announcementRecord);
+                    announcementRecord.appendTo("#mainAnnouncement");
+                    annList[i] = this.announceId;
+                    i++;
                 }else{
                     // console.log("下架了")
                 }
-
             })
         }
 
@@ -36,11 +36,15 @@ $(function () {
 function openbtn(i) {
     console.log("OK");
     var openNumber = JSON.stringify([{
-        announceId: document.getElementById(`${i}`).innerText
+        announceId: document.getElementsByTagName("li")[i].getAttribute('id')
+        // announceId: document.getElementById(`${i}`).innerText
     }]);
     console.log(openNumber);
 
 }
+
+
+
 
 
 
