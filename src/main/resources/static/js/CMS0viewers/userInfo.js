@@ -99,7 +99,7 @@ $(function () {
         if(data.userAdm != "admin"){
             document.getElementById("AdminUse").style.visibility = "hidden";
          }else{
-            console.log("使用者")
+            console.log("管理者")
          }
         }
     })
