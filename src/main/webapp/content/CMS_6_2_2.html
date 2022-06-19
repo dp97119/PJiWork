@@ -64,49 +64,57 @@
             <div class="application">
                 <div>
                     <label><b>主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;旨：</b></label>&nbsp;&nbsp;
-                    <input type="text" class="inputSize" id="" style="width: 375px;">
+                    <input type="text" class="inputSize" id="annSubject" style="width: 375px;">
                 </div>
                 <div>
                     <label><b>類&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;型：</b></label>&nbsp;&nbsp;
-                    <select name="" id="">
+                    <select name="" id="annType">
                         <option value="1" class="">最新公告</option>
                         <option value="2" class="">公司文件</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div>
                     <label><b>內&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;容：</b></label><br>
-                    <textarea id="" cols="62" rows="7"></textarea>
+                    <textarea id="annText" cols="62" rows="7"></textarea>
                 </div>
                 <div>
                     <label><b>上架日期：</b></label>&nbsp;&nbsp;
-                    <input type="date" class="inputSize" id="">
+                    <input type="date" class="inputSize" id="annUploadDate">
+                </div>
+                <div>
+                    <label><b>下架日期：</b></label>&nbsp;&nbsp;
+                    <input type="date" class="inputSize" id="annRemoveDate">
                 </div>
                 <div>
                     <ol class="addli">
-                        <li>
-                            <div>
-                                <label for="">附件1：</label>&nbsp;&nbsp;
-                                <input type="file" class="sendimgbtn"
-                                    accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                    style="display: inline-block;">
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <label for="">附件2：</label>&nbsp;&nbsp;
-                                <input type="file" class="sendimgbtn"
-                                    accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                    style="display: inline-block;">
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <label for="">附件3：</label>&nbsp;&nbsp;
-                                <input type="file" class="sendimgbtn"
-                                    accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                    style="display: inline-block;">
-                            </div>
-                        </li>
+                        <form id="attachForm" enctype="multipart/form-data">
+                            <li>
+                                <div>
+                                    <label for="">附件1：</label>&nbsp;&nbsp;
+                                    <input id="attachInput1" type="file" class="sendimgbtn"
+                                        accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                        style="display: inline-block;">
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <label for="">附件2：</label>&nbsp;&nbsp;
+                                    <input id="attachInput2" type="file" class="sendimgbtn"
+                                        accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                        style="display: inline-block;">
+                                </div>
+                            </li>
+                            <li>
+                                <div>
+                                    <label for="">附件3：</label>&nbsp;&nbsp;
+                                    <input id="attachInput3" type="file" class="sendimgbtn"
+                                        accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                        style="display: inline-block;">
+                                </div>
+                            </li>
+
+                        </form>
+
                     </ol>
                 </div>
                 <div>
@@ -114,7 +122,8 @@
                 </div>
                 <br>
                 <div>
-                    <input type="submit" value="確定" class="btnStyle"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="submit" value="確定" class="btnStyle"
+                        id="annFinishBtn"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="button" value="取消" class="btnStyle" id="cancelbtn"></input>
                 </div>
             </div>
@@ -126,7 +135,7 @@
         btnAdd.onclick = function () {
             if (i < 5) {
                 i = i + 1;
-                $(".addli").append(`<li><div><label for="">附件${i}：</label>&nbsp;&nbsp;&nbsp;<input type="file" class="sendimgbtn"
+                $(".addli").append(`<li><div><label for="">附件${i}：</label>&nbsp;&nbsp;&nbsp;<input id="attachInput${i}"  name="attachInput" type="file" multiple class="sendimgbtn"
                                     accept="image/*,.pdf,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                                     style="display: inline-block;"></div></li>`);
             } else {
@@ -142,6 +151,87 @@
                 console.log("取消")
             }
         })
+
+        function getCookie() {
+            var cookie = document.cookie.split('=');
+            return cookie[1].toString();
+        }
+
+        $("#annFinishBtn").click(function () {
+            console.log($("#annSubject").val());
+            console.log($("#annType").find("option:selected").text());
+            console.log($("#annText").val());
+            console.log($("#annUploadDate").val());
+            console.log($("#annRemoveDate").val());
+            var date = new Date();
+            //主旨不能為空
+            if ($("#annSubject").val() != "") {
+                //下架日期需要大於上架日期 且不能為空
+                if ($("#annRemoveDate").val() < $("#annUploadDate").val() ||
+                    $("#annRemoveDate").val() == "" ||
+                    $("#annUploadDate").val() == "") {
+                    alert("請確認時間正確")
+                } else {
+                    var annData = JSON.stringify({
+                        title: $("#annSubject").val(),
+                        type: $("#annType").find("option:selected").text(),
+                        uploadDate: $("#annUploadDate").val(),
+                        removed: $("#annRemoveDate").val(),
+                        content: $("#annText").val(),
+                        userToken: getCookie()
+                    });
+
+                    $.ajax({
+                        type: "post",
+                        url: "/Announcement/addAnn",
+                        data: annData,
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function (data) {
+                            console.log(data)
+                            //要回傳公告id
+                            var annId = data.annId;
+                            alert("ok");
+
+                            var formData = new FormData();
+                            formData.append('annId', annId);
+                            formData.append('userToken', getCookie());
+                            var i =1;
+                            while($(`#attachInput${i}`).get(0).files[0]!=undefined){
+                                formData.append('file[]',$(`#attachInput${i}`).get(0).files[0]);
+                                i++;
+                                if(i==6){
+                                    break;
+                                }
+                            }
+                            console.log(formData);
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/Announcement/uploadAttach",
+                                    data: formData,
+                                    cache: false,
+                                    processData: false,
+                                    contentType: false,
+                                    beforeSend: function () {
+                                        //找時間加入等待提示
+                                    },
+                                    success: function (data) {
+
+                                    },
+                                    error: function (data) {
+                                        alert(data.exception);
+                                    }
+                                });
+                            }
+                        })
+
+                }
+            } else {
+                alert("請填寫主旨");
+            }
+        });
+
+
     </script>
 </body>
 
