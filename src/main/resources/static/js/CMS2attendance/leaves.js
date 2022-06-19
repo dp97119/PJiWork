@@ -4,7 +4,7 @@ $(function(){
         type:"GET",
         success:function(data){
             $.each(data,function(){
-                var option = $("<option>"+this.leaveType+"</option>");
+                var option = $("<option value="+this.leaveId+">"+this.leaveType+"</option>");
                 option.appendTo("#leaves");
                 console.log("OK");
             })

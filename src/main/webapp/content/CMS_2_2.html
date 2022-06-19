@@ -20,6 +20,8 @@
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 	<script src="/js/CMS2attendance/leaves.js"></script>
 	<script src="/js/CMS2attendance/admin.js"></script>
+	<script src="/js/punch/moment.min.js"></script>
+	
 </head>
 
 
@@ -52,26 +54,26 @@
 			<br>
 			<div>
 				<label><b>事&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由：</b></label><br>
-				<textarea id="" cols="50" rows="3"></textarea>
+				<textarea id="contentText" cols="50" rows="3"></textarea>
 			</div>
 			<br>
 			<div>
 				<label><b>起&nbsp;&nbsp;始&nbsp;&nbsp;時&nbsp;&nbsp;間：</b></label>&nbsp;&nbsp;&nbsp;
-				<input type="datetime-local" class="inputSize" id="">
+				<input type="datetime-local" class="inputSize" id="startDates">
 			</div>
 			<br>
 			<div>
 				<label><b>結&nbsp;&nbsp;束&nbsp;&nbsp;時&nbsp;&nbsp;間：</b></label>&nbsp;&nbsp;&nbsp;
-				<input type="datetime-local" class="inputSize" id="">
+				<input type="datetime-local" class="inputSize" id="endDates">
 			</div>
 			<br>
 			<div>
 				<label><b>時&nbsp;&nbsp;數&nbsp;&nbsp;輸&nbsp;&nbsp;入：</b></label>&nbsp;&nbsp;&nbsp;
-				<input type="number" class="inputSize" id="">
+				<input type="number" class="inputSize" id="hours">
 			</div>
 			<br>
 			<div>
-				<input type="submit" value="確定" class="btnStyle" id=""></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="確定" class="btnStyle" id="sendAnnouncement"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="取消" class="btnStyle" id="cancelbtn"></input>
 			</div>
 		</div>
@@ -86,6 +88,7 @@
 			}
 		})
 	</script>
+	<script src="/js/CMS2attendance/attendance.js"></script>
 </body>
 
 </html>
