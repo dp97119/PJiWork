@@ -48,12 +48,14 @@ function getCookie() {
 $("#sendAnnouncement").on("click",function(){
     let evestart = moment($('#startDates').val()).format('YYYY-MM-DD HH:mm:ss');
     let eveend = moment($('#endDates').val()).format('YYYY-MM-DD HH:mm:ss');
+    let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
     var usertoken = JSON.stringify([{"userToken": getCookie(),   
     "leaveId":$("#leaves").find("option:selected").val() ,
-    "starDate":evestart ,
+    "startDate":evestart ,
     "endDate": eveend,
     "hours": $("#hours").val(),
-    "approvalId": 1,    
+    "approvalId": "1",
+    "createDate": nowdate
     }]);
     console.log(usertoken);
     $.ajax({

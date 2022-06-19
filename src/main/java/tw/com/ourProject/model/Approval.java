@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Configuration;
+
 @Entity
+@Configuration
 @Table(name="approval")
 public class Approval {
 	@OneToMany(mappedBy = "approvals",cascade = CascadeType.ALL)
@@ -21,10 +24,6 @@ public class Approval {
 	
 	@Column(name = "approvaltype")
 	private String approvalType;
-
-	public Set<Attendance> getAttendances() {
-		return attendances;
-	}
 
 
 	public Integer getApprovalId() {

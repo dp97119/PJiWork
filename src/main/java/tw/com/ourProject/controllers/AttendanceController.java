@@ -1,7 +1,6 @@
 package tw.com.ourProject.controllers;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -36,12 +35,12 @@ public class AttendanceController {
 	
 	@Autowired
 	public Leaves leaveid;
-	public Approval approvalId;
+	@Autowired
+	public Approval approvalid;
 	public Employee emp1 = new Employee();
-	public Employee emp2 = new Employee();
-	public Employee emp3 = new Employee();
 	@PostMapping("/Attendance/insert")
 	public void addAttendance(@RequestBody JSONArray attendanceInfo) {
+		
 		try {
 			String obj1 = jwt.getInfoFromJwtToken(attendanceInfo.getJSONObject(0).getString("userToken"), "empId");
 			emp1.setEmpId(obj1);
@@ -50,17 +49,15 @@ public class AttendanceController {
 			Date obj3 = format.parse(attendanceInfo.getJSONObject(0).get("startDate").toString());
 			Date obj4 = format.parse(attendanceInfo.getJSONObject(0).get("endDate").toString());
 			Integer obj5 = (Integer.parseInt(attendanceInfo.getJSONObject(0).get("hours").toString()));
-			approvalId.setApprovalId(Integer.parseInt(attendanceInfo.getJSONObject(0).get("approvalId").toString()));
-			String obj7 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-			String obj8 = jwt.getInfoFromJwtToken(attendanceInfo.getJSONObject(0).getString("userToken"), "empId");
-			emp1.setEmpId(obj8);
-			String obj9 = jwt.getInfoFromJwtToken(attendanceInfo.getJSONObject(0).getString("userToken"), "empId");
-			emp2.setEmpId(obj9);
+			approvalid.setApprovalId(Integer.parseInt(attendanceInfo.getJSONObject(0).get("approvalId").toString()));
+			Date obj7 = format.parse(attendanceInfo.getJSONObject(0).get("createDate").toString());
 			
-			attendanceService.saveAttendance(emp1, leaveid, obj3, obj4, obj5, approvalId, obj7, emp1, emp2);
+			attendanceService.saveAttendance(emp1, leaveid, obj3, obj4, obj5, approvalid, obj7, emp1, emp1);
 			
 		} catch (Exception e) {
+			System.out.println(attendanceInfo);
 			System.out.println(e.toString());
+			
 		}
 		
 		

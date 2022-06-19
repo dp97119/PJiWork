@@ -23,7 +23,7 @@ public class AttendanceService {
 	}
 	
 	public void saveAttendance(Employee empid, Leaves leaveid, Date startdate, Date enddate, Integer hours, Approval approvalid,
-			String createdate, Employee createperson, Employee updateperson) {
+			Date createdate, Employee createperson, Employee updateperson) {
 		Attendance attendanceInfo = new Attendance();
 		attendanceInfo.setEmployees(empid);
 		attendanceInfo.setLeaves(leaveid);
