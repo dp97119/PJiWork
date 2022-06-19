@@ -64,7 +64,6 @@ public class ApprovalsetController {
 	
 	@PutMapping("/Approvalset/update")
 	public void updateApprovalset(@RequestBody JSONArray approvalInfo) {
-		Integer obj1 = Integer.parseInt(approvalInfo.getJSONObject(0).get("approvalSetId").toString());
 		String obj2 = approvalInfo.getJSONObject(0).get("apartId").toString();
 		apid.setApartId(Integer.parseInt(obj2));
 		String obj3 = approvalInfo.getJSONObject(0).get("fisrtApproval").toString();
@@ -73,7 +72,7 @@ public class ApprovalsetController {
 		emp1.setEmpId(obj3);
 		emp2.setEmpId(obj4);
 
-		approvalsetService.updateApprovalset(obj1, apid , emp1 , emp2);
+		approvalsetService.updateApprovalset(apid , emp1 , emp2);
 	}
 	
 	//回傳ID搜尋其他資料並回傳給前端，使跳轉畫面時可使用該資料顯示預設值
