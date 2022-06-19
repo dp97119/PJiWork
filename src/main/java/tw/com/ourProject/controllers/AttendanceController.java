@@ -37,6 +37,7 @@ public class AttendanceController {
 	public Leaves leaveid;
 	@Autowired
 	public Approval approvalid;
+	
 	public Employee emp1 = new Employee();
 	@PostMapping("/Attendance/insert")
 	public void addAttendance(@RequestBody JSONArray attendanceInfo) {
@@ -55,7 +56,6 @@ public class AttendanceController {
 			attendanceService.saveAttendance(emp1, leaveid, obj3, obj4, obj5, approvalid, obj7, emp1, emp1);
 			
 		} catch (Exception e) {
-			System.out.println(attendanceInfo);
 			System.out.println(e.toString());
 			
 		}

@@ -4,7 +4,6 @@
 
 function getCookie() {
     var cookie = document.cookie.split('=');
-    console.log(cookie);
     return cookie[1].toString();
 }
 
@@ -57,7 +56,7 @@ $("#sendAnnouncement").on("click",function(){
     "approvalId": "1",
     "createDate": nowdate
     }]);
-    console.log(usertoken);
+
     $.ajax({
         url: "http://localhost:8080/Attendance/insert/",
         type: "POST",
