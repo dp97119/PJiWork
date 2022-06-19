@@ -49,11 +49,13 @@ public class Attendance {
 	@JoinColumn(name="approvalid",referencedColumnName = "approvalid")
 	private Approval approvals;
 	
-	@Column(name = "createperson",columnDefinition="char(11)")
-	private String createPerson ;
+	@ManyToOne
+	@JoinColumn(name = "createperson",referencedColumnName = "empid")
+	private Employee employeess ;
 	
-	@Column(name = "updateperson",columnDefinition="char(11)")
-	private String updatePerson ;
+	@ManyToOne
+	@JoinColumn(name = "updateperson",referencedColumnName = "empid")
+	private Employee employeesss ;
 	
 	@LastModifiedDate 
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
@@ -122,20 +124,21 @@ public class Attendance {
 		this.approvals = approvals;
 	}
 
-	public String getCreatePerson() {
-		return createPerson;
+
+	public Employee getEmployeess() {
+		return employeess;
 	}
 
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
+	public void setEmployeess(Employee employeess) {
+		this.employeess = employeess;
 	}
 
-	public String getUpdatePerson() {
-		return updatePerson;
+	public Employee getEmployeesss() {
+		return employeesss;
 	}
 
-	public void setUpdatePerson(String updatePerson) {
-		this.updatePerson = updatePerson;
+	public void setEmployeesss(Employee employeesss) {
+		this.employeesss = employeesss;
 	}
 
 	public java.util.Date getUpdateDate() {
@@ -158,8 +161,10 @@ public class Attendance {
 	public String toString() {
 		return "Attendance [approvalranks=" + approvalranks + ", attendanceId=" + attendanceId + ", employees="
 				+ employees + ", leaves=" + leaves + ", startDate=" + startDate + ", endDate=" + endDate + ", hours="
-				+ hours + ", approvals=" + approvals + ", createPerson=" + createPerson + ", updatePerson="
-				+ updatePerson + ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
+				+ hours + ", approvals=" + approvals + ", employeess=" + employeess + ", employeesss=" + employeesss
+				+ ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
 	}
+
+	
 
 }
