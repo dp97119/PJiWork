@@ -1,12 +1,16 @@
 package tw.com.ourProject.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tw.com.ourProject.model.Approval;
 import tw.com.ourProject.model.Attendance;
 import tw.com.ourProject.model.Calendar;
+import tw.com.ourProject.model.Employee;
+import tw.com.ourProject.model.Leaves;
 import tw.com.ourProject.repository.AttendanceRepo;
 
 @Service
@@ -18,13 +22,18 @@ public class AttendanceService {
 		return attendanceRepo.findAll();
 	}
 	
-//	public void saveAttendance() {
-//		Calendar calendarInfo = new Calendar();
-//		calendarInfo.setCalendarType(calendartype);
-//		calendarInfo.setCalendarTitle(calendartitle);
-//		calendarInfo.setEventStart(eventstart);
-//		calendarInfo.setEventEnd(eventEnd);
-//		calendarInfo.setAllDay(allday);
-//		calendarRepo.save(calendarInfo);
-//	}
+	public void saveAttendance(Employee empid, Leaves leaveid, Date startdate, Date enddate, Integer hours, Approval approvalid, 
+			Employee createperson, Employee updateperson, String createdate) {
+		Attendance attendanceInfo = new Attendance();
+		attendanceInfo.setEmployees(empid);
+		attendanceInfo.setLeaves(leaveid);
+		attendanceInfo.setStartDate(startdate);
+		attendanceInfo.setEndDate(enddate);
+		attendanceInfo.setHours(hours);
+		attendanceInfo.setApprovals(approvalid);
+		attendanceInfo.setEmployeess(createperson);
+		attendanceInfo.setEmployeesss(updateperson);
+		attendanceInfo.setCreateDate(createdate);
+		attendanceRepo.save(attendanceInfo);
+	}
 }

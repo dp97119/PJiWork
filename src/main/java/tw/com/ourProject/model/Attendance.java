@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,6 +26,7 @@ public class Attendance {
 	
 	@Id
 	@Column(name = "attendanceid",columnDefinition="char(11)")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String attendanceId;
 	
 	@ManyToOne
@@ -63,9 +66,8 @@ public class Attendance {
 	private java.util.Date updateDate ;
 	
 	@CreatedDate 
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	@Column(name = "createdate")
-	private java.util.Date createDate ;
+	private String createDate ;
 
 
 	public String getAttendanceId() {
@@ -149,11 +151,11 @@ public class Attendance {
 		this.updateDate = updateDate;
 	}
 
-	public java.util.Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 
