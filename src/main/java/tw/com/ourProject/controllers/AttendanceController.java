@@ -18,11 +18,15 @@ import tw.com.ourProject.model.Attendance;
 import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.model.Leaves;
 import tw.com.ourProject.service.AttendanceService;
+import tw.com.ourProject.utils.JWTUtil;
 
 @RestController
 public class AttendanceController {
 	@Autowired
 	public AttendanceService attendanceService;
+	
+	@Autowired
+	public JWTUtil jwt;
 	
 	@GetMapping("/Attendance/show")
 	public List<Attendance> findattendance(){
@@ -39,7 +43,7 @@ public class AttendanceController {
 	@PostMapping("/Attendance/insert")
 	public void addAttendance(@RequestBody JSONArray attendanceInfo) {
 		try {
-			String obj1 = attendanceInfo.getJSONObject(0).get("empId").toString();
+			String obj1 = jwt.getInfoFromJwtToken(attendanceInfo.getJSONObject(0).getString("userToken"), "empId");
 			emp1.setEmpId(obj1);
 			leaveid.setLeaveId(Integer.parseInt(attendanceInfo.getJSONObject(0).get("leaveId").toString())); 
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -48,9 +52,9 @@ public class AttendanceController {
 			Integer obj5 = (Integer.parseInt(attendanceInfo.getJSONObject(0).get("hours").toString()));
 			approvalId.setApprovalId(Integer.parseInt(attendanceInfo.getJSONObject(0).get("approvalId").toString()));
 			String obj7 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-			String obj8 = attendanceInfo.getJSONObject(0).get("createperson").toString();
+			String obj8 = jwt.getInfoFromJwtToken(attendanceInfo.getJSONObject(0).getString("userToken"), "empId");
 			emp1.setEmpId(obj8);
-			String obj9 = attendanceInfo.getJSONObject(0).get("updateperson").toString();
+			String obj9 = jwt.getInfoFromJwtToken(attendanceInfo.getJSONObject(0).getString("userToken"), "empId");
 			emp2.setEmpId(obj9);
 			
 			attendanceService.saveAttendance(emp1, leaveid, obj3, obj4, obj5, approvalId, obj7, emp1, emp2);
