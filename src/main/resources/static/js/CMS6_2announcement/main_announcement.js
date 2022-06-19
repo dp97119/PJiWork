@@ -1,13 +1,12 @@
-// CMS_6_2管理系統，公告
+// CMS0_公告
 
-// 查詢
-var annList = [];
+// CMS0_公告  查詢
 $(function () {
     $.ajax({
         url: "http://localhost:8080/showAnnouncement/",
         type: "GET",
         success: function (data) {
-            var i = 1;
+            var i = 0;
             $.each(data, function () {
                 var NowDate = new Date();
                 var yy = NowDate.getFullYear();
@@ -16,45 +15,36 @@ $(function () {
                 var today = yy + '-' + mm + '-' + dd;
 
                 if (today < this.removed) {
-                    var announcementRecord = $(`<li id="${i}" value="${this.announceId}" class="noticeContent" onclick="openbtn(${this.announceId})">${this.title}</li>`);
+                    var announcementRecord = $(`<li id="${this.announceId}" class="notice" onclick="openbtn(${i})">${this.title}</li>`);
                     // $("#mainAnnouncement").after(announcementRecord);
                     announcementRecord.appendTo("#mainAnnouncement");
-                    annList[i] = this.announceId;
+                    console.log(this);
                     i++;
-                }else{
-                    // console.log("下架了")
+                } else {
+                    console.log("下架了")
                 }
             })
         }
-
     })
 })
 
-
-
-// 公告第二層彈跳視窗
+// CMS0_公告第二層彈跳視窗
 function openbtn(i) {
     console.log("OK");
     var openNumber = JSON.stringify([{
         announceId: document.getElementsByTagName("li")[i].getAttribute('id')
-        // announceId: document.getElementById(`${i}`).innerText
     }]);
-    console.log(openNumber);
-
+    // console.log(openNumber);
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/showAnnouncement/",
+        data:openNumber,
+        success: function (data) {
+            console.log("HOHOHOHOHOHOHOHO")
+            titleText.innerText = data.title;
+            startTime.innerText = data.updateDate;
+            contentText.innerText = data.content;
+            noticedialog.showModal();
+        }
+    })
 }
-
-
-
-
-
-
-// $("#notice").on("click", function () {
-    // var annTwo = JSON.stringify([{
-    //     announceId: document.getElementsByTagName("li")[i].getAttribute('value')
-    // }]);
-    // console.log(annTwo);
-    // currentIndex = idx;
-    // $("#titleTextBox").prop("value", newsList[idx].title);
-    // $("#ymdTextBox").prop("value", newsList[idx].ymd);
-    // $("#newsModal").modal({ backdrop: "static" });
-// })
