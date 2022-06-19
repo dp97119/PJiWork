@@ -25,9 +25,9 @@ public class Attendance {
 	private Set<Approvalrank> approvalranks;
 	
 	@Id
-	@Column(name = "attendanceid",columnDefinition="char(11)")
+	@Column(name = "attendanceid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String attendanceId;
+	private Integer attendanceId;
 	
 	@ManyToOne
 	@JoinColumn(name="empid",referencedColumnName = "empid")
