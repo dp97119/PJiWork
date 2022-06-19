@@ -1,6 +1,5 @@
 package tw.com.ourProject.controllers;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
-import tw.com.ourProject.model.Apart;
 import tw.com.ourProject.model.Approval;
 import tw.com.ourProject.model.Attendance;
 import tw.com.ourProject.model.Employee;

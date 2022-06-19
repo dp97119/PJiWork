@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Configuration;
+
 @Entity
+@Configuration
 @Table(name="leaves")
 public class Leaves {
 	@OneToMany(mappedBy = "leaves",cascade = CascadeType.ALL)
