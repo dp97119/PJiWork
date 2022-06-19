@@ -48,9 +48,9 @@ public class AttendanceController {
 			Integer obj5 = (Integer.parseInt(attendanceInfo.getJSONObject(0).get("hours").toString()));
 			approvalId.setApprovalId(Integer.parseInt(attendanceInfo.getJSONObject(0).get("approvalId").toString()));
 			String obj7 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-			String obj8 = attendanceInfo.getJSONObject(0).get("empId").toString();
+			String obj8 = attendanceInfo.getJSONObject(0).get("createperson").toString();
 			emp1.setEmpId(obj8);
-			String obj9 = attendanceInfo.getJSONObject(0).get("empId").toString();
+			String obj9 = attendanceInfo.getJSONObject(0).get("updateperson").toString();
 			emp2.setEmpId(obj9);
 			
 			attendanceService.saveAttendance(emp1, leaveid, obj3, obj4, obj5, approvalId, obj7, emp1, emp2);
