@@ -77,11 +77,9 @@
     <button id="addadd" class="btnStyle" style="position:fixed;top: 50px;left: 20px;">新增</button>
     <!-- adddialog -->
     <div id="changeApart"
-        style="width:250px;height: 200px; visibility:hidden ;position: fixed;top: 120px;left: 400px;border: 3px solid black;background-color: aliceblue;">
-        <div class="staffAll">
-            <div style="margin: 10px;">
-                <iframe src="./test2.html" style="height: 100%;width:100%;"></iframe>
-            </div>
+        style="width:250px;height: 250px; visibility:hidden ;position: fixed;top: 120px;left: 400px;border: 3px solid black;background-color: white;">
+        <div style="margin: 10px;height: 220px;">
+            <iframe src="./CMS_6_4_2.html" style="height: 100%;width:100%;"></iframe>
         </div>
     </div>
     <script>
@@ -92,7 +90,7 @@
 
 
     <div id="changeR"
-        style="width:250px;height: 200px; visibility:hidden ;position: fixed;top: 120px;left: 400px;border: 3px solid black;background-color: aliceblue;">
+        style="width:250px;height: 250px; visibility:hidden ;position: fixed;top: 120px;left: 400px;border: 3px solid black;background-color: white;">
         <div class="staffAll">
             <div style="margin: 10px;">
                 <div>
@@ -199,7 +197,7 @@
                         contentType: "application/json",
                         success: function () {
                             if (confirm("確認完成")) {
-                                document.getElementById("changeR").style.visibility = "hidden";
+                                document.getElementById("changeApart").style.visibility = "hidden";
                                 location.reload();
                             }
                         }
@@ -303,13 +301,7 @@
                                     }
                                 }
                             })
-
-
                         })
-
-                        console.log("確認收到")
-
-                        // changeR.showModal();
                     }
                 })
             })
