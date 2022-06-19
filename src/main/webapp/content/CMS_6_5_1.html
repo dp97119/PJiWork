@@ -109,7 +109,7 @@
                 <div>
                     <table>
                         <tr>
-                            <th>總計金額：&nbsp;&nbsp;</th>
+                            <th id="empAllCount">總計金額：&nbsp;&nbsp;</th>
                         </tr>
                     </table>
                 </div>
@@ -126,7 +126,7 @@
                     </table>
                 </div>
                 <div class="middlerDiv">
-                    <table class="orderTable">
+                    <table class="orderTable" id="itemsTable">
                         <tr>
                             <th class="ordertableStyle" width="6%">NO.</th>
                             <th class="ordertableStyle" width="15%">餐廳</th>
@@ -149,7 +149,7 @@
                 <div>
                     <table>
                         <tr>
-                            <th>總計金額：&nbsp;&nbsp;</th>
+                            <th id="itemsAllCount">總計金額：&nbsp;&nbsp;</th>
                         </tr>
                     </table>
                 </div>
@@ -166,60 +166,127 @@
     <script src="/js/CMS_6_5order/CMS_6_5_1.js"></script>
     <script>
         $(document).ready(function () {
-    var date = new Date();
-    findAllOrdersByDate(date);
-});
-
-function findAllOrdersByDate(date) {
-    var param = 0;
-    if (date.getHours() <= 13) {
-        param = JSON.stringify({
-            "startDate": moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00"),
-            "endDate": moment().format("YYYY-MM-DD 12:00:00")
+            var date = new Date();
+            findAllOrdersByDate(date);
+            findAllItemsbyDate(date);
         });
-    } else {
-        param = JSON.stringify({
-            "startDate": moment().format("YYYY-MM-DD 12:00:00"),
-            "endDate": moment().add(1, 'days').format("YYYY-MM-DD 12:00:00")
-        });
-    }
-    $.ajax({
-        type: "post",
-        url: "/orderSys/getAllOrdersByDate",
-        data: param,
-        contentType: "application/json",
-        dataType: 'json',
-        success: function (data) {
 
-            var ordersTable = document.getElementById("ordersTable");
-            console.log(ordersTable);
-            var firstTr = document.createElement("tr");
-            firstTr.innerHTML=`<tr id="firstTr">
+        function findAllOrdersByDate(date) {
+            var param = 0;
+            if (date.getHours() <= 13) {
+                param = JSON.stringify({
+                    "startDate": moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00"),
+                    "endDate": moment().format("YYYY-MM-DD 12:00:00"),
+                });
+            } else {
+                param = JSON.stringify({
+                    "startDate": moment().format("YYYY-MM-DD 12:00:00"),
+                    "endDate": moment().add(1, 'days').format("YYYY-MM-DD 12:00:00"),
+                });
+            }
+            $.ajax({
+                type: "post",
+                url: "/orderSys/getAllOrdersByDate",
+                data: param,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (data) {
+
+                    var ordersTable = document.getElementById("ordersTable");
+                    console.log(ordersTable);
+                    var firstTr = document.createElement("tr");
+                    firstTr.innerHTML = `<tr id="firstTr">
                             <th class="ordertableStyle" width="6%">NO.</th>
                             <th class="ordertableStyle" width="10%">員工</th>
                             <th class="ordertableStyle" width="18%">日期</th>
                             <th class="ordertableStyle" width="25%">品項</th>
+                            <th class="ordertableStyle" width="15%">單價</th>
                             <th class="ordertableStyle" width="6%">數量</th>
-                            <th class="ordertableStyle" width="25%">備註</th>
+                            <th class="ordertableStyle" width="10%">備註</th>
                             <th class="ordertableStyle" width="10%">小計</th>
                         </tr>`;
-            $('#ordersTable').empty();
-            ordersTable.append(firstTr);
-            for (var i = 0; i < data.length; i++) {
-                orderTr = document.createElement("tr");
-                orderTr.innerHTML = `   <td class="ordertableStyle">${i+1}</td>
+                    var year = (moment(date).format("YYYY"));
+                    var mon = (moment(date).format("MM"));
+                    var day = (moment(date).format("DD"));
+                    var allCount = 0;
+                    $('#ordersTable').empty();
+                    $("#empAllCount").text(`總計金額：`);
+                    ordersTable.append(firstTr);
+                    for (var i = 0; i < data.length; i++) {
+                        orderTr = document.createElement("tr");
+                        orderTr.innerHTML = `   <td class="ordertableStyle">${i + 1}</td>
                                         <td class="ordertableStyle">${data[i].empName}</td>
-                                        <td class="ordertableStyle">2022年10月10號</td>
+                                        <td class="ordertableStyle">${year + "年" + mon + "月" + day + "日"}</td>
                                         <td class="ordertableStyle">${data[i].dishItem}</td>
                                         <td class="ordertableStyle"> ${data[i].dishPrice}</td>
-                                        <td class="ordertableStyle"></td>
-                                        <td class="ordertableStyle"></td>`;
-                ordersTable.append(orderTr);
-            }
-        }
-    });
+                                        <td class="ordertableStyle"> ${data[i].qty}</td>
+                                        <td class="ordertableStyle">無</td>
+                                        <td class="ordertableStyle">${data[i].dishPrice * data[i].qty}</td>`;
+                        ordersTable.append(orderTr);
+                        allCount += data[i].dishPrice * data[i].qty;
+                    }
+                    $("#empAllCount").text(`總計金額：${allCount}`);
+                }
+            });
 
-}
+        }
+
+        function findAllItemsbyDate(date) {
+            var param = 0;
+            if (date.getHours() <= 13) {
+                param = JSON.stringify({
+                    "startDate": moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00"),
+                    "endDate": moment().format("YYYY-MM-DD 12:00:00"),
+                    "date": moment().format("YYYY-MM-DD")
+                });
+            } else {
+                param = JSON.stringify({
+                    "startDate": moment().format("YYYY-MM-DD 12:00:00"),
+                    "endDate": moment().add(1, 'days').format("YYYY-MM-DD 12:00:00"),
+                    "date": moment().add(1, 'days').format("YYYY-MM-DD")
+                });
+            }
+            $.ajax({
+                type: "post",
+                url: "/orderSys/getAllOrdersByDateOrderByItem",
+                data: param,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    var itemsTable = document.getElementById("itemsTable");
+                    var firstTr = document.createElement("tr");
+                    firstTr.innerHTML = `<tr>
+                            <th class="ordertableStyle" width="6%">NO.</th>
+                            <th class="ordertableStyle" width="15%">餐廳</th>
+                            <th class="ordertableStyle" width="25%">品項</th>
+                            <th class="ordertableStyle" width="15%">單價</th>
+                            <th class="ordertableStyle" width="6%">數量</th>
+                            <th class="ordertableStyle" width="10%">備註</th>
+                            <th class="ordertableStyle" width="15%">小計</th>
+                        </tr>`;
+                    var allCount = 0;
+                    $('#itemsTable').empty();
+                    $("#itemsAllCount").text(`總計金額：`);
+                    itemsTable.append(firstTr);
+                    for (var i = 1; i < data.length; i++) {
+                        itemsTr = document.createElement("tr");
+                        itemsTr.innerHTML = `<td class="ordertableStyle">${i}</td>
+                                        <td class="ordertableStyle">${data[0].restaurantName}</td>
+                                        <td class="ordertableStyle">${data[i].dishItem}</td>
+                                        <td class="ordertableStyle"> ${data[i].dishPrice}</td>
+                                        <td class="ordertableStyle"> ${data[i].qty}</td>
+                                        <td class="ordertableStyle">無</td>
+                                        <td class="ordertableStyle">${data[i].dishPrice * data[i].qty}</td>`;
+                        itemsTable.append(itemsTr);
+                        allCount += data[i].dishPrice * data[i].qty;
+                    }
+                    $("#itemsAllCount").text(`總計金額：${allCount}`);
+                }
+
+
+            });
+        }
     </script>
 </body>
 

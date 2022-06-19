@@ -2,6 +2,7 @@ package tw.com.ourProject.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -93,6 +94,20 @@ public class OrderSystemController {
 		System.out.println(startDate +"   "+endDate);
 		JSONArray orders = orderSystemService.getAllOrdersByDate(startDate,endDate);
 		return orders;
+		}catch(Exception e) {
+			JSONArray error = JSON.parseArray("[{state : "+ e.toString()+"}]");
+			return error;
+		}
+	}
+	
+	@PostMapping("/orderSys/getAllOrdersByDateOrderByItem")
+	public JSONArray getAllOrdersByDateOrderByItem(@RequestBody JSONObject data) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+		Date startDate = format.parse(data.getString("startDate"));
+		Date endDate = format.parse(data.getString("endDate"));
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(data.getString("date"));
+		return orderSystemService.getAllOrdersByDateOrderByItem(startDate ,endDate,date);
 		}catch(Exception e) {
 			JSONArray error = JSON.parseArray("[{state : "+ e.toString()+"}]");
 			return error;

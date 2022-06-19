@@ -1,7 +1,10 @@
 package tw.com.ourProject.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -157,6 +160,27 @@ public class OrderSystemService {
 			jArry.add(obj);
 		}
 		return jArry;
+	}
+	
+	public JSONArray getAllOrdersByDateOrderByItem(Date startDate , Date endDate,Date date) {
+		List<Object[]> objArry = orderRepo.findOrdersGroupBy(startDate ,endDate);
+		JSONArray jsonAr = new JSONArray();
+		restaurant = restaurantSetRepo.findBySetDate(date).getRestaurants();
+		JSONObject restaurantName = new JSONObject();
+		restaurantName.put("restaurantName", restaurant.getRestaurantName());
+		jsonAr.add(restaurantName);
+	          for (Object[] object : objArry) {
+	        	String dishItem = dishRepo.findById(Integer.parseInt(object[0].toString())).get().getDishItem();
+	        	Integer dishPrice = dishRepo.findById(Integer.parseInt(object[0].toString())).get().getDishPrice();
+	        	JSONObject obj = new JSONObject();
+	        	obj.put("dishItem", dishItem);
+	        	obj.put("dishPrice", dishPrice);
+	        	obj.put("qty", object[1]);
+	        	jsonAr.add(obj);	        	
+	          }
+	          return jsonAr;
+	       
+	
 	}
 	
 }
