@@ -70,11 +70,11 @@ public class Attendance {
 	private String createDate ;
 
 
-	public String getAttendanceId() {
+	public Integer getAttendanceId() {
 		return attendanceId;
 	}
 
-	public void setAttendanceId(String attendanceId) {
+	public void setAttendanceId(Integer attendanceId) {
 		this.attendanceId = attendanceId;
 	}
 

@@ -22,8 +22,8 @@ public class AttendanceService {
 		return attendanceRepo.findAll();
 	}
 	
-	public void saveAttendance(Employee empid, Leaves leaveid, Date startdate, Date enddate, Integer hours, Approval approvalid, 
-			Employee createperson, Employee updateperson, String createdate) {
+	public void saveAttendance(Employee empid, Leaves leaveid, Date startdate, Date enddate, Integer hours, Approval approvalid,
+			String createdate, Employee createperson, Employee updateperson) {
 		Attendance attendanceInfo = new Attendance();
 		attendanceInfo.setEmployees(empid);
 		attendanceInfo.setLeaves(leaveid);
