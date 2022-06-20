@@ -65,16 +65,17 @@ function annDel(i) {
     }]);
     console.log(annDelSet);
 
-    // $.ajax({
-    //     url: "http://localhost:8080//",
-    //     type: "DELETE",
-    //     data: annDelSet,
-    //     contentType: "application/json",
-    //     success: function () {
-    //         if (confirm("刪除成功")) {
-    //             window.location.href = './CMS_6_2_1.html';
-    //         }
-    //     }
-    // })
+    $.ajax({
+        url: "http://localhost:8080/Announcement/delete/",
+        type: "DELETE",
+        data: annDelSet,
+        contentType: "application/json",
+        success: function () {
+             console.log("OK")
+            if (confirm("刪除成功")) {
+                window.location.href = './CMS_6_2_1.html';
+            }
+        }
+    })
 }
 
