@@ -16,4 +16,6 @@ public interface EmployeeRepo extends JpaRepository<Employee, String>{
 	List<Employee> findByApartsAndAdm(Apart apart,String adm);
 	List<Employee> findByAparts(Apart apart);
 	List<Employee> findByAdm(String adm);
+	List<Employee> findByEmpName(String empName);
+	Boolean existsByEmpName(String empName);
 }

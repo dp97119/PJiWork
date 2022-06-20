@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Employee;
@@ -41,4 +42,15 @@ public class AccountManageController {
 		employeeService.updateUserInfoByIdFromAdmin(data);
 		
 	}
+	
+	@PostMapping("/account/insertToEmployee")
+	public String insertToEmployee(@RequestBody JSONObject data) {
+		return employeeService.insertUserInfoFromAdmin(data);
+	}
+	
+	@PostMapping("/account/selectByEmpName")
+	public JSONArray selectByEmpName(@RequestBody JSONObject data) {
+		return employeeService.getUserInfoByEmpName(data);
+	}
+	
 }

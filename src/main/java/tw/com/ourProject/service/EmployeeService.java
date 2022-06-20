@@ -137,6 +137,22 @@ public class EmployeeService {
 			return emp;
 	}
 	
+	public JSONArray getUserInfoByEmpName(JSONObject data) {
+		JSONArray arry = new JSONArray();
+		JSONObject obj = new JSONObject();
+		if(employeeRepo.existsByEmpName(data.getString("empName"))) {
+			Employee emp = employeeRepo.findByEmpName(data.getString("empName")).get(0);	
+			obj.put("info", emp);
+			arry.add(obj);
+			return arry;
+		}else {
+			obj.put("info", "noExist");
+			arry.add(obj);
+			return arry;
+		}
+	}
+	
+	
 	
 	@Transactional
 	public void updateUserInfoById(JSONObject userInfo) {
@@ -176,5 +192,25 @@ public class EmployeeService {
 		 employee.setAdm(userInfo.getString("adm"));
 		 employee.setUpdatePerson(empId);
 		 employeeRepo.save(employee);
+	}
+	@Transactional
+	public  String insertUserInfoFromAdmin(JSONObject userInfo) {
+		 if(employeeRepo.existsById(userInfo.getString("empId"))) {
+			 Employee employee = new Employee();
+			 employee.setEmpId(userInfo.getString("empId"));
+			 employee.setPasswd(userInfo.getString("passwd"));
+			 employee.setAparts(apartRepo.findById(userInfo.getInteger("apartId")).get());
+			 employee.setTel(userInfo.getString("tel"));
+			 employee.setGender(userInfo.getString("gender"));
+			 employee.setCellphone1(userInfo.getString("cellphone1"));
+			 employee.setEmail(userInfo.getString("email"));
+			 employee.setAddr(userInfo.getString("addr"));
+			 employee.setAdm(userInfo.getString("adm"));
+			 employeeRepo.save(employee);
+			 return "200" ;
+		 }else {
+			 return "201" ;
+		 }
+		 
 	}
 }

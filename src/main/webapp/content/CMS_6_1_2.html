@@ -65,7 +65,7 @@
             <tbody class="帳號管理">
                 <tr>
                     <td><b><span>員&nbsp;&nbsp;&nbsp;工&nbsp;&nbsp;&nbsp;編&nbsp;&nbsp;&nbsp;號：</span></b></td>
-                    <td id="empId"></td>
+                    <td ><input type="text" id="empId" class="inputSize" value=""></td>
                 </tr>
                 <tr>
                     <td><b><span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;碼：</span></b>
@@ -114,71 +114,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><b><span>最&nbsp;後&nbsp;異&nbsp;動&nbsp;人&nbsp;：</span></b></td>
-                    <td id="updatePerson"></td>
-                </tr>
-                <tr>
-                    <td><b><span>最後異動時間&nbsp;：</span></b></td>
-                    <td id="updateDate">
-                    </td>
-                </tr>
-                <tr>
-                    <td><b><span>建&nbsp;&nbsp;立&nbsp;&nbsp;時&nbsp;&nbsp;間&nbsp;&nbsp;：</span></b></td>
-                    <td id="createDate">
-                    </td>
-                </tr>
-                <tr>
-                    <td><b><span>建&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;立&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人&nbsp;：</span></b>
-                    </td>
-                    <td id="createPerson"></td>
-                </tr>
-                <tr>
-                    <td><button id="sendToUpdateBtn" class="btnStyle">確定更改</td>
+                    <td><button id="sendToUpdateBtn" class="btnStyle">確定新增</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <script>
-
-        $(function () {
-            getThisUserInfo();
-        });
-
-        function getThisUserInfo() {
-            $("#empId").text(window.localStorage.getItem("empId"));
-            var empData = JSON.stringify({
-                empId: window.localStorage.getItem("empId")
-            })
-            $.ajax({
-                type: "post",
-                url: "/emp/getUserInfo/empId",
-                data: empData,
-                contentType: "application/json",
-                dataType: 'json',
-                success: function (data) {
-                    $("#addr").val(data.addr);
-                    $("#adm").val(data.adm);
-                    $("#aparts").val(data.aparts.apartId);
-                    $("#cellphone1").val(data.cellphone1);
-                    $("#email").val(data.email);
-                    $("#empName").val(data.empName);
-                    $("#gender").val(data.gender);
-                    $("#passwd").val(data.passwd);
-                    $("#tel").val(data.tel);
-                    $("#createPerson").text(data.createPerson);
-                    $("#updatePerson").text(data.updatePerson);
-                    $("#createDate").text(data.createDate);
-                    $("#updateDate").text(data.updateDate);
-
-                }
-
-            });
-
-
-        }
-
-
 
         function getCookie() {
             var cookie = document.cookie.split('=');
@@ -188,6 +130,7 @@
         $("#sendToUpdateBtn").click(function () {
 
             var newData = JSON.stringify({
+                empId: $("#empId").val(),
                 passwd: $("#passwd").val(),
                 apartId: $("#aparts").val(),
                 tel: $("#tel").val(),
@@ -201,12 +144,19 @@
 
             $.ajax({
                 type: "post",
-                url: "/account/updateToEmployee",
+                url: "/account/insertToEmployee",
                 data: newData,
                 contentType: "application/json",
-                success: function () {
-                    alert("修改成功");
+                success: function (data) {
+                    if(data=="200"){
+                    alert("新增成功");
                     window.location.href = "./CMS_6System.html";
+                    }else{
+                        alert("該員工編號已建立，請重新輸入");
+                    }
+                },
+                error :function(){
+                    alert("新增失敗，請確認資料格式")
                 }
             });
 

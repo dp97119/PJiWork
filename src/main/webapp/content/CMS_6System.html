@@ -82,13 +82,13 @@
                 </div>
                 <div>
                     <label><b>姓名/員工編號：</b></label>
-                    <input type="search" class="inputSize"
+                    <input id="selectName" type="search" class="inputSize"
                         placeholder="請輸入姓名或員工編號">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div>
                     <span class="icon-input-btn">
                         <i class="glyphicon glyphicon-search"></i>
-                        <input type="button" value="查詢" class="btnStyle"></input>
+                        <input id="selectId" type="button" value="查詢" class="btnStyle"></input>
                     </span>
                 </div>
             </div>
@@ -190,7 +190,61 @@
             function reviseAccountInfo(thisAccountInfo) {
                 window.localStorage.setItem("empId", thisAccountInfo.empId);
                 window.location.href = "./CMS_6_1_3.html";
+            }
+
+            $("#selectId").click(function () {
+                $("#aparts").val("0");
+                $("#conditionOfAdm").val("all");
+
+                if ($("#selectName").val() == "") {
+                    var conditionOfApart = $("#aparts").val();
+                    var conditionOfAdm = $("#conditionOfAdm").val();
+                    getAccountInfo(conditionOfApart, conditionOfAdm);
+                } else {
+                    var selectName = JSON.stringify({
+                        empName: $("#selectName").val()
+                    });
+
+                    $.ajax({
+                        type: "post",
+                        url: "/account/selectByEmpName",
+                        data: selectName,
+                        contentType: "application/json",
+                        datatype: 'json',
+                        success: function (data) {
+                            if (data.info == "noExist") {
+                                alert("該資料不存在");
+                            } else {
+                                $('#tableBody').empty();
+                                console.log(data);
+                                for (i = 0; i < data.length; i++) {
+                                    var innerTableBody = `
+                                            <tr>
+                                             <td>${i + 1}</td>
+                                             <td>${data[i].info.empId}</td>
+                                             <td>${data[i].info.empName}</td>
+                                             <td>${data[i].info.aparts.apart}</td>
+                                             <td><input class="switch-checkbox" id="switchID${i}" type="checkbox" name="switch-checkbox">
+                                                 <label class="switch-label" for="switchID${i}">
+                                                     <span class="switch-txt" turnOn="開" turnOff="關"></span>
+                                                     <span class="switch-Round-btn"></span>
+                                                 </label>
+                                             </td>
+                                             <td id="accountUpdateDade">${moment(data[i].info.updateDate).format("YYYY-MM-DD")}</td>
+                                             <td >${data[i].info.adm}</td>
+                                             <td><button id="reviseBtn${i + 1}" onClick="reviseAccountInfo(AccountInfoData[${i}])" style="border:none; background-color: transparent;"><img class="修改按鈕"
+                                                         src="/img/pencil.png" style="width: 20px; " /></button>
+                                             </tr>`;
+                                    $('#tableBody').append(innerTableBody);
+                                }
+                            }
+                        }
+
+                    });
+
                 }
+
+            });
 
         </script>
 
