@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,10 +65,16 @@ public class AttendanceController {
 	}
 	
 	//回傳ID搜尋其他資料並回傳給前端
-		@PostMapping("/Attendance/findPersonData")
-		public JSONArray responseData(@RequestBody JSONObject info) {
-			emp2.setEmpId(jwt.getInfoFromJwtToken(info.getString("userToken"), "empId"));
-			return attendanceService.findsetData(emp2);
+	@PostMapping("/Attendance/findPersonData")
+	public JSONArray responseData(@RequestBody JSONObject info) {
+		emp2.setEmpId(jwt.getInfoFromJwtToken(info.getString("userToken"), "empId"));
+		return attendanceService.findsetData(emp2);
 			
-		}
+	}
+		
+	@DeleteMapping("/Attendance/delete")
+	public void delattendance(@RequestBody JSONArray eventInfo) {
+		Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("attendanceId").toString());
+		attendanceService.deleteAttendance(obj1);
+	}
 }

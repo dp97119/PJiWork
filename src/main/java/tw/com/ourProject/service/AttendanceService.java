@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +14,13 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Approval;
-import tw.com.ourProject.model.Approvalset;
 import tw.com.ourProject.model.Attendance;
-import tw.com.ourProject.model.Calendar;
 import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.model.Leaves;
 import tw.com.ourProject.repository.AttendanceRepo;
 
 @Service
+@Transactional
 public class AttendanceService {
 	@Autowired
 	public AttendanceRepo attendanceRepo;
@@ -60,5 +61,9 @@ public class AttendanceService {
 			arraypd.add(obj);
 		}
 		return arraypd;
+	}
+	
+	public void deleteAttendance(Integer attendanceid) {
+		attendanceRepo.deleteById(attendanceid);
 	}
 }

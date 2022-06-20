@@ -50,7 +50,7 @@ public class CalendarController {
 	}
 
 	@DeleteMapping("/Calendar/deleteEvent")
-	public void delApprovalset(@RequestBody JSONArray eventInfo) {
+	public void delCalendar(@RequestBody JSONArray eventInfo) {
 		Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("id").toString());
 		calendarService.deleteEvent(obj1);
 	}
