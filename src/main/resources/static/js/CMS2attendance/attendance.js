@@ -20,7 +20,7 @@ $(function () {
             var i = 1;
             $.each(data, function () {
                 if (this.approvalId == 1) {
-                    var attendancerecord1 = $(`<tr class="staffWord" id="${this.approvalId}">
+                    var attendancerecord1 = $(`<tr class="staffWord" id="${this.attendanceId}">
                            <td class="tableStyle">${i}</td>
                            <td class="tableStyle">${this.leaveType}</td>
                            <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
@@ -41,7 +41,7 @@ $(function () {
                        </tr>`);
                     attendancerecord1.appendTo("#attendanceTable1");
                 } else {
-                    var attendancerecord2 = $(`<tr class="staffWord" id="${this.approvalId}">
+                    var attendancerecord2 = $(`<tr class="staffWord" id="${this.attendanceId}">
                            <td class="tableStyle">${i}</td>
                            <td class="tableStyle">${this.leaveType}</td>
                            <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
@@ -77,7 +77,7 @@ $("#leaveEditBtn1").on("click", function () {
             $.each(data, function () {
                 if (this.leaveId == $("#leaves").val()) {
                     if (data.approvalId == 1) {
-                        var attendancerecord3 = $(`<tr class="staffWord" id="${this.approvalId}">
+                        var attendancerecord3 = $(`<tr class="staffWord" id="${this.attendanceId}">
                                <td class="tableStyle">${i}</td>
                                <td class="tableStyle">${this.leaveType}</td>
                                <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
@@ -98,7 +98,7 @@ $("#leaveEditBtn1").on("click", function () {
                            </tr>`);
                         attendancerecord3.appendTo("#attendanceTable1");
                     } else {
-                        var attendancerecord4 = $(`<tr class="staffWord" id="${this.approvalId}">
+                        var attendancerecord4 = $(`<tr class="staffWord" id="${this.attendanceId}">
                                <td class="tableStyle">${i}</td>
                                <td class="tableStyle">${this.leaveType}</td>
                                <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
@@ -156,6 +156,7 @@ function leaveEdit(i) {
     var findattId = JSON.stringify({
         approvalId: document.getElementsByTagName("tr")[i].getAttribute('id')
     });
+    console.log(approvalId);
     $(function () {
         $.ajax({
             url: "http://localhost:8080//",
@@ -189,17 +190,17 @@ function attDel(i) {
     }]);
     console.log(attDelSet);
 
-    // $.ajax({
-    //     url: "http://localhost:8080/Attendance/delete/",
-    //     type: "DELETE",
-    //     data: attDelSet,
-    //     contentType: "application/json",
-    //     success: function () {
-    //         if (confirm("刪除成功")) {
-    //             window.location.href = './CMS_2Leaverecorded.html';
-    //         }
-    //     }
-    // })
+    $.ajax({
+        url: "http://localhost:8080/Attendance/delete/",
+        type: "DELETE",
+        data: attDelSet,
+        contentType: "application/json",
+        success: function () {
+            if (confirm("刪除成功")) {
+                window.location.href = './CMS_2Leaverecorded.html';
+            }
+        }
+    })
 }
 
 
