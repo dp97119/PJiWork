@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Announcement;
@@ -26,7 +27,7 @@ public class AnnouncementController {
 	
 	@GetMapping("/showAnnouncement")
 	public List<Announcement> findannouncement(){
-		List<Announcement> announs = announcementService.findAnnouncementn();
+		List<Announcement> announs = announcementService.findAnnouncement();
 		return announs;
 	}
 
@@ -42,5 +43,10 @@ public class AnnouncementController {
 		attachService.addAttach(multipartFile,annId,userToken);
 		
 		
+	}
+	
+	@PostMapping("/Announcement/content")
+	public JSONArray findcontent(@RequestBody JSONObject data) {
+		return announcementService.findsetData(Integer.parseInt(data.get("announceId").toString()));
 	}
 }

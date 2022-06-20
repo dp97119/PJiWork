@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import tw.com.ourProject.model.Announcement;
 
 public interface AnnouncementRepo extends JpaRepository<Announcement, Integer> {
-
+	Announcement findByAnnounceId(Integer announceId);
 }

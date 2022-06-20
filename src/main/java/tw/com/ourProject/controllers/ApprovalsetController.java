@@ -74,10 +74,9 @@ public class ApprovalsetController {
 		approvalsetService.updateApprovalset(obj1 , emp1 , emp2);
 	}
 	
-	//回傳ID搜尋其他資料並回傳給前端，使跳轉畫面時可使用該資料顯示預設值
+	//回傳ID搜尋其他資料並回傳給前端
 	@PostMapping("/Approval/dataresponse")
 	public JSONObject responseData(@RequestBody JSONObject approvalInfo) {
-		System.out.println(approvalInfo);
 		return approvalsetService.findsetData(Integer.parseInt(approvalInfo.get("approvalSetId").toString()));
 		
 	}
