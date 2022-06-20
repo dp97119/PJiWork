@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,7 @@ import tw.com.ourProject.repository.EmployeeRepo;
 import tw.com.ourProject.utils.JWTUtil;
 
 @Service
+@Transactional
 public class AnnouncementService {
 	@Autowired
 	public AnnouncementRepo announcementRepo;
@@ -90,6 +93,10 @@ public class AnnouncementService {
 		}
 		System.out.println(arrayannment);
 		return arrayannment;
+	}
+	
+	public void deleteAnnouncement(Integer announcementid) {
+		announcementRepo.deleteById(announcementid);
 	}
 
 }
