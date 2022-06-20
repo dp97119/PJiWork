@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import tw.com.ourProject.model.Approval;
 import tw.com.ourProject.model.Attendance;
@@ -39,6 +40,7 @@ public class AttendanceController {
 	public Approval approvalid;
 	
 	public Employee emp1 = new Employee();
+	public Employee emp2 = new Employee();
 	@PostMapping("/Attendance/insert")
 	public void addAttendance(@RequestBody JSONArray attendanceInfo) {
 		
@@ -59,7 +61,13 @@ public class AttendanceController {
 			System.out.println(e.toString());
 			
 		}
-		
-		
 	}
+	
+	//回傳ID搜尋其他資料並回傳給前端
+		@PostMapping("/Attendance/findPersonData")
+		public JSONArray responseData(@RequestBody JSONObject info) {
+			emp2.setEmpId(jwt.getInfoFromJwtToken(info.getString("userToken"), "empId"));
+			return attendanceService.findsetData(emp2);
+			
+		}
 }
