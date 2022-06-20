@@ -71,7 +71,7 @@ function informationBtn() { //點下去後修改
 }
 
 function informationCancel(){
-    var yes = confirm("確定要取消嗎?");
+    var yes = confirm("確定要修改嗎?");
     if(yes){
         window.location.href='./CMS_0.html';
     }
