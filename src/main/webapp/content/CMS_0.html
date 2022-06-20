@@ -461,9 +461,9 @@
         // CMS0_公告第二層彈跳視窗
         function openbtn(i) {
             console.log("OK");
-            var openNumber = JSON.stringify([{
+            var openNumber = JSON.stringify({
                 announceId: document.getElementsByTagName("li")[i].getAttribute('id')
-            }]);
+            });
             // console.log(openNumber);
             $.ajax({
                 type: "POST",

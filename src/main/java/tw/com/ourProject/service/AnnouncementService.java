@@ -83,6 +83,7 @@ public class AnnouncementService {
 			arrayannment.add(obj);
 		}
 		return arrayannment;
+		
 	}
 
 }
