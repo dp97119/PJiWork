@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.service.EmployeeService;
 
 @RestController
@@ -20,19 +21,26 @@ public class EmployeeController {
 
 	@PostMapping("/emp/getEmpsInfo")
 	public JSONArray getEmpsInfo() {
-		System.out.println("取得所有資料");
+		System.out.println("---------------取得所有資料---------------");
 		return employeeService.getEmpsInfo();
 	}
 
 	@PostMapping("/emp/getUserInfo")
-	public JSONObject getUserInfo(@RequestBody JSONObject data) {
-		System.out.println("取得個人資料");
-		return employeeService.getUserInfo(data.getString("userToken"));
+	public JSONObject getUserInfoByToken(@RequestBody JSONObject data) {
+		System.out.println("---------------用token取得個人資料---------------");
+		return employeeService.getUserInfoByToken(data.getString("userToken"));
 	}
+	
+	@PostMapping("/emp/getUserInfo/empId")
+	public Employee getUserInfoByEmpTd(@RequestBody JSONObject data) {
+		System.out.println("---------------用empId取得個人資料---------------");
+		return employeeService.getUserInfoByEmpId(data.getString("empId"));
+	}
+	
 
 	@PutMapping("/emp/updateUserInfo")
 	public void updateUserInfo(@RequestBody JSONObject data) {
-		System.out.println("更新個人資料");
+		System.out.println("---------------更新個人資料---------------");
 		employeeService.updateUserInfoById(data);
 
 	}

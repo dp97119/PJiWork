@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,10 +15,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Embeddable
 @Entity
 @Table(name="employee")
+@EntityListeners(AuditingEntityListener.class)
 public class Employee implements Serializable {
 	@OneToMany(mappedBy = "employees",cascade = CascadeType.ALL)
 	private Set<Announcement> announcements;
@@ -67,6 +74,22 @@ public class Employee implements Serializable {
 	private String adm;
 	@Column(name = "addr")
 	private String addr;
+	
+	@LastModifiedDate 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+	@Column(name = "updatedate")
+	private java.util.Date updateDate ;
+	
+	@CreatedDate 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+	@Column(name = "createdate")
+	private java.util.Date createDate ;
+	
+	@Column(name = "createperson",columnDefinition="char(11)")
+	private String createPerson;
+	
+	@Column(name = "updateperson",columnDefinition="char(11)")
+	private String updatePerson;
 
 	public String getEmpId() {
 		return empId;
@@ -140,12 +163,40 @@ public class Employee implements Serializable {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
+
+	public java.util.Date getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(java.util.Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	public java.util.Date getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(java.util.Date createDate) {
+		this.createDate = createDate;
+	}
+	public String getCreatePerson() {
+		return createPerson;
+	}
+	public void setCreatePerson(String createPerson) {
+		this.createPerson = createPerson;
+	}
+	public String getUpdatePerson() {
+		return updatePerson;
+	}
+	public void setUpdatePerson(String updatePerson) {
+		this.updatePerson = updatePerson;
+	}
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", passwd=" + passwd + ", empName=" + empName + ", photo=" + photo
 				+ ", aparts=" + aparts + ", tel=" + tel + ", gender=" + gender + ", cellphone1=" + cellphone1
-				+ ", cellphone2=" + cellphone2 + ", email=" + email + ", adm=" + adm + ", addr=" + addr + "]";
+				+ ", cellphone2=" + cellphone2 + ", email=" + email + ", adm=" + adm + ", addr=" + addr
+				+ ", updateDate=" + updateDate + ", createDate=" + createDate + ", createPerson=" + createPerson
+				+ ", updatePerson=" + updatePerson + "]";
 	}
+	
 
 	
 	

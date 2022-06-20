@@ -69,19 +69,21 @@
                 <div>
                     <label><b>部門：</b></label>
                     <select id="aparts">
-                        <option value="" class="department"></option>
+                        <option value=0 class="department">所有部門</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div>
                     <label><b>權限：</b></label>
-                    <select>
-                        <option value="1">開</option>
-                        <option value="2">關</option>
+                    <select id="conditionOfAdm">
+                        <option value="all">全部</option>
+                        <option value="admin">管理者</option>
+                        <option value="user">使用者</option>
                     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div>
                     <label><b>姓名/員工編號：</b></label>
-                    <input type="search" class="inputSize" placeholder="請輸入姓名或員工編號">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="search" class="inputSize"
+                        placeholder="請輸入姓名或員工編號">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div>
                     <span class="icon-input-btn">
@@ -93,11 +95,10 @@
         </div>
         <br>
         <div class="container">
-            <table class="table tbale-striped" align="center" valign="center">
-                <thead >
+            <table class="table tbale-striped" text-align="center" valign="center">
+                <thead>
                     <tr>
                         <th width="5%" class="textcenter">編號</th>
-                        <th width="8%" class="textcenter">全選</th>
                         <th width="8%" class="textcenter">員工編號</th>
                         <th width="8%" class="textcenter">姓名</th>
                         <th width="8%" class="textcenter">部門</th>
@@ -109,50 +110,14 @@
 
                 </thead>
 
-                <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><input type="checkbox"></td>
-                            <td>自動帶入編號</td>
-                            <td>自動帶入姓名</td>
-                            <td>自動帶入部門</td>
-                            <td><input class="switch-checkbox" id="switchID1" type="checkbox" name="switch-checkbox">
-                                <label class="switch-label" for="switchID1">
-                                    <span class="switch-txt" turnOn="開" turnOff="關"></span>
-                                    <span class="switch-Round-btn"></span>
-                                </label>
-                            </td>
-                            <td id="日期">
-                            </td>
-                            <td>1</td>
-                            <td><button style="border:none; background-color: transparent;"><img class="修改按鈕"
-                                        src="/img/pencil.png" style="width: 20px; " /></button>
-                        </tr>
+                <tbody id="tableBody">
 
-                        <td>2</td>
-                        <td><input type="checkbox"></td>
-                        <td>自動帶入編號</td>
-                        <td>自動帶入姓名</td>
-                        <td>自動帶入部門</td>
-                        <td><input class="switch-checkbox" id="switchID2" type="checkbox" name="switch-checkbox">
-                            <label class="switch-label" for="switchID2">
-                                <span class="switch-txt" turnOn="開" turnOff="關"></span>
-                                <span class="switch-Round-btn"></span>
-                            </label>
-                        </td>
-                        <td id="日期">
-                            <!-- <script>日期()</script> -->
-                        </td>
-                        <td>2</td>
-                        <td><button style="border:none;background-color: transparent;"><img class="修改按鈕"
-                                    src="/img/pencil.png" style="width: 20px; " /></button></td>
-                        </tr>
                 </tbody>
 
             </table>
 
         </div>
-
+        <script src="/js/punch/moment.min.js"></script>
         <script>
             // function 日期() {
 
@@ -167,6 +132,65 @@
             // var currentTime = new Date();
 
             // dateAndTime.innerHTML = currentTime.toLocaleTimeString();
+
+            $(document).ready(function () {
+                var conditionOfApart = $("#aparts").val();
+                var conditionOfAdm = $("#conditionOfAdm").val();
+                getAccountInfo(conditionOfApart, conditionOfAdm);
+                $("#aparts").change(() => {
+                    conditionOfApart = $("#aparts").val();
+                    getAccountInfo(conditionOfApart, conditionOfAdm)
+                })
+                $("#conditionOfAdm").change(() => {
+                    conditionOfAdm = $("#conditionOfAdm").val();
+                    getAccountInfo(conditionOfApart, conditionOfAdm)
+                });
+
+
+            });
+            var AccountInfoData;
+            function getAccountInfo(conditionOfApart, conditionOfAdm) {
+                $('#tableBody').empty();
+                var accountData = JSON.stringify({
+                    apartId: conditionOfApart,
+                    adm: conditionOfAdm
+                });
+                $.ajax({
+                    type: "post",
+                    url: "/account/getAllAccount",
+                    data: accountData,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (data) {
+                        AccountInfoData = data;
+                        for (i = 0; i < data.length; i++) {
+                            var innerTableBody = `
+                        <tr>
+                            <td>${i + 1}</td>
+                            <td>${data[i].empId}</td>
+                            <td>${data[i].empName}</td>
+                            <td>${data[i].aparts.apart}</td>
+                            <td><input class="switch-checkbox" id="switchID${i}" type="checkbox" name="switch-checkbox">
+                                <label class="switch-label" for="switchID${i}">
+                                    <span class="switch-txt" turnOn="開" turnOff="關"></span>
+                                    <span class="switch-Round-btn"></span>
+                                </label>
+                            </td>
+                            <td id="accountUpdateDade">${moment(data[i].updateDate).format("YYYY-MM-DD")}</td>
+                            <td >${data[i].adm}</td>
+                            <td><button id="reviseBtn${i + 1}" onClick="reviseAccountInfo(AccountInfoData[${i}])" style="border:none; background-color: transparent;"><img class="修改按鈕"
+                                        src="/img/pencil.png" style="width: 20px; " /></button>
+                        </tr>`;
+                            $('#tableBody').append(innerTableBody);
+                        }
+                    }
+                });
+
+            }
+            function reviseAccountInfo(thisAccountInfo) {
+                window.localStorage.setItem("empId", thisAccountInfo.empId);
+                window.location.href = "./CMS_6_1_2.html";
+                }
 
         </script>
 

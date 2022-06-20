@@ -22,7 +22,7 @@
 </head>
 
 
-<body class="zh-tw">
+<body class="zh-tw" onload="getThisUserInfo">
     <div>
         <ul class="nav nav-tabs">
             <li class="nav-item dropdown">
@@ -65,80 +65,75 @@
                 <tbody class="帳號管理">
                     <tr>
                         <td><b><span>員&nbsp;&nbsp;&nbsp;工&nbsp;&nbsp;&nbsp;編&nbsp;&nbsp;&nbsp;號：</span></b></td>
-                        <td><input type="text" class="inputSize"></td>
+                        <td id="empId"></td>
                     </tr>
                     <tr>
-                        <td><b><span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;碼：</span></b></td>
-                        <td><input type="text" class="inputSize"></td>
+                        <td><b><span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;碼：</span></b>
+                        </td>
+                        <td><input type="text" id="passwd" class="inputSize" value=""></td>
                     </tr>
                     <tr>
-                        <td><b><span>大&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;頭&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;貼：</span></b></td>
-                        <td><input type="file"></td>
-                    </tr>
-
-                    <tr>
-                        <td><b><span>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</span></b></td>
+                        <td><b><span>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</span></b>
+                        </td>
                         <td>
-                            <select id="aparts">
-                                <option value="" class="department"></option>
+                            <select id="aparts" value="">
+                                <option value=''></option>
                             </select>&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr>
-                        <td><b><span>電&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;話：</span></b></td>
-                        <td><input type="text" class="inputSize"></td>
+                        <td><b><span>電&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;話：</span></b>
+                        </td>
+                        <td><input id="tel" type="text" class="inputSize" value=""></td>
                     </tr>
                     <tr>
-                        <td><b><span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;別：</span></b></td>
-                        <td><input type="text" class="inputSize"></td>
+                        <td><b><span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;別：</span></b>
+                        </td>
+                        <td><input id="gender" type="text" class="inputSize" value=""></td>
                     </tr>
                     <tr>
                         <td><b><span>行&nbsp;&nbsp;&nbsp;動&nbsp;&nbsp;&nbsp;電&nbsp;&nbsp;&nbsp;話：</span></b></td>
-                        <td><input type="text" class="inputSize"></td>
+                        <td><input id="cellphone1" type="text" class="inputSize" value=""></td>
                     </tr>
                     <tr>
                         <td><b><span>E - M a i l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</span></b></td>
-                        <td><input type="email" class="inputSize"></td>
+                        <td><input id="email" type="email" class="inputSize" value=""></td>
                     </tr>
                     <tr>
-                        <td><b><span>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</span></b></td>
-                        <td><input type="text" class="inputSize"></td>
+                        <td><b><span>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</span></b>
+                        </td>
+                        <td><input id="addr" type="text" class="inputSize" value=""></td>
                     </tr>
                     <tr>
                         <td><b><span>系&nbsp;統&nbsp;管&nbsp;理&nbsp;員&nbsp;：</span></b></td>
                         <td>
-                            <select>
-                                <option value="Y">開</option>
-                                <option value="N">關</option>
+                            <select id="adm" value="">
+                                <option value="admin">管理者</option>
+                                <option value="user">使用者</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td><b><span>最&nbsp;後&nbsp;異&nbsp;動&nbsp;人&nbsp;：</span></b></td>
-                        <td><input type="text" class="inputSize"></td>
+                        <td id="updatePerson"></td>
                     </tr>
                     <tr>
                         <td><b><span>最後異動時間&nbsp;：</span></b></td>
-                        <td>
-                            <script>
-                                document.write(document.lastModified);
-                            </script>
+                        <td id="updateDate">
                         </td>
                     </tr>
                     <tr>
                         <td><b><span>建&nbsp;&nbsp;立&nbsp;&nbsp;時&nbsp;&nbsp;間&nbsp;&nbsp;：</span></b></td>
-                        <td>
-                            <script>
-                                document.write(document.lastModified);
-                            </script>
+                        <td id="createDate">
                         </td>
                     </tr>
                     <tr>
-                        <td><b><span>建&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;立&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人&nbsp;：</span></b></td>
-                        <td><input type="text" class="inputSize"></td>
+                        <td><b><span>建&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;立&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人&nbsp;：</span></b>
+                        </td>
+                        <td id="createPerson"></td>
                     </tr>
                     <tr>
-                        <td><input type="submit"class="btnStyle"></td>
+                        <td><button id="sendToUpdateBtn" class="btnStyle">確定更改</td>
                     </tr>
                 </tbody>
             </table>
@@ -146,6 +141,81 @@
 
     </div>
 
+    <script>
+
+        function getThisUserInfo() {
+            $("#empId").text(window.localStorage.getItem("empId"));
+            var empData = JSON.stringify({
+                empId: window.localStorage.getItem("empId")
+            })
+            $.ajax({
+                type: "post",
+                url: "/emp/getUserInfo/empId",
+                data: empData,
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (data) {
+                    $("#addr").val(data.addr);
+                    $("#adm").val(data.adm);
+                    $("#aparts").val(data.aparts.apartId);
+                    $("#cellphone1").val(data.cellphone1);
+                    $("#email").val(data.email);
+                    $("#empName").val(data.empName);
+                    $("#gender").val(data.gender);
+                    $("#passwd").val(data.passwd);
+                    $("#tel").val(data.tel);
+                    $("#createPerson").text(data.createPerson);
+                    $("#updatePerson").text(data.updatePerson);
+                    $("#createDate").text(data.createDate);
+                    $("#updateDate").text(data.updateDate);
+
+                }
+
+            });
+
+
+        }
+
+
+
+        function getCookie() {
+            var cookie = document.cookie.split('=');
+            return cookie[1].toString();
+        }
+
+        $("#sendToUpdateBtn").click(function () {
+            var newData = JSON.stringify({
+                passwd: $("#passwd").val(),
+                apartId: $("#aparts").val(),
+                tel: $("#tel").val(),
+                gender: $("#gender").val(),
+                cellphone1: $("#cellphone1").val(),
+                email: $("#email").val(),
+                addr: $("#addr").val(),
+                adm: $("#adm").val(),
+                updatePerson: getCookie()
+            });
+
+            $.ajax({
+                type: "post",
+                url: "/account/updateToEmployee",
+                data: newData,
+                contentType: "application/json",
+                success: function () {
+                    if(confirm("OK")){
+                    location.href = "./CMS_0.html";
+                }else{}
+                    //alert("修改完成");
+                    // window.location.href = "./CMS_6System.html";
+                    //window.location.href = "./CMS_0.html";
+
+                }
+            });
+
+        });
+   
+
+   </script>
 </body>
 
 </html>

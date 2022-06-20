@@ -14,8 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import tw.com.ourProject.model.Apart;
 import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.model.Temptoken;
+import tw.com.ourProject.repository.ApartRepo;
 import tw.com.ourProject.repository.EmployeeRepo;
 import tw.com.ourProject.repository.TempTokenRepo;
 import tw.com.ourProject.utils.JWTUtil;
@@ -34,6 +36,9 @@ public class EmployeeService {
 	
 	@Autowired
 	public UploadFileUtil uploadPhoto;
+	
+	@Autowired
+	public ApartRepo apartRepo;
 	
 	public Temptoken tempToken = new Temptoken();
 
@@ -59,10 +64,25 @@ public class EmployeeService {
 		}
 	}
 	
-	public void selectAll() {
-		List<Employee> result = employeeRepo.findAll();
-		System.out.println(result);
+	public List<Employee> selectAll() {
+		return  employeeRepo.findAll();
 	}
+	
+	public List<Employee> selectByConditionOfAdm(String adm){
+		return employeeRepo.findByAdm(adm);
+	}
+	
+	public List<Employee> selectByConditionOfApart(Integer apartId){
+		Apart apart = apartRepo.findById(apartId).get();
+		return employeeRepo.findByAparts(apart);
+	}
+	
+	public List<Employee> selectByConditions(Integer apartId , String adm){
+		Apart apart = apartRepo.findById(apartId).get();
+		return employeeRepo.findByApartsAndAdm(apart,adm);
+	}
+	
+	
 	@Transactional
 	public String verifyToken(String userToken) {
 		try {
@@ -96,7 +116,7 @@ public class EmployeeService {
 		return arry;
 	}
 	
-	public JSONObject getUserInfo(String userToken) {
+	public JSONObject getUserInfoByToken(String userToken) {
 		String empId = jwtToken.getInfoFromJwtToken(userToken,"empId");
 		Employee emp = employeeRepo.findById(empId).get();
 			JSONObject obj = new JSONObject();
@@ -111,6 +131,12 @@ public class EmployeeService {
 			obj.put("empPhoto", emp.getPhoto());		
 			return obj;
 	}
+	
+	public Employee getUserInfoByEmpId(String empId) {
+		Employee emp = employeeRepo.findById(empId).get();	
+			return emp;
+	}
+	
 	
 	@Transactional
 	public void updateUserInfoById(JSONObject userInfo) {
@@ -135,5 +161,20 @@ public class EmployeeService {
 		 employeeRepo.save(employee);
 		 return imgUrl ;
 	}
-
+	
+	@Transactional
+	public void updateUserInfoByIdFromAdmin(JSONObject userInfo) {
+		String empId = jwtToken.getInfoFromJwtToken(userInfo.getString("updatePerson"),"empId");
+		 Employee employee = employeeRepo.findById(empId).get();
+		 employee.setPasswd(userInfo.getString("passwd"));
+		 employee.setAparts(apartRepo.findById(userInfo.getInteger("apartId")).get());
+		 employee.setTel(userInfo.getString("tel"));
+		 employee.setGender(userInfo.getString("gender"));
+		 employee.setCellphone1(userInfo.getString("cellphone1"));
+		 employee.setEmail(userInfo.getString("email"));
+		 employee.setAddr(userInfo.getString("addr"));
+		 employee.setAdm(userInfo.getString("adm"));
+		 employee.setUpdatePerson(empId);
+		 employeeRepo.save(employee);
+	}
 }
