@@ -53,7 +53,7 @@ public class AnnouncementController {
 	
 	@DeleteMapping("/Announcement/delete")
 	public void delannouncement(@RequestBody JSONArray eventInfo) {
-		Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("announcementId").toString());
+		Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("announceId").toString());
 		announcementService.deleteAnnouncement(obj1);
 	}
 }
