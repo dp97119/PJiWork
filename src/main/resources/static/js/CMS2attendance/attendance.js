@@ -29,14 +29,14 @@ $(function () {
                            <td class="tableStyle">
                            <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-pencil" id="glyphiconPencil"></i>
-                                <input type="button" id="leaveEdit" value="修改" class="function" onClick="window.location.href='./CMS_2_4.html';">
+                                <input type="button" id="leaveEdit(${i})" value="修改" class="function" onClick="window.location.href='./CMS_2_4.html';">
                             </span>&nbsp;&nbsp;
                             <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-trash" id="glyphiconTrash"></i>
                                 <input type="button" id="attDel(${i})" value="刪除" class="function deleteB" >
                             </span>&nbsp;&nbsp;
-                                <input type="button" id="apply" value="申請人審核" class="function">&nbsp;&nbsp;
-                                <input type="button" id="reviewProcess" value="審核歷程" class="function review">
+                                <input type="button" id="apply(${i})" value="申請人審核" class="function">&nbsp;&nbsp;
+                                <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
                            </td>
                        </tr>`);
                     attendancerecord1.appendTo("#attendanceTable1");
@@ -48,7 +48,7 @@ $(function () {
                            <td class="tableStyle">${this.hours}</td>
                            <td class="tableStyle">${this.approvalType}</td>
                            <td class="tableStyle">
-                                <input type="button" id="reviewProcess" value="審核歷程" class="function review">
+                                <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
                            </td>
                        </tr>`);
                     attendancerecord2.appendTo("#attendanceTable1");
@@ -86,14 +86,14 @@ $("#leaveEditBtn1").on("click", function () {
                                <td class="tableStyle">
                                <span class="icon-input-btn">
                                     <i class="glyphicon glyphicon-pencil" id="glyphiconPencil"></i>
-                                    <input type="button" id="leaveEdit" value="修改" class="function" onClick="window.location.href='./CMS_2_2.html';">
+                                    <input type="button" id="leaveEdit(${i})" value="修改" class="function" onClick="window.location.href='./CMS_2_2.html';">
                                 </span>&nbsp;&nbsp;
                                 <span class="icon-input-btn">
                                     <i class="glyphicon glyphicon-trash" id="glyphiconTrash"></i>
-                                    <input type="button" id="leaveDel" value="刪除" class="function deleteB">
+                                    <input type="button" id="attDel(${i})" value="刪除" class="function deleteB">
                                 </span>&nbsp;&nbsp;
-                                    <input type="button" id="apply" value="申請人審核" class="function">&nbsp;&nbsp;
-                                    <input type="button" id="reviewProcess" value="審核歷程" class="function review">
+                                    <input type="button" id="apply(${i})" value="申請人審核" class="function">&nbsp;&nbsp;
+                                    <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
                                </td>
                            </tr>`);
                         attendancerecord3.appendTo("#attendanceTable1");
@@ -105,7 +105,7 @@ $("#leaveEditBtn1").on("click", function () {
                                <td class="tableStyle">${this.hours}</td>
                                <td class="tableStyle">${this.approvalType}</td>
                                <td class="tableStyle">
-                                    <input type="button" id="reviewProcess" value="審核歷程" class="function review">
+                                    <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
                                </td>
                            </tr>`);
                         attendancerecord4.appendTo("#attendanceTable1");
@@ -119,10 +119,6 @@ $("#leaveEditBtn1").on("click", function () {
 
 
 })
-
-
-
-
 
 
 // 出勤新增(頁面2)
@@ -156,26 +152,65 @@ $("#sendAnnouncement").on("click", function () {
 
 
 // 出勤修改(頁面4)
+function leaveEdit(i) {
+    var findattId = JSON.stringify({
+        approvalId: document.getElementsByTagName("tr")[i].getAttribute('id')
+    });
+    $(function () {
+        $.ajax({
+            url: "http://localhost:8080//",
+            type: "POST",
+            data: findattId,
+            contentType: "application/json",
+            success: function (data) {
+               
+                
+
+            }
+        })
+    })
+}
+
+
+
+
+
+
+
 
 
 
 
 // 出勤刪除(頁面1)
-// 刪除
 function attDel(i) {
-    var attDelSet = JSON.stringify([{
-        approvalId: document.getElementsByTagName("tr")[i].getAttribute('id')
-    }]);
+    console.log("OK");
+    // var attDelSet = JSON.stringify([{
+    //     approvalId: document.getElementsByTagName("tr")[i].getAttribute('id')
+    // }]);
+    // console.log(attDelSet);
 
-    $.ajax({
-        url: "http://localhost:8080//",
-        type: "DELETE",
-        data: attDelSet,
-        contentType: "application/json",
-        success: function () {
-            if (confirm("刪除成功")) {
-                window.location.href = './CMS_6_2_1.html';
-            }
-        }
-    })
+    // $.ajax({
+    //     url: "http://localhost:8080/Attendance/delete/",
+    //     type: "DELETE",
+    //     data: attDelSet,
+    //     contentType: "application/json",
+    //     success: function () {
+    //         if (confirm("刪除成功")) {
+    //             window.location.href = './CMS_2Leaverecorded.html';
+    //         }
+    //     }
+    // })
 }
+
+
+
+// 申請人審核按鈕  (按下後狀態改變)
+
+
+// 審核歷程按鈕  (彈跳視窗)
+
+
+// 審核通過按鈕
+
+
+//審核未通過按鈕 

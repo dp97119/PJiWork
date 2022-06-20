@@ -59,20 +59,22 @@ $(function () {
 
 // 刪除
 function annDel(i) {
+    console.log("OK");
     var annDelSet = JSON.stringify([{
         announceId: document.getElementsByTagName("tr")[i].getAttribute('id')
     }]);
+    console.log(annDelSet);
 
-    $.ajax({
-        url: "http://localhost:8080//",
-        type: "DELETE",
-        data: annDelSet,
-        contentType: "application/json",
-        success: function () {
-            if (confirm("刪除成功")) {
-                window.location.href = './CMS_6_2_1.html';
-            }
-        }
-    })
+    // $.ajax({
+    //     url: "http://localhost:8080//",
+    //     type: "DELETE",
+    //     data: annDelSet,
+    //     contentType: "application/json",
+    //     success: function () {
+    //         if (confirm("刪除成功")) {
+    //             window.location.href = './CMS_6_2_1.html';
+    //         }
+    //     }
+    // })
 }
 
