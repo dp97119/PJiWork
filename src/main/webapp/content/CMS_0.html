@@ -209,7 +209,7 @@
             </div>
         </div>
         <!-- 公告第二層--顯示全部公告內容  -->
-        <dialog id="noticedialog" style="width: 500px;">
+        <dialog id="noticedialog">
             <div class="modal-header">
                 <h5>公告</h5>
                 <button type="button" class="btn-close" aria-label="Close" onclick="noticedialog.close()"></button>
@@ -218,19 +218,19 @@
                 <table class="noticeTable">
                     <tr>
                         <th width="15%">主旨：</th>
-                        <th width="85%" id="titleText">XXXXXXXXXXX</th>
+                        <td width="85%"><span id="titleText"></span></td>
                     </tr>
                     <tr>
                         <th>時間：</th>
-                        <th class="noticeline" id="startTime"></th>
+                        <td class="noticeline"><span id="startTime"></span></td>
                     </tr>
                     <tr>
                         <th>附件：</th>
-                        <th id="annex"></th>
+                        <td><span id="annex"></span></td>
                     </tr>
                     <tr>
                         <th>內容：</th>
-                        <th id="contentText"></th>
+                        <td><span id="contentText"></span></td>
                     </tr>
                 </table>
             </div>
@@ -471,11 +471,16 @@
                 data: openNumber,
                 contentType: "application/json",
                 success: function (data) {
-                    console.log("HOHOHOHOHOHOHOHO")
-                    // titleText.innerText = data.title;
-                    // startTime.innerText = data.updateDate;
-                    // contentText.innerText = data.content;    
-                    // noticedialog.showModal();
+                    titleText.innerText = data[0].title;
+                    startTime.innerText = (data[0].uploadDate).split('T')[0];
+                    contentText.innerText = data[0].content;
+                    console.log(data[1].attName);
+                    if(data[1].attName != ""){
+                        annex.innerText = data[1].attName;
+                    }else{
+                        annex.innerText = "沒有圖片";
+                    }
+                    noticedialog.showModal();
                 }
             })
         }

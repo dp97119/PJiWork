@@ -21,8 +21,9 @@
     <script src="/js/apart/apart.js"></script>
 </head>
 
-<!-- 新增帳號 -->
+
 <body class="zh-tw">
+    <!-- 修改 -->
     <div>
         <ul class="nav nav-tabs">
             <li class="nav-item dropdown">
@@ -30,7 +31,8 @@
                     aria-expanded="false">帳號管理</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="./CMS_6System.html">帳號權限管理</a></li>
-                    <li><a class="dropdown-item active" href="#">新增帳號</a></li>
+                    <li><a class="dropdown-item" href="./CMS_6_1_2.html">新增帳號</a></li>
+                    <li><a class="dropdown-item active" href="#">修改帳號</a></li>    
                 </ul>
             </li>
             <li class="nav-item dropdown">
@@ -58,92 +60,89 @@
         </ul>
     </div>
     <div>
-        <!-- 新增帳號 -->
+        <!-- 修改帳號 -->
         <br>
+            <table cellspacing=10>
+                <tbody class="帳號管理">
+                    <tr>
+                        <td><b><span>員&nbsp;&nbsp;&nbsp;工&nbsp;&nbsp;&nbsp;編&nbsp;&nbsp;&nbsp;號：</span></b></td>
+                        <td id="empId"></td>
+                    </tr>
+                    <tr>
+                        <td><b><span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;碼：</span></b>
+                        </td>
+                        <td><input type="text" id="passwd" class="inputSize" value=""></td>
+                    </tr>
+                    <tr>
+                        <td><b><span>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</span></b>
+                        </td>
+                        <td>
+                            <select id="aparts" value="">
+                                <option value=''></option>
+                            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b><span>電&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;話：</span></b>
+                        </td>
+                        <td><input id="tel" type="text" class="inputSize" value=""></td>
+                    </tr>
+                    <tr>
+                        <td><b><span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;別：</span></b>
+                        </td>
+                        <td><input id="gender" type="text" class="inputSize" value=""></td>
+                    </tr>
+                    <tr>
+                        <td><b><span>行&nbsp;&nbsp;&nbsp;動&nbsp;&nbsp;&nbsp;電&nbsp;&nbsp;&nbsp;話：</span></b></td>
+                        <td><input id="cellphone1" type="text" class="inputSize" value=""></td>
+                    </tr>
+                    <tr>
+                        <td><b><span>E - M a i l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</span></b></td>
+                        <td><input id="email" type="email" class="inputSize" value=""></td>
+                    </tr>
+                    <tr>
+                        <td><b><span>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</span></b>
+                        </td>
+                        <td><input id="addr" type="text" class="inputSize" value=""></td>
+                    </tr>
+                    <tr>
+                        <td><b><span>系&nbsp;統&nbsp;管&nbsp;理&nbsp;員&nbsp;：</span></b></td>
+                        <td>
+                            <select id="adm" value="">
+                                <option value="admin">管理者</option>
+                                <option value="user">使用者</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b><span>最&nbsp;後&nbsp;異&nbsp;動&nbsp;人&nbsp;：</span></b></td>
+                        <td id="updatePerson"></td>
+                    </tr>
+                    <tr>
+                        <td><b><span>最後異動時間&nbsp;：</span></b></td>
+                        <td id="updateDate">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b><span>建&nbsp;&nbsp;立&nbsp;&nbsp;時&nbsp;&nbsp;間&nbsp;&nbsp;：</span></b></td>
+                        <td id="createDate">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b><span>建&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;立&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人&nbsp;：</span></b>
+                        </td>
+                        <td id="createPerson"></td>
+                    </tr>
+                    <tr>
+                        <td><button id="sendToUpdateBtn" class="btnStyle">確定更改</td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <table cellspacing=10>
-            <tbody class="帳號管理">
-                <tr>
-                    <td><b><span>員&nbsp;&nbsp;&nbsp;工&nbsp;&nbsp;&nbsp;編&nbsp;&nbsp;&nbsp;號：</span></b></td>
-                    <td id="empId"></td>
-                </tr>
-                <tr>
-                    <td><b><span>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;碼：</span></b>
-                    </td>
-                    <td><input type="text" id="passwd" class="inputSize" value=""></td>
-                </tr>
-                <tr>
-                    <td><b><span>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</span></b>
-                    </td>
-                    <td>
-                        <select id="aparts" value="">
-                            <option value=''></option>
-                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                </tr>
-                <tr>
-                    <td><b><span>電&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;話：</span></b>
-                    </td>
-                    <td><input id="tel" type="text" class="inputSize" value=""></td>
-                </tr>
-                <tr>
-                    <td><b><span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;別：</span></b>
-                    </td>
-                    <td><input id="gender" type="text" class="inputSize" value=""></td>
-                </tr>
-                <tr>
-                    <td><b><span>行&nbsp;&nbsp;&nbsp;動&nbsp;&nbsp;&nbsp;電&nbsp;&nbsp;&nbsp;話：</span></b></td>
-                    <td><input id="cellphone1" type="text" class="inputSize" value=""></td>
-                </tr>
-                <tr>
-                    <td><b><span>E - M a i l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</span></b></td>
-                    <td><input id="email" type="email" class="inputSize" value=""></td>
-                </tr>
-                <tr>
-                    <td><b><span>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</span></b>
-                    </td>
-                    <td><input id="addr" type="text" class="inputSize" value=""></td>
-                </tr>
-                <tr>
-                    <td><b><span>系&nbsp;統&nbsp;管&nbsp;理&nbsp;員&nbsp;：</span></b></td>
-                    <td>
-                        <select id="adm" value="">
-                            <option value="admin">管理者</option>
-                            <option value="user">使用者</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><b><span>最&nbsp;後&nbsp;異&nbsp;動&nbsp;人&nbsp;：</span></b></td>
-                    <td id="updatePerson"></td>
-                </tr>
-                <tr>
-                    <td><b><span>最後異動時間&nbsp;：</span></b></td>
-                    <td id="updateDate">
-                    </td>
-                </tr>
-                <tr>
-                    <td><b><span>建&nbsp;&nbsp;立&nbsp;&nbsp;時&nbsp;&nbsp;間&nbsp;&nbsp;：</span></b></td>
-                    <td id="createDate">
-                    </td>
-                </tr>
-                <tr>
-                    <td><b><span>建&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;立&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;人&nbsp;：</span></b>
-                    </td>
-                    <td id="createPerson"></td>
-                </tr>
-                <tr>
-                    <td><button id="sendToUpdateBtn" class="btnStyle">確定更改</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 
     <script>
-
-        $(function () {
-            getThisUserInfo();
-        });
+        $(document).ready(()=> getThisUserInfo());
 
         function getThisUserInfo() {
             $("#empId").text(window.localStorage.getItem("empId"));
@@ -186,7 +185,6 @@
         }
 
         $("#sendToUpdateBtn").click(function () {
-
             var newData = JSON.stringify({
                 passwd: $("#passwd").val(),
                 apartId: $("#aparts").val(),
@@ -205,16 +203,20 @@
                 data: newData,
                 contentType: "application/json",
                 success: function () {
-                    alert("修改成功");
-                    window.location.href = "./CMS_6System.html";
+                    if(confirm("OK")){
+                    location.href = "./CMS_0.html";
+                }else{}
+                    //alert("修改完成");
+                    // window.location.href = "./CMS_6System.html";
+                    //window.location.href = "./CMS_0.html";
+
                 }
             });
 
-
         });
+   
 
-
-    </script>
+   </script>
 </body>
 
 </html>
