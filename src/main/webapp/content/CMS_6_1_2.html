@@ -22,7 +22,7 @@
 </head>
 
 
-<body class="zh-tw" onload="getThisUserInfo">
+<body class="zh-tw">
     <div>
         <ul class="nav nav-tabs">
             <li class="nav-item dropdown">
@@ -142,6 +142,7 @@
     </div>
 
     <script>
+        $(document).ready(()=> getThisUserInfo());
 
         function getThisUserInfo() {
             $("#empId").text(window.localStorage.getItem("empId"));
