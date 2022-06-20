@@ -175,7 +175,7 @@ public class OrderSystemService {
 	        	JSONObject obj = new JSONObject();
 	        	obj.put("dishItem", dishItem);
 	        	obj.put("dishPrice", dishPrice);
-	        	obj.put("qty", object[1]);
+	        	obj.put("qty", orderRepo.countOrdersQty(startDate, endDate, object[0].toString()));
 	        	jsonAr.add(obj);	        	
 	          }
 	          return jsonAr;

@@ -23,4 +23,9 @@ public interface OrderRepo  extends JpaRepository<Order, Integer>{
 			nativeQuery=true)	
 	List<Object[]> findOrdersGroupBy(@Param("startDate")Date startDate ,@Param("endDate")Date endDate);
 	
+	@Query(value="SELECT SUM(qty) FROM orders "
+			+ "WHERE date BETWEEN :startDate AND :endDate AND type='出貨' AND dishId = :dishId ;",
+			nativeQuery=true)	
+	List<Object[]> countOrdersQty(@Param("startDate")Date startDate ,@Param("endDate")Date endDate,@Param("dishId") String dishId);
+	
 }
