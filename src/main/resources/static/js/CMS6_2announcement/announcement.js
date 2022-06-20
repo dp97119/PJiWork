@@ -29,7 +29,7 @@ $(function () {
                             <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-pencil"></i>
                                 <input type="button" value="修改" class="function"
-                                    onClick="window.location.href='./CMS_6_2_2.html';">
+                                    onClick="window.location.href='./CMS_6_2_3.html';">
                             </span>&nbsp;&nbsp;
                             <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-trash"></i>

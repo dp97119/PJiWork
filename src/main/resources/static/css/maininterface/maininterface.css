@@ -275,13 +275,13 @@
 
 /* 公告第二層--顯示全部公告內容 */
 .noticeTable {
-    width: 90%;
+    width: 500px;
     word-wrap: break-word;
     /*自動斷行*/
     table-layout: fixed;
 }
 
-.noticedialog {
+#noticedialog {
     position: relative;
     margin: auto;
     /* 對話框線樣式 */
