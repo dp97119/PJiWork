@@ -131,9 +131,6 @@ $("#punchOK").click(function () {
   } else {
     alert("離公司太遠囉，不能這樣");
   }
-  var onWorkTime = moment(parent.document.getElementById("onWork0").innerHTML).valueOf();
-  var noWorkTime = moment(parent.document.getElementById("noWork0").innerHTML).valueOf();
-
 
   parent.$(".modal").modal("hide");
 });
@@ -155,11 +152,6 @@ $(parent.$("#myCardbtn1")).click(function () {
   }
 });
 $(parent.$("#myCardbtn2")).click(function () {
-  // var onWorkTime = moment(parent.document.getElementById("onWork0").innerText).valueOf();
-  // var noWorkTime = moment(parent.document.getElementById("noWork0").innerText).valueOf();
-  // console.log(parent.document.getElementById("noWork0").innerHTML);
-  // console.log(parent.document.getElementById("onWork0").innerHTML);
-  // console.log(noWorkTime);
   if (checkPunchState() == "200") {
     if (confirm("尚未打上班卡，無法操作")) {
       parent.punchdialog.close();
