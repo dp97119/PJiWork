@@ -170,48 +170,6 @@
             })
         })
 
-
-
-        // 新增
-        $("#sendbtn").on("click", function () {
-            if ($("#aparts").find("option:selected").val() == "" || $("#reviewerone").find("option:selected").val() == "" || $("#reviewertwo").find("option:selected").val() == "") {
-                confirm("欄位不可為空白");
-            } else {
-                var j = false;
-                for (var i = 0; i < approvalList.length; i++) {
-                    if ($("#aparts").find("option:selected").val() == approvalList[i]) {
-                        j = true;
-                        break;
-                    }
-                }
-                if (j == false) {
-                    var insertSet = JSON.stringify([{
-                        apartId: $("#aparts").find("option:selected").val(),
-                        fisrtApproval: $("#reviewerone").find("option:selected").val(),
-                        secondApproval: $("#reviewertwo").find("option:selected").val()
-                    }]);
-                    $.ajax({
-                        url: "http://localhost:8080/Approvalset/save/",
-                        type: "POST",
-                        data: insertSet,
-                        contentType: "application/json",
-                        success: function () {
-                            if (confirm("確認完成")) {
-                                document.getElementById("changeApart").style.visibility = "hidden";
-                                location.reload();
-                            }
-                        }
-                    })
-                } else {
-                    if (confirm("資料已存在")) {
-                        changeApart.close();
-                    }
-                }
-            }
-        })
-
-
-
         // 修改
         function editbtn(i) {
             var findId = JSON.stringify({

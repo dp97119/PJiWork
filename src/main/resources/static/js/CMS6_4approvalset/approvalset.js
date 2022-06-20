@@ -1,3 +1,4 @@
+// 出勤維護系統--層級設定
 // 查詢
 var approvalList = [];
 $(function () {
@@ -60,14 +61,12 @@ $("#sendbtn").on("click", function () {
 				success: function () {
 					if (confirm("確認完成")) {
 						parent.document.getElementById("changeApart").style.visibility = "hidden";
-						// window.location.href = './CMS_6_4_1.html';
 						parent.location.reload();
 					}
 				}
 			})
 		} else {
 			if (confirm("資料已存在")) {
-				// window.location.href = './CMS_6_4_1.html';
 				parent.changeApart.close();
 			}
 		}

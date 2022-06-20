@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <script src="/js/CMS2attendance/leaves.js"></script>
     <script src="/js/CMS2attendance/admin.js"></script>
+
 </head>
 
 
@@ -75,21 +76,22 @@
                         <!-- 申請人按下審核按鈕後修改和刪除的按鈕會不見 -->
                         <span class="icon-input-btn">
                             <i class="glyphicon glyphicon-pencil"></i>
-                            <input type="button" value="修改" class="function"
+                            <input type="button" id="leaveEdit" value="修改" class="function"
                                 onClick="window.location.href='./CMS_2_2.html';">
                         </span>&nbsp;&nbsp;
                         <span class="icon-input-btn">
                             <i class="glyphicon glyphicon-trash"></i>
-                            <input type="button" value="刪除" class="function deleteB">
+                            <input type="button" id="leaveDel" value="刪除" class="function deleteB">
                         </span>&nbsp;&nbsp;
-                        <input type="button" value="申請人審核" class="function">&nbsp;&nbsp;
-                        <input type="button" value="審核歷程" class="function" id="review">
+                        <input type="button" id="apply" value="申請人審核" class="function" onclick="onApply()">&nbsp;&nbsp;
+                        <input type="button" id="reviewProcess" value="審核歷程" class="function review">
                     </td>
                 </tr>
             </table>
         </div>
     </div>
 
+    
 
     <!-- 審核歷程 -->
     <dialog id="reviewdialog">
@@ -126,11 +128,12 @@
     </dialog>
 
     <script>
-        $('#review').on("click", function () {
+        $('.review').on("click", function () {
             reviewdialog.showModal()
         })
     </script>
-
+    
+    <script src="/js/CMS2attendance/attendance.js"></script>
 </body>
 
 </html>

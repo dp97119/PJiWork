@@ -218,25 +218,25 @@
                 <table class="noticeTable">
                     <tr>
                         <th width="15%">主旨：</th>
-                        <th width="85%">XXXXXXXXXXX</th>
+                        <th width="85%" id="titleText">XXXXXXXXXXX</th>
                     </tr>
                     <tr>
                         <th>時間：</th>
-                        <th class="noticeline"></th>
+                        <th class="noticeline" id="startTime"></th>
                     </tr>
                     <tr>
                         <th>附件：</th>
-                        <th></th>
+                        <th id="annex"></th>
                     </tr>
                     <tr>
                         <th>內容：</th>
-                        <th></th>
+                        <th id="contentText"></th>
                     </tr>
                 </table>
             </div>
         </dialog>
         <script>
-            $('#notice').on("click", function () {
+            $('.notice').on("click", function () {
                 noticedialog.showModal()
             })
         </script>
@@ -428,8 +428,11 @@
                 }
             });
         });
-
+        
     </script>
+
+    
+
 </body>
 
 </html>
