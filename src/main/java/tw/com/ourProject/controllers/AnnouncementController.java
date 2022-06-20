@@ -3,6 +3,7 @@ package tw.com.ourProject.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,5 +49,11 @@ public class AnnouncementController {
 	@PostMapping("/Announcement/content")
 	public JSONArray findcontent(@RequestBody JSONObject data) {
 		return announcementService.findsetData(Integer.parseInt(data.get("announceId").toString()));
+	}
+	
+	@DeleteMapping("/Announcement/delete")
+	public void delannouncement(@RequestBody JSONArray eventInfo) {
+		Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("announcementId").toString());
+		announcementService.deleteAnnouncement(obj1);
 	}
 }
