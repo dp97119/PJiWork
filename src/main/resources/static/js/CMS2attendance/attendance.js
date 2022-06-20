@@ -33,7 +33,7 @@ $(function () {
                             </span>&nbsp;&nbsp;
                             <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-trash" id="glyphiconTrash"></i>
-                                <input type="button" id="attDel(${i})" value="刪除" class="function deleteB" >
+                                <input type="button" value="刪除" class="function deleteB" onClick="attDel(${i})";>
                             </span>&nbsp;&nbsp;
                                 <input type="button" id="apply(${i})" value="申請人審核" class="function">&nbsp;&nbsp;
                                 <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
@@ -90,7 +90,7 @@ $("#leaveEditBtn1").on("click", function () {
                                 </span>&nbsp;&nbsp;
                                 <span class="icon-input-btn">
                                     <i class="glyphicon glyphicon-trash" id="glyphiconTrash"></i>
-                                    <input type="button" id="attDel(${i})" value="刪除" class="function deleteB">
+                                    <input type="button" value="刪除" class="function deleteB" onClick="attDel(${i})";>
                                 </span>&nbsp;&nbsp;
                                     <input type="button" id="apply(${i})" value="申請人審核" class="function">&nbsp;&nbsp;
                                     <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
@@ -184,10 +184,10 @@ function leaveEdit(i) {
 // 出勤刪除(頁面1)
 function attDel(i) {
     console.log("OK");
-    // var attDelSet = JSON.stringify([{
-    //     approvalId: document.getElementsByTagName("tr")[i].getAttribute('id')
-    // }]);
-    // console.log(attDelSet);
+    var attDelSet = JSON.stringify([{
+        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id')
+    }]);
+    console.log(attDelSet);
 
     // $.ajax({
     //     url: "http://localhost:8080/Attendance/delete/",

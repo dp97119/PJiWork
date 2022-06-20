@@ -6,7 +6,6 @@ $(function(){
             $.each(data,function(){
                 var option = $("<option value="+this.leaveId+">"+this.leaveType+"</option>");
                 option.appendTo("#leaves");
-                console.log("OK");
             })
         }
     })
