@@ -1,5 +1,7 @@
 package tw.com.ourProject.service;
 
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -50,8 +52,8 @@ public class AttendanceService {
 			obj.put("empId", findpd.get(i).getEmployees().getEmpId());
 			obj.put("leaveId", findpd.get(i).getLeaves().getLeaveId());
 			obj.put("leaveType", findpd.get(i).getLeaves().getLeaveType());
-			obj.put("startDate", findpd.get(i).getStartDate());
-			obj.put("endDate", findpd.get(i).getEndDate());
+			obj.put("startDate", findpd.get(i).getStartDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
+			obj.put("endDate", findpd.get(i).getEndDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
 			obj.put("hours", findpd.get(i).getHours());
 			obj.put("approvalId", findpd.get(i).getApprovals().getApprovalId());
 			obj.put("approvalType", findpd.get(i).getApprovals().getApprovalType());
