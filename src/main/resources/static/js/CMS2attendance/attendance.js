@@ -7,7 +7,7 @@ function getCookie() {
     return cookie[1].toString();
 }
 
-// 全部紀錄1
+// 全部紀錄(頁面1)
 $(function () {
     var usertoken = JSON.stringify({ "userToken": getCookie() });
     $.ajax({
@@ -33,7 +33,7 @@ $(function () {
                             </span>&nbsp;&nbsp;
                             <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-trash" id="glyphiconTrash"></i>
-                                <input type="button" id="leaveDel" value="刪除" class="function deleteB">
+                                <input type="button" id="attDel(${i})" value="刪除" class="function deleteB" >
                             </span>&nbsp;&nbsp;
                                 <input type="button" id="apply" value="申請人審核" class="function">&nbsp;&nbsp;
                                 <input type="button" id="reviewProcess" value="審核歷程" class="function review">
@@ -63,7 +63,7 @@ $(function () {
 
 
 
-//搜尋類別紀錄1
+//搜尋類別紀錄(頁面1)
 $("#leaveEditBtn1").on("click", function () {
     $(".staffWord").empty();
     var usertoken = JSON.stringify({ "userToken": getCookie() });
@@ -125,7 +125,7 @@ $("#leaveEditBtn1").on("click", function () {
 
 
 
-// 新增
+// 出勤新增(頁面2)
 $("#sendAnnouncement").on("click", function () {
     let evestart = moment($('#startDates').val()).format('YYYY-MM-DD HH:mm:ss');
     let eveend = moment($('#endDates').val()).format('YYYY-MM-DD HH:mm:ss');
@@ -155,9 +155,27 @@ $("#sendAnnouncement").on("click", function () {
 
 
 
-// 修改
+// 出勤修改(頁面4)
 
 
 
 
+// 出勤刪除(頁面1)
 // 刪除
+function attDel(i) {
+    var attDelSet = JSON.stringify([{
+        approvalId: document.getElementsByTagName("tr")[i].getAttribute('id')
+    }]);
+
+    $.ajax({
+        url: "http://localhost:8080//",
+        type: "DELETE",
+        data: attDelSet,
+        contentType: "application/json",
+        success: function () {
+            if (confirm("刪除成功")) {
+                window.location.href = './CMS_6_2_1.html';
+            }
+        }
+    })
+}
