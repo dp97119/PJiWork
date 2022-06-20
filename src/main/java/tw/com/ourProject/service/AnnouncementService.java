@@ -77,13 +77,19 @@ public class AnnouncementService {
 		attchname.put("title", findanment.getTitle());
 		attchname.put("content", findanment.getContent());
 		arrayannment.add(attchname);
-		for (int i = 0; i<attaches.size(); i++) {
+		if (attaches.size() != 0) {
+			for (int i = 0; i<attaches.size(); i++) {
+				JSONObject obj = new JSONObject();
+				obj.put("attName", attaches.get(i).getAttName());
+				arrayannment.add(obj);
+			}
+		}else{
 			JSONObject obj = new JSONObject();
-			obj.put("attName", attaches.get(i).getAttName());
+			obj.put("attName", "");
 			arrayannment.add(obj);
 		}
+		System.out.println(arrayannment);
 		return arrayannment;
-		
 	}
 
 }
