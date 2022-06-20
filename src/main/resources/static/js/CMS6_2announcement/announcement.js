@@ -21,7 +21,7 @@ $(function () {
                         <td class="tableStyle">`+ i + `</td>
                         <td class="tableStyle" style="text-align: left;">`+ this.title + `</td>
                         <td class="tableStyle" style="text-align: left;">`+ this.content + `</td>
-                        <td class="tableStyle" style="text-align: left;">`+ i + `</td>
+                        <td class="tableStyle" style="text-align: left;">`+ this.attName + `</td>
                         <td class="tableStyle">`+ this.employees.empName + `</td>
                         <td class="tableStyle">`+ this.updateDate + `</td>
                         <td class="tableStyle">`+ this.removed + `</td>
