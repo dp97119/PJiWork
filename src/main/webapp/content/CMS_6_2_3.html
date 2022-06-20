@@ -152,88 +152,8 @@
                 console.log("取消")
             }
         })
-
-        function getCookie() {
-            var cookie = document.cookie.split('=');
-            return cookie[1].toString();
-        }
-
-        $("#annFinishBtn").click(function () {
-            console.log($("#annSubject").val());
-            console.log($("#annType").find("option:selected").text());
-            console.log($("#annText").val());
-            console.log($("#annUploadDate").val());
-            console.log($("#annRemoveDate").val());
-            var date = new Date();
-            //主旨不能為空
-            if ($("#annSubject").val() != "") {
-                //下架日期需要大於上架日期 且不能為空
-                if ($("#annRemoveDate").val() < $("#annUploadDate").val() ||
-                    $("#annRemoveDate").val() == "" ||
-                    $("#annUploadDate").val() == "") {
-                    alert("請確認時間正確")
-                } else {
-                    var annData = JSON.stringify({
-                        title: $("#annSubject").val(),
-                        type: $("#annType").find("option:selected").text(),
-                        uploadDate: $("#annUploadDate").val(),
-                        removed: $("#annRemoveDate").val(),
-                        content: $("#annText").val(),
-                        userToken: getCookie()
-                    });
-
-                    $.ajax({
-                        type: "post",
-                        url: "/Announcement/addAnn",
-                        data: annData,
-                        contentType: "application/json",
-                        dataType: "json",
-                        success: function (data) {
-                            console.log(data)
-                            //要回傳公告id
-                            var annId = data.annId;
-                            alert("ok");
-
-                            var formData = new FormData();
-                            formData.append('annId', annId);
-                            formData.append('userToken', getCookie());
-                            var i =1;
-                            while($(`#attachInput${i}`).get(0).files[0]!=undefined){
-                                formData.append('file[]',$(`#attachInput${i}`).get(0).files[0]);
-                                i++;
-                                if(i==6){
-                                    break;
-                                }
-                            }
-                            console.log(formData);
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/Announcement/uploadAttach",
-                                    data: formData,
-                                    cache: false,
-                                    processData: false,
-                                    contentType: false,
-                                    beforeSend: function () {
-                                        //找時間加入等待提示
-                                    },
-                                    success: function (data) {
-
-                                    },
-                                    error: function (data) {
-                                        alert(data.exception);
-                                    }
-                                });
-                            }
-                        })
-
-                }
-            } else {
-                alert("請填寫主旨");
-            }
-        });
-
-
     </script>
+
 </body>
 
 </html>

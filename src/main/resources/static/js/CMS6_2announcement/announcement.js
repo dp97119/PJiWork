@@ -17,7 +17,7 @@ $(function () {
                 // console.log(today);
                 // console.log(this.removed);
                 if (today < this.removed) {
-                    var announcementRecord = $(`<tr class="staffWord">
+                    var announcementRecord = $(`<tr class="staffWord" id="${this.announceId}">
                         <td class="tableStyle">`+ i + `</td>
                         <td class="tableStyle" style="text-align: left;">`+ this.title + `</td>
                         <td class="tableStyle" style="text-align: left;">`+ this.content + `</td>
@@ -33,7 +33,7 @@ $(function () {
                             </span>&nbsp;&nbsp;
                             <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-trash"></i>
-                                <input type="button" value="刪除" class="function deleteB">
+                                <input type="button" value="刪除" class="function deleteB" onClick="annDel(${i})">
                             </span>&nbsp;&nbsp;
                         </td>
                     </tr>`);
@@ -49,25 +49,30 @@ $(function () {
     })
 })
 
-
-// 新增
-// $("#sendbtn").on("click",function(){
-//     console.log("OK");
-//     if($("#aparts").find("option:selected").val() == "" || $("#reviewerone").find("option:selected").val() == "" || $("#reviewertwo").find("option:selected").val() == "" ){
-//         confirm("欄位不可為空白");
-//     }else{
-//         console.log($("#aparts").find("option:selected").val());
-//         console.log($("#reviewerone").find("option:selected").val());
-//         console.log($("#reviewertwo").find("option:selected").val());
-//     }
-
-// })
-
-
-
 // 修改
 
 
 
 
+
+
+
 // 刪除
+function annDel(i) {
+    var annDelSet = JSON.stringify([{
+        announceId: document.getElementsByTagName("tr")[i].getAttribute('id')
+    }]);
+
+    $.ajax({
+        url: "http://localhost:8080//",
+        type: "DELETE",
+        data: annDelSet,
+        contentType: "application/json",
+        success: function () {
+            if (confirm("刪除成功")) {
+                window.location.href = './CMS_6_2_1.html';
+            }
+        }
+    })
+}
+
