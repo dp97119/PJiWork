@@ -41,7 +41,6 @@ $(function () {
                     i++;
                     // var today = new Date();
                     // console.log(today);
-
                 } else {
                     console.log("下架了")
                 }

@@ -48,7 +48,7 @@ function openbtn(i) {
             if (data[1].attName != "") {
                 annex.innerText = data[1].attName;
             } else {
-                annex.innerText = "沒有圖片";
+                annex.innerText = "";
             }
             noticedialog.showModal();
         }
