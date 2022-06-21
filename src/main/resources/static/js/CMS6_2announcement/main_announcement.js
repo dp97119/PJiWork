@@ -44,9 +44,13 @@ function openbtn(i) {
             titleText.innerText = data[0].title;
             startTime.innerText = (data[0].uploadDate).split('T')[0];
             contentText.innerText = data[0].content;
-            console.log(data[1].attName);
             if (data[1].attName != "") {
-                annex.innerText = data[1].attName;
+                for (var i = 1; i <= (data.length - 1); i++) {
+                    // annex.innerText = data[i].attName;
+                    var aaa = $(
+                        `<span>${data[i].attName}</span><br>`);
+                    aaa.appendTo("#annexTr");
+                }
             } else {
                 annex.innerText = "";
             }
