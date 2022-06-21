@@ -14,38 +14,49 @@ $(function () {
                 var mm = ('0' + (NowDate.getMonth() + 1)).slice(-2);
                 var dd = ('0' + NowDate.getDate()).slice(-2);
                 var today = yy + '-' + mm + '-' + dd;
-                // console.log(today);
-                // console.log(this.removed);
                 if (today < this.removed) {
                     var announcementRecord = $(`<tr class="staffWord" id="${this.announceId}">
                         <td class="tableStyle">`+ i + `</td>
                         <td class="tableStyle" style="text-align: left;">`+ this.title + `</td>
                         <td class="tableStyle" style="text-align: left;">`+ this.content + `</td>
-                        <td class="tableStyle" style="text-align: left;">`+ this.attName + `</td>
+                        <td class="tableStyle" style="text-align: left;"><span id="att${this.announceId}"></span></td>
                         <td class="tableStyle">`+ this.employees.empName + `</td>
                         <td class="tableStyle">`+ this.updateDate + `</td>
                         <td class="tableStyle">`+ this.removed + `</td>
                         <td class="tableStyle">
-                            <span class="icon-input-btn">
+                            <p class="icon-input-btn mt-3">
                                 <i class="glyphicon glyphicon-pencil"></i>
                                 <input type="button" value="修改" class="function"
                                     onClick="window.location.href='./CMS_6_2_3.html';">
-                            </span>&nbsp;&nbsp;
-                            <span class="icon-input-btn">
+                            </p>&nbsp;&nbsp;
+                            <p class="icon-input-btn">
                                 <i class="glyphicon glyphicon-trash"></i>
                                 <input type="button" value="刪除" class="function deleteB" onClick="annDel(${i})">
-                            </span>&nbsp;&nbsp;
+                            </p>&nbsp;&nbsp;
                         </td>
                     </tr>`);
                     announcementRecord.appendTo("#announcementTable");
                     i++;
-                    // var today = new Date();
-                    // console.log(today);
                 } else {
                     console.log("下架了")
                 }
             })
+            $.ajax({
+                url: "http://localhost:8080/Attach/find/",
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    for(i = 0 ; i < data.length ;i++){
+                        // data[i].announceId
+                        var aImg = (data[i].attName).split("h/")[1];
+                        var attachimg = $(`<span>${aImg}</span><br>`);
+                        attachimg.appendTo(`#att${data[i].announcements.announceId}`);
+                    }
+                }
+            })
+        
         }
+
     })
 })
 
