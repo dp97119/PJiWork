@@ -145,44 +145,41 @@
             <!-- 個人資訊 -->
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="information">
-                    <form action="">
-                        <p>
-                        <table style="border-collapse:separate; border-spacing:6px 6px;font-size: 15px;">
-                            <tr>
-                                <td><label for="">員工姓名：</label></td>
-                                <td><input type="text" class="inputSize" id="inUserName"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">修改密碼：</label></td>
-                                <td><input type="password" class="inputSize" id="inUserPwd"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">電&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;話：</label></td>
-                                <td><input type="text" class="inputSize" id="inUserTel"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">行動電話：</label></td>
-                                <td><input type="text" class="inputSize" id="inUserPhone"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">E&nbsp;-&nbsp;Mail&nbsp;：</label></td>
-                                <td><input type="email" class="inputSize" id="inUserEmail"></td>
-                            </tr>
-                            <tr>
-                                <td><label for="">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label></td>
-                                <td><input type="text" class="inputSize" id="inUserAddr"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" style="text-align: center;">
-                                    <input type="button" value="修改" class="btnStyle"
-                                        onClick="informationCancel()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="button" value="取消" class="btnStyle"
-                                        onClick="window.location.href='./CMS_0.html';">
-                                </td>
-                            </tr>
-                        </table>
-                        </p>
-                    </form>
+                    <p>
+                    <table style="border-collapse:separate; border-spacing:6px 6px;font-size: 15px;">
+                        <tr>
+                            <td><label for="">員工姓名：</label></td>
+                            <td><input type="text" class="inputSize" id="inUserName"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">修改密碼：</label></td>
+                            <td><input type="password" class="inputSize" id="inUserPwd"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">電&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;話：</label></td>
+                            <td><input type="text" class="inputSize" id="inUserTel"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">行動電話：</label></td>
+                            <td><input type="text" class="inputSize" id="inUserPhone"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">E&nbsp;-&nbsp;Mail&nbsp;：</label></td>
+                            <td><input type="email" class="inputSize" id="inUserEmail"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</label></td>
+                            <td><input type="text" class="inputSize" id="inUserAddr"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center;">
+                                <input type="button" value="修改" class="btnStyle"
+                                    onClick="informationBtn()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="button" value="取消" class="btnStyle" onClick="informationCancel()">
+                            </td>
+                        </tr>
+                    </table>
+                    </p>
                 </div>
             </div>
         </div>
@@ -224,9 +221,9 @@
                         <th>時間：</th>
                         <td class="noticeline"><span id="startTime"></span></td>
                     </tr>
-                    <tr >
+                    <tr>
                         <th>附件：</th>
-                        <td id="annexTr"><span id="annex" ></span></td>
+                        <td id="annexTr"><span id="annex"></span></td>
                     </tr>
                     <tr>
                         <th>內容：</th>

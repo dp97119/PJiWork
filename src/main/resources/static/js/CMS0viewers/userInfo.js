@@ -49,7 +49,6 @@ $(function () {    //先傳出值
 })
 
 function informationBtn() { //點下去後修改
-	console.log("OK")
     var usertoken = JSON.stringify({"userToken": getCookie(),   
     "empName": $("#inUserName").val(),
     "empPwd": $("#inUserPwd").val(),
@@ -65,15 +64,14 @@ function informationBtn() { //點下去後修改
         data: usertoken,
         contentType:'application/json',
         success: function () {
-            console.log($("#inUserName").val());
             alert("修改成功");
+            window.location.href='./CMS_0.html';
         }
-    })
-
+    });
 }
 
 function informationCancel(){
-    var yes = confirm("確定要修改嗎?");
+    var yes = confirm("確定要取消嗎?");
     if(yes){
         window.location.href='./CMS_0.html';
     }
