@@ -75,7 +75,7 @@ $("#leaveEditBtn1").on("click", function () {
         success: function (data) {
             var i = 1;
             $.each(data, function () {
-                if (this.leaveId == $("#leaves").val()) {
+                if (this.leaveId == $("#leaves").val()  || $("#leaves").val() == "") {
                     if (data.approvalId == 1) {
                         var attendancerecord3 = $(`<tr class="staffWord" id="${this.attendanceId}">
                                <td class="tableStyle">${i}</td>
