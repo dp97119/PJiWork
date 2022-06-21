@@ -12,10 +12,10 @@ $(function () {
         contentType:'application/json',
         success: function (data) {
         //    console.log("HOOOOOOOOOOO")
-        if(data.userAdm != "admin"){
-            document.getElementById("disabled").style.visibility = "hidden";
+        if(data.userAdm == "admin"){
+            document.getElementById("disabled").style.visibility = "visible";
          }else{
-            console.log("管理者")
+            console.log("使用者")
          }
         }
     })
