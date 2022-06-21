@@ -114,7 +114,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><button id="sendToUpdateBtn" class="btnStyle">確定新增</td>
+                    <td><button id="sendToInsertBtn" class="btnStyle">確定新增</td>
                 </tr>
             </tbody>
         </table>
@@ -127,7 +127,7 @@
             return cookie[1].toString();
         }
 
-        $("#sendToUpdateBtn").click(function () {
+        $("#sendToInsertBtn").click(function () {
 
             var newData = JSON.stringify({
                 empId: $("#empId").val(),
