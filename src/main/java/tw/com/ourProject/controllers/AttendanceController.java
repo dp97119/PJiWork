@@ -51,13 +51,14 @@ public class AttendanceController {
 			emp1.setEmpId(obj1);
 			leaveid.setLeaveId(Integer.parseInt(attendanceInfo.getJSONObject(0).get("leaveId").toString())); 
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String obj2 = attendanceInfo.getJSONObject(0).get("contentText").toString();
 			Date obj3 = format.parse(attendanceInfo.getJSONObject(0).get("startDate").toString());
 			Date obj4 = format.parse(attendanceInfo.getJSONObject(0).get("endDate").toString());
 			Integer obj5 = (Integer.parseInt(attendanceInfo.getJSONObject(0).get("hours").toString()));
 			approvalid.setApprovalId(Integer.parseInt(attendanceInfo.getJSONObject(0).get("approvalId").toString()));
 			Date obj7 = format.parse(attendanceInfo.getJSONObject(0).get("createDate").toString());
 			
-			attendanceService.saveAttendance(emp1, leaveid, obj3, obj4, obj5, approvalid, obj7, emp1, emp1);
+			attendanceService.saveAttendance(emp1, leaveid, obj2, obj3, obj4, obj5, approvalid, obj7, emp1, emp1);
 			
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -85,14 +86,15 @@ public class AttendanceController {
 			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
 			emp1.setEmpId(obj2);
-			leaveid.setLeaveId(Integer.parseInt(info.getJSONObject(0).get("leaveId").toString())); 
+			leaveid.setLeaveId(Integer.parseInt(info.getJSONObject(0).get("leaveId").toString()));
+			String obj3 = info.getJSONObject(0).get("contentText").toString();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date obj3 = format.parse(info.getJSONObject(0).get("startDate").toString());
-			Date obj4 = format.parse(info.getJSONObject(0).get("endDate").toString());
-			Integer obj5 = (Integer.parseInt(info.getJSONObject(0).get("hours").toString()));
+			Date obj4 = format.parse(info.getJSONObject(0).get("startDate").toString());
+			Date obj5 = format.parse(info.getJSONObject(0).get("endDate").toString());
+			Integer obj6 = (Integer.parseInt(info.getJSONObject(0).get("hours").toString()));
 			approvalid.setApprovalId(Integer.parseInt(info.getJSONObject(0).get("approvalId").toString()));
 			
-			attendanceService.updateattendance(obj1, leaveid, obj3, obj4, obj5, approvalid, emp1);
+			attendanceService.updateattendance(obj1, leaveid, obj3, obj4, obj5, obj6, approvalid, emp1);
 			
 		} catch (Exception e) {
 			System.out.println(e.toString());

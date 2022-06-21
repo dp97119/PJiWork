@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="attendance")
+@Configuration
 @EntityListeners(AuditingEntityListener.class)
 public class Attendance {
 	@OneToMany(mappedBy = "attendances",cascade = CascadeType.ALL)
@@ -39,6 +41,9 @@ public class Attendance {
 	@ManyToOne
 	@JoinColumn(name="leaveid",referencedColumnName = "leaveid")
 	private Leaves leaves;
+	
+	@Column(name = "contenttext")
+	private String contentText;
 	
 	@Column(name = "startdate")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
@@ -94,6 +99,14 @@ public class Attendance {
 
 	public void setLeaves(Leaves leaves) {
 		this.leaves = leaves;
+	}
+
+	public String getContentText() {
+		return contentText;
+	}
+
+	public void setContentText(String contentText) {
+		this.contentText = contentText;
 	}
 
 	public java.util.Date getStartDate() {
@@ -164,11 +177,10 @@ public class Attendance {
 	@Override
 	public String toString() {
 		return "Attendance [approvalranks=" + approvalranks + ", attendanceId=" + attendanceId + ", employees="
-				+ employees + ", leaves=" + leaves + ", startDate=" + startDate + ", endDate=" + endDate + ", hours="
-				+ hours + ", approvals=" + approvals + ", employeess=" + employeess + ", employeesss=" + employeesss
-				+ ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
+				+ employees + ", leaves=" + leaves + ", contentText=" + contentText + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", hours=" + hours + ", approvals=" + approvals + ", employeess="
+				+ employeess + ", employeesss=" + employeesss + ", updateDate=" + updateDate + ", createDate="
+				+ createDate + "]";
 	}
-
-	
 
 }

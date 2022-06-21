@@ -29,11 +29,12 @@ public class AttendanceService {
 		return attendanceRepo.findAll();
 	}
 	
-	public void saveAttendance(Employee empid, Leaves leaveid, Date startdate, Date enddate, Integer hours, Approval approvalid,
-			Date createdate, Employee createperson, Employee updateperson) {
+	public void saveAttendance(Employee empid, Leaves leaveid, String contenttext, Date startdate, Date enddate, 
+			Integer hours, Approval approvalid, Date createdate, Employee createperson, Employee updateperson) {
 		Attendance attendanceInfo = new Attendance();
 		attendanceInfo.setEmployees(empid);
 		attendanceInfo.setLeaves(leaveid);
+		attendanceInfo.setContentText(contenttext);
 		attendanceInfo.setStartDate(startdate);
 		attendanceInfo.setEndDate(enddate);
 		attendanceInfo.setHours(hours);
@@ -67,10 +68,11 @@ public class AttendanceService {
 		attendanceRepo.deleteById(attendanceid);
 	}
 	
-	public void updateattendance(Integer attendanceid, Leaves leaveid, Date startdate, Date enddate, Integer hours,
-			Approval approvalid, Employee updateperson) {
+	public void updateattendance(Integer attendanceid, Leaves leaveid, String contenttext, Date startdate, Date enddate,
+			Integer hours, Approval approvalid, Employee updateperson) {
 		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
 		attendanceInfo.setLeaves(leaveid);
+		attendanceInfo.setContentText(contenttext);
 		attendanceInfo.setStartDate(startdate);
 		attendanceInfo.setEndDate(enddate);
 		attendanceInfo.setHours(hours);
