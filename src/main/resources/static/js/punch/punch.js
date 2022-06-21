@@ -1,4 +1,3 @@
-
 var myLocation = {
   lat: 0,
   lng: 0
@@ -8,6 +7,22 @@ function setLocation(mylat, mylng) {
   myLocation.lat = mylat;
   myLocation.lng = mylng;
 }
+
+function getLatLngByAddr(myAddr) {   
+
+  var geocoder = new google.maps.Geocoder();   
+  geocoder.geocode(   
+      { address: myAddr },     
+      function(results, status) {      
+          if (status == google.maps.GeocoderStatus.OK) {    
+              getDistance(results[0].geometry.location);                                          
+          } else {   
+              alert('Error');   
+          }   
+    }   
+);   
+}  
+
 
 //顯示當前時間
 function ShowTime() {
@@ -33,7 +48,9 @@ function success(pos) {
   var crd = pos.coords;
 
   setLocation(crd.latitude, crd.longitude);
-  getDistance(crd.latitude, crd.longitude);
+  getMyAddr();
+  var myAddr = window.localStorage.getItem("myAddr");
+  getLatLngByAddr(myAddr);
   initMap();
 };
 
@@ -72,22 +89,25 @@ function initMap() {
   });
 }
 
-var distance;
+var distanceOfCompany;
+var distanceOfHome;
 //計算googleMap 打卡點與公司的距離
-function getDistance(myLat, myLng) {
+function getDistance(homeLat, homeLng) {
   var origin1 = new google.maps.LatLng(24.15062949399325, 120.65117611577809); // 公司位置
+  var origin2 = new google.maps.LatLng(homeLat,homeLng); // 住家位置
   var service = new google.maps.DistanceMatrixService();
   service.getDistanceMatrix(
     {
-      origins: [origin1],
-      destinations: [myLocation],
+      origins: [origin1,origin2],
+      destinations: [myLocation,myLocation],
       travelMode: 'WALKING', // 交通方式：BICYCLING(自行車)、DRIVING(開車，預設)、TRANSIT(大眾運輸)、WALKING(走路)
       unitSystem: google.maps.UnitSystem.METRIC, // 單位 METRIC(公里，預設)、IMPERIAL(哩)
     }, function (response, status) {
       if (status !== google.maps.DistanceMatrixStatus.OK) {
         window.alert('Error was' + status);
       } else {
-        distance = response.rows[0].elements[0].distance.value;
+        distanceOfCompany = response.rows[0].elements[0].distance.value;
+        distanceOfHome = response.rows[1].elements[0].distance.value;
       }
 
     });
@@ -98,7 +118,6 @@ function getCookie() {
 }
 
 $("#punchOK").click(function () {
-
   if ($("#punchOK").val() == "下班") {
 
     var start = moment(parent.$("#onWork0").text(), 'HH:mm:ss');
@@ -128,7 +147,7 @@ function sendPunchInfo(state) {
     locationLat: myLocation.lat,
     locationLng: myLocation.lng,
   }]);
-  if (distance < 500) {
+  if (distanceOfCompany < 500 || distanceOfHome < 500) {
     $.ajax({
       type: "post",
       url: "/punch/saveInfo",
@@ -136,7 +155,8 @@ function sendPunchInfo(state) {
       contentType: 'application/json',
       success: function () {
         if(state == 201){
-          alert("打卡成功,請到出勤系統填寫表單");
+          alert("未滿規定時數,請到出勤系統填寫表單");
+          parent.window.location.href="CMS_2_2.html";
         }else{
           alert("打卡成功");
         }
@@ -153,7 +173,7 @@ function sendPunchInfo(state) {
       }
     });
   } else {
-    alert("離公司太遠囉，不能這樣");
+    alert("目前不在可打卡範圍哦");
   }
 }
 
@@ -192,3 +212,16 @@ function checkPunchState() {
 }
 
 
+//獲取地址
+function getMyAddr(){
+  $.ajax({
+    type : "post",
+    url : "/emp/getAddr",
+    data : JSON.stringify({ userToken : getCookie()}),
+    contentType : "application/json",
+    dataType : "json",
+    success : function(data){
+      window.localStorage.setItem("myAddr",data.addr);
+    }
+  });
+}
