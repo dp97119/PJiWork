@@ -29,7 +29,7 @@ function displayPunchInfo(userPunchData) {
                         </tr>
                         <tr class="myTimeborder">
                             <td class="myTime" >上班</td>
-                            <td class="myTime" id="onwork0">${userPunchData[0].time.split(" ")[1]}</td>
+                            <td class="myTime" id="onWork0">${userPunchData[0].time.split(" ")[1]}</td>
                         </tr>
                         <tr class="myTimeborder">
                             <td class="myTime" >下班</td>

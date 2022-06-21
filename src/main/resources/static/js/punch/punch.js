@@ -99,23 +99,47 @@ function getCookie() {
 
 $("#punchOK").click(function () {
 
-  let date = moment().format('YYYY-MM-DD HH:mm:ss');
+  if ($("#punchOK").val() == "下班") {
 
+    var start = moment(parent.$("#onWork0").text(), 'HH:mm:ss');
+    var end = moment(new Date(), 'HH:mm:ss');
+    var second = end.diff(start, 'seconds');
+    if (second <= 9 * 60 * 60) {
+      if (confirm("目前時數還未達9小時，使否確定要打卡下班")) {
+        sendPunchInfo(201);
+      }
+    } else {
+      sendPunchInfo();
+      parent.$(".modal").modal("hide");
+    }
+  } else {
+    sendPunchInfo();
+    parent.$(".modal").modal("hide");
+  }
+
+});
+
+function sendPunchInfo(state) {
+  let date = moment().format('YYYY-MM-DD HH:mm:ss');
   var punchInfo = JSON.stringify([{
-    status: $(this).val(),
+    status: $("#punchOK").val(),
     time: date,
     person: getCookie(),
     locationLat: myLocation.lat,
     locationLng: myLocation.lng,
   }]);
-  if (distance < 500000) {
+  if (distance < 500) {
     $.ajax({
       type: "post",
       url: "/punch/saveInfo",
       data: punchInfo,
       contentType: 'application/json',
       success: function () {
-        alert("打卡成功");
+        if(state == 201){
+          alert("打卡成功,請到出勤系統填寫表單");
+        }else{
+          alert("打卡成功");
+        }
         $.ajax({
           type: "post",
           url: "/punch/getInfo",
@@ -131,9 +155,7 @@ $("#punchOK").click(function () {
   } else {
     alert("離公司太遠囉，不能這樣");
   }
-
-  parent.$(".modal").modal("hide");
-});
+}
 
 $("#punchCancer").click(function () {
   parent.punchdialog.close();

@@ -2,6 +2,7 @@
 $(function () {
 
     var usertoken = JSON.stringify({ "userToken": getCookie() });
+    console.log("ok");
 
     $.ajax({
         type: "POST",
@@ -13,7 +14,8 @@ $(function () {
             userApart.innerText = data.apart;
             userNumber.innerText = data.empId;
             userName.innerText = data.empName;
-            document.getElementById('myNameImg').setAttribute('src', `${data.empPhoto}`);
+            console.log(document.getElementById('myNameImg').getAttribute('src'));
+
         }
     })
 })
