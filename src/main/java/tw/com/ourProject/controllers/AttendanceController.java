@@ -69,9 +69,8 @@ public class AttendanceController {
 	//回傳ID搜尋其他資料並回傳給前端
 	@PostMapping("/Attendance/findPersonData")
 	public JSONArray responseData(@RequestBody JSONObject info) {
-		emp2.setEmpId(jwt.getInfoFromJwtToken(info.getString("userToken"), "empId"));
-		return attendanceService.findsetData(emp2);
-			
+		emp1.setEmpId(jwt.getInfoFromJwtToken(info.getString("userToken"), "empId"));
+		return attendanceService.findsetData(emp1);
 	}
 		
 	@DeleteMapping("/Attendance/delete")
@@ -118,6 +117,8 @@ public class AttendanceController {
 		}
 	}
 	
-//	@PostMapping("/Attendance/viewapproval2")
-//	public void 
+	@PostMapping("/Attendance/updateview")
+	public JSONObject updateviewAttendance(@RequestBody JSONObject info) {
+		return attendanceService.UpdateViewAttendance(Integer.parseInt(info.get("attendanceId").toString()));
+	}
 }

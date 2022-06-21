@@ -87,4 +87,17 @@ public class AttendanceService {
 		attendanceInfo.setEmployeesss(updateperson);
 		attendanceRepo.save(attendanceInfo);
 	}
+	
+	public JSONObject UpdateViewAttendance(Integer attendanceid) {
+		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
+		JSONObject obj = new JSONObject();
+		obj.put("attendanceId", attendanceInfo.getAttendanceId());
+		obj.put("leaveId", attendanceInfo.getLeaves().getLeaveId()) ;
+		obj.put("leaveType", attendanceInfo.getLeaves().getLeaveType());
+		obj.put("ContentText", attendanceInfo.getContentText());
+		obj.put("startDate", attendanceInfo.getStartDate());
+		obj.put("endDate", attendanceInfo.getEndDate());
+		obj.put("hours", attendanceInfo.getHours());
+		return obj;
+	}
 }
