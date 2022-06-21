@@ -64,5 +64,9 @@ public class EmployeeController {
 		return emp;
 	}
 	
+	@PostMapping("/emp/getAddr")
+	public JSONObject getAddr(@RequestBody JSONObject data){
+		return  employeeService.getAddr(data);
+	}
 
 }

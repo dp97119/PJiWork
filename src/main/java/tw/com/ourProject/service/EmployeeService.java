@@ -213,4 +213,13 @@ public class EmployeeService {
 		 }
 		 
 	}
+	
+	public JSONObject getAddr(JSONObject data) {
+	     String emId = jwtToken.getInfoFromJwtToken(data.getString("userToken"),"empId");
+	     String addr = employeeRepo.findById(emId).get().getAddr();
+	     JSONObject obj = new JSONObject();
+	     obj.put("addr", addr);
+	     return obj;
+
+	}
 }
