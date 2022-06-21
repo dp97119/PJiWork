@@ -186,6 +186,7 @@
 
         $("#sendToUpdateBtn").click(function () {
             var newData = JSON.stringify({
+                empId : $("#empId").text(),
                 passwd: $("#passwd").val(),
                 apartId: $("#aparts").val(),
                 tel: $("#tel").val(),
@@ -203,6 +204,7 @@
                 data: newData,
                 contentType: "application/json",
                 success: function () {
+                    alert("修改成功");
                     window.location.href = "./CMS_6System.html";
                 }
             });
