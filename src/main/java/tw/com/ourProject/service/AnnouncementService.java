@@ -91,7 +91,6 @@ public class AnnouncementService {
 			obj.put("attName", "");
 			arrayannment.add(obj);
 		}
-		System.out.println(arrayannment);
 		return arrayannment;
 	}
 	
