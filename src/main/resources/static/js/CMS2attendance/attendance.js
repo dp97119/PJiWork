@@ -29,14 +29,14 @@ $(function () {
                            <td class="tableStyle">
                            <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-pencil" id="glyphiconPencil"></i>
-                                <input type="button" id="leaveEdit(${i})" value="修改" class="function" onClick="window.location.href='./CMS_2_4.html';">
+                                <input type="button" value="修改" class="function" onClick="leaveEdit(${i})">
                             </span>&nbsp;&nbsp;
                             <span class="icon-input-btn">
                                 <i class="glyphicon glyphicon-trash" id="glyphiconTrash"></i>
                                 <input type="button" value="刪除" class="function deleteB" onClick="attDel(${i})";>
                             </span>&nbsp;&nbsp;
-                                <input type="button" id="apply(${i})" value="申請人審核" class="function">&nbsp;&nbsp;
-                                <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
+                                <input type="button" onClick="apply(${i})" value="申請人審核" class="function">&nbsp;&nbsp;
+                                <input type="button" onClick="reviewProcess(${i})" value="審核歷程" class="function review">
                            </td>
                        </tr>`);
                     attendancerecord1.appendTo("#attendanceTable1");
@@ -48,7 +48,7 @@ $(function () {
                            <td class="tableStyle">${this.hours}</td>
                            <td class="tableStyle">${this.approvalType}</td>
                            <td class="tableStyle">
-                                <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
+                                <input type="button" onClick="reviewProcess(${i})" value="審核歷程" class="function review">
                            </td>
                        </tr>`);
                     attendancerecord2.appendTo("#attendanceTable1");
@@ -75,7 +75,7 @@ $("#leaveEditBtn1").on("click", function () {
         success: function (data) {
             var i = 1;
             $.each(data, function () {
-                if (this.leaveId == $("#leaves").val()  || $("#leaves").val() == "") {
+                if (this.leaveId == $("#leaves").val() || $("#leaves").val() == "") {
                     if (data.approvalId == 1) {
                         var attendancerecord3 = $(`<tr class="staffWord" id="${this.attendanceId}">
                                <td class="tableStyle">${i}</td>
@@ -86,14 +86,14 @@ $("#leaveEditBtn1").on("click", function () {
                                <td class="tableStyle">
                                <span class="icon-input-btn">
                                     <i class="glyphicon glyphicon-pencil" id="glyphiconPencil"></i>
-                                    <input type="button" id="leaveEdit(${i})" value="修改" class="function" onClick="window.location.href='./CMS_2_2.html';">
+                                    <input type="button" value="修改" class="function" onClick="leaveEdit(${i})">
                                 </span>&nbsp;&nbsp;
                                 <span class="icon-input-btn">
                                     <i class="glyphicon glyphicon-trash" id="glyphiconTrash"></i>
                                     <input type="button" value="刪除" class="function deleteB" onClick="attDel(${i})";>
                                 </span>&nbsp;&nbsp;
-                                    <input type="button" id="apply(${i})" value="申請人審核" class="function">&nbsp;&nbsp;
-                                    <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
+                                    <input type="button" onClick="apply(${i})" value="申請人審核" class="function">&nbsp;&nbsp;
+                                    <input type="button" onClick="reviewProcess(${i})" value="審核歷程" class="function review">
                                </td>
                            </tr>`);
                         attendancerecord3.appendTo("#attendanceTable1");
@@ -105,7 +105,7 @@ $("#leaveEditBtn1").on("click", function () {
                                <td class="tableStyle">${this.hours}</td>
                                <td class="tableStyle">${this.approvalType}</td>
                                <td class="tableStyle">
-                                    <input type="button" id="reviewProcess(${i})" value="審核歷程" class="function review">
+                                    <input type="button" onClick="reviewProcess(${i})" value="審核歷程" class="function review">
                                </td>
                            </tr>`);
                         attendancerecord4.appendTo("#attendanceTable1");
@@ -129,6 +129,7 @@ $("#sendAnnouncement").on("click", function () {
     var usertoken = JSON.stringify([{
         "userToken": getCookie(),
         "leaveId": $("#leaves").find("option:selected").val(),
+        "contentText": $("#contentText").val(),
         "startDate": evestart,
         "endDate": eveend,
         "hours": $("#hours").val(),
@@ -153,19 +154,30 @@ $("#sendAnnouncement").on("click", function () {
 
 // 出勤修改(頁面4)
 function leaveEdit(i) {
-    var findattId = JSON.stringify({
-        approvalId: document.getElementsByTagName("tr")[i].getAttribute('id')
-    });
-    console.log(approvalId);
+    // console.log("OK");
+    var findattId = JSON.stringify([{
+        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
+    }]);
+    console.log(findattId);
     $(function () {
         $.ajax({
-            url: "http://localhost:8080//",
-            type: "POST",
+            url: "http://localhost:8080/Attendance/update/",
+            type: "PUT",
             data: findattId,
             contentType: "application/json",
             success: function (data) {
-               
+                window.location.href = "./CMS_2_4.html"
                 
+
+
+
+                function changeAnnouncement() {
+                    if (confirm("修改成功")) {
+                        window.location.href = "./CMS_2Leaverecorded.html"
+                    }
+
+
+                }
 
             }
         })
@@ -178,13 +190,8 @@ function leaveEdit(i) {
 
 
 
-
-
-
-
 // 出勤刪除(頁面1)
 function attDel(i) {
-    console.log("OK");
     var attDelSet = JSON.stringify([{
         attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id')
     }]);
@@ -205,13 +212,39 @@ function attDel(i) {
 
 
 
-// 申請人審核按鈕  (按下後狀態改變)
+// 申請人審核按鈕  (按下後 1.頁面1表格狀態會改變)
+function apply(i) {
+    var attDelSet = JSON.stringify([{
+        "userToken": getCookie(),
+        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
+        approvalId: "3"
+    }]);
+    $.ajax({
+        url: "http://localhost:8080/Approval/updateApproval1/",
+        type: "PUT",
+        data: attDelSet,
+        contentType: "application/json",
+        success: function () {
+            if (confirm("申請成功")) {
+                window.location.href = './CMS_2Leaverecorded.html';
+            }
+        }
+    })
+}
 
 
 // 審核歷程按鈕  (彈跳視窗)
 
 
-// 審核通過按鈕
 
 
-//審核未通過按鈕 
+// 審核通過按鈕  (按下後  1.會傳送到頁面3的相對應(第三層)的審核人員進行審核  或  全部審核完成)
+
+
+
+
+//審核未通過按鈕 (狀態改變)
+
+
+
+
