@@ -34,7 +34,7 @@ $(function () {    //先傳出值
         data: usertoken,
         contentType: 'application/json',
         dataType: 'json',
-        success: function (data) {        
+        success: function (data) {
             $("#inUserName").val(data.empName);
             $("#inUserPwd").val(data.empPwd);
             $("#inUserTel").val(data.empTel);
@@ -49,31 +49,32 @@ $(function () {    //先傳出值
 })
 
 function informationBtn() { //點下去後修改
-    var usertoken = JSON.stringify({"userToken": getCookie(),   
-    "empName": $("#inUserName").val(),
-    "empPwd": $("#inUserPwd").val(),
-    "empTel": $("#inUserTel") .val(),
-    "empPhone": $("#inUserPhone").val(),
-    "empEmail": $("#inUserEmail").val(),
-    "empAddr": $("#inUserAddr").val(),    
+    var usertoken = JSON.stringify({
+        "userToken": getCookie(),
+        "empName": $("#inUserName").val(),
+        "empPwd": $("#inUserPwd").val(),
+        "empTel": $("#inUserTel").val(),
+        "empPhone": $("#inUserPhone").val(),
+        "empEmail": $("#inUserEmail").val(),
+        "empAddr": $("#inUserAddr").val(),
     });
     console.log(usertoken);
     $.ajax({
         type: "PUT",
         url: "/emp/updateUserInfo",
         data: usertoken,
-        contentType:'application/json',
+        contentType: 'application/json',
         success: function () {
             alert("修改成功");
-            window.location.href='./CMS_0.html';
+            window.location.href = './CMS_0.html';
         }
     });
 }
 
-function informationCancel(){
+function informationCancel() {
     var yes = confirm("確定要取消嗎?");
-    if(yes){
-        window.location.href='./CMS_0.html';
+    if (yes) {
+        window.location.href = './CMS_0.html';
     }
 }
 
@@ -93,14 +94,14 @@ $(function () {
         type: "POST",
         url: "/security/checkAdm",
         data: usertoken,
-        contentType:'application/json',
+        contentType: 'application/json',
         success: function (data) {
-        //    console.log("HOOOOOOOOOOO")
-        if(data.userAdm == "admin"){
-            document.getElementById("AdminUse").style.visibility = "visible";
-         }else{
-            console.log("使用者")
-         }
+            //    console.log("HOOOOOOOOOOO")
+            if (data.userAdm == "admin") {
+                document.getElementById("AdminUse").style.visibility = "visible";
+            } else {
+                console.log("使用者")
+            }
         }
     })
 })

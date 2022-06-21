@@ -16,7 +16,6 @@ $(function () {
         data: usertoken,
         contentType: 'application/json',
         success: function (data) {
-            console.log(data);
             var i = 1;
             $.each(data, function () {
                 if (this.approvalId == 1) {
@@ -154,7 +153,7 @@ $("#sendAnnouncement").on("click", function () {
 
 // 出勤修改(頁面4)
 function leaveEdit(i) {
-    window.localStorage.setItem("attend",document.getElementsByTagName("tr")[i].getAttribute('id'));
+    window.localStorage.setItem("attend", document.getElementsByTagName("tr")[i].getAttribute('id'));
     window.location.href = "./CMS_2_4.html";
 }
 
@@ -169,8 +168,6 @@ function attDel(i) {
     var attDelSet = JSON.stringify([{
         attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id')
     }]);
-    console.log(attDelSet);
-
     $.ajax({
         url: "http://localhost:8080/Attendance/delete/",
         type: "DELETE",
@@ -188,15 +185,16 @@ function attDel(i) {
 
 // 申請人審核按鈕  (按下後 1.頁面1表格狀態會改變)
 function apply(i) {
-    var attDelSet = JSON.stringify([{
+
+    var attpeople1 = JSON.stringify([{
         "userToken": getCookie(),
         attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
         approvalId: "3"
     }]);
     $.ajax({
-        url: "http://localhost:8080/Approval/updateApproval1/",
+        url: "http://localhost:8080/Attendance/updateapproval1/",
         type: "PUT",
-        data: attDelSet,
+        data: attpeople1,
         contentType: "application/json",
         success: function () {
             if (confirm("申請成功")) {
@@ -204,19 +202,54 @@ function apply(i) {
             }
         }
     })
+    let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
+    var attpeople2 = JSON.stringify([{
+        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
+        attendanceDate: nowdate
+    }]);
+    $.ajax({
+        url: "http://localhost:8080/Approval/newrank/",
+        type: "POST",
+        data: attpeople2,
+        contentType: "application/json",
+        success: function () {
+            console.log("OK");
+        }
+    })
 }
 
 
-// 審核歷程按鈕  (彈跳視窗)
-function apply(i) {
+// 審核歷程按鈕  (彈跳視窗)/Approval/showrank
+function reviewProcess(i) {
 
-
-
+    var rankId = document.getElementsByTagName("tr")[i].getAttribute('id');
+    console.log(rankId);
+    $.ajax({
+        url: "http://localhost:8080/Approval/showrank/",
+        type: "GET",
+        success: function (data) {
+            $("#attendanceDate").text("");
+            $("#approver1").text("");
+            $("#dateApproved1").text("");
+            $("#approver2").text("");
+            $("#dateApproved2").text("");
+            for(var i = 0; i < data.length ; i++){
+                if(rankId == data[i].attendances.attendanceId){
+                    console.log(data[i].attendances.attendanceId);
+                    attendanceDate.innerText = data[i].attendanceDate;
+                    approver1.innerText = data[i].approver1;
+                    dateApproved1.innerText = data[i].dateApproved1;
+                    approver2.innerText = data[i].approver2;
+                    dateApproved2.innerText = data[i].dateApproved2; 
+                }
+            }
+            reviewdialog.showModal();
+        }
+    })
 }
-
-
 
 // 審核通過按鈕  (按下後  1.會傳送到頁面3的相對應(第三層)的審核人員進行審核  或  全部審核完成)
+
 
 
 

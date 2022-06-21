@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <script src="/js/CMS2attendance/leaves.js"></script>
     <script src="/js/CMS2attendance/admin.js"></script>
-
+    <script src="/js/punch/moment.min.js"></script>
 </head>
 
 
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-    
+
 
     <!-- 審核歷程 -->
     <dialog id="reviewdialog">
@@ -79,30 +79,28 @@
             <button type="button" class="btn-close" aria-label="Close" onclick="reviewdialog.close()"></button>
         </div>
         <div class="modal-body reviewbody">
-            <form action="" method="" enctype="">
-                <table>
-                    <tr>
-                        <th class="processTable" width="20%">順序</th>
-                        <th class="processTable" width="20%">簽核</th>
-                        <th class="processTable" width="20%">簽核狀態</th>
-                    </tr>
-                    <tr>
-                        <td class="processTable">1</td>
-                        <td class="processTable">申請人審核</td>
-                        <td class="processTable"></td>
-                    </tr>
-                    <tr>
-                        <td class="processTable">2</td>
-                        <td class="processTable"></td>
-                        <td class="processTable"></td>
-                    </tr>
-                    <tr>
-                        <td class="processTable">3</td>
-                        <td class="processTable"></td>
-                        <td class="processTable"></td>
-                    </tr>
-                </table>
-            </form>
+            <table>
+                <tr>
+                    <th class="processTable" width="20%">順序</th>
+                    <th class="processTable" width="20%">簽核</th>
+                    <th class="processTable" width="20%">簽核狀態</th>
+                </tr>
+                <tr>
+                    <td class="processTable">1</td>
+                    <td class="processTable">申請人審核</td>
+                    <td class="processTable"><span id="attendanceDate"></span></td>
+                </tr>
+                <tr>
+                    <td class="processTable">2</td>
+                    <td class="processTable"><span id="approver1"></span></td>
+                    <td class="processTable"><span id="dateApproved1"></span></td>
+                </tr>
+                <tr>
+                    <td class="processTable">3</td>
+                    <td class="processTable"><span id="approver2"></span></td>
+                    <td class="processTable"><span id="dateApproved2"></span></td>
+                </tr>
+            </table>
         </div>
     </dialog>
 
@@ -111,7 +109,7 @@
             reviewdialog.showModal()
         })
     </script>
-    
+
     <script src="/js/CMS2attendance/attendance.js"></script>
 </body>
 
