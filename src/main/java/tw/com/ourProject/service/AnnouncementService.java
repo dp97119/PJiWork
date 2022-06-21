@@ -83,7 +83,7 @@ public class AnnouncementService {
 		if (attaches.size() != 0) {
 			for (int i = 0; i<attaches.size(); i++) {
 				JSONObject obj = new JSONObject();
-				obj.put("attName"+ i, attaches.get(i).getAttName());
+				obj.put("attName", attaches.get(i).getAttName());
 				arrayannment.add(obj);
 			}
 		}else{
