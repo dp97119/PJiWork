@@ -66,4 +66,23 @@ public class AttendanceService {
 	public void deleteAttendance(Integer attendanceid) {
 		attendanceRepo.deleteById(attendanceid);
 	}
+	
+	public void updateattendance(Integer attendanceid, Leaves leaveid, Date startdate, Date enddate, Integer hours,
+			Approval approvalid, Employee updateperson) {
+		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
+		attendanceInfo.setLeaves(leaveid);
+		attendanceInfo.setStartDate(startdate);
+		attendanceInfo.setEndDate(enddate);
+		attendanceInfo.setHours(hours);
+		attendanceInfo.setApprovals(approvalid);
+		attendanceInfo.setEmployeesss(updateperson);
+		attendanceRepo.save(attendanceInfo);
+	}
+	
+	public void updateapproval1(Integer attendanceid, Approval approvalid, Employee updateperson) {
+		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
+		attendanceInfo.setApprovals(approvalid);
+		attendanceInfo.setEmployeesss(updateperson);
+		attendanceRepo.save(attendanceInfo);
+	}
 }

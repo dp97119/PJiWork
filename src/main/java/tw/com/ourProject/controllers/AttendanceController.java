@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -73,8 +74,48 @@ public class AttendanceController {
 	}
 		
 	@DeleteMapping("/Attendance/delete")
-	public void delattendance(@RequestBody JSONArray eventInfo) {
-		Integer obj1 = Integer.parseInt(eventInfo.getJSONObject(0).get("attendanceId").toString());
+	public void delattendance(@RequestBody JSONArray info) {
+		Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
 		attendanceService.deleteAttendance(obj1);
 	}
+	
+	@PutMapping("/Attendance/update")
+	public void updateAttendance(@RequestBody JSONArray info) {
+		try {
+			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
+			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
+			emp1.setEmpId(obj2);
+			leaveid.setLeaveId(Integer.parseInt(info.getJSONObject(0).get("leaveId").toString())); 
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date obj3 = format.parse(info.getJSONObject(0).get("startDate").toString());
+			Date obj4 = format.parse(info.getJSONObject(0).get("endDate").toString());
+			Integer obj5 = (Integer.parseInt(info.getJSONObject(0).get("hours").toString()));
+			approvalid.setApprovalId(Integer.parseInt(info.getJSONObject(0).get("approvalId").toString()));
+			
+			attendanceService.updateattendance(obj1, leaveid, obj3, obj4, obj5, approvalid, emp1);
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			
+		}
+	}
+	
+	@PutMapping("/Attendance/updateapproval1")
+	public void updateApproval1(@RequestBody JSONArray info) {
+		try {
+			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
+			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
+			emp1.setEmpId(obj2);
+			approvalid.setApprovalId(Integer.parseInt(info.getJSONObject(0).get("approvalId").toString()));
+			
+			attendanceService.updateapproval1(obj1, approvalid, emp1);
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			
+		}
+	}
+	
+//	@PostMapping("/Attendance/viewapproval2")
+//	public void 
 }
