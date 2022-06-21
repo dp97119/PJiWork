@@ -75,7 +75,8 @@
 			</div>
 			<br>
 			<div>
-				<input type="button" value="確定" class="btnStyle" id="changeAnnouncement"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="確定" class="btnStyle"
+					onclick="changeAnnouncement()"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="取消" class="btnStyle" id="cancelbtn"></input>
 			</div>
 		</div>
@@ -90,6 +91,70 @@
 			}
 		})
 	</script>
+
+	<script>
+		var findattId = JSON.stringify({
+			attendanceId: window.localStorage.getItem("attend")
+		});
+
+		// console.log(window.localStorage.getItem("attend"));
+		$(function () {
+			$.ajax({
+				url: "http://localhost:8080/Attendance/updateview",
+				type: "POST",
+				data: findattId,
+				contentType: "application/json",
+				success: function (data) {
+					console.log(data);
+					$("#leaves").val(data.leaveId);
+					$("#contentTextEdit").val(data.ContentText);
+					$("#startDatesEdit").val(data.startDate.split(" ")[0] + "T" + data.startDate.split(" ")[1]);
+					$("#endDatesEdit").val(data.endDate.split(" ")[0] + "T" + data.endDate.split(" ")[1]);
+					$("#hoursEdit").val(data.hours);
+				}
+			})
+		})
+
+		// 修改之後的確定
+
+		function changeAnnouncement() {
+			// console.log("OK")
+			let evestart = moment($('#startDates').val()).format('YYYY-MM-DD HH:mm:ss');
+			let eveend = moment($('#endDates').val()).format('YYYY-MM-DD HH:mm:ss');
+			var enterBtn = JSON.stringify([{
+				"userToken": getCookie(),
+				"attendanceId": window.localStorage.getItem("attend"),
+				"leaveId": $("#leaves").find("option:selected").val(),
+				"contentText": $("#contentTextEdit").val(),
+				"startDate": evestart,
+				"endDate": eveend,
+				"hours": $("#hoursEdit").val(),
+				"approvalId": "1",
+			}]);
+
+			console.log(enterBtn);
+			$(function () {
+				$.ajax({
+					url: "http://localhost:8080/Attendance/update",
+					type: "PUT",
+					data: enterBtn,
+					contentType: "application/json",
+					success: function (data) {
+						console.log(data);
+						if(confirm("修改成功")){
+							window.location.href="./CMS_2Leaverecorded.html"
+						}
+					}
+				})
+			})
+
+		}
+
+
+	</script>
+
+
+
 	<script src="/js/punch/moment.min.js"></script>
 	<script src="/js/CMS2attendance/attendance.js"></script>
 </body>

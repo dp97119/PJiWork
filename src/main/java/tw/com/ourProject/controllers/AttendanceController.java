@@ -81,6 +81,7 @@ public class AttendanceController {
 	
 	@PutMapping("/Attendance/update")
 	public void updateAttendance(@RequestBody JSONArray info) {
+		System.out.println(info);
 		try {
 			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");

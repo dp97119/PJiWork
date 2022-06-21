@@ -154,34 +154,8 @@ $("#sendAnnouncement").on("click", function () {
 
 // 出勤修改(頁面4)
 function leaveEdit(i) {
-    // console.log("OK");
-    var findattId = JSON.stringify([{
-        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
-    }]);
-    console.log(findattId);
-    $(function () {
-        $.ajax({
-            url: "http://localhost:8080/Attendance/update/",
-            type: "PUT",
-            data: findattId,
-            contentType: "application/json",
-            success: function (data) {
-                window.location.href = "./CMS_2_4.html"
-                
-
-
-
-                function changeAnnouncement() {
-                    if (confirm("修改成功")) {
-                        window.location.href = "./CMS_2Leaverecorded.html"
-                    }
-
-
-                }
-
-            }
-        })
-    })
+    window.localStorage.setItem("attend",document.getElementsByTagName("tr")[i].getAttribute('id'));
+    window.location.href = "./CMS_2_4.html";
 }
 
 
@@ -234,7 +208,11 @@ function apply(i) {
 
 
 // 審核歷程按鈕  (彈跳視窗)
+function apply(i) {
 
+
+
+}
 
 
 
