@@ -30,6 +30,7 @@ $(function () {
 
 // CMS0_公告第二層彈跳視窗
 function openbtn(i) {
+    $("#annexTr span").text("");
     console.log("OK");
     var openNumber = JSON.stringify({
         announceId: document.getElementsByTagName("li")[i].getAttribute('id')
@@ -52,7 +53,7 @@ function openbtn(i) {
                     aaa.appendTo("#annexTr");
                 }
             } else {
-                annex.innerText = "";
+                $("#annexTr span").text("");
             }
             noticedialog.showModal();
         }
