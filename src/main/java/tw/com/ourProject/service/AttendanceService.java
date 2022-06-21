@@ -95,8 +95,8 @@ public class AttendanceService {
 		obj.put("leaveId", attendanceInfo.getLeaves().getLeaveId()) ;
 		obj.put("leaveType", attendanceInfo.getLeaves().getLeaveType());
 		obj.put("ContentText", attendanceInfo.getContentText());
-		obj.put("startDate", attendanceInfo.getStartDate());
-		obj.put("endDate", attendanceInfo.getEndDate());
+		obj.put("startDate", attendanceInfo.getStartDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
+		obj.put("endDate", attendanceInfo.getEndDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
 		obj.put("hours", attendanceInfo.getHours());
 		return obj;
 	}
