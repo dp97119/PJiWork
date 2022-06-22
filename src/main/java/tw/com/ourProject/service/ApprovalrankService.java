@@ -35,8 +35,8 @@ public class ApprovalrankService {
 		approvalrankRepo.save(approvalrankInfo);
 	}
 	
-	public void saveApproval2(Integer approvalrankid, String empid, Date approvaldate1) {
-		Approvalrank approvalrankInfo1 = approvalrankRepo.findByApprovalRankId(approvalrankid);
+	public void saveApproval2(Attendance attendanceid, String empid, Date approvaldate1) {
+		Approvalrank approvalrankInfo1 = approvalrankRepo.findByAttendances(attendanceid);
 		empname = employeeRepo.findByEmpId(empid);
 		approvalrankInfo1.setApprover1(empname.getEmpName());
 		approvalrankInfo1.setDateApproved1(approvaldate1);

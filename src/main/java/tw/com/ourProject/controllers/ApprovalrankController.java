@@ -55,12 +55,12 @@ public class ApprovalrankController {
 	@PutMapping("/Approval/updateApproval2")
 	public void addApproval2(@RequestBody JSONArray info) {
 		try {
-			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("approvalrankId").toString());
+			attendanceid.setAttendanceId(Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString()));
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date obj3 = format.parse(info.getJSONObject(0).get("dateApproved1").toString());
 
-			approvalrankService.saveApproval2(obj1, obj2, obj3);
+			approvalrankService.saveApproval2(attendanceid, obj2, obj3);
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
