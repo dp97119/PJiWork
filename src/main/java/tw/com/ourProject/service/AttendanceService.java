@@ -13,17 +13,31 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import tw.com.ourProject.model.Apart;
 import tw.com.ourProject.model.Approval;
+import tw.com.ourProject.model.Approvalset;
 import tw.com.ourProject.model.Attendance;
 import tw.com.ourProject.model.Employee;
 import tw.com.ourProject.model.Leaves;
+import tw.com.ourProject.repository.ApartRepo;
+import tw.com.ourProject.repository.ApprovalsetRepo;
 import tw.com.ourProject.repository.AttendanceRepo;
+import tw.com.ourProject.repository.EmployeeRepo;
 
 @Service
 @Transactional
 public class AttendanceService {
 	@Autowired
 	public AttendanceRepo attendanceRepo;
+	
+	@Autowired
+	public EmployeeRepo employeeRepo;
+	
+	@Autowired
+	public ApprovalsetRepo approvalsetRepo;
+	
+	@Autowired
+	public ApartRepo apartRepo;
 	
 	public List<Attendance> showAttendance() {
 		return attendanceRepo.findAll();
@@ -100,4 +114,35 @@ public class AttendanceService {
 		obj.put("hours", attendanceInfo.getHours());
 		return obj;
 	}
+	
+	public JSONArray findApproval1attendance(String empid) {
+		Employee emp = employeeRepo.findByEmpId(empid);
+		Approvalset apart = approvalsetRepo.findByAparts(emp.getAparts());
+		Approvalset approval1 = approvalsetRepo.findByEmployees(apart.getEmployees());
+		Employee approvalemp1 = approval1.getEmployees();
+		JSONArray Jarray = new JSONArray();
+		if (approvalemp1 == emp) {
+			List<Attendance> attendancelist = attendanceRepo.findAll();
+			for (int i = 0; i<attendancelist.size(); i++) {
+				if((attendancelist.get(i).getEmployees().getAparts().getApartId()) == (approvalemp1.getAparts().getApartId())){
+					if(attendancelist.get(i).getApprovals().getApprovalId()==3) {
+						JSONObject obj = new JSONObject();
+						obj.put("attendanceId", attendancelist.get(i).getAttendanceId());
+						obj.put("apart", attendancelist.get(i).getEmployees().getAparts().getApart());
+						obj.put("empId", attendancelist.get(i).getEmployees().getEmpId());
+						obj.put("empName", attendancelist.get(i).getEmployees().getEmpName());
+						obj.put("leaveId", attendancelist.get(i).getLeaves().getLeaveId()) ;
+						obj.put("leaveType", attendancelist.get(i).getLeaves().getLeaveType());
+						obj.put("startDate", attendancelist.get(i).getStartDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
+						obj.put("endDate", attendancelist.get(i).getEndDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
+						obj.put("hours", attendancelist.get(i).getHours());
+						Jarray.add(obj);
+					}
+				}
+			}		
+		}
+		System.out.println(Jarray);
+		return Jarray;
+	}
+	
 }

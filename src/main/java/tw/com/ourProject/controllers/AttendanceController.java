@@ -122,4 +122,9 @@ public class AttendanceController {
 	public JSONObject updateviewAttendance(@RequestBody JSONObject info) {
 		return attendanceService.UpdateViewAttendance(Integer.parseInt(info.get("attendanceId").toString()));
 	}
+	
+	@PostMapping("/Attendance/appprovallist1")
+	public JSONArray findApproval1attendance(@RequestBody JSONObject info) {
+		return attendanceService.findApproval1attendance(jwt.getInfoFromJwtToken(info.getString("userToken"), "empId"));
+	}
 }
