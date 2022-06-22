@@ -26,8 +26,7 @@ $(function () {
                         <td class="tableStyle">
                             <p class="icon-input-btn mt-3">
                                 <i class="glyphicon glyphicon-pencil"></i>
-                                <input type="button" value="修改" class="function"
-                                    onClick="window.location.href='./CMS_6_2_3.html';">
+                                <input type="button" value="修改" class="function" onClick="announcementEdit(${i})">
                             </p>&nbsp;&nbsp;
                             <p class="icon-input-btn">
                                 <i class="glyphicon glyphicon-trash"></i>
@@ -61,10 +60,10 @@ $(function () {
 })
 
 // 修改
-
-
-
-
+function announcementEdit(i) {
+    window.localStorage.setItem("annend", document.getElementsByTagName("tr")[i].getAttribute('id'));
+    window.location.href = "./CMS_6_2_3.html";
+}
 
 
 
