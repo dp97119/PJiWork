@@ -191,19 +191,24 @@
                             formData.append('annId', annId);
                             formData.append('userToken', getCookie());
                             var askLength = 6;
-                            var sendAttachorNot = false;
-                            if($(`#attachInput5`).val() == undefined){
+                            var sendAttachorNot = true;
+                            if ($(`#attachInput5`).val() == undefined) {
                                 askLength = 5;
                             }
-                            if($(`#attachInput4`).val() == undefined){
+                            if ($(`#attachInput4`).val() == undefined) {
                                 askLength = 4;
                             }
-                            for(i = 1 ; i<askLength;i++){
-                                formData.append('file[]', $(`#attachInput${i}`).get(0).files[0]);
-                                sendAttachorNot=true;
+                            if ($(`#attachInput1`).val() == "") {
+                                sendAttachorNot = false;
+                            }
+                            while (sendAttachorNot) {
+                                for (i = 1; i < askLength; i++) {
+                                    formData.append('file[]', $(`#attachInput${i}`).get(0).files[0]);
+                                }
+                                break;
                             }
 
-                             if(sendAttachorNot) {
+                            if (sendAttachorNot) {
                                 $.ajax({
                                     type: "POST",
                                     url: "/Announcement/uploadAttach",
@@ -219,7 +224,7 @@
                                         alert("上傳失敗，請確認檔案格式");
                                     }
                                 });
-                            }else{
+                            } else {
                                 alert("上傳成功");
                                 window.location.href = "./CMS_6_2_1.html";
                             }
