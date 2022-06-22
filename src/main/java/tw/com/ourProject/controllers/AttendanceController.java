@@ -148,4 +148,20 @@ public class AttendanceController {
 	public JSONArray findApproval2attendance(@RequestBody JSONObject info) {
 		return attendanceService.findApproval2attendance(jwt.getInfoFromJwtToken(info.getString("userToken"), "empId"));
 	}
+	
+	@PutMapping("/Attendance/updateapproval3")
+	public void updateApproval3(@RequestBody JSONArray info) {
+		try {
+			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
+			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
+			emp1.setEmpId(obj2);
+			approvalid.setApprovalId(Integer.parseInt(info.getJSONObject(0).get("approvalId").toString()));
+			
+			attendanceService.updateapproval3(obj1, approvalid, emp1);
+			
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			
+		}
+	}
 }

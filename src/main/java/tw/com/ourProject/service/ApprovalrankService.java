@@ -42,5 +42,13 @@ public class ApprovalrankService {
 		approvalrankInfo1.setDateApproved1(approvaldate1);
 		approvalrankRepo.save(approvalrankInfo1);
 	}
+	
+	public void saveApproval3(Attendance attendanceid, String empid, Date approvaldate2) {
+		Approvalrank approvalrankInfo2 = approvalrankRepo.findByAttendances(attendanceid);
+		empname = employeeRepo.findByEmpId(empid);
+		approvalrankInfo2.setApprover2(empname.getEmpName());
+		approvalrankInfo2.setDateApproved2(approvaldate2);
+		approvalrankRepo.save(approvalrankInfo2);
+	}
 
 }

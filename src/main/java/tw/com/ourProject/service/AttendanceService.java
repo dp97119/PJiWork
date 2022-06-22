@@ -193,4 +193,11 @@ public class AttendanceService {
 		System.out.println(Jarray);
 		return Jarray;
 	}
+	
+	public void updateapproval3(Integer attendanceid, Approval approvalid, Employee updateperson) {
+		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
+		attendanceInfo.setApprovals(approvalid);
+		attendanceInfo.setEmployeesss(updateperson);
+		attendanceRepo.save(attendanceInfo);
+	}
 }

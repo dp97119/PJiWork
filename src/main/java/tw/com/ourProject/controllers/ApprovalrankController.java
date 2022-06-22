@@ -67,4 +67,20 @@ public class ApprovalrankController {
 
 		}
 	}
+	
+	@PutMapping("/Approval/updateApproval3")
+	public void addApproval3(@RequestBody JSONArray info) {
+		try {
+			attendanceid.setAttendanceId(Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString()));
+			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date obj3 = format.parse(info.getJSONObject(0).get("dateApproved2").toString());
+
+			approvalrankService.saveApproval3(attendanceid, obj2, obj3);
+
+		} catch (Exception e) {
+			System.out.println(e.toString());
+
+		}
+	}
 }
