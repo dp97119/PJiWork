@@ -142,6 +142,8 @@ public class AttendanceService {
 						obj.put("startDate", attendancelist.get(i).getStartDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
 						obj.put("endDate", attendancelist.get(i).getEndDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
 						obj.put("hours", attendancelist.get(i).getHours());
+						obj.put("approvalId", attendancelist.get(i).getApprovals().getApprovalId());
+						obj.put("approvalType", attendancelist.get(i).getApprovals().getApprovalType());
 						Jarray.add(obj);
 					}
 				}
@@ -185,6 +187,8 @@ public class AttendanceService {
 						obj.put("startDate", attendancelist.get(i).getStartDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
 						obj.put("endDate", attendancelist.get(i).getEndDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
 						obj.put("hours", attendancelist.get(i).getHours());
+						obj.put("approvalId", attendancelist.get(i).getApprovals().getApprovalId());
+						obj.put("approvalType", attendancelist.get(i).getApprovals().getApprovalType());
 						Jarray.add(obj);
 					}
 				}
