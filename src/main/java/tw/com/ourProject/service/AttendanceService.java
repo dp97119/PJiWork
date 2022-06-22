@@ -1,7 +1,9 @@
 package tw.com.ourProject.service;
 
+import java.text.SimpleDateFormat;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import tw.com.ourProject.model.Apart;
 import tw.com.ourProject.model.Approval;
 import tw.com.ourProject.model.Approvalset;
 import tw.com.ourProject.model.Attendance;
@@ -46,6 +47,18 @@ public class AttendanceService {
 	public void saveAttendance(Employee empid, Leaves leaveid, String contenttext, Date startdate, Date enddate, 
 			Integer hours, Approval approvalid, Date createdate, Employee createperson, Employee updateperson) {
 		Attendance attendanceInfo = new Attendance();
+		String attidstr = attendanceRepo.findTopByOrderByAttendanceIdDesc().getAttendanceId().toString();
+		String timeStamp = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+        String datestr = attidstr.substring(0, 8);
+        if (datestr.equals(timeStamp) ){
+        	Integer ids =(Integer.parseInt(attidstr.substring(8, 11)));
+        	ids = ids + 1;
+        	String idstr = String.format("%03d", ids);
+        	timeStamp = timeStamp.concat(idstr);
+        }else {
+        	timeStamp = timeStamp +"001";
+        }
+		attendanceInfo.setAttendanceId(timeStamp);
 		attendanceInfo.setEmployees(empid);
 		attendanceInfo.setLeaves(leaveid);
 		attendanceInfo.setContentText(contenttext);
@@ -78,11 +91,11 @@ public class AttendanceService {
 		return arraypd;
 	}
 	
-	public void deleteAttendance(Integer attendanceid) {
+	public void deleteAttendance(String attendanceid) {
 		attendanceRepo.deleteById(attendanceid);
 	}
 	
-	public void updateattendance(Integer attendanceid, Leaves leaveid, String contenttext, Date startdate, Date enddate,
+	public void updateattendance(String attendanceid, Leaves leaveid, String contenttext, Date startdate, Date enddate,
 			Integer hours, Approval approvalid, Employee updateperson) {
 		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
 		attendanceInfo.setLeaves(leaveid);
@@ -95,14 +108,14 @@ public class AttendanceService {
 		attendanceRepo.save(attendanceInfo);
 	}
 	
-	public void updateapproval1(Integer attendanceid, Approval approvalid, Employee updateperson) {
+	public void updateapproval1(String attendanceid, Approval approvalid, Employee updateperson) {
 		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
 		attendanceInfo.setApprovals(approvalid);
 		attendanceInfo.setEmployeesss(updateperson);
 		attendanceRepo.save(attendanceInfo);
 	}
 	
-	public JSONObject UpdateViewAttendance(Integer attendanceid) {
+	public JSONObject UpdateViewAttendance(String attendanceid) {
 		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
 		JSONObject obj = new JSONObject();
 		obj.put("attendanceId", attendanceInfo.getAttendanceId());
@@ -149,11 +162,10 @@ public class AttendanceService {
 				}
 			}		
 		}
-		System.out.println(Jarray);
 		return Jarray;
 	}
 	
-	public void updateapproval2(Integer attendanceid, Approval approvalid, Employee updateperson) {
+	public void updateapproval2(String attendanceid, Approval approvalid, Employee updateperson) {
 		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
 		attendanceInfo.setApprovals(approvalid);
 		attendanceInfo.setEmployeesss(updateperson);
@@ -163,19 +175,14 @@ public class AttendanceService {
 	public JSONArray findApproval2attendance(String empid) {
 		//找出第二審核人員
 		Employee emp = employeeRepo.findByEmpId(empid);
-		Approvalset apart = approvalsetRepo.findByAparts(emp.getAparts());
-		Approvalset approval2 = approvalsetRepo.findByEmployees(apart.getEmployee());
-		Employee approvalemp2 = approval2.getEmployee();
-		
+		List<Approvalset> apart = approvalsetRepo.findByEmployee(emp);
 		JSONArray Jarray = new JSONArray();
-		//若token的人跟層級審核設定第二層級的人相同
-		if (approvalemp2 == emp) {
-			//撈出出勤所有資料
-			List<Attendance> attendancelist = attendanceRepo.findAll();
+		for (int j = 0; j<apart.size() ;j++) {
+			List<Attendance> attendancelist = attendanceRepo.findAll();  //撈出所有出勤資料
 			for (int i = 0; i<attendancelist.size(); i++) {
-				//若出勤資料的部門跟層級設定的部門相同
-				if((attendancelist.get(i).getEmployees().getAparts().getApartId()) == (approvalemp2.getAparts().getApartId())){
-					//就把該部門審核狀態是部門主管審核中的出勤資料抓出來，送給前端顯示待審核的畫面
+				//比對出勤資料的部門跟有設定第二審核人員的部門相同
+				if((attendancelist.get(i).getEmployees().getAparts().getApartId()) == (apart.get(j).getAparts().getApartId())){
+					//就把該部門審核狀態是會計審核中的出勤資料抓出來，送給前端顯示待審核的畫面
 					if(attendancelist.get(i).getApprovals().getApprovalId()==6) {
 						JSONObject obj = new JSONObject();
 						obj.put("attendanceId", attendancelist.get(i).getAttendanceId());
@@ -194,11 +201,10 @@ public class AttendanceService {
 				}
 			}		
 		}
-		System.out.println(Jarray);
 		return Jarray;
 	}
 	
-	public void updateapproval3(Integer attendanceid, Approval approvalid, Employee updateperson) {
+	public void updateapproval3(String attendanceid, Approval approvalid, Employee updateperson) {
 		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
 		attendanceInfo.setApprovals(approvalid);
 		attendanceInfo.setEmployeesss(updateperson);

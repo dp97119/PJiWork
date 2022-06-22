@@ -39,7 +39,7 @@ public class ApprovalrankController {
 	@PostMapping("/Approval/newrank")
 	public void addApproval(@RequestBody JSONArray attendanceInfo) {
 		try {
-			attendanceid.setAttendanceId(Integer.parseInt(attendanceInfo.getJSONObject(0).get("attendanceId").toString()));
+			attendanceid.setAttendanceId(attendanceInfo.getJSONObject(0).get("attendanceId").toString());
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date obj3 = format.parse(attendanceInfo.getJSONObject(0).get("attendanceDate").toString());
 
@@ -55,7 +55,7 @@ public class ApprovalrankController {
 	@PutMapping("/Approval/updateApproval2")
 	public void addApproval2(@RequestBody JSONArray info) {
 		try {
-			attendanceid.setAttendanceId(Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString()));
+			attendanceid.setAttendanceId(info.getJSONObject(0).get("attendanceId").toString());
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date obj3 = format.parse(info.getJSONObject(0).get("dateApproved1").toString());
@@ -71,7 +71,7 @@ public class ApprovalrankController {
 	@PutMapping("/Approval/updateApproval3")
 	public void addApproval3(@RequestBody JSONArray info) {
 		try {
-			attendanceid.setAttendanceId(Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString()));
+			attendanceid.setAttendanceId(info.getJSONObject(0).get("attendanceId").toString());
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			Date obj3 = format.parse(info.getJSONObject(0).get("dateApproved2").toString());

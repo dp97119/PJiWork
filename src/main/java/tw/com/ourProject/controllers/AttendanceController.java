@@ -75,7 +75,7 @@ public class AttendanceController {
 		
 	@DeleteMapping("/Attendance/delete")
 	public void delattendance(@RequestBody JSONArray info) {
-		Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
+		String obj1 = info.getJSONObject(0).get("attendanceId").toString();
 		attendanceService.deleteAttendance(obj1);
 	}
 	
@@ -83,7 +83,7 @@ public class AttendanceController {
 	public void updateAttendance(@RequestBody JSONArray info) {
 		System.out.println(info);
 		try {
-			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
+			String obj1 = info.getJSONObject(0).get("attendanceId").toString();
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
 			emp1.setEmpId(obj2);
 			leaveid.setLeaveId(Integer.parseInt(info.getJSONObject(0).get("leaveId").toString()));
@@ -105,7 +105,7 @@ public class AttendanceController {
 	@PutMapping("/Attendance/updateapproval1")
 	public void updateApproval1(@RequestBody JSONArray info) {
 		try {
-			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
+			String obj1 = info.getJSONObject(0).get("attendanceId").toString();
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
 			emp1.setEmpId(obj2);
 			approvalid.setApprovalId(Integer.parseInt(info.getJSONObject(0).get("approvalId").toString()));
@@ -120,7 +120,7 @@ public class AttendanceController {
 	
 	@PostMapping("/Attendance/updateview")
 	public JSONObject updateviewAttendance(@RequestBody JSONObject info) {
-		return attendanceService.UpdateViewAttendance(Integer.parseInt(info.get("attendanceId").toString()));
+		return attendanceService.UpdateViewAttendance(info.get("attendanceId").toString());
 	}
 	
 	@PostMapping("/Attendance/appprovallist1")
@@ -131,7 +131,7 @@ public class AttendanceController {
 	@PutMapping("/Attendance/updateapproval2")
 	public void updateApproval2(@RequestBody JSONArray info) {
 		try {
-			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
+			String obj1 = info.getJSONObject(0).get("attendanceId").toString();
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
 			emp1.setEmpId(obj2);
 			approvalid.setApprovalId(Integer.parseInt(info.getJSONObject(0).get("approvalId").toString()));
@@ -152,7 +152,7 @@ public class AttendanceController {
 	@PutMapping("/Attendance/updateapproval3")
 	public void updateApproval3(@RequestBody JSONArray info) {
 		try {
-			Integer obj1 = Integer.parseInt(info.getJSONObject(0).get("attendanceId").toString());
+			String obj1 = info.getJSONObject(0).get("attendanceId").toString();
 			String obj2 = jwt.getInfoFromJwtToken(info.getJSONObject(0).getString("userToken"), "empId");
 			emp1.setEmpId(obj2);
 			approvalid.setApprovalId(Integer.parseInt(info.getJSONObject(0).get("approvalId").toString()));

@@ -30,9 +30,8 @@ public class Attendance {
 	private Set<Approvalrank> approvalranks;
 	
 	@Id
-	@Column(name = "attendanceid")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer attendanceId;
+	@Column(name = "attendanceid",columnDefinition="char(11)")
+	private String attendanceId;
 	
 	@ManyToOne
 	@JoinColumn(name="empid",referencedColumnName = "empid")
@@ -77,11 +76,11 @@ public class Attendance {
 	@Column(name = "createdate")
 	private java.util.Date createDate ;
 
-	public Integer getAttendanceId() {
+	public String getAttendanceId() {
 		return attendanceId;
 	}
 
-	public void setAttendanceId(Integer attendanceId) {
+	public void setAttendanceId(String attendanceId) {
 		this.attendanceId = attendanceId;
 	}
 

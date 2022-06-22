@@ -15,4 +15,6 @@ public interface ApprovalsetRepo extends JpaRepository<Approvalset, Integer>{
 	Approvalset findByApprovalSetId(Integer approvalSetId);
 	Approvalset findByAparts(Apart aparts);
 	Approvalset findByEmployees(Employee employees);
+	List<Approvalset> findByEmployee(Employee employee);
+	
 }
