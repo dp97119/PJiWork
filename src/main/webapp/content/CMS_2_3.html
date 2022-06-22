@@ -20,6 +20,7 @@
         crossorigin="anonymous"></script>
     <script src="/js/apart/apart.js"></script>
     <script src="/js/CMS2attendance/leaves.js"></script>
+    <script src="/js/punch/moment.min.js"></script>
 </head>
 
 
@@ -32,7 +33,7 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="./CMS_2_2.html">申請表單</a>
             </li>
-            <li class="nav-item"  id="disabled" style="visibility: hidden;">
+            <li class="nav-item"  id="disabled">
                 <a class="nav-link active" aria-current="page" href="#">審核</a>
             </li>
         </ul>
@@ -70,7 +71,7 @@
         <br>
 
         <div class="staffDiv">
-            <table class="staffTable" id="">
+            <table class="staffTable" id="staffTable">
                 <tr>
                     <th class="tableStyle" width="10%">出勤/假單編號</th>
                     <th class="tableStyle" width="10%">部門</th>
@@ -79,31 +80,15 @@
                     <th class="tableStyle" width="10%">申請類別</th>
                     <th class="tableStyle" width="20%">起訖日期</th>
                     <th class="tableStyle" width="5%">時數</th>
-                    <th class="tableStyle" width="10%">狀態</th>
                     <!-- 表單成立，申請人審核通過，部門主管審核中，部門主管審核完成，部門主管審核不通過，會計審核中，會計審核完成，會計不通過 -->
                     <th class="tableStyle" width="20%">功能</th>
-                </tr>
-                <tr class="staffWord">
-                    <td class="tableStyle">20220531001</td>
-                    <td class="tableStyle"></td>
-                    <td class="tableStyle"></td>
-                    <td class="tableStyle"></td>
-                    <td class="tableStyle"></td>
-                    <td class="tableStyle"></td>
-                    <td class="tableStyle"></td>
-                    <td class="tableStyle"></td>
-                    <td class="tableStyle">
-                        <!-- 申請人按下審核按鈕後修改和刪除的按鈕會不見 -->
-                        <input type="button" value="審核通過" class="function">&nbsp;&nbsp;
-                        <input type="button" value="審核未通過" class="function">&nbsp;&nbsp;
-                    </td>
                 </tr>
             </table>
         </div>
 
     </div>
 
-
+	<script src="/js/CMS2attendance/attendance.js"></script>
 </body>
 
 </html>

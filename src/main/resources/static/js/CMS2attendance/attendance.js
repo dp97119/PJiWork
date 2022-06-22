@@ -248,13 +248,122 @@ function reviewProcess(i) {
     })
 }
 
-// 審核通過按鈕  (按下後  1.會傳送到頁面3的相對應(第三層)的審核人員進行審核  或  全部審核完成)
+
+//審核記錄查詢 /Attendance/appprovallist1
+$(function () {
+    var usertoken1 = JSON.stringify({ 
+        "userToken": getCookie()
+    });
+    $.ajax({
+        url: "http://localhost:8080/Attendance/appprovallist1",
+        type: "POST",
+        data: usertoken1,
+        contentType: "application/json",
+        success: function (data) {
+            var i = 1;
+            $.each(data, function () {
+                var attendancerecord3 = $(` 
+            <tr class="staffWord" id="${i}">
+                <td class="tableStyle">${this.attendanceId}</td>
+                <td class="tableStyle">${this.apart}</td>
+                <td class="tableStyle">${this.empId}</td>
+                <td class="tableStyle">${this.empName}</td>
+                <td class="tableStyle">${this.leaveType}</td>
+                <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
+                <td class="tableStyle">${this.hours}</td>
+                <td class="tableStyle">
+                    <input type="button" value="審核通過" class="function mt-4" onClick="passBtn(${i})">&nbsp;&nbsp;
+                    <input type="button" value="審核未通過" class="function mt-4" onClick="failBtn(${i})">&nbsp;&nbsp;
+                </td>
+            </tr>
+                `)
+                attendancerecord3.appendTo("#staffTable");
+                i++;
+
+            })
+        }
+    })
+})
 
 
 
 
 
-//審核未通過按鈕 (狀態改變)
+
+// 審核通過按鈕
+function passBtn(i) {
+
+    var passBtn1 = JSON.stringify([{
+        "userToken": getCookie(),
+        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
+        approvalId: "4"
+    }]);
+    $.ajax({
+        url: "http://localhost:8080//",
+        type: "PUT",
+        data: passBtn1,
+        contentType: "application/json",
+        success: function () {
+            if (confirm("審核成功")) {
+                window.location.href = './CMS_2_4.html';
+            }
+        }
+    })
+    let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
+    var attpeople2 = JSON.stringify([{
+        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
+        attendanceDate: nowdate
+    }]);
+    $.ajax({
+        url: "http://localhost:8080/Approval/newrank/",
+        type: "POST",
+        data: attpeople2,
+        contentType: "application/json",
+        success: function () {
+            console.log("OK");
+        }
+    })
+}
+
+
+
+
+
+
+//審核未通過按鈕
+function failBtn(i) {
+
+    var failBtn1 = JSON.stringify([{
+        "userToken": getCookie(),
+        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
+        approvalId: "5"
+    }]);
+    $.ajax({
+        url: "http://localhost:8080/Attendance/updateapproval1/",
+        type: "PUT",
+        data: attpeople1,
+        contentType: "application/json",
+        success: function () {
+            if (confirm("審核不通過")) {
+                window.location.href = './CMS_2_4.html';
+            }
+        }
+    })
+    let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
+    var attpeople2 = JSON.stringify([{
+        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
+        attendanceDate: nowdate
+    }]);
+    $.ajax({
+        url: "http://localhost:8080/Approval/newrank/",
+        type: "POST",
+        data: attpeople2,
+        contentType: "application/json",
+        success: function () {
+            console.log("OK");
+        }
+    })
+}
 
 
 
