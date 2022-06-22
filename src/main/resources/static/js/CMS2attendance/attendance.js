@@ -249,12 +249,12 @@ function reviewProcess(i) {
 }
 
 
-//審核記錄查詢 /Attendance/appprovallist1
+//審核記錄查詢 
 $(function () {
     var usertoken1 = JSON.stringify({ 
         "userToken": getCookie()
     });
-    $.ajax({
+    $.ajax({     //第一層審核人員
         url: "http://localhost:8080/Attendance/appprovallist1",
         type: "POST",
         data: usertoken1,
@@ -263,7 +263,7 @@ $(function () {
             var i = 1;
             $.each(data, function () {
                 var attendancerecord3 = $(` 
-            <tr class="staffWord" id="${i}">
+            <tr class="staffWord" id="${this.attendanceId}">
                 <td class="tableStyle">${this.attendanceId}</td>
                 <td class="tableStyle">${this.apart}</td>
                 <td class="tableStyle">${this.empId}</td>
@@ -272,8 +272,8 @@ $(function () {
                 <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
                 <td class="tableStyle">${this.hours}</td>
                 <td class="tableStyle">
-                    <input type="button" value="審核通過" class="function mt-4" onClick="passBtn(${i})">&nbsp;&nbsp;
-                    <input type="button" value="審核未通過" class="function mt-4" onClick="failBtn(${i})">&nbsp;&nbsp;
+                    <input type="button" value="審核通過" class="function mt-3" onClick="passBtn(${i})">&nbsp;&nbsp;
+                    <input type="button" value="審核未通過" class="function mt-3" onClick="failBtn(${i})">&nbsp;&nbsp;
                 </td>
             </tr>
                 `)
@@ -283,50 +283,51 @@ $(function () {
             })
         }
     })
+
+
+
+
+
+
+
 })
-
-
-
 
 
 
 // 審核通過按鈕
 function passBtn(i) {
-
     var passBtn1 = JSON.stringify([{
         "userToken": getCookie(),
         attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
-        approvalId: "4"
+        approvalId: "6"
     }]);
     $.ajax({
-        url: "http://localhost:8080//",
+        url: "http://localhost:8080/Attendance/updateapproval2",
         type: "PUT",
         data: passBtn1,
         contentType: "application/json",
         success: function () {
             if (confirm("審核成功")) {
-                window.location.href = './CMS_2_4.html';
+                window.location.href = './CMS_2_3.html';
             }
         }
     })
     let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
-    var attpeople2 = JSON.stringify([{
+    var attpeople3 = JSON.stringify([{
+        "userToken": getCookie(),
         attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
-        attendanceDate: nowdate
+        dateApproved1: nowdate
     }]);
     $.ajax({
-        url: "http://localhost:8080/Approval/newrank/",
-        type: "POST",
-        data: attpeople2,
+        url: "http://localhost:8080/Approval/updateApproval2",
+        type: "PUT",
+        data: attpeople3,
         contentType: "application/json",
         success: function () {
             console.log("OK");
         }
     })
 }
-
-
-
 
 
 
@@ -339,25 +340,26 @@ function failBtn(i) {
         approvalId: "5"
     }]);
     $.ajax({
-        url: "http://localhost:8080/Attendance/updateapproval1/",
+        url: "http://localhost:8080/Attendance/updateapproval2/",
         type: "PUT",
-        data: attpeople1,
+        data: failBtn1,
         contentType: "application/json",
         success: function () {
             if (confirm("審核不通過")) {
-                window.location.href = './CMS_2_4.html';
+                window.location.href = './CMS_2_3.html';
             }
         }
     })
     let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
-    var attpeople2 = JSON.stringify([{
+    var attpeople4 = JSON.stringify([{
+        "userToken": getCookie(),
         attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
-        attendanceDate: nowdate
+        dateApproved1: nowdate
     }]);
     $.ajax({
-        url: "http://localhost:8080/Approval/newrank/",
-        type: "POST",
-        data: attpeople2,
+        url: "http://localhost:8080/Approval/updateApproval2/",
+        type: "PUT",
+        data: attpeople4,
         contentType: "application/json",
         success: function () {
             console.log("OK");
