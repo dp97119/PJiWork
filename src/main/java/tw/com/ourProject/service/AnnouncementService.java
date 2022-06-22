@@ -48,19 +48,19 @@ public class AnnouncementService {
 	public JSONObject addAnn(JSONObject data) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		JSONObject obj =  new JSONObject();
-		
+		Announcement ann = new Announcement();
 		try {
-		announcement.setType(data.getString("type"));
-		announcement.setUploadDate(format.parse(data.getString("uploadDate")));
-		announcement.setEmployees(employeeRepo.findByEmpId(jwt.getInfoFromJwtToken(data.getString("userToken"), "empId")));
-		announcement.setRemoved(format.parse(data.getString("removed")));
-		announcement.setTitle(data.getString("title"));
-		announcement.setContent(data.getString("content"));
-		announcement.setCreatePerson(jwt.getInfoFromJwtToken(data.getString("userToken"), "empId"));
-		announcement.setUpdatePerson(jwt.getInfoFromJwtToken(data.getString("userToken"), "empId"));
-		announcementRepo.save(announcement);
-		obj.put("annId", announcement.getAnnounceId());
-		System.out.println(announcement.getAnnounceId());
+		ann.setType(data.getString("type"));
+		ann.setUploadDate(format.parse(data.getString("uploadDate")));
+		ann.setEmployees(employeeRepo.findByEmpId(jwt.getInfoFromJwtToken(data.getString("userToken"), "empId")));
+		ann.setRemoved(format.parse(data.getString("removed")));
+		ann.setTitle(data.getString("title"));
+		ann.setContent(data.getString("content"));
+		ann.setCreatePerson(jwt.getInfoFromJwtToken(data.getString("userToken"), "empId"));
+		ann.setUpdatePerson(jwt.getInfoFromJwtToken(data.getString("userToken"), "empId"));
+		announcementRepo.save(ann);
+		obj.put("annId", ann.getAnnounceId());
+		System.out.println(ann.getAnnounceId());
 		return obj;
 
 		}catch(Exception e) {

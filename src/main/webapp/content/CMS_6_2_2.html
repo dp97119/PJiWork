@@ -23,6 +23,7 @@
 </head>
 
 <!-- 新增公告 -->
+
 <body class="zh-tw">
     <div>
         <ul class="nav nav-tabs">
@@ -158,11 +159,6 @@
         }
 
         $("#annFinishBtn").click(function () {
-            console.log($("#annSubject").val());
-            console.log($("#annType").find("option:selected").text());
-            console.log($("#annText").val());
-            console.log($("#annUploadDate").val());
-            console.log($("#annRemoveDate").val());
             var date = new Date();
             //主旨不能為空
             if ($("#annSubject").val() != "") {
@@ -188,23 +184,26 @@
                         contentType: "application/json",
                         dataType: "json",
                         success: function (data) {
-                            console.log(data)
                             //要回傳公告id
                             var annId = data.annId;
-                            alert("ok");
 
                             var formData = new FormData();
                             formData.append('annId', annId);
                             formData.append('userToken', getCookie());
-                            var i =1;
-                            while($(`#attachInput${i}`).get(0).files[0]!=undefined){
-                                formData.append('file[]',$(`#attachInput${i}`).get(0).files[0]);
-                                i++;
-                                if(i==6){
-                                    break;
-                                }
+                            var askLength = 6;
+                            var sendAttachorNot = false;
+                            if($(`#attachInput5`).val() == undefined){
+                                askLength = 5;
                             }
-                            console.log(formData);
+                            if($(`#attachInput4`).val() == undefined){
+                                askLength = 4;
+                            }
+                            for(i = 1 ; i<askLength;i++){
+                                formData.append('file[]', $(`#attachInput${i}`).get(0).files[0]);
+                                sendAttachorNot=true;
+                            }
+
+                             if(sendAttachorNot) {
                                 $.ajax({
                                     type: "POST",
                                     url: "/Announcement/uploadAttach",
@@ -212,18 +211,20 @@
                                     cache: false,
                                     processData: false,
                                     contentType: false,
-                                    beforeSend: function () {
-                                        //找時間加入等待提示
-                                    },
                                     success: function (data) {
-
+                                        alert("上傳成功");
+                                        window.location.href = "./CMS_6_2_1.html";
                                     },
                                     error: function (data) {
-                                        alert(data.exception);
+                                        alert("上傳失敗，請確認檔案格式");
                                     }
                                 });
+                            }else{
+                                alert("上傳成功");
+                                window.location.href = "./CMS_6_2_1.html";
                             }
-                        })
+                        }
+                    });
 
                 }
             } else {
