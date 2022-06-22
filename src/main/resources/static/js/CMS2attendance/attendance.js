@@ -20,7 +20,7 @@ $(function () {
             $.each(data, function () {
                 if (this.approvalId == 1) {
                     var attendancerecord1 = $(`<tr class="staffWord" id="${this.attendanceId}">
-                           <td class="tableStyle">${i}</td>
+                           <td class="tableStyle">${this.attendanceId}</td>
                            <td class="tableStyle">${this.leaveType}</td>
                            <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
                            <td class="tableStyle">${this.hours}</td>
@@ -41,7 +41,7 @@ $(function () {
                     attendancerecord1.appendTo("#attendanceTable1");
                 } else {
                     var attendancerecord2 = $(`<tr class="staffWord" id="${this.attendanceId}">
-                           <td class="tableStyle">${i}</td>
+                           <td class="tableStyle">${this.attendanceId}</td>
                            <td class="tableStyle">${this.leaveType}</td>
                            <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
                            <td class="tableStyle">${this.hours}</td>
@@ -53,8 +53,6 @@ $(function () {
                     attendancerecord2.appendTo("#attendanceTable1");
                 }
                 i++;
-
-
             })
         }
     })
@@ -77,7 +75,7 @@ $("#leaveEditBtn1").on("click", function () {
                 if (this.leaveId == $("#leaves").val() || $("#leaves").val() == "") {
                     if (data.approvalId == 1) {
                         var attendancerecord3 = $(`<tr class="staffWord" id="${this.attendanceId}">
-                               <td class="tableStyle">${i}</td>
+                               <td class="tableStyle">${this.attendanceId}</td>
                                <td class="tableStyle">${this.leaveType}</td>
                                <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
                                <td class="tableStyle">${this.hours}</td>
@@ -98,7 +96,7 @@ $("#leaveEditBtn1").on("click", function () {
                         attendancerecord3.appendTo("#attendanceTable1");
                     } else {
                         var attendancerecord4 = $(`<tr class="staffWord" id="${this.attendanceId}">
-                               <td class="tableStyle">${i}</td>
+                               <td class="tableStyle">${this.attendanceId}</td>
                                <td class="tableStyle">${this.leaveType}</td>
                                <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
                                <td class="tableStyle">${this.hours}</td>
@@ -112,11 +110,8 @@ $("#leaveEditBtn1").on("click", function () {
                     i++;
                 }
             })
-
         }
     })
-
-
 })
 
 
@@ -135,7 +130,6 @@ $("#sendAnnouncement").on("click", function () {
         "approvalId": "1",
         "createDate": nowdate
     }]);
-
     $.ajax({
         url: "http://localhost:8080/Attendance/insert/",
         type: "POST",
@@ -221,9 +215,7 @@ function apply(i) {
 
 // 審核歷程按鈕  (彈跳視窗)/Approval/showrank
 function reviewProcess(i) {
-
     var rankId = document.getElementsByTagName("tr")[i].getAttribute('id');
-    console.log(rankId);
     $.ajax({
         url: "http://localhost:8080/Approval/showrank/",
         type: "GET",
@@ -233,14 +225,13 @@ function reviewProcess(i) {
             $("#dateApproved1").text("");
             $("#approver2").text("");
             $("#dateApproved2").text("");
-            for(var i = 0; i < data.length ; i++){
-                if(rankId == data[i].attendances.attendanceId){
-                    console.log(data[i].attendances.attendanceId);
+            for (var i = 0; i < data.length; i++) {
+                if (rankId == data[i].attendances.attendanceId) {
                     attendanceDate.innerText = data[i].attendanceDate;
                     approver1.innerText = data[i].approver1;
                     dateApproved1.innerText = data[i].dateApproved1;
                     approver2.innerText = data[i].approver2;
-                    dateApproved2.innerText = data[i].dateApproved2; 
+                    dateApproved2.innerText = data[i].dateApproved2;
                 }
             }
             reviewdialog.showModal();
@@ -251,17 +242,18 @@ function reviewProcess(i) {
 
 //審核記錄查詢 
 $(function () {
-    var usertoken1 = JSON.stringify({ 
+    var usertoken1 = JSON.stringify({
         "userToken": getCookie()
     });
+    var i = 1;
     $.ajax({     //第一層審核人員
         url: "http://localhost:8080/Attendance/appprovallist1",
         type: "POST",
         data: usertoken1,
         contentType: "application/json",
         success: function (data) {
-            var i = 1;
             $.each(data, function () {
+
                 var attendancerecord3 = $(` 
             <tr class="staffWord" id="${this.attendanceId}">
                 <td class="tableStyle">${this.attendanceId}</td>
@@ -271,6 +263,7 @@ $(function () {
                 <td class="tableStyle">${this.leaveType}</td>
                 <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
                 <td class="tableStyle">${this.hours}</td>
+                <td class="tableStyle"><span>${this.approvalType}</span></td>
                 <td class="tableStyle">
                     <input type="button" value="審核通過" class="function mt-3" onClick="passBtn(${i})">&nbsp;&nbsp;
                     <input type="button" value="審核未通過" class="function mt-3" onClick="failBtn(${i})">&nbsp;&nbsp;
@@ -279,94 +272,187 @@ $(function () {
                 `)
                 attendancerecord3.appendTo("#staffTable");
                 i++;
-
             })
         }
     })
 
 
+    $.ajax({     //第二層審核人員
+        url: "http://localhost:8080/Attendance/appprovallist2/",
+        type: "POST",
+        data: usertoken1,
+        contentType: "application/json",
+        success: function (data) {
+            $.each(data, function () {
 
-
-
-
-
+                var attendancerecord4 = $(` 
+            <tr class="staffWord" id="${this.attendanceId}">
+                <td class="tableStyle">${this.attendanceId}</td>
+                <td class="tableStyle">${this.apart}</td>
+                <td class="tableStyle">${this.empId}</td>
+                <td class="tableStyle">${this.empName}</td>
+                <td class="tableStyle">${this.leaveType}</td>
+                <td class="tableStyle">${this.startDate}<br> ~ <br>${this.endDate}</td>
+                <td class="tableStyle">${this.hours}</td>
+                <td class="tableStyle"><span>${this.approvalType}</span></td>
+                <td class="tableStyle">
+                    <input type="button" value="審核通過" class="function mt-3" onClick="passBtn(${i})">&nbsp;&nbsp;
+                    <input type="button" value="審核未通過" class="function mt-3" onClick="failBtn(${i})">&nbsp;&nbsp;
+                </td>
+            </tr>
+                `)
+                attendancerecord4.appendTo("#staffTable");
+                i++;
+            })
+        }
+    })
 })
 
 
 
 // 審核通過按鈕
 function passBtn(i) {
-    var passBtn1 = JSON.stringify([{
-        "userToken": getCookie(),
-        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
-        approvalId: "6"
-    }]);
-    $.ajax({
-        url: "http://localhost:8080/Attendance/updateapproval2",
-        type: "PUT",
-        data: passBtn1,
-        contentType: "application/json",
-        success: function () {
-            if (confirm("審核成功")) {
-                window.location.href = './CMS_2_3.html';
+    var spanA = document.getElementsByTagName("tr")[i].getAttribute('id');
+    var spanB = $(`#${spanA} span`).text();
+    if (spanB == "部門主管審核中") {
+        var passBtn1 = JSON.stringify([{
+            "userToken": getCookie(),
+            attendanceId: spanA,
+            approvalId: "6"
+        }]);
+        $.ajax({
+            url: "http://localhost:8080/Attendance/updateapproval2",
+            type: "PUT",
+            data: passBtn1,
+            contentType: "application/json",
+            success: function () {
+                if (confirm("審核成功")) {
+                    window.location.href = './CMS_2_3.html';
+                }
             }
-        }
-    })
-    let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
-    var attpeople3 = JSON.stringify([{
-        "userToken": getCookie(),
-        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
-        dateApproved1: nowdate
-    }]);
-    $.ajax({
-        url: "http://localhost:8080/Approval/updateApproval2",
-        type: "PUT",
-        data: attpeople3,
-        contentType: "application/json",
-        success: function () {
-            console.log("OK");
-        }
-    })
+        })
+        let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
+        var attpeople3 = JSON.stringify([{
+            "userToken": getCookie(),
+            attendanceId: spanA,
+            dateApproved1: nowdate
+        }]);
+        $.ajax({
+            url: "http://localhost:8080/Approval/updateApproval2",
+            type: "PUT",
+            data: attpeople3,
+            contentType: "application/json",
+            success: function () {
+                console.log("OK");
+            }
+        })
+    }
+    if (spanB == "會計審核中") {
+        var passBtn2 = JSON.stringify([{
+            "userToken": getCookie(),
+            attendanceId: spanA,
+            approvalId: "7"
+        }]);
+        $.ajax({
+            url: "http://localhost:8080/Attendance/updateapproval3",
+            type: "PUT",
+            data: passBtn2,
+            contentType: "application/json",
+            success: function () {
+                if (confirm("審核成功")) {
+                    window.location.href = './CMS_2_3.html';
+                }
+            }
+        })
+        let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
+        var attpeople5 = JSON.stringify([{
+            "userToken": getCookie(),
+            attendanceId: spanA,
+            dateApproved2: nowdate
+        }]);
+        $.ajax({
+            url: "http://localhost:8080/Approval/updateApproval3",
+            type: "PUT",
+            data: attpeople5,
+            contentType: "application/json",
+            success: function () {
+                console.log("OK");
+            }
+        })
+    }
 }
 
 
 
 //審核未通過按鈕
 function failBtn(i) {
-
-    var failBtn1 = JSON.stringify([{
-        "userToken": getCookie(),
-        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
-        approvalId: "5"
-    }]);
-    $.ajax({
-        url: "http://localhost:8080/Attendance/updateapproval2/",
-        type: "PUT",
-        data: failBtn1,
-        contentType: "application/json",
-        success: function () {
-            if (confirm("審核不通過")) {
-                window.location.href = './CMS_2_3.html';
+    var spanA = document.getElementsByTagName("tr")[i].getAttribute('id');
+    var spanB = $(`#${spanA} span`).text();
+    if (spanB == "部門主管審核中") {
+        var failBtn1 = JSON.stringify([{
+            "userToken": getCookie(),
+            attendanceId: spanA,
+            approvalId: "5"
+        }]);
+        $.ajax({
+            url: "http://localhost:8080/Attendance/updateapproval2/",
+            type: "PUT",
+            data: failBtn1,
+            contentType: "application/json",
+            success: function () {
+                if (confirm("審核不通過")) {
+                    window.location.href = './CMS_2_3.html';
+                }
             }
-        }
-    })
-    let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
-    var attpeople4 = JSON.stringify([{
-        "userToken": getCookie(),
-        attendanceId: document.getElementsByTagName("tr")[i].getAttribute('id'),
-        dateApproved1: nowdate
-    }]);
-    $.ajax({
-        url: "http://localhost:8080/Approval/updateApproval2/",
-        type: "PUT",
-        data: attpeople4,
-        contentType: "application/json",
-        success: function () {
-            console.log("OK");
-        }
-    })
+        })
+        let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
+        var attpeople4 = JSON.stringify([{
+            "userToken": getCookie(),
+            attendanceId: spanA,
+            dateApproved1: nowdate
+        }]);
+        $.ajax({
+            url: "http://localhost:8080/Approval/updateApproval2/",
+            type: "PUT",
+            data: attpeople4,
+            contentType: "application/json",
+            success: function () {
+                console.log("OK");
+            }
+        })
+    }
+    if (spanB == "會計審核中") {
+        var failBtn2 = JSON.stringify([{
+            "userToken": getCookie(),
+            attendanceId: spanA,
+            approvalId: "8"
+        }]);
+        $.ajax({
+            url: "http://localhost:8080/Attendance/updateapproval3/",
+            type: "PUT",
+            data: failBtn2,
+            contentType: "application/json",
+            success: function () {
+                if (confirm("審核不通過")) {
+                    window.location.href = './CMS_2_3.html';
+                }
+            }
+        })
+        let nowdate = moment(new Date).format('YYYY-MM-DD HH:mm:ss');
+        var attpeople6 = JSON.stringify([{
+            "userToken": getCookie(),
+            attendanceId: spanA,
+            dateApproved2: nowdate
+        }]);
+        $.ajax({
+            url: "http://localhost:8080/Approval/updateApproval3/",
+            type: "PUT",
+            data: attpeople6,
+            contentType: "application/json",
+            success: function () {
+                console.log("OK");
+            }
+        })
+    }
 }
-
-
-
 
