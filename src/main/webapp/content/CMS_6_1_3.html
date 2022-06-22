@@ -74,6 +74,11 @@
                         <td><input type="text" id="passwd" class="inputSize" value=""></td>
                     </tr>
                     <tr>
+                        <td><b><span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span></b>
+                        </td>
+                        <td><input type="text" id="empName" class="inputSize" value=""></td>
+                    </tr>
+                    <tr>
                         <td><b><span>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</span></b>
                         </td>
                         <td>
@@ -157,6 +162,7 @@
                 dataType: 'json',
                 success: function (data) {
                     $("#addr").val(data.addr);
+                    $("#empName").val(data.empName);
                     $("#adm").val(data.adm);
                     $("#aparts").val(data.aparts.apartId);
                     $("#cellphone1").val(data.cellphone1);
@@ -188,6 +194,7 @@
             var newData = JSON.stringify({
                 empId : $("#empId").text(),
                 passwd: $("#passwd").val(),
+                empName: $("#empName").val(),
                 apartId: $("#aparts").val(),
                 tel: $("#tel").val(),
                 gender: $("#gender").val(),

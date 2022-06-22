@@ -73,6 +73,11 @@
                     <td><input type="text" id="passwd" class="inputSize" value=""></td>
                 </tr>
                 <tr>
+                    <td><b><span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span></b>
+                    </td>
+                    <td><input type="text" id="empName" class="inputSize" value=""></td>
+                </tr>
+                <tr>
                     <td><b><span>部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;門：</span></b>
                     </td>
                     <td>
@@ -132,6 +137,7 @@
             var newData = JSON.stringify({
                 empId: $("#empId").val(),
                 passwd: $("#passwd").val(),
+                empName: $("#empName").val(),
                 apartId: $("#aparts").val(),
                 tel: $("#tel").val(),
                 gender: $("#gender").val(),
@@ -139,7 +145,7 @@
                 email: $("#email").val(),
                 addr: $("#addr").val(),
                 adm: $("#adm").val(),
-                updatePerson: getCookie()
+                createPerson: getCookie()
             });
 
             $.ajax({

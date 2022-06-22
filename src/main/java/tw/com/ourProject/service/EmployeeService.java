@@ -183,6 +183,7 @@ public class EmployeeService {
 	     String updatePerson = jwtToken.getInfoFromJwtToken(userInfo.getString("updatePerson"),"empId");
 		 Employee employee = employeeRepo.findById(userInfo.getString("empId")).get();
 		 employee.setPasswd(userInfo.getString("passwd"));
+		 employee.setEmpName(userInfo.getString("empName"));
 		 employee.setAparts(apartRepo.findById(userInfo.getInteger("apartId")).get());
 		 employee.setTel(userInfo.getString("tel"));
 		 employee.setGender(userInfo.getString("gender"));
@@ -196,9 +197,11 @@ public class EmployeeService {
 	@Transactional
 	public  String insertUserInfoFromAdmin(JSONObject userInfo) {
 		 if(!employeeRepo.existsById(userInfo.getString("empId"))) {
+		     String createPerson = jwtToken.getInfoFromJwtToken(userInfo.getString("createPerson"),"empId");
 			 Employee employee = new Employee();
 			 employee.setEmpId(userInfo.getString("empId"));
 			 employee.setPasswd(userInfo.getString("passwd"));
+			 employee.setEmpName(userInfo.getString("empName"));
 			 employee.setAparts(apartRepo.findById(userInfo.getInteger("apartId")).get());
 			 employee.setTel(userInfo.getString("tel"));
 			 employee.setGender(userInfo.getString("gender"));
@@ -206,6 +209,8 @@ public class EmployeeService {
 			 employee.setEmail(userInfo.getString("email"));
 			 employee.setAddr(userInfo.getString("addr"));
 			 employee.setAdm(userInfo.getString("adm"));
+			 employee.setCreatePerson(createPerson);
+			 employee.setUpdatePerson(createPerson);
 			 employeeRepo.save(employee);
 			 return "200" ;
 		 }else {
