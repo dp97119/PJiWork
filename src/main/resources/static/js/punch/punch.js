@@ -155,7 +155,6 @@ function sendPunchInfo(state) {
       success: function () {
         if(state == 201){
           alert("將轉至出勤系統，請完成表單填寫");
-          parent.document.getElementById("").getAttribute("value")
           parent.window.location.href="CMS_2_2.html";
         }else{
           alert("打卡成功");
