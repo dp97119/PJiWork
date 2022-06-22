@@ -17,7 +17,8 @@ function getLatLngByAddr(myAddr) {
           if (status == google.maps.GeocoderStatus.OK) {    
               getDistance(results[0].geometry.location);                                          
           } else {   
-              alert('Error');   
+              alert('尚未在個人資訊填寫地址');  
+              parent.punchdialog.close(); 
           }   
     }   
 );   
@@ -185,7 +186,7 @@ $(parent.$("#myCardbtn1")).click(function () {
   if (checkPunchState() == "200") {
     $("#punchOK").val("上班");
     navigator.geolocation.getCurrentPosition(success, error, options);
-  } else {
+  }else{
     if (confirm("尚未打下班卡，無法操作")) {
       parent.punchdialog.close();
     } else {
@@ -201,13 +202,14 @@ $(parent.$("#myCardbtn2")).click(function () {
       parent.punchdialog.close();
     }
 
-  } else {
+  } else{
     $("#punchOK").val("下班");
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
 });
 
 function checkPunchState() {
+  console.log(parent.document.getElementById("noWork0").getAttribute("value")==null);
   return PunchState = parent.document.getElementById("noWork0").getAttribute("value");
 }
 

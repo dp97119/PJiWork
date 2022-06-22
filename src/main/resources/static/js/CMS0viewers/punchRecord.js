@@ -1,11 +1,19 @@
 // 限定只能撈三筆資料
 function displayPunchInfo(userPunchData) {
-    $("#punchRecord").empty();
-    if (userPunchData[0].status == "下班") {
-        for (var i = 0; i < userPunchData.length; i+=2) {
-            var precord = $(`<tr>
+    if (userPunchData[0] == null) {
+        var precord = $(`<tr>
+                            <td colspan="2" value="200" id="noWork0">
+                                    <h5>未有打卡記錄</h5>
+                            </td>
+                            </tr>`);
+        precord.appendTo("#punchRecord");
+    } else {
+        $("#punchRecord").empty();
+        if (userPunchData[0].status == "下班") {
+            for (var i = 0; i < userPunchData.length; i += 2) {
+                var precord = $(`<tr>
                                 <td colspan="2">
-                                    <h5>${userPunchData[i+1].time.split(" ")[0]  }</h5>
+                                    <h5>${userPunchData[i + 1].time.split(" ")[0]}</h5>
                                 </td>
                             </tr>
                             <tr class="myTimeborder">
@@ -17,12 +25,15 @@ function displayPunchInfo(userPunchData) {
                                 <td class="myTime" value="200" id="noWork${i}">${userPunchData[i].time.split(" ")[1]}</td>
                             </tr>
                             <tr>
+                                <td id="punchState">打卡狀態：</td>
+                            </tr>
+                            <tr>
                                 <td> <pre> </pre> </td>
                             </tr>`);
-            precord.appendTo("#punchRecord");
-        }
-    } else {
-        var precord = $(`<tr>
+                precord.appendTo("#punchRecord");
+            }
+        } else {
+            var precord = $(`<tr>
                             <td colspan="2">
                             <h5>${userPunchData[0].time.split(" ")[0]}</h5>
                             </td>
@@ -36,11 +47,14 @@ function displayPunchInfo(userPunchData) {
                             <td class="myTime" value="201" id="noWork0" >------</td>
                         </tr>
                         <tr>
+                           <td id="punchState">打卡狀態：</td>
+                         </tr>
+                        <tr>
                              <td> <pre> </pre> </td>
                         </tr>`);
-        precord.appendTo("#punchRecord");
-        for (var i = 1; i < userPunchData.length-1; i+=2) {
-            var precord = $(`<tr>
+            precord.appendTo("#punchRecord");
+            for (var i = 1; i < userPunchData.length - 1; i += 2) {
+                var precord = $(`<tr>
                                 <td colspan="2">
                                 <h5>${userPunchData[i].time.split(" ")[0]}</h5>
                                 </td>
@@ -54,9 +68,13 @@ function displayPunchInfo(userPunchData) {
                                 <td class="myTime">${userPunchData[i].time.split(" ")[1]}</td>
                             </tr>
                             <tr>
+                                <td id="punchState">打卡狀態：</td>
+                            </tr>
+                            <tr>
                                 <td> <pre> </pre> </td>
                             </tr>`);
-            precord.appendTo("#punchRecord");
+                precord.appendTo("#punchRecord");
+            }
         }
     }
 
@@ -65,20 +83,20 @@ function displayPunchInfo(userPunchData) {
 function getCookie() {
     var cookie = document.cookie.split('=');
     return cookie[1].toString();
- }
+}
 
 $(function () {
-    var data = JSON.stringify({"userToken":getCookie()});
+    var data = JSON.stringify({ "userToken": getCookie() });
     console.log(data);
     $.ajax({
         type: "post",
         url: "/punch/getInfo",
-        data:data,
+        data: data,
         contentType: 'application/json',
-        dataType : 'json',
-        success:function(data){
+        dataType: 'json',
+        success: function (data) {
             displayPunchInfo(data);
-        } 
+        }
     });
 })
 
