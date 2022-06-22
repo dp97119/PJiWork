@@ -165,7 +165,12 @@ public class OrderSystemService {
 	public JSONArray getAllOrdersByDateOrderByItem(Date startDate , Date endDate,Date date) {
 		List<Object[]> objArry = orderRepo.findOrdersGroupBy(startDate ,endDate);
 		JSONArray jsonAr = new JSONArray();
-		restaurant = restaurantSetRepo.findBySetDate(date).getRestaurants();
+		Restaurantset temp = restaurantSetRepo.findBySetDate(date);
+		if(temp == null) {
+			return jsonAr;
+		}else {
+			restaurant = temp.getRestaurants();
+		}
 		JSONObject restaurantName = new JSONObject();
 		restaurantName.put("restaurantName", restaurant.getRestaurantName());
 		jsonAr.add(restaurantName);

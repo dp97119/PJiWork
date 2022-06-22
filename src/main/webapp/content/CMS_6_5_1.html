@@ -61,10 +61,10 @@
         <div class="orderSearch">
             <label for=""><b>日期：</b></label>&nbsp;&nbsp;
             <input type="date" class="inputSize"
-                id="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                id="orderDate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="icon-input-btn">
                 <i class="glyphicon glyphicon-search"></i>
-                <input class="function" type="button" value="查詢">
+                <input id="selectByDate" class="function" type="button" value="查詢">
             </span>
         </div>
         <br>
@@ -85,8 +85,9 @@
                             <th class="ordertableStyle" width="10%">員工</th>
                             <th class="ordertableStyle" width="18%">日期</th>
                             <th class="ordertableStyle" width="25%">品項</th>
+                            <th class="ordertableStyle" width="15%">單價</th>
                             <th class="ordertableStyle" width="6%">數量</th>
-                            <th class="ordertableStyle" width="25%">備註</th>
+                            <th class="ordertableStyle" width="10%">備註</th>
                             <th class="ordertableStyle" width="10%">小計</th>
                         </tr>
                     </table>
@@ -120,14 +121,6 @@
                             <th class="ordertableStyle" width="25%">備註</th>
                             <th class="ordertableStyle" width="15%">小計</th>
                         </tr>
-                        <tr>
-                            <td class="ordertableStyle">1</td>
-                            <td class="ordertableStyle">XXX</td>
-                            <td class="ordertableStyle"></td>
-                            <td class="ordertableStyle"></td>
-                            <td class="ordertableStyle"></td>
-                            <td class="ordertableStyle"></td>
-                        </tr>
                     </table>
                     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 </div>
@@ -150,25 +143,35 @@
     <script src="/js/punch/moment.min.js"></script>
     <script src="/js/CMS_6_5order/CMS_6_5_1.js"></script>
     <script>
+        $("#selectByDate").click(function(){
+            var inputDate = $("#orderDate").val();
+            var selectDate = new Date(inputDate);
+            findAllOrdersByDate(selectDate);
+            findAllItemsbyDate(selectDate);
+
+        });
+
         $(document).ready(function () {
             var date = new Date();
             findAllOrdersByDate(date);
             findAllItemsbyDate(date);
+            
         });
 
         function findAllOrdersByDate(date) {
             var param = 0;
             if (date.getHours() <= 13) {
                 param = JSON.stringify({
-                    "startDate": moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00"),
-                    "endDate": moment().format("YYYY-MM-DD 12:00:00"),
+                    "startDate": moment(date).add(-1, 'days').format("YYYY-MM-DD 12:00:00"),
+                    "endDate": moment(date).format("YYYY-MM-DD 12:00:00"),
                 });
             } else {
                 param = JSON.stringify({
-                    "startDate": moment().format("YYYY-MM-DD 12:00:00"),
-                    "endDate": moment().add(1, 'days').format("YYYY-MM-DD 12:00:00"),
+                    "startDate": moment(date).format("YYYY-MM-DD 12:00:00"),
+                    "endDate": moment(date).add(1, 'days').format("YYYY-MM-DD 12:00:00"),
                 });
             }
+
             $.ajax({
                 type: "post",
                 url: "/orderSys/getAllOrdersByDate",
@@ -176,9 +179,7 @@
                 contentType: "application/json",
                 dataType: 'json',
                 success: function (data) {
-
                     var ordersTable = document.getElementById("ordersTable");
-                    console.log(ordersTable);
                     var firstTr = document.createElement("tr");
                     firstTr.innerHTML = `<tr id="firstTr">
                             <th class="ordertableStyle" width="6%">NO.</th>
@@ -220,17 +221,18 @@
             var param = 0;
             if (date.getHours() <= 13) {
                 param = JSON.stringify({
-                    "startDate": moment().add(-1, 'days').format("YYYY-MM-DD 12:00:00"),
-                    "endDate": moment().format("YYYY-MM-DD 12:00:00"),
-                    "date": moment().format("YYYY-MM-DD")
+                    "startDate": moment(date).add(-1, 'days').format("YYYY-MM-DD 12:00:00"),
+                    "endDate": moment(date).format("YYYY-MM-DD 12:00:00"),
+                    "date": moment(date).format("YYYY-MM-DD")
                 });
             } else {
                 param = JSON.stringify({
-                    "startDate": moment().format("YYYY-MM-DD 12:00:00"),
-                    "endDate": moment().add(1, 'days').format("YYYY-MM-DD 12:00:00"),
-                    "date": moment().add(1, 'days').format("YYYY-MM-DD")
+                    "startDate": moment(date).format("YYYY-MM-DD 12:00:00"),
+                    "endDate": moment(date).add(1, 'days').format("YYYY-MM-DD 12:00:00"),
+                    "date": moment(date).add(1, 'days').format("YYYY-MM-DD")
                 });
             }
+            $('#itemsTable').empty();
             $.ajax({
                 type: "post",
                 url: "/orderSys/getAllOrdersByDateOrderByItem",
@@ -238,7 +240,6 @@
                 contentType: "application/json",
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
                     var itemsTable = document.getElementById("itemsTable");
                     var firstTr = document.createElement("tr");
                     firstTr.innerHTML = `<tr>
@@ -268,7 +269,6 @@
                     }
                     $("#itemsAllCount").text(`總計金額：${allCount}`);
                 }
-
 
             });
         }
