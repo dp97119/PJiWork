@@ -15,7 +15,7 @@ $(function () {
             userNumber.innerText = data.empId;
             userName.innerText = data.empName;
             console.log(document.getElementById('myNameImg').getAttribute('src'));
-
+            window.localStorage.setItem("myAddr",data.empAddr);
         }
     })
 })

@@ -17,7 +17,7 @@ function getLatLngByAddr(myAddr) {
           if (status == google.maps.GeocoderStatus.OK) {    
               getDistance(results[0].geometry.location);                                          
           } else {   
-              alert('尚未在個人資訊填寫地址');  
+              alert('請個人資訊填寫有效地址');  
               parent.punchdialog.close(); 
           }   
     }   
@@ -47,11 +47,9 @@ var options = {
 function success(pos) {
 
   var crd = pos.coords;
-
-  setLocation(crd.latitude, crd.longitude);
-  getMyAddr();
   var myAddr = window.localStorage.getItem("myAddr");
   getLatLngByAddr(myAddr);
+  setLocation(crd.latitude, crd.longitude);
   initMap();
 };
 
@@ -157,6 +155,7 @@ function sendPunchInfo(state) {
       success: function () {
         if(state == 201){
           alert("未滿規定時數,請到出勤系統填寫表單");
+          parent.document.getElementById("").getAttribute("value")
           parent.window.location.href="CMS_2_2.html";
         }else{
           alert("打卡成功");
@@ -213,7 +212,6 @@ function checkPunchState() {
   return PunchState = parent.document.getElementById("noWork0").getAttribute("value");
 }
 
-
 //獲取地址
 function getMyAddr(){
   $.ajax({
@@ -223,7 +221,7 @@ function getMyAddr(){
     contentType : "application/json",
     dataType : "json",
     success : function(data){
-      window.localStorage.setItem("myAddr",data.addr);
     }
   });
+
 }
