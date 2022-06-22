@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import tw.com.ourProject.repository.TempTokenRepo;
 import tw.com.ourProject.service.EmployeeService;
+import tw.com.ourProject.service.SecurityService;
 import tw.com.ourProject.service.TokenService;
 
 @RestController
@@ -19,6 +20,8 @@ public class SecurityController {
 	EmployeeService employeeService;
 	@Autowired
 	TokenService tokenService;
+	@Autowired
+	SecurityService securityService ;
 
 	@PostMapping("/security/login")
 	public JSONObject login(@RequestBody String inputdata) {
@@ -70,5 +73,17 @@ public class SecurityController {
 	public JSONObject checkAdm(@RequestBody JSONObject userToken) {
 	
 		return employeeService.checkAdm(userToken.getString("userToken"));
+	}
+	
+	@PostMapping("/security/forgetPasswd")
+	public void forgetPasswd(@RequestBody JSONObject data) {
+		String empId = data.getString("empId");
+		securityService.sendResetPasswdMail(empId);
+	}
+	
+	@GetMapping("/security/resetPasswd")
+	public String  resetPasswd(@RequestParam String empId) {
+		securityService.resetPasswd(empId);
+		return "更改成功!!!  密碼重設為:P@ssw0rd";
 	}
 }

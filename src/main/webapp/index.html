@@ -64,7 +64,7 @@
 				<div id="login_control" class="row mt-3">
 					<div id="login_control">
 						<button id="btn_login">登入</button>
-						<a id="forgetPwd" href="還沒寫">忘記密碼？</a>
+						<a id="forgetPwd">忘記密碼？</a>
 					</div>
 				</div>
 			</div>
@@ -107,14 +107,14 @@
 		var allowLogin = false;
 
 		$("#btn_login").click(function () {
-			if(allowLogin == true){
+			if (allowLogin == true) {
 				$(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <span >Loading...</span>`);
 				login();
-			}else{
+			} else {
 				alert("請先點選「我不是機器人」")
 			}
-			
+
 		});
 
 		function login() {
@@ -147,12 +147,23 @@
 
 
 		$("#forgetPwd").click(function () {
-			if(confirm("是否發送一組新密碼到信箱")){
-				alert("發送完成，請至信箱查看")
-			}else{
+
+			if (confirm("是否發送驗證信到個人信箱")) {
+
+				var empId = prompt('請輸入你的員工編號');
+				var emailData = JSON.stringify({ empId : empId});
+				$.ajax({
+					type: "post",
+					url: "/security/forgetPasswd",
+					data: emailData ,
+					contentType : 'application/json',
+					success :function(){
+						alert("發送完成，請至信箱查看");
+					}
+				});
+			} else {
 
 			}
-
 		});
 
 		var onloadCallback = function () {
