@@ -41,10 +41,7 @@ public class AnnouncementController {
 	public void uploadUserPhoto(@RequestParam("file[]") MultipartFile[] multipartFile,
 								@RequestParam("annId") String annId,
 								@RequestParam("userToken") String userToken ) {
-		System.out.println("---------------------------------------------------------");
-		System.out.println(multipartFile[1].getName()+"---------------------------------------");
 		attachService.addAttach(multipartFile,annId,userToken);
-		
 		
 	}
 	
