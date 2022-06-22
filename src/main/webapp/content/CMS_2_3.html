@@ -33,7 +33,7 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="./CMS_2_2.html">申請表單</a>
             </li>
-            <li class="nav-item"  id="disabled">
+            <li class="nav-item" id="disabled">
                 <a class="nav-link active" aria-current="page" href="#">審核</a>
             </li>
         </ul>
@@ -44,52 +44,26 @@
     <div class="staffAll">
         <br>
         <div class="staffSearch">
-            <div>
-                <label><b>姓名：</b></label>&nbsp;&nbsp;
-                <input type="search" class="inputSize">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="staffDiv">
+                <table class="staffTable" id="staffTable">
+                    <tr>
+                        <th class="tableStyle" width="10%">出勤/假單編號</th>
+                        <th class="tableStyle" width="8%">部門</th>
+                        <th class="tableStyle" width="8%">員工編號</th>
+                        <th class="tableStyle" width="8%">員工姓名</th>
+                        <th class="tableStyle" width="10%">申請類別</th>
+                        <th class="tableStyle" width="15%">起訖日期</th>
+                        <th class="tableStyle" width="5%">時數</th>
+                        <!-- 表單成立，申請人審核通過，部門主管審核中，部門主管審核完成，部門主管審核不通過，會計審核中，會計審核完成，會計不通過 -->
+                        <th class="tableStyle" width="10%">狀態</th>
+                        <th class="tableStyle" width="20%">功能</th>
+                    </tr>
+                </table>
             </div>
-            <div>
-                <label><b>部門：</b></label>&nbsp;&nbsp;
-                <select id="aparts">
-                    <option value="" class="department"></option>
-                </select>&nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-            <div>
-                <label><b>類別：</b></label>&nbsp;&nbsp;
-                <select id="leaves">
-                    <option value="" class="vacation"></option>
-                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-            <div>
-                <span class="icon-input-btn">
-                    <i class="glyphicon glyphicon-search"></i>
-                    <input type="button" value="查詢" class="btnStyle"></input>
-                </span>
-            </div>
+
         </div>
 
-        <br>
-
-        <div class="staffDiv">
-            <table class="staffTable" id="staffTable">
-                <tr>
-                    <th class="tableStyle" width="10%">出勤/假單編號</th>
-                    <th class="tableStyle" width="8%">部門</th>
-                    <th class="tableStyle" width="8%">員工編號</th>
-                    <th class="tableStyle" width="8%">員工姓名</th>
-                    <th class="tableStyle" width="10%">申請類別</th>
-                    <th class="tableStyle" width="15%">起訖日期</th>
-                    <th class="tableStyle" width="5%">時數</th>
-                    <!-- 表單成立，申請人審核通過，部門主管審核中，部門主管審核完成，部門主管審核不通過，會計審核中，會計審核完成，會計不通過 -->
-                    <th class="tableStyle" width="10%">狀態</th>
-                    <th class="tableStyle" width="20%">功能</th>
-                </tr>
-            </table>
-        </div>
-
-    </div>
-
-	<script src="/js/CMS2attendance/attendance.js"></script>
+        <script src="/js/CMS2attendance/attendance.js"></script>
 </body>
 
 </html>
