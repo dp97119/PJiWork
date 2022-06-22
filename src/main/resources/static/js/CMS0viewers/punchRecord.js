@@ -25,9 +25,6 @@ function displayPunchInfo(userPunchData) {
                                 <td class="myTime" value="200" id="noWork${i}">${userPunchData[i].time.split(" ")[1]}</td>
                             </tr>
                             <tr>
-                                <td id="punchState">打卡狀態：</td>
-                            </tr>
-                            <tr>
                                 <td> <pre> </pre> </td>
                             </tr>`);
                 precord.appendTo("#punchRecord");
@@ -47,9 +44,6 @@ function displayPunchInfo(userPunchData) {
                             <td class="myTime" value="201" id="noWork0" >------</td>
                         </tr>
                         <tr>
-                           <td id="punchState">打卡狀態：</td>
-                         </tr>
-                        <tr>
                              <td> <pre> </pre> </td>
                         </tr>`);
             precord.appendTo("#punchRecord");
@@ -66,9 +60,6 @@ function displayPunchInfo(userPunchData) {
                             <tr class="myTimeborder">
                                 <td class="myTime">下班</td>
                                 <td class="myTime">${userPunchData[i].time.split(" ")[1]}</td>
-                            </tr>
-                            <tr>
-                                <td id="punchState">打卡狀態：</td>
                             </tr>
                             <tr>
                                 <td> <pre> </pre> </td>

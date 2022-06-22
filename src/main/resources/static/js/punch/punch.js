@@ -123,7 +123,7 @@ $("#punchOK").click(function () {
     var end = moment(new Date(), 'HH:mm:ss');
     var second = end.diff(start, 'seconds');
     if (second <= 9 * 60 * 60) {
-      if (confirm("目前時數還未達9小時，使否確定要打卡下班")) {
+      if (confirm("出勤時間未符規定，是否要打卡下班？")) {
         sendPunchInfo(201);
       }
     } else {
@@ -154,7 +154,7 @@ function sendPunchInfo(state) {
       contentType: 'application/json',
       success: function () {
         if(state == 201){
-          alert("未滿規定時數,請到出勤系統填寫表單");
+          alert("將轉至出勤系統，請完成表單填寫");
           parent.document.getElementById("").getAttribute("value")
           parent.window.location.href="CMS_2_2.html";
         }else{
