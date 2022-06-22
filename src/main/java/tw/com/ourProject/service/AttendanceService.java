@@ -157,4 +157,40 @@ public class AttendanceService {
 		attendanceInfo.setEmployeesss(updateperson);
 		attendanceRepo.save(attendanceInfo);
 	}
+	
+	public JSONArray findApproval2attendance(String empid) {
+		//找出第二審核人員
+		Employee emp = employeeRepo.findByEmpId(empid);
+		Approvalset apart = approvalsetRepo.findByAparts(emp.getAparts());
+		Approvalset approval2 = approvalsetRepo.findByEmployees(apart.getEmployee());
+		Employee approvalemp2 = approval2.getEmployee();
+		
+		JSONArray Jarray = new JSONArray();
+		//若token的人跟層級審核設定第二層級的人相同
+		if (approvalemp2 == emp) {
+			//撈出出勤所有資料
+			List<Attendance> attendancelist = attendanceRepo.findAll();
+			for (int i = 0; i<attendancelist.size(); i++) {
+				//若出勤資料的部門跟層級設定的部門相同
+				if((attendancelist.get(i).getEmployees().getAparts().getApartId()) == (approvalemp2.getAparts().getApartId())){
+					//就把該部門審核狀態是部門主管審核中的出勤資料抓出來，送給前端顯示待審核的畫面
+					if(attendancelist.get(i).getApprovals().getApprovalId()==6) {
+						JSONObject obj = new JSONObject();
+						obj.put("attendanceId", attendancelist.get(i).getAttendanceId());
+						obj.put("apart", attendancelist.get(i).getEmployees().getAparts().getApart());
+						obj.put("empId", attendancelist.get(i).getEmployees().getEmpId());
+						obj.put("empName", attendancelist.get(i).getEmployees().getEmpName());
+						obj.put("leaveId", attendancelist.get(i).getLeaves().getLeaveId()) ;
+						obj.put("leaveType", attendancelist.get(i).getLeaves().getLeaveType());
+						obj.put("startDate", attendancelist.get(i).getStartDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
+						obj.put("endDate", attendancelist.get(i).getEndDate().toInstant().atOffset(ZoneOffset.ofHours(+8)).format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
+						obj.put("hours", attendancelist.get(i).getHours());
+						Jarray.add(obj);
+					}
+				}
+			}		
+		}
+		System.out.println(Jarray);
+		return Jarray;
+	}
 }

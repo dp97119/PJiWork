@@ -143,4 +143,9 @@ public class AttendanceController {
 			
 		}
 	}
+	
+	@PostMapping("/Attendance/appprovallist2")
+	public JSONArray findApproval2attendance(@RequestBody JSONObject info) {
+		return attendanceService.findApproval1attendance(jwt.getInfoFromJwtToken(info.getString("userToken"), "empId"));
+	}
 }
