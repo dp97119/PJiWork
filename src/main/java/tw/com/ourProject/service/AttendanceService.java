@@ -116,15 +116,21 @@ public class AttendanceService {
 	}
 	
 	public JSONArray findApproval1attendance(String empid) {
+		//找出第一審核人員
 		Employee emp = employeeRepo.findByEmpId(empid);
 		Approvalset apart = approvalsetRepo.findByAparts(emp.getAparts());
 		Approvalset approval1 = approvalsetRepo.findByEmployees(apart.getEmployees());
 		Employee approvalemp1 = approval1.getEmployees();
+		
 		JSONArray Jarray = new JSONArray();
+		//若token的人跟層級審核設定第一層級的人相同
 		if (approvalemp1 == emp) {
+			//撈出出勤所有資料
 			List<Attendance> attendancelist = attendanceRepo.findAll();
 			for (int i = 0; i<attendancelist.size(); i++) {
+				//若出勤資料的部門跟層級設定的部門相同
 				if((attendancelist.get(i).getEmployees().getAparts().getApartId()) == (approvalemp1.getAparts().getApartId())){
+					//就把該部門審核狀態是部門主管審核中的出勤資料抓出來，送給前端顯示待審核的畫面
 					if(attendancelist.get(i).getApprovals().getApprovalId()==3) {
 						JSONObject obj = new JSONObject();
 						obj.put("attendanceId", attendancelist.get(i).getAttendanceId());
@@ -145,4 +151,10 @@ public class AttendanceService {
 		return Jarray;
 	}
 	
+	public void updateapproval2(Integer attendanceid, Approval approvalid, Employee updateperson) {
+		Attendance attendanceInfo = attendanceRepo.findByAttendanceId(attendanceid);
+		attendanceInfo.setApprovals(approvalid);
+		attendanceInfo.setEmployeesss(updateperson);
+		attendanceRepo.save(attendanceInfo);
+	}
 }
