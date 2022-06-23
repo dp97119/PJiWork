@@ -53,4 +53,10 @@ public class AccountManageController {
 		return employeeService.getUserInfoByEmpName(data);
 	}
 	
+	@PostMapping("/account/changeAccountState")
+	public void changeAccountState(@RequestBody JSONObject data) {
+		employeeService.changeAccountState(data);
+		
+	}
+	
 }

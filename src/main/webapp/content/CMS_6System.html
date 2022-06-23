@@ -162,15 +162,17 @@
                     contentType: 'application/json',
                     dataType: 'json',
                     success: function (data) {
+                        console.log(data);
                         AccountInfoData = data;
                         for (i = 0; i < data.length; i++) {
-                            var innerTableBody = `
+                            if (data[i].cellphone2 == "100") {
+                                var innerTableBody = `
                         <tr>
                             <td>${i + 1}</td>
-                            <td>${data[i].empId}</td>
+                            <td id="empId${i}" >${data[i].empId}</td>
                             <td>${data[i].empName}</td>
                             <td>${data[i].aparts.apart}</td>
-                            <td><input class="switch-checkbox" id="switchID${i}" type="checkbox" name="switch-checkbox">
+                            <td><input class="switch-checkbox" id="switchID${i}" onchange="changeAccountState(${i})" type="checkbox" name="switch-checkbox" checked value="${data[i].cellphone2}">
                                 <label class="switch-label" for="switchID${i}">
                                     <span class="switch-txt" turnOn="開" turnOff="關"></span>
                                     <span class="switch-Round-btn"></span>
@@ -181,12 +183,53 @@
                             <td><button id="reviseBtn${i + 1}" onClick="reviseAccountInfo(AccountInfoData[${i}])" style="border:none; background-color: transparent;"><img class="修改按鈕"
                                         src="/img/pencil.png" style="width: 20px; " /></button>
                         </tr>`;
-                            $('#tableBody').append(innerTableBody);
+                                $('#tableBody').append(innerTableBody);
+
+                            }else{
+                                var innerTableBody = `
+                        <tr>
+                            <td>${i + 1}</td>
+                            <td id="empId${i}" >${data[i].empId}</td>
+                            <td>${data[i].empName}</td>
+                            <td>${data[i].aparts.apart}</td>
+                            <td><input class="switch-checkbox" id="switchID${i}" onchange="changeAccountState(${i})" type="checkbox" name="switch-checkbox" value="${data[i].cellphone2}">
+                                <label class="switch-label" for="switchID${i}">
+                                    <span class="switch-txt" turnOn="開" turnOff="關"></span>
+                                    <span class="switch-Round-btn"></span>
+                                </label>
+                            </td>
+                            <td id="accountUpdateDade">${moment(data[i].updateDate).format("YYYY-MM-DD")}</td>
+                            <td >${data[i].adm}</td>
+                            <td><button id="reviseBtn${i + 1}" onClick="reviseAccountInfo(AccountInfoData[${i}])" style="border:none; background-color: transparent;"><img class="修改按鈕"
+                                        src="/img/pencil.png" style="width: 20px; " /></button>
+                        </tr>`;
+                                $('#tableBody').append(innerTableBody);
+
+                            }
+
                         }
                     }
                 });
-
             }
+            
+            function changeAccountState(switchId) {
+                if ($(`#switchID${switchId}`).is(':checked')) {
+                    $(`#switchID${switchId}`).val("100");
+                } else {
+                    $(`#switchID${switchId}`).val("101");
+                }
+                var data = JSON.stringify({ empId : $(`#empId${switchId}`).text(),
+                                            cellphone2 : $(`#switchID${switchId}`).val()
+                                        })
+                $.ajax({
+                    type : "post",
+                    url : "/account/changeAccountState",
+                    data : data ,
+                    contentType : "application/json"
+                });
+            }
+
+
             function reviseAccountInfo(thisAccountInfo) {
                 window.localStorage.setItem("empId", thisAccountInfo.empId);
                 window.location.href = "./CMS_6_1_3.html";

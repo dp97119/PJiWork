@@ -43,14 +43,20 @@ public class EmployeeService {
 	public Temptoken tempToken = new Temptoken();
 
 	
-	public String userVerify(String empId ,String passwd) {
+	public JSONObject userVerify(String empId ,String passwd) {
 		 Optional<Employee> checkId = employeeRepo.findById(empId);
-		 
+		 JSONObject obj = new JSONObject();
+
 		if(checkId.isEmpty()) {
-			return "101";//查無帳號
-		}
+			obj.put("status", 101);//查無帳號
+			obj.put("token", "");
+			return obj;		
+			}
+		
 		//帳號密碼正確 -->取得身份 -->回傳token,同時存進資料庫
 		if(employeeRepo.findById(empId).get().getPasswd().equals(passwd)) {
+			String accountState = employeeRepo.findById(empId).get().getCellphone2();
+			if(accountState.equals("100")) {
 			HashMap<String, String> userInfo = new HashMap<>();
 			userInfo.put("empId", empId);
 			userInfo.put("passwd", passwd);
@@ -58,9 +64,18 @@ public class EmployeeService {
 			String token = jwtToken.generateToken(userInfo);
 			tempToken.setTokenValue(token);//存進tempToken
 			tempTokenRepo.save(tempToken);
-			return token ;
+			obj.put("status", 100);//查無帳號
+			obj.put("token", token);
+			return obj;		
+			}else {
+				obj.put("status", 103);//帳號被關閉
+				obj.put("token", "");
+				return obj;	
+			}
 		}else {
-			return "102";//密碼不符
+			obj.put("status", 102);//密碼錯誤
+			obj.put("token", "");
+			return obj;	
 		}
 	}
 	
@@ -206,6 +221,7 @@ public class EmployeeService {
 			 employee.setTel(userInfo.getString("tel"));
 			 employee.setGender(userInfo.getString("gender"));
 			 employee.setCellphone1(userInfo.getString("cellphone1"));
+			 employee.setCellphone2("100");
 			 employee.setEmail(userInfo.getString("email"));
 			 employee.setAddr(userInfo.getString("addr"));
 			 employee.setAdm(userInfo.getString("adm"));
@@ -226,5 +242,12 @@ public class EmployeeService {
 	     obj.put("addr", addr);
 	     return obj;
 
+	}
+	
+	@Transactional
+	public void changeAccountState(JSONObject data) {
+	     Employee employee = employeeRepo.findById(data.getString("empId")).get();
+	     employee.setCellphone2(data.getString("cellphone2"));
+	     employeeRepo.save(employee);
 	}
 }

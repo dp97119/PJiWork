@@ -118,10 +118,10 @@
 		});
 
 		function login() {
-			var inputData = JSON.stringify([{
+			var inputData = JSON.stringify({
 				empId: $("#userEmp").val(),
 				passwd: $("#userPsw").val()
-			}]);
+			});
 
 			$.ajax({
 				type: "post",
@@ -130,15 +130,18 @@
 				contentType: 'application/json',
 				success: function (data) {
 					console.log(data);
-					if (data.state == "100") {
+					if (data.status == "100") {
 						document.cookie = `cookie1= ${data.token}`;
 						window.location.href = "/CMS_0interface.html";
-					} else if (data.state == "101") {
+					} else if (data.status == "101") {
 						$("#btn_login").html('登入');
 						alert("查無帳號");
-					} else if (data.state == "102") {
+					} else if (data.status == "102") {
 						$("#btn_login").html('登入');
 						alert("密碼錯誤");
+					} else if (data.status == '103'){
+						$("#btn_login").html('登入');
+						alert("該帳號目前關閉中");
 					}
 				}
 			});
