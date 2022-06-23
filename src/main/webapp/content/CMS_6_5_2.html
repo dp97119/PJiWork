@@ -137,7 +137,7 @@
 
 
         <script>
-            // 上傳菜單 
+            // 上傳餐廳 
             $("#myFormR").submit(function (e) {
                 e.preventDefault(); // 停止觸發submit
                 console.log("upload");
@@ -151,8 +151,9 @@
                     contentType: false, // jQuery預設contentType為'application/x-www-form-urlencoded; charset=UTF-8', 且不用自己設定為'multipart/form-data'
                     dataType: 'text',
                     success: function (data) {
-                        console.log(data);
-                        alert("上傳成功");
+                        if (confirm("上傳成功")) {
+                            restaurantdialog.close();
+                        }
                     }
                 });
             });
@@ -170,8 +171,9 @@
                     contentType: false, // jQuery預設contentType為'application/x-www-form-urlencoded; charset=UTF-8', 且不用自己設定為'multipart/form-data'
                     dataType: 'text',
                     success: function (data) {
-                        console.log(data);
-                        alert("上傳成功");
+                        if (confirm("上傳成功")) {
+                            dishdialog.close();
+                        }
                     }
                 });
             });
