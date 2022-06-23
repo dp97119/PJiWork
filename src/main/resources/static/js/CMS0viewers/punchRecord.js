@@ -1,3 +1,4 @@
+// 限定只能撈三筆資料
 function displayPunchInfo(userPunchData) {
     if (userPunchData[0] == null) {
         var precord = $(`<tr>
@@ -23,6 +24,10 @@ function displayPunchInfo(userPunchData) {
                                 <td class="myTime" >下班</td>
                                 <td class="myTime" value="200" id="noWork${i}">${userPunchData[i].time.split(" ")[1]}</td>
                             </tr>
+                            <tr class="myTimeborder">
+                              <td class="myTime" >打卡狀態：</td>
+                              <td class="myTime" id="state${i}">${userPunchData[i].state}</td>
+                            </tr>
                             <tr>
                                 <td> <pre> </pre> </td>
                             </tr>`);
@@ -42,6 +47,10 @@ function displayPunchInfo(userPunchData) {
                             <td class="myTime" >下班</td>
                             <td class="myTime" value="201" id="noWork0" >------</td>
                         </tr>
+                        <tr class="myTimeborder">
+                              <td class="myTime" >打卡狀態：</td>
+                              <td class="myTime" id="state0">${userPunchData[0].state}</td>
+                        </tr>
                         <tr>
                              <td> <pre> </pre> </td>
                         </tr>`);
@@ -60,6 +69,10 @@ function displayPunchInfo(userPunchData) {
                                 <td class="myTime">下班</td>
                                 <td class="myTime">${userPunchData[i].time.split(" ")[1]}</td>
                             </tr>
+                            <tr class="myTimeborder">
+                              <td class="myTime" >打卡狀態：</td>
+                              <td class="myTime" id="state${i}">${userPunchData[i].state}</td>
+                            </tr>
                             <tr>
                                 <td> <pre> </pre> </td>
                             </tr>`);
@@ -77,7 +90,6 @@ function getCookie() {
 
 $(function () {
     var data = JSON.stringify({ "userToken": getCookie() });
-    console.log(data);
     $.ajax({
         type: "post",
         url: "/punch/getInfo",

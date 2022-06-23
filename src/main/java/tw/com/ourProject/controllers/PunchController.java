@@ -25,6 +25,8 @@ public class PunchController {
 	 
 	@PostMapping("/punch/saveInfo")
 	public void savePunchInfo(@RequestBody JSONArray punchData) {
+		System.out.println("------------------------------------------");
+		System.out.println(punchData);
 	    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	    try {
 		JSONObject infoObj = punchData.getJSONObject(0);
@@ -34,7 +36,8 @@ public class PunchController {
 									format.parse(infoObj.getString("time")),
 									jwtUtil.getInfoFromJwtToken(infoObj.getString("person"), "empId"),
 									infoObj.getString("locationLat"),
-									infoObj.getString("locationLng")
+									infoObj.getString("locationLng"),
+									infoObj.getString("state")
 									);
 		
 	    }catch(Exception e) {

@@ -37,11 +37,14 @@ public class Punch {
 	
 	@Column(name = "locationlng")
 	private String locationLng;
+	
+	@Column(name = "state")
+	private String state;
 
 	@Override
 	public String toString() {
 		return "Punch [punchId=" + punchId + ", status=" + status + ", time=" + time + ", person=" + person
-				+ ", locationLat=" + locationLat + ", locationLng=" + locationLng + "]";
+				+ ", locationLat=" + locationLat + ", locationLng=" + locationLng + ", state=" + state + "]";
 	}
 
 	public Integer getPunchId() {
@@ -91,5 +94,14 @@ public class Punch {
 	public void setLocationLng(String locationLng) {
 		this.locationLng = locationLng;
 	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 	
 }

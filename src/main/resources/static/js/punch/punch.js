@@ -8,21 +8,21 @@ function setLocation(mylat, mylng) {
   myLocation.lng = mylng;
 }
 
-function getLatLngByAddr(myAddr) {   
+function getLatLngByAddr(myAddr) {
 
-  var geocoder = new google.maps.Geocoder();   
-  geocoder.geocode(   
-      { address: myAddr },     
-      function(results, status) {      
-          if (status == google.maps.GeocoderStatus.OK) {    
-              getDistance(results[0].geometry.location);                                          
-          } else {   
-              alert('請個人資訊填寫有效地址');  
-              parent.punchdialog.close(); 
-          }   
-    }   
-);   
-}  
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode(
+    { address: myAddr },
+    function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        getDistance(results[0].geometry.location);
+      } else {
+        alert('請個人資訊填寫有效地址');
+        parent.punchdialog.close();
+      }
+    }
+  );
+}
 
 
 //顯示當前時間
@@ -93,12 +93,12 @@ var distanceOfHome;
 //計算googleMap 打卡點與公司的距離
 function getDistance(homeLat, homeLng) {
   var origin1 = new google.maps.LatLng(24.15062949399325, 120.65117611577809); // 公司位置
-  var origin2 = new google.maps.LatLng(homeLat,homeLng); // 住家位置
+  var origin2 = new google.maps.LatLng(homeLat, homeLng); // 住家位置
   var service = new google.maps.DistanceMatrixService();
   service.getDistanceMatrix(
     {
-      origins: [origin1,origin2],
-      destinations: [myLocation,myLocation],
+      origins: [origin1, origin2],
+      destinations: [myLocation, myLocation],
       travelMode: 'WALKING', // 交通方式：BICYCLING(自行車)、DRIVING(開車，預設)、TRANSIT(大眾運輸)、WALKING(走路)
       unitSystem: google.maps.UnitSystem.METRIC, // 單位 METRIC(公里，預設)、IMPERIAL(哩)
     }, function (response, status) {
@@ -139,41 +139,57 @@ $("#punchOK").click(function () {
 
 function sendPunchInfo(state) {
   let date = moment().format('YYYY-MM-DD HH:mm:ss');
-  var punchInfo = JSON.stringify([{
-    status: $("#punchOK").val(),
-    time: date,
-    person: getCookie(),
-    locationLat: myLocation.lat,
-    locationLng: myLocation.lng,
-  }]);
-  if (distanceOfCompany < 500 || distanceOfHome < 500) {
-    $.ajax({
-      type: "post",
-      url: "/punch/saveInfo",
-      data: punchInfo,
-      contentType: 'application/json',
-      success: function () {
-        if(state == 201){
-          alert("將轉至出勤系統，請完成表單填寫");
-          parent.window.location.href="CMS_2_2.html";
-        }else{
-          alert("打卡成功");
-        }
-        $.ajax({
-          type: "post",
-          url: "/punch/getInfo",
-          data: JSON.stringify({ "userToken": getCookie() }),
-          contentType: 'application/json',
-          success: function (data) {
-            parent.punchdialog.close();
-            parent.displayPunchInfo(data);
-          }
-        });
-      }
-    });
-  } else {
-    alert("目前不在可打卡範圍哦");
+  var status = $("#punchOK").val();
+  if (status == "下班") {
+    if (state == 201) {
+      var punchInfo = JSON.stringify([{
+        status: $("#punchOK").val(),
+        time: date,
+        person: getCookie(),
+        locationLat: myLocation.lat,
+        locationLng: myLocation.lng,
+        state: "出勤時間異常"
+      }]);
+    }
+  }else{
+    var punchInfo = JSON.stringify([{
+      status: $("#punchOK").val(),
+      time: date,
+      person: getCookie(),
+      locationLat: myLocation.lat,
+      locationLng: myLocation.lng,
+      state: "正常"
+    }]);
   }
+
+    if (distanceOfCompany < 500 || distanceOfHome < 500) {
+      $.ajax({
+        type: "post",
+        url: "/punch/saveInfo",
+        data: punchInfo,
+        contentType: 'application/json',
+        success: function () {
+          if (state == 201) {
+            alert("將轉至出勤系統，請完成表單填寫");
+            parent.window.location.href = "CMS_2_2.html";
+          } else {
+            alert("打卡成功");
+          }
+          $.ajax({
+            type: "post",
+            url: "/punch/getInfo",
+            data: JSON.stringify({ "userToken": getCookie() }),
+            contentType: 'application/json',
+            success: function (data) {
+              parent.punchdialog.close();
+              parent.displayPunchInfo(data);
+            }
+          });
+        }
+      });
+    } else {
+      alert("目前不在可打卡範圍哦");
+    }
 }
 
 $("#punchCancer").click(function () {
@@ -184,7 +200,7 @@ $(parent.$("#myCardbtn1")).click(function () {
   if (checkPunchState() == "200") {
     $("#punchOK").val("上班");
     navigator.geolocation.getCurrentPosition(success, error, options);
-  }else{
+  } else {
     if (confirm("尚未打下班卡，無法操作")) {
       parent.punchdialog.close();
     } else {
@@ -200,26 +216,25 @@ $(parent.$("#myCardbtn2")).click(function () {
       parent.punchdialog.close();
     }
 
-  } else{
+  } else {
     $("#punchOK").val("下班");
     navigator.geolocation.getCurrentPosition(success, error, options);
   }
 });
 
 function checkPunchState() {
-  console.log(parent.document.getElementById("noWork0").getAttribute("value")==null);
   return PunchState = parent.document.getElementById("noWork0").getAttribute("value");
 }
 
 //獲取地址
-function getMyAddr(){
+function getMyAddr() {
   $.ajax({
-    type : "post",
-    url : "/emp/getAddr",
-    data : JSON.stringify({ userToken : getCookie()}),
-    contentType : "application/json",
-    dataType : "json",
-    success : function(data){
+    type: "post",
+    url: "/emp/getAddr",
+    data: JSON.stringify({ userToken: getCookie() }),
+    contentType: "application/json",
+    dataType: "json",
+    success: function (data) {
     }
   });
 
