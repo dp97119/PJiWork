@@ -37,7 +37,7 @@ $(function () {
                     announcementRecord.appendTo("#announcementTable");
                     i++;
                 } else {
-                    console.log("下架了")
+                    
                 }
             })
             $.ajax({
