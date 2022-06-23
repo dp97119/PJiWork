@@ -12,6 +12,7 @@ $(function () {
             userNumber.innerText = data.empId;
             userName.innerText = data.empName;
             window.localStorage.setItem("myAddr",data.empAddr);
+            document.getElementById('myNameImg').setAttribute('src', `${data.empPhoto}`);
         }
     })
 })
