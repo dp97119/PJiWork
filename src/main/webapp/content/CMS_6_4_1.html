@@ -133,8 +133,6 @@
         })
     </script>
 
-
-    <!-- <script src="/js/CMS6_4approvalset/approvalset.js"></script> -->
     <script>
         // 查詢
         var approvalList = [];
@@ -182,9 +180,6 @@
                     data: findId,
                     contentType: "application/json",
                     success: function (data) {
-                        // console.log(findId)
-                        // console.log(data.firstApprovalId);
-                        // console.log(data.secondApprovalId);
                         $('#aparts').find(`option[value=${data.apartId}]`).prop('selected', true);  //可以抓
                         $('#aparts').prop('disabled', true); //可以鎖
                         staffOne();
@@ -226,8 +221,11 @@
                                     success: function (data) {
                                         $.each(data, function () {
                                             if (this.aparts.apartId == "1" || this.aparts.apartId == "2") {
-                                                var option2 = $("<option value=" + this.empId + ">" + this.empName + "</option>");
-                                                option2.appendTo("#reviewertwo");
+                                                if ((this.adm) == "admin") {
+                                                    var option2 = $("<option value=" + this.empId + ">" + this.empName + "</option>");
+                                                    option2.appendTo("#reviewertwo");
+
+                                                }
                                             }
                                         })
                                     }

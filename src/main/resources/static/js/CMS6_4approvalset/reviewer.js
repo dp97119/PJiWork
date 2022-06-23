@@ -10,13 +10,13 @@ $("#aparts").change(function () {
             success: function (data) {
                 $.each(data, function () {
                     if (selectaparts == this.aparts.apartId && (this.adm) == "admin") {
-                        var option1 = $("<option value=" + this.empId +">" + this.empName + "</option>");
+                        var option1 = $("<option value=" + this.empId + ">" + this.empName + "</option>");
                         option1.appendTo("#reviewerone");
                     }
                 })
             }
         })
-    }else{
+    } else {
         $("#reviewerone").empty().append("<option></option>");
         $("#reviewertwo").empty().append("<option></option>");
     }
@@ -34,13 +34,16 @@ $("#aparts").change(function () {
             success: function (data) {
                 $.each(data, function () {
                     if (this.aparts.apartId == "1" || this.aparts.apartId == "2") {
-                        var option2 = $("<option value=" + this.empId +">" + this.empName + "</option>");
-                        option2.appendTo("#reviewertwo");
+                        if ((this.adm) == "admin") {
+                            var option2 = $("<option value=" + this.empId + ">" + this.empName + "</option>");
+                            option2.appendTo("#reviewertwo");
+
+                        }
                     }
                 })
             }
         })
-    }else{
+    } else {
         $("#reviewerone").empty().append("<option></option>");
         $("#reviewertwo").empty().append("<option></option>");
     }

@@ -1,4 +1,3 @@
-// 限定只能撈三筆資料
 function displayPunchInfo(userPunchData) {
     if (userPunchData[0] == null) {
         var precord = $(`<tr>
