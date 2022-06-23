@@ -71,7 +71,9 @@
 			<br>
 			<div>
 				<label><b>時&nbsp;&nbsp;數&nbsp;&nbsp;輸&nbsp;&nbsp;入：</b></label>&nbsp;&nbsp;&nbsp;
-				<input type="number" class="inputSize" id="hoursEdit">
+				<input type="text" class="inputSize" id="hoursEdit"
+					onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"
+					onkeyup="value=value.replace(/[^\d.]/g,'')">
 			</div>
 			<br>
 			<div>
@@ -141,8 +143,8 @@
 					contentType: "application/json",
 					success: function (data) {
 						console.log(data);
-						if(confirm("修改成功")){
-							window.location.href="./CMS_2Leaverecorded.html"
+						if (confirm("修改成功")) {
+							window.location.href = "./CMS_2Leaverecorded.html"
 						}
 					}
 				})

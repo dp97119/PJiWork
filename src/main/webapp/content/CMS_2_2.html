@@ -21,7 +21,7 @@
 	<script src="/js/CMS2attendance/leaves.js"></script>
 	<script src="/js/CMS2attendance/admin.js"></script>
 	<script src="/js/punch/moment.min.js"></script>
-	
+
 </head>
 
 
@@ -69,11 +69,14 @@
 			<br>
 			<div>
 				<label><b>時&nbsp;&nbsp;數&nbsp;&nbsp;輸&nbsp;&nbsp;入：</b></label>&nbsp;&nbsp;&nbsp;
-				<input type="number" class="inputSize" id="hours">
+				<input type="text" class="inputSize" id="hours"
+					onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"
+					onkeyup="value=value.replace(/[^\d.]/g,'')">
 			</div>
 			<br>
 			<div>
-				<input type="button" value="確定" class="btnStyle" id="sendAnnouncement"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" value="確定" class="btnStyle"
+					id="sendAnnouncement"></input>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" value="取消" class="btnStyle" id="cancelbtn"></input>
 			</div>
 		</div>
