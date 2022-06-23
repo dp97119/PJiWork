@@ -98,16 +98,6 @@
         var userName = null;
         var sessionId = null;
 
-        //    function setConnected(connected) {
-        //        document.getElementById('connect').disabled = connected;
-        //        document.getElementById('disconnect').disabled = !connected;
-        //        document.getElementById('conversationDiv').style.visibility
-        //          = connected ? 'visible' : 'hidden';
-        //        document.getElementById('response').innerHTML = '';
-
-        //        document.getElementById('from').disabled = connected;
-        //    }
-
         function connect() {
             var socket = new SockJS('/chatroom');
             stompClient = Stomp.over(socket);
@@ -115,7 +105,6 @@
             userName = "system";
             stompClient.connect({ user: userName }, function (frame) {
 
-                console.log('Connected: ' + frame);
 
                 // 廣播
                 stompClient.subscribe('/topic/messages', function (messageOutput) {
@@ -139,7 +128,6 @@
             }
             setConnected(false);
             userName = null;
-            console.log("Disconnected");
         }
 
         function sendMessage() {
