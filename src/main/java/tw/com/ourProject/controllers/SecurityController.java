@@ -24,28 +24,11 @@ public class SecurityController {
 	SecurityService securityService ;
 
 	@PostMapping("/security/login")
-	public JSONObject login(@RequestBody String inputdata) {
-		JSONArray jsonArray = JSONObject.parseArray(inputdata);
-		System.out.println(jsonArray);
-		JSONObject obj = null;
+	public JSONObject login(@RequestBody JSONObject inputdata) {
 
-		for (int i = 0; i < jsonArray.size(); i++) {
-			obj = jsonArray.getJSONObject(i);
-		}
-		//驗證帳號密碼 （成功：回傳token ;查無帳號：101 ;密碼錯誤：102)
-		String result = employeeService.userVerify(obj.get("empId").toString(), obj.get("passwd").toString());
-		System.out.println(result);
-		//帳號密碼正確  獲得token
-		if (result != "101" && result != "102") {
-			obj.clear();
-			obj.put("state", "100");// 成功
-			obj.put("token",result);
-			return obj;
-		} else {
-			obj.clear();
-			obj.put("state", result);// 失敗,傳入狀態101,102
-			return obj;
-		}
+		//驗證帳號密碼 （成功：回傳token ;查無帳號：101 ;密碼錯誤：102 ; 帳號被關閉：103)
+		JSONObject result = employeeService.userVerify(inputdata.getString("empId"), inputdata.getString("passwd"));
+		return result;
 
 	}
 	
