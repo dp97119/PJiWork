@@ -43,7 +43,7 @@ function openbtn(i) {
             if (data[1].attName != "") {
                 for (var i = 1; i <= (data.length - 1); i++) {
                     var aaa = $(
-                        `<a href="${data[i].attName}"><span>${data[i].attName}</span></a><br>`);
+                        `<a href="${data[i].attName}"><span>${(data[i].attName).split("h/")[1]}</span></a><br>`);
                     aaa.appendTo("#annexTr");
                 }
             } else {

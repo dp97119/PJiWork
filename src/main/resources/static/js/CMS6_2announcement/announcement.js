@@ -48,7 +48,7 @@ $(function () {
                     for(i = 0 ; i < data.length ;i++){
                         // data[i].announceId
                         var aImg = (data[i].attName).split("h/")[1];
-                        var attachimg = $(`<span>${aImg}</span><br>`);
+                        var attachimg = $(`<a href="${data[i].attName}"><span>${aImg}</span></a><br>`);
                         attachimg.appendTo(`#att${data[i].announcements.announceId}`);
                     }
                 }
