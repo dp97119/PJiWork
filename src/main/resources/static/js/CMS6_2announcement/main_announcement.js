@@ -13,15 +13,11 @@ $(function () {
                 var mm = ('0' + (NowDate.getMonth() + 1)).slice(-2);
                 var dd = ('0' + NowDate.getDate()).slice(-2);
                 var today = yy + '-' + mm + '-' + dd;
-
                 if (today < this.removed) {
                     var announcementRecord = $(`<li id="${this.announceId}" class="notice" onclick="openbtn(${i})">${this.title}</li>`);
                     // $("#mainAnnouncement").after(announcementRecord);
                     announcementRecord.appendTo("#mainAnnouncement");
-                    console.log(this);
                     i++;
-                } else {
-                    console.log("下架了")
                 }
             })
         }
@@ -35,7 +31,6 @@ function openbtn(i) {
     var openNumber = JSON.stringify({
         announceId: document.getElementsByTagName("li")[i].getAttribute('id')
     });
-    // console.log(openNumber);
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/Announcement/content/",
@@ -47,9 +42,6 @@ function openbtn(i) {
             contentText.innerText = data[0].content;
             if (data[1].attName != "") {
                 for (var i = 1; i <= (data.length - 1); i++) {
-                    // annex.innerText = data[i].attName;
-                    // var aaa = $(
-                    //     `<span>${data[i].attName}</span><br>`);
                     var aaa = $(
                         `<a href="${data[i].attName}"><span>${data[i].attName}</span></a><br>`);
                     aaa.appendTo("#annexTr");

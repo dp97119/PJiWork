@@ -1,9 +1,6 @@
 // 中間個人資訊
 $(function () {
-
     var usertoken = JSON.stringify({ "userToken": getCookie() });
-    console.log("ok");
-
     $.ajax({
         type: "POST",
         url: "/emp/getUserInfo",
@@ -14,7 +11,6 @@ $(function () {
             userApart.innerText = data.apart;
             userNumber.innerText = data.empId;
             userName.innerText = data.empName;
-            console.log(document.getElementById('myNameImg').getAttribute('src'));
             window.localStorage.setItem("myAddr",data.empAddr);
         }
     })
