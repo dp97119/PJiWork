@@ -48,8 +48,10 @@ function openbtn(i) {
             if (data[1].attName != "") {
                 for (var i = 1; i <= (data.length - 1); i++) {
                     // annex.innerText = data[i].attName;
+                    // var aaa = $(
+                    //     `<span>${data[i].attName}</span><br>`);
                     var aaa = $(
-                        `<span>${data[i].attName}</span><br>`);
+                        `<a href="${data[i].attName}"><span>${data[i].attName}</span></a><br>`);
                     aaa.appendTo("#annexTr");
                 }
             } else {
