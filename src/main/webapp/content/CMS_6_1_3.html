@@ -95,7 +95,10 @@
                     <tr>
                         <td><b><span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;別：</span></b>
                         </td>
-                        <td><input id="gender" type="text" class="inputSize" value=""></td>
+                        <td>
+                            <input id="genderMale" type="radio" name="gender" value="男" ><label for="genderMale">男性</label>&nbsp;&nbsp;
+                            <input id="genderFemale" type="radio" name="gender" value="女"><label for="genderFemale">女性</label>
+                        </td>
                     </tr>
                     <tr>
                         <td><b><span>行&nbsp;&nbsp;&nbsp;動&nbsp;&nbsp;&nbsp;電&nbsp;&nbsp;&nbsp;話：</span></b></td>
@@ -168,7 +171,7 @@
                     $("#cellphone1").val(data.cellphone1);
                     $("#email").val(data.email);
                     $("#empName").val(data.empName);
-                    $("#gender").val(data.gender);
+                    $(`input[value=${data.gender}]`).attr("checked","true");
                     $("#passwd").val(data.passwd);
                     $("#tel").val(data.tel);
                     $("#createPerson").text(data.createPerson);
@@ -197,7 +200,7 @@
                 empName: $("#empName").val(),
                 apartId: $("#aparts").val(),
                 tel: $("#tel").val(),
-                gender: $("#gender").val(),
+                gender: $("input[name=gender]:checked").val(),
                 cellphone1: $("#cellphone1").val(),
                 email: $("#email").val(),
                 addr: $("#addr").val(),
