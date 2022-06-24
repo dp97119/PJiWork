@@ -1,5 +1,6 @@
 package tw.com.ourProject.controllers;
 
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 @Controller
 public class DishExcelController {
-	@Autowired
+	@Autowired 
 	public tw.com.ourProject.service.DishService dishservice;
 	
 	@GetMapping("/DishIndex")
@@ -35,7 +36,13 @@ public class DishExcelController {
         if (name.length() < 6 || !name.substring(name.length() - 5).equals(".xlsx")) {
             return "文件格式錯誤";
         }
-        return dishservice.parsefile(file,"");
+        try {
+        	String error = dishservice.parsefile(file,"");
+            return  error;
+        }catch(Exception e) {
+        	return "上傳失敗";
+        }
+        
         
 	}
 }

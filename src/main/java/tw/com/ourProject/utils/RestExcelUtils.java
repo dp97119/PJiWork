@@ -17,7 +17,7 @@ import java.util.List;
  * */
 public class RestExcelUtils {
 
-    public static List<RestExcelBean> excelToShopIdList(InputStream inputStream) {
+    public static List<RestExcelBean> excelToShopIdList(InputStream inputStream) throws Exception {
         List<RestExcelBean> list = new ArrayList<>();
         Workbook workbook = null;
         try {

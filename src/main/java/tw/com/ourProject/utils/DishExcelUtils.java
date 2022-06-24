@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.hibernate.exception.DataException;
 
 import tw.com.ourProject.model.DishExcelBean;
 
@@ -17,24 +18,21 @@ import java.util.List;
  * */
 public class DishExcelUtils {
 
-    public static List<DishExcelBean> excelToShopIdList(InputStream inputStream) {
+    public static List<DishExcelBean> excelToShopIdList(InputStream inputStream){
         List<DishExcelBean> list = new ArrayList<>();
         Workbook workbook = null;
         try {
             workbook = WorkbookFactory.create(inputStream);
             inputStream.close();
-            //工作表对象
+            //工作表
             Sheet sheet = workbook.getSheetAt(0);
-            //总行数
+            //總行數
             int rowLength = sheet.getLastRowNum();
-            //            System.out.println("总行数有多少行" + rowLength);
             //工作表的列
             Row row = sheet.getRow(0);
-
-            //总列数
+            //總列數
             int colLength = row.getLastCellNum();
-            //            System.out.println("总列数有多少列" + colLength);
-            //得到指定的单元格
+            //得到指定的單元格
             Cell cell = row.getCell(0);
             for (int i = 1; i <= rowLength; i++) {
                 DishExcelBean jiFenExcel = new DishExcelBean();
@@ -47,8 +45,7 @@ public class DishExcelUtils {
                         cell.setCellType(Cell.CELL_TYPE_STRING);
                         String data = cell.getStringCellValue();
                         data = data.trim();
-                        //                        System.out.print(data);
-                        //                        if (StringUtils.isNumeric(data)) {
+                       
                         if (j == 0) {
                             jiFenExcel.setNum(data);
                         } else if (j == 1) {
@@ -63,7 +60,6 @@ public class DishExcelUtils {
                     }
                 }
                 list.add(jiFenExcel);
-                //                System.out.println("====");
             }
         } catch (Exception e) {
         }

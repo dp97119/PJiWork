@@ -151,6 +151,7 @@
                     contentType: false, // jQuery預設contentType為'application/x-www-form-urlencoded; charset=UTF-8', 且不用自己設定為'multipart/form-data'
                     dataType: 'text',
                     success: function (data) {
+                    	alert(data);
                         if (confirm("上傳成功")) {
                             restaurantdialog.close();
                         }
