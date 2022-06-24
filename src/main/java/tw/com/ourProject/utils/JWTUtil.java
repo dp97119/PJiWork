@@ -7,8 +7,10 @@ import java.util.Map;
 
 import javax.security.auth.message.AuthException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -17,6 +19,10 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JWTUtil {
+	
+	@Autowired
+    private OnlineCounterUtil onlineCounterUtil;
+
 	private static final long EXPIRATION_TIME = 60 * 60 * 1000;
     /**
      * JWT SECRET KEY
@@ -27,13 +33,18 @@ public class JWTUtil {
      * 簽發JWT
      */
     public String generateToken(HashMap<String, String> userDetails) {
+    	long nowMillis = System.currentTimeMillis();
+    	Date now = new Date(nowMillis);
+
+    	
         Map<String, Object> claims = new HashMap<>();
         claims.put( "empId", userDetails.get("empId") );
-        claims.put( "passwd", userDetails.get("passwd") );
+//        claims.put( "passwd", userDetails.get("passwd") );
         claims.put( "adm", userDetails.get("adm") );
 
         return Jwts.builder()
                 .setClaims( claims )
+                .setIssuedAt(now)
                 .setExpiration( new Date( Instant.now().toEpochMilli() + EXPIRATION_TIME  ) )
                 .signWith( SignatureAlgorithm.HS512, SECRET )
                 .compact();
@@ -65,12 +76,22 @@ public class JWTUtil {
     }
     
     public String getInfoFromJwtToken(String token,String param) {
-    	
+    	onlineCounterUtil.insertToken(token);
         return Jwts.parser()
                             .setSigningKey(SECRET)
                             .parseClaimsJws(token)
                             .getBody().get(param).toString();
     	
     }
+    
+  public static Claims getClaimsFromJwtToken(String token) {
+    	
+        return Jwts.parser()
+                            .setSigningKey(SECRET)
+                            .parseClaimsJws(token)
+                            .getBody();
+    	
+    }
+    
 	
 }

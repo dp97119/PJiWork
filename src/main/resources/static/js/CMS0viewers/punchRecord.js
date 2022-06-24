@@ -17,7 +17,7 @@ function displayPunchInfo(userPunchData) {
                                 </td>
                             </tr>
                             <tr class="myTimeborder">
-                                <td class="myTime" >上班</td>
+                                <td class="myTime">上班</td>
                                 <td class="myTime" id="onWork${i}">${userPunchData[i + 1].time.split(" ")[1]}</td>
                             </tr>
                             <tr class="myTimeborder">
@@ -25,8 +25,8 @@ function displayPunchInfo(userPunchData) {
                                 <td class="myTime" value="200" id="noWork${i}">${userPunchData[i].time.split(" ")[1]}</td>
                             </tr>
                             <tr class="myTimeborder">
-                              <td class="myTime" >打卡狀態：</td>
-                              <td class="myTime" id="state${i}">${userPunchData[i].state}</td>
+                              <td class="myTime" >打卡狀態</td>
+                              <td class="myTime" id="state${i}"><span style="color:red;">${userPunchData[i].state}</span></td>
                             </tr>
                             <tr>
                                 <td> <pre> </pre> </td>
@@ -40,7 +40,7 @@ function displayPunchInfo(userPunchData) {
                             </td>
                         </tr>
                         <tr class="myTimeborder">
-                            <td class="myTime" >上班</td>
+                            <td class="myTime">上班</td>
                             <td class="myTime" id="onWork0">${userPunchData[0].time.split(" ")[1]}</td>
                         </tr>
                         <tr class="myTimeborder">
@@ -48,7 +48,7 @@ function displayPunchInfo(userPunchData) {
                             <td class="myTime" value="201" id="noWork0" >------</td>
                         </tr>
                         <tr class="myTimeborder">
-                              <td class="myTime" >打卡狀態：</td>
+                              <td class="myTime" >打卡狀態</td>
                               <td class="myTime" id="state0">${userPunchData[0].state}</td>
                         </tr>
                         <tr>
@@ -70,7 +70,7 @@ function displayPunchInfo(userPunchData) {
                                 <td class="myTime">${userPunchData[i].time.split(" ")[1]}</td>
                             </tr>
                             <tr class="myTimeborder">
-                              <td class="myTime" >打卡狀態：</td>
+                              <td class="myTime" >打卡狀態</td>
                               <td class="myTime" id="state${i}">${userPunchData[i].state}</td>
                             </tr>
                             <tr>
@@ -82,6 +82,7 @@ function displayPunchInfo(userPunchData) {
     }
 
 }
+
 
 function getCookie() {
     var cookie = document.cookie.split('=');

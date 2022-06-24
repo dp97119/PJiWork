@@ -37,7 +37,7 @@ function openbtn(i) {
         data: openNumber,
         contentType: "application/json",
         success: function (data) {
-            titleText.innerText = data[0].title;
+            titleText1.innerText = data[0].title;
             startTime.innerText = (data[0].uploadDate).split('T')[0];
             contentText.innerText = data[0].content;
             if (data[1].attName != "") {

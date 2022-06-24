@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import tw.com.ourProject.service.EmployeeService;
 import tw.com.ourProject.service.SecurityService;
 import tw.com.ourProject.service.TokenService;
+import tw.com.ourProject.utils.OnlineCounterUtil;
 
 @RestController
 public class SecurityController {
@@ -22,6 +23,8 @@ public class SecurityController {
 	TokenService tokenService;
 	@Autowired
 	SecurityService securityService ;
+	@Autowired
+    private OnlineCounterUtil onlineCounterUtil;
 
 	@PostMapping("/security/login")
 	public JSONObject login(@RequestBody JSONObject inputdata) {
@@ -43,7 +46,10 @@ public class SecurityController {
 	@PostMapping("/security/countToken")
 	public JSONObject countToken() {
 		JSONObject obj = new JSONObject();
-		obj.put("countRs",tokenService.countToken().toString());
+        Integer onlines = onlineCounterUtil.getOnlineCount();
+//		obj.put("countRs",tokenService.countToken().toString());
+		obj.put("countRs",onlines.toString());
+
 		return obj;
 	}
 	
