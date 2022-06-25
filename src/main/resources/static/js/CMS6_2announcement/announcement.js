@@ -36,8 +36,6 @@ $(function () {
                     </tr>`);
                     announcementRecord.appendTo("#announcementTable");
                     i++;
-                } else {
-                    
                 }
             })
             $.ajax({
