@@ -13,7 +13,7 @@ $(function () {
                 var mm = ('0' + (NowDate.getMonth() + 1)).slice(-2);
                 var dd = ('0' + NowDate.getDate()).slice(-2);
                 var today = yy + '-' + mm + '-' + dd;
-                if (today < this.removed) {
+                if (today < this.removed && today >= this.uploadDate) {
                     var announcementRecord = $(`<li id="${this.announceId}" class="notice" onclick="openbtn(${i})">${this.title}</li>`);
                     // $("#mainAnnouncement").after(announcementRecord);
                     announcementRecord.appendTo("#mainAnnouncement");
