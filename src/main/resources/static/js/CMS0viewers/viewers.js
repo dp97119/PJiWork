@@ -5,7 +5,7 @@ $(function(){
         type:"POST",
         data:"void",
         success:function(data){
-            countpeople.innerText = data.countRs; 
+            parent.countpeople.innerText = data.countRs; 
         }
     })
 })
