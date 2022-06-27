@@ -350,3 +350,9 @@
     word-wrap: break-word;
     overflow-y: auto;
   }
+
+  .logoClass{
+    width: 280px;
+    position: absolute; 
+    top: 6px;
+  }
