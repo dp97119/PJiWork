@@ -27,29 +27,43 @@
 <body>
    <div class="grid-container">
       <div>
-         <label for=""><b>今日餐廳:</b></label>&nbsp;&nbsp;
+         <label for="" style="margin-left:23%;"><b>今日餐廳:</b></label>&nbsp;&nbsp;
          <h3 id="TodayRestaurantName"></h3>
       </div>
-      <div>
+     
+      <!-- <div>
          <button type="button" class="function" data-bs-toggle="modal" data-bs-target="#orderSearchModal">訂單紀錄</button>
-      </div>
+      </div> -->
+
+      <input type="checkbox" name="" id="menu_control">
+
+   <div class="header">
+         <label for="menu_control" class="menu_btn">
+            <span>選單</span>
+         </label>
+      <nav>
+         <!-- <type="button" class="function" data-bs-toggle="modal" data-bs-target="#orderSearchModal">訂單紀錄 -->
+         <a class="function" data-bs-toggle="modal" data-bs-target="#orderSearchModal"  href="#modal-body orderSearchDiv">訂單記錄</a>
+
+      </nav>
+   </div>
+
    </div>
 
    <!-- 左邊DIV1菜單區 -->
    <div id="DIV1">
-      <p style="margin-left:20px;"><b>菜單區：</b></p>
+      <p style="margin-left:20px; margin-top: 10px;"><b>菜單區：</b></p>
       <div class="menusDiv">
          <div id="menus" class="container"></div>
       </div>
       <!-- 左方DIV1下單btn -->
       <br>
       <div>
-         <button type="button" id="addcart" class="btnStyle">加入右方購物車</button>
+         <button type="button" id="addcart" class="btnStyle">加入購物車</button>
       </div>
    </div>
-
-   <!-- 右邊DIV2下單區 -->
-   <div id="DIV2">
+    <!-- 右邊DIV2下單區 -->
+    <div id="DIV2">
       <p style="margin-left:20px;"><b>購物車下單區：</b></p>
       <div class="navDiv">
          <table>
@@ -61,17 +75,11 @@
                <td width="15%">操作</td>               
             </tr>
          </table>
-         <!-- <div class="item_detail"></div>
-         <div class="price"></div>
-         <div class="count"></div>
-         <div class="amount"></div>
-         <div class="operate"></div> -->
       </div>
+      <!-- 購物車的東西長在這裡面 -->
       <div id="app">
          <div class="container">
-
             <div id="orderCar" class="item_container" v-for="(item, index) in itemList" :key="dish.dishIid">
-               <!-- 購物車的東西長在這裡面 -->
             </div>
          </div>
       </div>
@@ -80,9 +88,6 @@
       <div id="submit2">
          <b><span id="ordersPriceCount">合計：<span></b>
          <button class="btnStyle btnright" id="orderFinishBtn">我要下單</button>
-         <!-- <dialog class="inforesult" title="請確認購物車數量唷！">
-            <dialog class="dialog1">謝謝訂購！</dialog> -->
-
       </div>
    </div>
 
@@ -94,10 +99,11 @@
       aria-hidden="true">
       <div class="modal-dialog" style="width: 380px;">
          <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="orderSearchModalLabel">訂單查詢</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+               <div class="modal-header">
+                  <h5 class="modal-title" id="orderSearchModalLabel">訂單查詢</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+               </div>
+
             <div class="modal-body orderSearchDiv">
                <div>
                   <label><b>日期：</b></label>&nbsp;&nbsp;
@@ -111,7 +117,6 @@
                      <h6><b id="historyOrderRestaurant">餐廳：</b></h6>
                   </div>
                   <div class="respondDiv" id="respondDiv">
-                     ....
                   </div>
                   <div>
                      <label><b id="historyOrderCount">小計：NT $$$</b></label>
@@ -119,6 +124,7 @@
 
                </div>
             </div>
+
          </div>
       </div>
    </div>
