@@ -1,4 +1,4 @@
-# i上班公司管理系統  <img src="./src/main/resources/static/img/logo.png" width="1%" />
+# i上班公司管理系統  <img src="./src/main/resources/static/img/logo.png" width="3%" />
 ### 專題簡介 
 「i上班公司管理系統」擁有多種公司管理項目功能:
 1. 支援Google Maps定位上下班打卡，當超時打卡，便強制跳轉至出勤系統填寫表單
