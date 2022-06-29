@@ -1,5 +1,5 @@
-<img src="./src/main/resources/static/img/logo.png" width="5%" /># i上班公司管理系統
-### 專題簡介
+# i上班公司管理系統
+### 專題簡介 <img src="./src/main/resources/static/img/logo.png" width="5%" />
 「i上班公司管理系統」擁有多種公司管理項目功能:
 1. 支援Google Maps定位上下班打卡，當超時打卡，便強制跳轉至出勤系統填寫表單
 2. 使用FullCalendar排班行事曆，可從其中查詢過去的請假紀錄
