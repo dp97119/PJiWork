@@ -1,4 +1,4 @@
-# i上班公司管理系統  <img src="./src/main/resources/static/img/logo.png" width="3%" />
+# i上班公司管理系統  <img src="./src/main/resources/static/img/logo.png" width="6%" />
 ### 專題簡介 
 「i上班公司管理系統」擁有多種公司管理項目功能:
 1. 支援Google Maps定位上下班打卡(Geolocation API實現遠距打卡) 
@@ -20,6 +20,6 @@
 - 推播通知
 - 員工通訊錄
   #### 架構說明
-  <img src="./src/main/resources/static/img/frame.png" width="50%" />  <br>
+  <img src="./src/main/resources/static/img/frame.png" width="70%" />  <br>
   #### 主畫面
-  <img src="./src/main/resources/static/img/mainpic.png" width="50%" />
+  <img src="./src/main/resources/static/img/mainpic.png" width="70%" />
