@@ -20,4 +20,4 @@
 - 推播通知
 - 員工通訊錄
 
-![技術圖片](/assets/img/philly-magic-garden.jpg "Magic Gardens")
+![技術圖片](iWork/src/main/resources/static/img/rd.jpg "技術使用")
