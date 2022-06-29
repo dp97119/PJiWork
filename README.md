@@ -7,7 +7,8 @@
 4. 填寫月份、信箱並會將薪資單發送到信箱
 5. 若有重要公告以WebSocket即時更新到網頁上，讓所有員工都能獲得最即時的消息
 6. 登入/登出系統 (以JWT實現無狀態傳輸） 
-7. 
+7. 運用Apache POI API提供Java程式Office格式檔案讀和寫的功能
+
 ### 系統介紹
 - 上班打卡
 - 行事曆
@@ -19,6 +20,6 @@
 - 推播通知
 - 員工通訊錄
   #### 架構說明
-  <img src="./src/main/resources/static/img/frame.png" width="50%" />
+  <img src="./src/main/resources/static/img/frame.png" width="50%" />  <br>
   #### 主畫面
   <img src="./src/main/resources/static/img/mainpic.png" width="50%" />
