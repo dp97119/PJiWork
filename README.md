@@ -16,5 +16,5 @@
 - 公告欄
 - 推播通知
 - 員工通訊錄
-#### 使用到的技術
-<img src="./src/main/resources/static/img/rd.png" width="50%" />
+#### 架構說明
+<img src="./src/main/resources/static/img/frame.png" width="50%" />
