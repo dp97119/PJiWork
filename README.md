@@ -19,5 +19,4 @@
 - 公告欄
 - 推播通知
 - 員工通訊錄
-
-![技術圖片](iWork/src/main/resources/static/img/rd.jpg "技術使用")
+<img src="./src/main/resources/static/img/rd.png" width="100%" />
